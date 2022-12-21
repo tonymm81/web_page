@@ -1,26 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Route, Routes } from 'react-router-dom';
-import { Container, Typography } from '@mui/material';
+
+import { Container, TextField, Typography } from '@mui/material';
+
 
 function Forecast (props?:any){
     props.setHeadliner("Forecast")
     const fullForecastSearch : React.MutableRefObject<boolean> = useRef(false);
     const [userchoose, setUserchoose] = useState<string>("tampere")
     const [fullForecast, setFullForecast] = useState<Forecast_json>({})
+    const userInput : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+    const [errorhelper, setErrorhelper] = useState<string>("")
 
     const whole_forecast = async () : Promise<any> => {
-        if (!fullForecastSearch){
+        if (!fullForecastSearch.current){
             try {
             
-                const connection = await fetch(`https://xamkbit.azurewebsites.net/saaennuste/${userchoose}`);
-                const apidata = await connection.json();
-
+                const connectionFC = await fetch(`https://xamkbit.azurewebsites.net/saaennuste/${userchoose}`);
+                const apidataFC = await connectionFC.json();
+                
                 setFullForecast({
                     ...fullForecast,
-                    Whole_forecast : apidata,
+                    Whole_forecast : apidataFC,
                     errors: false
                 })
+                fullForecastSearch.current = true
 
         } catch (error){
             setFullForecast({
@@ -29,17 +33,38 @@ function Forecast (props?:any){
                 errors : true,
                 errorText : "error happened ${error}"
             })
-
+            fullForecastSearch.current = false
         }
         }
 
 
-
+        
 
     }
+useEffect(() => {
+    whole_forecast()
+}, [userchoose])
 
+useEffect(() => {
+    whole_forecast()
+}, [])
 
-    return(<p>pöö</p>)
+    console.log(fullForecast.Whole_forecast)
+    return(
+    <Container maxWidth="xl"  className='forecast'>
+        <Typography variant="h4">Get forecast</Typography>
+        <TextField
+          variant="outlined"
+          label="Give city or town name what you want to search"
+          inputRef={userInput}
+          fullWidth
+          error={Boolean(errorhelper)}
+          helperText={errorhelper}
+        />
+
+    
+    </Container>
+    )
 }
 
 

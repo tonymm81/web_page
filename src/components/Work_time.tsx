@@ -1,8 +1,10 @@
+import { Container } from "@mui/material";
+import '../App.css'
 
 function Work_time (props?:any){
     props.setHeadliner("Working time application")
 
-    return(<p>pöööö</p>)
+    return(<Container className="workingtime"></Container>)
 }
 
 

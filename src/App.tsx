@@ -15,7 +15,7 @@ const App : React.FC = () : React.ReactElement => {
    <Container className='App'>
     <Typography className='headliner' variant="h2">{headliner}</Typography>
     
-    <List_box/>
+    <List_box/> 
     <Routes>
     <Route path="/" element={ <StartPage setHeadliner={setHeadliner}/> } />
     <Route path="/Forecast" element={<Forecast setHeadliner={setHeadliner}/>} />

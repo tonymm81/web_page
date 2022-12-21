@@ -1,12 +1,14 @@
 .App {
   text-align: center;
-  background-color: black;
+  background-color: rgb(24, 195, 233);
   min-width: 1200px;
   min-height: 1200px;
   border: solid 2px black;
   box-shadow: 5px 5px 5px black;
   margin-top: 10px;
 }
+
+
 
 .headliner{
   background-color: aqua;
@@ -24,11 +26,32 @@
 .toolbar{
   background-color: aqua;
   border: solid 2px black;
+  margin-bottom: 10px;
 }
 
 .start_image{
-  width: auto;
-  height: 900px;
+  background-image: url('./photos/img_start.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
+}
+
+.forecast{
+  background-image: url('./photos/forecast.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
+ 
+}
+
+.workingtime{
+  background-image: url('./photos/working.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
 }
 
 .App-logo {
