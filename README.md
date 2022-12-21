@@ -14,6 +14,10 @@ report:
 
 report: made up some graphics. I also added the toolbar and drawer where user can navigate to different pages. I also update the interface value to upcoming worktime page.
 
+version 110:
+
+report: Build up the components, forecast has it api call function. not connected yet. also changing web page changing the headliner text. Also modified interface file.
+
 
 
 

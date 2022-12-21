@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
+// This is the drawer and appmenu component where user can navigate
 const List_box : React.FC = () : React.ReactElement => {
   
   const [valikkoAuki, setValikkoAuki] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const List_box : React.FC = () : React.ReactElement => {
 
               <ListItemButton
                 component={Link}
-                to="/info"
+                to="/Forecast"
               >
                 <ListItemIcon>
                   <InfoIcon/>
@@ -57,7 +58,7 @@ const List_box : React.FC = () : React.ReactElement => {
 
               <ListItemButton
                 component={Link}
-                to="/info"
+                to="/Work_time"
               >
                 <ListItemIcon>
                   <InfoIcon/>

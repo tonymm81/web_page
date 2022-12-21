@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import List_box from './components/List_box';
 import { Container, Typography } from '@mui/material';
 import StartPage from './components/StartPage';
+import Forecast from './components/Forecast'
+import Work_time from './components/Work_time';
 
 
 
@@ -14,8 +16,11 @@ const App : React.FC = () : React.ReactElement => {
     <Typography className='headliner' variant="h2">{headliner}</Typography>
     
     <List_box/>
-    <StartPage/>
-    
+    <Routes>
+    <Route path="/" element={ <StartPage setHeadliner={setHeadliner}/> } />
+    <Route path="/Forecast" element={<Forecast setHeadliner={setHeadliner}/>} />
+    <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} />} />
+    </Routes>
    </Container>
   );
 }
