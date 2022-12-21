@@ -18,7 +18,9 @@ version 110:
 
 report: Build up the components, forecast has it api call function. not connected yet. also changing web page changing the headliner text. Also modified interface file.
 
-report : added forecast view some background photos. Upgrade also app.css file styles. I like to use this kind of styling. Added also textfield on forecast
+report : added forecast view some background photos. Upgrade also app.css file styles. I like to use this kind of styling. Added also textfield on forecast and search button. 
+
+plan: Planning to do component about me and there i will put some information.
 
 
 

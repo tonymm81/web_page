@@ -11,6 +11,7 @@ import Work_time from './components/Work_time';
 
 const App : React.FC = () : React.ReactElement => {
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
+  const [allowForecast, setAllowForecast] = useState<boolean>(true)
   return (
    <Container className='App'>
     <Typography className='headliner' variant="h2">{headliner}</Typography>
@@ -18,7 +19,11 @@ const App : React.FC = () : React.ReactElement => {
     <List_box/> 
     <Routes>
     <Route path="/" element={ <StartPage setHeadliner={setHeadliner}/> } />
-    <Route path="/Forecast" element={<Forecast setHeadliner={setHeadliner}/>} />
+    <Route path="/Forecast" element={<Forecast 
+                                      setHeadliner={setHeadliner}
+                                      setAllowForecast={setAllowForecast}
+                                      allowForecast={allowForecast}
+                                      />} />
     <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} />} />
     </Routes>
    </Container>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
 
-import { Container, TextField, Typography } from '@mui/material';
+import { Button, Container, TextField, Typography } from '@mui/material';
 
 
 function Forecast (props?:any){
@@ -25,6 +25,7 @@ function Forecast (props?:any){
                     errors: false
                 })
                 fullForecastSearch.current = true
+                props.setAllowForecast(false)
 
         } catch (error){
             setFullForecast({
@@ -34,6 +35,7 @@ function Forecast (props?:any){
                 errorText : "error happened ${error}"
             })
             fullForecastSearch.current = false
+            
         }
         }
 
@@ -42,17 +44,21 @@ function Forecast (props?:any){
 
     }
 useEffect(() => {
-    whole_forecast()
+    if (props.allowForecast){
+        whole_forecast()
+    }
 }, [userchoose])
 
 useEffect(() => {
-    whole_forecast()
+    if(props.allowForecast){
+        whole_forecast()
+    }
 }, [])
 
     console.log(fullForecast.Whole_forecast)
     return(
     <Container maxWidth="xl"  className='forecast'>
-        <Typography variant="h4">Get forecast</Typography>
+        <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
         <TextField
           variant="outlined"
           label="Give city or town name what you want to search"
@@ -61,7 +67,8 @@ useEffect(() => {
           error={Boolean(errorhelper)}
           helperText={errorhelper}
         />
-
+    <Button color='inherit'
+    variant="contained"> Search! </Button>
     
     </Container>
     )

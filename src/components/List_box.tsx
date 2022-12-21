@@ -72,9 +72,9 @@ const List_box : React.FC = () : React.ReactElement => {
 
         <Typography 
             component="div"
-            sx={{fontSize: "16pt", flexGrow : 1}}
+            sx={{fontSize: "25pt", flexGrow : 1}}
             className='list_box'
-        >Valikko</Typography>
+        >Menu</Typography>
         </Toolbar>
     </AppBar>
     </CssBaseline>

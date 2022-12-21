@@ -4,7 +4,11 @@ import '../App.css'
 function Work_time (props?:any){
     props.setHeadliner("Working time application")
 
-    return(<Container className="workingtime"></Container>)
+    return(
+    <Container className="workingtime">
+
+        
+    </Container>)
 }
 
 
