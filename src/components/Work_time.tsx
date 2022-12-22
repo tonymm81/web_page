@@ -3,7 +3,8 @@ import { useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-
+import SaveIcon from '@mui/icons-material/Save';
+import LoginIcon from '@mui/icons-material/Login';
 import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
 
 
@@ -16,10 +17,12 @@ function Work_time (props?:any){
     <Container className="workingtime">
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
         <Button variant="contained" 
-            color="inherit">employee sign in
+            color="inherit"
+            startIcon={<LoginIcon/>} >employee sign in
             </Button>
         <Button variant="contained" 
-            color="inherit">employer sign in
+            color="inherit"
+            startIcon={<LoginIcon/>}>employer sign in
             </Button>
 
         <TextField
@@ -50,6 +53,10 @@ function Work_time (props?:any){
                                             />}
         />
      </LocalizationProvider>   
+     <Button variant="contained"
+        color="inherit"
+        startIcon={<SaveIcon/>}
+        >Save the data</Button>
     </Container>)
 }
 

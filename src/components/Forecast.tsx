@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
 
 import { Button, Container, TextField, Typography } from '@mui/material';
-
+import SearchIcon from '@mui/icons-material/Search';
 
 function Forecast (props?:any){
     props.setHeadliner("Forecast")
@@ -71,7 +71,8 @@ useEffect(() => {
           helperText={errorhelper}
         />
     <Button color='inherit'
-    variant="contained"> Search! </Button>
+    variant="contained"
+    startIcon={<SearchIcon/>} > Search! </Button>
     
     </Container>
     )

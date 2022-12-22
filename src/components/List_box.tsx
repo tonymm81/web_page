@@ -2,6 +2,8 @@ import { AppBar, Button, CssBaseline, Drawer, IconButton, List, ListItemButton, 
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import EditIcon from '@mui/icons-material/Edit';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
@@ -52,7 +54,7 @@ const List_box : React.FC = () : React.ReactElement => {
                 to="/Forecast"
               >
                 <ListItemIcon>
-                  <InfoIcon/>
+                  <NightsStayIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Forecast" />
               </ListItemButton>
@@ -62,7 +64,7 @@ const List_box : React.FC = () : React.ReactElement => {
                 to="/Work_time"
               >
                 <ListItemIcon>
-                  <InfoIcon/>
+                  <EditIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Working time" />
               </ListItemButton>

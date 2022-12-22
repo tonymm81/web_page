@@ -27,7 +27,7 @@ need this option on forecast component.
 version 120:
 
 report: Made up the LogIn component. Here employee or employer can sign in to website. Made also some textfields to work_time component. Here
-comes also some datepickers.
+comes also some datepickers. Also update some icon to buttons.
 
 
 
