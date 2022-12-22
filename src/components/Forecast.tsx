@@ -8,11 +8,11 @@ function Forecast (props?:any){
     props.setHeadliner("Forecast")
     const fullForecastSearch : React.MutableRefObject<boolean> = useRef(false);
     const [userchoose, setUserchoose] = useState<string>("tampere")
-    const [fullForecast, setFullForecast] = useState<Forecast_json>({})
+    const [fullForecast, setFullForecast] = useState<Forecast_json>({Whole_forecast : {}})
     const userInput : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [errorhelper, setErrorhelper] = useState<string>("")
 
-    const whole_forecast = async () : Promise<any> => {
+    const get_forecast = async () : Promise<any> => {
         if (!fullForecastSearch.current){
             try {
             
@@ -45,19 +45,22 @@ function Forecast (props?:any){
     }
 useEffect(() => {
     if (props.allowForecast){
-        whole_forecast()
+       get_forecast()
     }
 }, [userchoose])
 
 useEffect(() => {
     if(props.allowForecast){
-        whole_forecast()
+        get_forecast()
     }
 }, [])
-
+    //{Object.entries(fullForecast.Whole_forecast['list']).map((data, idx) => {return <p key={idx}>{data[idx]}</p>})}
     console.log(fullForecast.Whole_forecast)
+    //let test = fullForecast.Whole_forecast['list'].map((item : Forecast_json, index : number) => {return(item.Whole_forecast[index])})
+    console.log(Object.keys(fullForecast.Whole_forecast).map(( array : string, idx: number, all : any) => {return(all)}))
     return(
     <Container maxWidth="xl"  className='forecast'>
+        
         <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
         <TextField
           variant="outlined"
@@ -69,7 +72,7 @@ useEffect(() => {
         />
     <Button color='inherit'
     variant="contained"> Search! </Button>
-    {Object.entries(whole_forecast).map((data, idx) => {return <p>{userchoose}</p>})}
+    
     </Container>
     )
 }

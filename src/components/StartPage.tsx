@@ -9,7 +9,7 @@ function StartPage(props:any){
 
 return(
 <Container className='start_image' >
-    <Button variant="contained" color ="inherit"> Information about me </Button>
+    <Button variant="contained" color ="inherit"> Information about page </Button>
 </Container>
 
 )

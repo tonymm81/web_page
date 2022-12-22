@@ -24,6 +24,11 @@ plan: Planning to do component about me and there i will put some information.
 report: Where can i find working examble code about map loop for json object. Trying to find examble but not. i 
 need this option on forecast component.
 
+version 120:
+
+report: Made up the LogIn component. Here employee or employer can sign in to website. Made also some textfields to work_time component. Here
+comes also some datepickers.
+
 
 
 
@@ -41,3 +46,11 @@ npm install @fontsource/roboto
 npm install @mui/icons-material
 
 npm install react-router-dom @types/react-router-dom
+
+npm install moment-jalaali
+
+npm install @date-io/jalaali
+
+npm install date-fns --save
+
+npm install @mui/x-date-pickers

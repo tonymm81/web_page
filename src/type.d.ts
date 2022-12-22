@@ -1,10 +1,10 @@
 
 interface Forecast_index{
-    [key:string] : number
+    [key:string] : number 
 }
 
 interface Forecast_json{
-    Whole_forecast? : Forecast_index
+    Whole_forecast : {}
     day_forecast? : Forecast_index
     errors?: boolean
     errorText? : string
