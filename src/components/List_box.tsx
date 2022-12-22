@@ -1,4 +1,4 @@
-import { AppBar, CssBaseline, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, CssBaseline, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
@@ -27,6 +27,7 @@ const List_box : React.FC = () : React.ReactElement => {
             open={valikkoAuki}
             onClose={() => setValikkoAuki(false)}
             className='list_box'
+
           >
 
             <List
@@ -66,6 +67,16 @@ const List_box : React.FC = () : React.ReactElement => {
                 <ListItemText primary="Working time" />
               </ListItemButton>
 
+              <ListItemButton
+                component={Link}
+                to="/AboutMe"
+              >
+                <ListItemIcon>
+                  <InfoIcon/>
+                </ListItemIcon>
+                <ListItemText primary="About me" />
+              </ListItemButton>
+
             </List>
             
           </Drawer>
@@ -75,6 +86,7 @@ const List_box : React.FC = () : React.ReactElement => {
             sx={{fontSize: "25pt", flexGrow : 1}}
             className='list_box'
         >Menu</Typography>
+        <Button>perkele</Button>
         </Toolbar>
     </AppBar>
     </CssBaseline>

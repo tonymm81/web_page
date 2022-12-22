@@ -21,6 +21,8 @@ report: Build up the components, forecast has it api call function. not connecte
 report : added forecast view some background photos. Upgrade also app.css file styles. I like to use this kind of styling. Added also textfield on forecast and search button. 
 
 plan: Planning to do component about me and there i will put some information.
+report: Where can i find working examble code about map loop for json object. Trying to find examble but not. i 
+need this option on forecast component.
 
 
 

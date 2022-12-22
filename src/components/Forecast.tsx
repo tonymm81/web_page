@@ -32,7 +32,7 @@ function Forecast (props?:any){
                 ...fullForecast,
                 Whole_forecast : {},
                 errors : true,
-                errorText : "error happened ${error}"
+                errorText : 'Error happened ${error}'
             })
             fullForecastSearch.current = false
             
@@ -69,7 +69,7 @@ useEffect(() => {
         />
     <Button color='inherit'
     variant="contained"> Search! </Button>
-    
+    {Object.entries(whole_forecast).map((data, idx) => {return <p>{userchoose}</p>})}
     </Container>
     )
 }
