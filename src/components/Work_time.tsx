@@ -29,11 +29,13 @@ function Work_time (props?:any){
             label="Give here job description"
             name="jobDescription"
             variant="outlined"
+            fullWidth={true}
             />
         <TextField
             label="Write here how much hours you use this project"
             name="jobHours"
             variant="outlined"
+            fullWidth={true}
             />
 
         <Select
