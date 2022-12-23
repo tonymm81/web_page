@@ -19,3 +19,10 @@ interface Working_time{
     hours : number
     hours_all : number
 }
+
+interface Employee_data{
+    datetime : Date
+    hours_employee : number
+    description : string
+    jobID : number
+}

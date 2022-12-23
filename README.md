@@ -29,9 +29,8 @@ version 120:
 report: Made up the LogIn component. Here employee or employer can sign in to website. Made also some textfields to work_time component. Here
 comes also some datepickers. Also update some icon to buttons.
 
-
-
-
+report: Build up the working time component. Select component gives the saved
+workID values where user can choose right one.
 
 npm installs in this project:
 
