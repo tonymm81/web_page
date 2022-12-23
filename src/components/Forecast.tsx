@@ -54,8 +54,10 @@ useEffect(() => {
         get_forecast()
     }
 }, [])
+    let datatesting = Object.keys(fullForecast.Whole_forecast)
+    
     //{Object.entries(fullForecast.Whole_forecast['list']).map((data, idx) => {return <p key={idx}>{data[idx]}</p>})}
-    console.log(fullForecast.Whole_forecast)
+    console.log(datatesting.map((type, idx) => {return }))
     //let test = fullForecast.Whole_forecast['list'].map((item : Forecast_json, index : number) => {return(item.Whole_forecast[index])})
     console.log(Object.keys(fullForecast.Whole_forecast).map(( array : string, idx: number, all : any) => {return(all[idx] )}))
     return(

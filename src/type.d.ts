@@ -25,4 +25,5 @@ interface Employee_data{
     hours_employee : number
     description : string
     jobID : number
+    employeeName : string
 }

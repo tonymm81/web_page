@@ -6,6 +6,7 @@ import { Container, Typography } from '@mui/material';
 import StartPage from './components/StartPage';
 import Forecast from './components/Forecast'
 import Work_time from './components/Work_time';
+import LogIn from './components/LogIn';
 
 
 
@@ -18,13 +19,14 @@ const App : React.FC = () : React.ReactElement => {
     
     <List_box/> 
     <Routes>
-    <Route path="/" element={ <StartPage setHeadliner={setHeadliner}/> } />
-    <Route path="/Forecast" element={<Forecast 
+      <Route path="/" element={ <StartPage setHeadliner={setHeadliner}/> } />
+      <Route path="/Forecast" element={<Forecast 
                                       setHeadliner={setHeadliner}
                                       setAllowForecast={setAllowForecast}
                                       allowForecast={allowForecast}
                                       />} />
-    <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} />} />
+      <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} />} />
+      <Route path="/LogIn" element={<LogIn/>} />
     </Routes>
    </Container>
   );
