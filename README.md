@@ -32,6 +32,9 @@ comes also some datepickers. Also update some icon to buttons.
 report: Build up the working time component. Select component gives the saved
 workID values where user can choose right one.
 
+130:
+report: Still figuring out how to work out with map loop to json array. Added in employer view where employer can edit employee data.
+
 npm installs in this project:
 
 npm install @mui/lab

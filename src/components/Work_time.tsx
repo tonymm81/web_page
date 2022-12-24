@@ -6,6 +6,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import SaveIcon from '@mui/icons-material/Save';
 import LoginIcon from '@mui/icons-material/Login';
 import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
+import LogIn from "./LogIn";
 
 
 function Work_time (props?:any){
@@ -14,28 +15,32 @@ function Work_time (props?:any){
     const [timenow, setTimenow] = useState<Date>(new Date())
     const [workID, setWorkID] = useState([1020, 1300, 1502])
     const [selectedID, setSelectedID] = useState<string>("")
+    const [employeeView, setEmployeeView] = useState<boolean>(true)
+    const [loginVIEW,setLogInVIEW] = useState<boolean>(false);
 
-    const testing = () =>{
-        for (let i = 0; i < workID.length;){
-            return workID[i]
-        }
-
-    }
+   
 
     return(
     <Container className="workingtime">
+         <Button variant="contained" 
+            color="inherit"
+            startIcon={<LoginIcon/>}
+            className='worktimeFields'
+            onClick={() => {setEmployeeView(true)}}>employee sign in
+            </Button>
+        <Button variant="contained" 
+            color="inherit"
+            startIcon={<LoginIcon/>}
+            className='worktimeFields'
+            onClick={() => {setEmployeeView(false)}}>employer sign in
+            </Button>
+        
+        <LogIn/> 
+        
+        {employeeView? 
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
-        <Button variant="contained" 
-            color="inherit"
-            startIcon={<LoginIcon/>}
-            className='worktimeFields' >employee sign in
-            </Button>
-        <Button variant="contained" 
-            color="inherit"
-            startIcon={<LoginIcon/>}
-            className='worktimeFields'>employer sign in
-            </Button>
-
+       
+       
         <TextField
             label="Give here job description"
             name="jobDescription"
@@ -76,12 +81,43 @@ function Work_time (props?:any){
                                             
                                             />}
         />
-     </LocalizationProvider>   
-     <Button variant="contained"
+
+<Button variant="contained"
         color="inherit"
         startIcon={<SaveIcon/>}
         >Save the data</Button>
-    </Container>)
+        
+     </LocalizationProvider>   
+    :
+    <><TextField
+                    className='worktimeFields'
+                    label="Enter here employee name"
+                    name="employeeName"
+                    variant="outlined"
+                    fullWidth={true} />
+                    <TextField
+                        className='worktimeFields'
+                        label="Give here workID"
+                        name="workIDs"
+                        variant="outlined"
+                        fullWidth={true} />
+                    <TextField
+                        className='worktimeFields'
+                        label="Give here employee payment"
+                        name="payment"
+                        variant="outlined"
+                        fullWidth={true} />
+                    <TextField
+                        className='worktimeFields'
+                        label="Give here employee tax precent"
+                        name="Taxs"
+                        variant="outlined"
+                        fullWidth={true} />
+                    <Button variant="contained"
+                            color="inherit"
+                            startIcon={<SaveIcon />}
+                        >Submit and save</Button></> }
+        </Container>) 
 }
 
 
