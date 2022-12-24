@@ -34,6 +34,7 @@ workID values where user can choose right one.
 
 130:
 report: Still figuring out how to work out with map loop to json array. Added in employer view where employer can edit employee data.
+started also login component where employee or employer can log in.
 
 npm installs in this project:
 
