@@ -9,6 +9,7 @@ import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
 import LogIn from "./LogIn";
 
 
+
 function Work_time (props?:any){
     props.setHeadliner("Working time application")
     const [addWorkTime, setAddWorkTime] = useState<Working_time[]>([])
@@ -16,7 +17,7 @@ function Work_time (props?:any){
     const [workID, setWorkID] = useState([1020, 1300, 1502])
     const [selectedID, setSelectedID] = useState<string>("")
     const [employeeView, setEmployeeView] = useState<boolean>(true)
-    const [loginVIEW,setLogInVIEW] = useState<boolean>(false);
+    const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
 
    
 
@@ -24,20 +25,23 @@ function Work_time (props?:any){
     <Container className="workingtime">
          <Button variant="contained" 
             color="inherit"
-            startIcon={<LoginIcon/>}
+            startIcon={<LoginIcon />}
             className='worktimeFields'
-            onClick={() => {setEmployeeView(true)}}>employee sign in
+            onClick={() => {setLogInVIEW(true)}}>employee sign in
             </Button>
         <Button variant="contained" 
             color="inherit"
             startIcon={<LoginIcon/>}
             className='worktimeFields'
-            onClick={() => {setEmployeeView(false)}}>employer sign in
+            onClick={() => {setLogInVIEW(true)}}>employer sign in
             </Button>
+        {loginVIEW?
         
-        <LogIn/> 
+        <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>
         
-        {employeeView? 
+        :
+        
+        (employeeView)? 
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
        
        
@@ -116,7 +120,7 @@ function Work_time (props?:any){
                     <Button variant="contained"
                             color="inherit"
                             startIcon={<SaveIcon />}
-                        >Submit and save</Button></> }
+                        >Submit and save</Button></> } 
         </Container>) 
 }
 

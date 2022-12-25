@@ -27,3 +27,10 @@ interface Employee_data{
     jobID : number
     employeeName : string
 }
+
+interface LogINuser{
+    [key? : string] : any;
+    username? : string
+    passwd? : string
+    error? :string
+}

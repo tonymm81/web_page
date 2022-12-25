@@ -36,6 +36,9 @@ workID values where user can choose right one.
 report: Still figuring out how to work out with map loop to json array. Added in employer view where employer can edit employee data.
 started also login component where employee or employer can log in.
 
+131:
+report: login component works fine. It opens different view what user account you use.
+
 npm installs in this project:
 
 npm install @mui/lab

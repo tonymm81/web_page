@@ -88,7 +88,7 @@ const List_box : React.FC = () : React.ReactElement => {
             sx={{fontSize: "25pt", flexGrow : 1}}
             className='list_box'
         >Menu</Typography>
-        <Button>perkele</Button>
+        <Button onClick={() => (alert("perkele!!"))} >perkele</Button>
         </Toolbar>
     </AppBar>
     </CssBaseline>
