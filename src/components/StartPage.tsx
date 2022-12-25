@@ -1,7 +1,6 @@
 import Backgroung_img from '../photos/img_start.jpg'
 import '../App.css'
 import { Button, Container } from '@mui/material';
-import { ContactEmergency } from '@mui/icons-material';
 import QuizIcon from '@mui/icons-material/Quiz';
 
 function StartPage(props:any){

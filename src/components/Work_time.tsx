@@ -1,13 +1,14 @@
-import { Button, Container, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, Container, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import SaveIcon from '@mui/icons-material/Save';
 
 import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
+//icons import
 import LogIn from "./LogIn";
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 function Work_time (props?:any){
@@ -37,7 +38,8 @@ function Work_time (props?:any){
     <Container className="workingtime">
          <Button variant="contained" 
         color="inherit"
-        onClick={() => {setLogInVIEW(true)}}>Log out</Button>
+        onClick={() => {setLogInVIEW(true)}}
+        startIcon={<LogoutIcon/>}>Log out</Button>
         {loginVIEW?
         
         <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>
@@ -66,8 +68,9 @@ function Work_time (props?:any){
             fullWidth={true}
             onChange={textfieldsHandler}
             />
-
+        <InputLabel id="jobID">choose job id</InputLabel>
         <Select
+           id="jobID"
            label="Choose the job id" 
            value={selectedID}
            fullWidth={true}

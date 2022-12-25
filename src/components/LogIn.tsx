@@ -3,12 +3,13 @@ import TextField from "@mui/material/TextField";
 import LoginIcon from '@mui/icons-material/Login';
 import { useRef, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 
-interface textfieldErrors extends LogINuser {}
+interface textfieldErrors extends LogINuser {} //this is for error handling.
 
 function LogIn(props?:any) {
-
+    // here are the values
     const[employeeUSRname, setEmployeeUSRname] = useState<string>("employee");
     const[employerUSRname, setEmployerUsrname] = useState<string>("employer");
     const[passWD, setPassWD] = useState<string>("test");
@@ -16,21 +17,20 @@ function LogIn(props?:any) {
     const [errorhandling, setErrorhandling] = useState<textfieldErrors>({})
     const navigate : NavigateFunction = useNavigate();
 
-    const textAreaHandler = (e : React.ChangeEvent<HTMLInputElement>) : void =>{
+    const textAreaHandler = (e : React.ChangeEvent<HTMLInputElement>) : void =>{//this is for textfield handling
         textHandler.current[e.target.name] = e.target.value
     }
 
-    const checkUser = (e? : React.FormEvent, value?:any | null) :void =>{
+    const checkUser = (e? : React.FormEvent, value?:any | null) :void =>{//when button pressed, here we check the possible errors or save the data
         e?.preventDefault();
 
         let errors : textfieldErrors = {}
 
         if(textHandler.current.usrName === employeeUSRname){
             if(textHandler.current.passWD === passWD){
-                props.setEmployeeView(true)
-                errors = {...errors, error:""};
+                props.setEmployeeView(true) // this will select witch view will show.
                 errors = {}
-                console.log("vittujen kesdfsdfsdfsdfät", errors.error)
+                
                 }
             else {errors = {...errors, error:"wrong username or password"};}
     }
@@ -45,24 +45,24 @@ function LogIn(props?:any) {
        
         }else{
             errors = {...errors, error:"wrong username or passwrod"};
-            console.log("eeeeeeeiiiiiiiii", textHandler.current.passWD)
+            
             
         }
 
         if (textHandler.current.usrName === undefined || textHandler.current.passWD === null)
         {
             errors = {...errors, error:"Give username and password"}
-            console.log("vittujen kevät", errors.error)
+            
         }
 
        
         console.log(errorhandling.error?.length)
         if( Object.entries(errors).length >0 ){
-            setErrorhandling({...errors})
+            setErrorhandling({...errors}) //here we save the possible errors for helper text
         }else{
             navigate("/Work_time")
-            props.setLogInVIEW(false)
-            console.log("pitäs navikoida")
+            props.setLogInVIEW(false)//if login succes, then login view disappear.
+            
 
         }
         
@@ -71,6 +71,10 @@ function LogIn(props?:any) {
 
     return(<> 
     <form onSubmit={checkUser}>
+    <Typography>Hey! This is demo login. If you want to log in with employer account use 
+        username employer and pass word test. Employee view use employee for user name 
+        and same password.
+    </Typography>
     <TextField
         label="Give user name"
         name="usrName"
