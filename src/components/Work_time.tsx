@@ -1,10 +1,10 @@
-import { Button, Container, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { useState } from "react";
+import { Button, Container, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import SaveIcon from '@mui/icons-material/Save';
-import LoginIcon from '@mui/icons-material/Login';
+
 import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
 import LogIn from "./LogIn";
 
@@ -12,38 +12,43 @@ import LogIn from "./LogIn";
 
 function Work_time (props?:any){
     props.setHeadliner("Working time application")
-    const [addWorkTime, setAddWorkTime] = useState<Working_time[]>([])
+    const textHandler : Employee_data  = useRef<Employee_data>({});
     const [timenow, setTimenow] = useState<Date>(new Date())
-    const [workID, setWorkID] = useState([1020, 1300, 1502])
+    const [workID, setWorkID] = useState([" it talo id: 1020","jätelaitos id: 1300", "joku laitos id: 1502"])
     const [selectedID, setSelectedID] = useState<string>("")
     const [employeeView, setEmployeeView] = useState<boolean>(true)
     const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
 
-   
+    const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{
+        textHandler.current[e.target.name] = e.target.value
+         }   
+         
+    const employeeField = (e? : React.FormEvent, value?:any | null) :void =>{
+        e?.preventDefault();
+        console.log("employee")
+    }
+
+    const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
+        e?.preventDefault();
+        console.log("employer")
+    }
 
     return(
     <Container className="workingtime">
          <Button variant="contained" 
-            color="inherit"
-            startIcon={<LoginIcon />}
-            className='worktimeFields'
-            onClick={() => {setLogInVIEW(true)}}>employee sign in
-            </Button>
-        <Button variant="contained" 
-            color="inherit"
-            startIcon={<LoginIcon/>}
-            className='worktimeFields'
-            onClick={() => {setLogInVIEW(true)}}>employer sign in
-            </Button>
+        color="inherit"
+        onClick={() => {setLogInVIEW(true)}}>Log out</Button>
         {loginVIEW?
         
         <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>
         
         :
         
+
         (employeeView)? 
+        <form onSubmit={employeeField} >
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
-       
+        <Typography variant="h4">Welcome employee test</Typography>
        
         <TextField
             label="Give here job description"
@@ -51,6 +56,7 @@ function Work_time (props?:any){
             variant="outlined"
             fullWidth={true}
             className='worktimeFields'
+            onChange={textfieldsHandler}
             />
         <TextField
             className='worktimeFields'
@@ -58,7 +64,7 @@ function Work_time (props?:any){
             name="jobHours"
             variant="outlined"
             fullWidth={true}
-            
+            onChange={textfieldsHandler}
             />
 
         <Select
@@ -66,6 +72,7 @@ function Work_time (props?:any){
            value={selectedID}
            fullWidth={true}
            className='worktimeFields'
+           defaultValue="select job id here"
            onChange={(e : SelectChangeEvent) => { setSelectedID(e.target.value) }}
         >
             {workID.map((num) =>  {return <MenuItem value={num} key={num}> {num}</MenuItem>})}
@@ -82,6 +89,7 @@ function Work_time (props?:any){
             renderInput={(params : any) => <TextField {...params} 
                                             fullWidth={true}
                                             sx={{marginBottom : "10px"}}
+                                        
                                             
                                             />}
         />
@@ -89,38 +97,54 @@ function Work_time (props?:any){
 <Button variant="contained"
         color="inherit"
         startIcon={<SaveIcon/>}
+        type="submit"
         >Save the data</Button>
         
-     </LocalizationProvider>   
+     </LocalizationProvider>  
+     </form>
     :
+    <form onSubmit={employerField}>
+    <Typography variant="h4">Welcome employer test</Typography>
     <><TextField
                     className='worktimeFields'
                     label="Enter here employee name"
                     name="employeeName"
                     variant="outlined"
-                    fullWidth={true} />
+                    fullWidth={true} 
+                    onChange={textfieldsHandler}/>
+
                     <TextField
                         className='worktimeFields'
                         label="Give here workID"
                         name="workIDs"
                         variant="outlined"
-                        fullWidth={true} />
+                        fullWidth={true}
+                        onChange={textfieldsHandler} />
+
                     <TextField
                         className='worktimeFields'
                         label="Give here employee payment"
                         name="payment"
                         variant="outlined"
-                        fullWidth={true} />
+                        fullWidth={true}
+                        onChange={textfieldsHandler} />
+
                     <TextField
                         className='worktimeFields'
                         label="Give here employee tax precent"
                         name="Taxs"
                         variant="outlined"
-                        fullWidth={true} />
+                        fullWidth={true} 
+                        onChange={textfieldsHandler}/>
+
+                    
+
                     <Button variant="contained"
                             color="inherit"
                             startIcon={<SaveIcon />}
-                        >Submit and save</Button></> } 
+                            type="submit"
+                        >Submit and save</Button></>
+                        </form> } 
         </Container>) 
 }
 

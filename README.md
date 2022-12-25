@@ -32,12 +32,18 @@ comes also some datepickers. Also update some icon to buttons.
 report: Build up the working time component. Select component gives the saved
 workID values where user can choose right one.
 
-130:
+version 130:
 report: Still figuring out how to work out with map loop to json array. Added in employer view where employer can edit employee data.
 started also login component where employee or employer can log in.
 
-131:
-report: login component works fine. It opens different view what user account you use.
+version 131:
+report: login component works fine. It opens different view what user account you use. Made also error handling to login view. if textfields are empty or passwd or usrname is wrong. 
+
+version 132:
+report:
+made up the Work_time component. When user choose the page, opens up the login view. depends what user are logged in text field are open and next thing to do is back end code to worktime component. I use the same textfield handler in both components but in onSubmit drives different function.
+
+
 
 npm installs in this project:
 

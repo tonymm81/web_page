@@ -11,7 +11,7 @@ interface Forecast_json{
 
 }
 
-interface Working_time{
+interface Employer_data{
     payment : number
     vat : number
     employer : string
@@ -21,11 +21,12 @@ interface Working_time{
 }
 
 interface Employee_data{
-    datetime : Date
-    hours_employee : number
-    description : string
-    jobID : number
-    employeeName : string
+    [key? : string] : any;
+    datetime? : Date
+    hours_employee? : number
+    description? : string
+    jobID? : string
+    employeeName? : string
 }
 
 interface LogINuser{

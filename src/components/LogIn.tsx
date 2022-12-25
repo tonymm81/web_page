@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-
+import LoginIcon from '@mui/icons-material/Login';
 import { useRef, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
@@ -29,6 +29,8 @@ function LogIn(props?:any) {
             if(textHandler.current.passWD === passWD){
                 props.setEmployeeView(true)
                 errors = {...errors, error:""};
+                errors = {}
+                console.log("vittujen kesdfsdfsdfsdfät", errors.error)
                 }
             else {errors = {...errors, error:"wrong username or password"};}
     }
@@ -36,21 +38,32 @@ function LogIn(props?:any) {
             if(textHandler.current.passWD === passWD){
                 props.setEmployeeView(false)
                 errors = {...errors, error:""};
+                errors = {}
             }else{
                 errors = {...errors, error:"wrong username or passwrod"};
             }
        
         }else{
             errors = {...errors, error:"wrong username or passwrod"};
-            console.log("eeeeeeeiiiiiiiii", textHandler.current.passwd)
+            console.log("eeeeeeeiiiiiiiii", textHandler.current.passWD)
             
         }
-        setErrorhandling({...errors})
+
+        if (textHandler.current.usrName === undefined || textHandler.current.passWD === null)
+        {
+            errors = {...errors, error:"Give username and password"}
+            console.log("vittujen kevät", errors.error)
+        }
+
+       
         console.log(errorhandling.error?.length)
-        if(errorhandling.error?.length === 0 || errorhandling.error === undefined){
+        if( Object.entries(errors).length >0 ){
+            setErrorhandling({...errors})
+        }else{
             navigate("/Work_time")
             props.setLogInVIEW(false)
             console.log("pitäs navikoida")
+
         }
         
     }
@@ -81,7 +94,8 @@ function LogIn(props?:any) {
         <Button
         variant="contained"
         color="inherit"
-        type="submit">Log in</Button>
+        type="submit"
+        startIcon={<LoginIcon/>}>Log in</Button>
         </form>
         {/*check how to hide passwd*/}</>)
 }
