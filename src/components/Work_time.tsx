@@ -1,14 +1,15 @@
-import { Button, Container, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, Container, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-
+import { format } from "date-fns";
 import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
 //icons import
 import LogIn from "./LogIn";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
@@ -25,6 +26,7 @@ function Work_time (props?:any){
     const [warningHandlingemployer, setWarningHandlingemployer] = useState<WarningTextsemployer>({})
     const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([])
     const [employeeName, setEmployeeName] = useState<string>("mister test")
+    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([])
  
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{
         textHandler.current[e.target.name] = e.target.value
@@ -51,11 +53,14 @@ function Work_time (props?:any){
             setWarningHandling({...employeewarnings}) //here we save the possible errors for helper text
         }else{
             console.log("no errors")
-            setSaveEmployeeData([timenow, 
+            let savetemp : Employee_data[] = []
+
+            
+           /* setSaveEmployeeData( timenow, 
                 textHandler.current.jobHours, 
                 textHandler.current.jobDescription,
                 textHandler.current.jobID,
-                employeeName])
+                employeeName)*/
             alert("Data saved!")
         }
     }
@@ -69,7 +74,7 @@ function Work_time (props?:any){
             console.log("no name given")
         }
         if (textHandler.current.workIDs === undefined){
-            employerwarnings = {...employerwarnings, workIDS : "Please enter the work id"}
+            employerwarnings = {...employerwarnings, workIDs : "Please enter the work id"}
             console.log("no job id")
         }
         if (textHandler.current.payment === undefined){
@@ -84,13 +89,22 @@ function Work_time (props?:any){
             setWarningHandlingemployer({...employerwarnings}) //here we save the possible errors for helper text
         }else{
             console.log("no errors")
-            setSaveEmployeeData([timenow, 
+            setSaveEmployerData([timenow, 
                 textHandler.current.payment, 
                 textHandler.current.Taxs,
                 textHandler.current.employeeName,
                 textHandler.current.workIDs])
+            setEmployeeName(textHandler.current.employeeName)
+            setWorkID(workID => [...workID, textHandler.current.workIDs])
+            console.log(textHandler.current.workIDs)
+            
             alert("Data saved!")
         }
+       
+    }
+    const editSavedData = (idx:Number) : void =>{
+        console.log("jalla jalla")
+
     }
 
     return(
@@ -142,7 +156,7 @@ function Work_time (props?:any){
            defaultValue=""
            onChange={(e : SelectChangeEvent) => { setSelectedID(e.target.value) }}
         >
-            {workID.map((num) =>  {return <MenuItem value={num} key={num}> {num}</MenuItem>})}
+            {workID.map((num, idx) =>  {return <MenuItem value={num} key={idx}> {num}</MenuItem>})}
            
         </Select>
         <FormHelperText>{warningHandling.jobID}</FormHelperText>
@@ -190,8 +204,8 @@ function Work_time (props?:any){
                         variant="outlined"
                         fullWidth={true}
                         onChange={textfieldsHandler}
-                        error={Boolean(warningHandlingemployer.workIDS)}
-                        helperText={warningHandlingemployer.workIDS} />
+                        error={Boolean(warningHandlingemployer.workIDs)}
+                        helperText={warningHandlingemployer.workIDs} />
 
                     <TextField
                         className='worktimeFields'
@@ -221,6 +235,34 @@ function Work_time (props?:any){
                             type="submit"
                         >Submit and save</Button></>
                         </form> } 
+
+                        <List>
+
+{saveEmployeeData.map( (item : Employee_data, idx : number) => {
+
+   return (
+       <ListItem key={idx} className="poistolista" >
+       
+       <ListItemText >Work id : {item.jobID} ,
+         Working hours :  {item.hours_employee} ,
+            Time:   {String(item.datetime)} ,
+            
+           </ListItemText>
+           <ListItemIcon>
+               <IconButton 
+                   onClick={() => {editSavedData(idx)}}
+                   edge="start">
+                   <EditIcon />
+               
+               
+               </IconButton>
+               </ListItemIcon>
+       </ListItem>
+   );
+
+} ) }
+
+</List>
         </Container>) 
 }
 
