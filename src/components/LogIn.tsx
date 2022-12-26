@@ -56,7 +56,7 @@ function LogIn(props?:any) {
         }
 
        
-        console.log(errorhandling.error?.length)
+    
         if( Object.entries(errors).length >0 ){
             setErrorhandling({...errors}) //here we save the possible errors for helper text
         }else{
@@ -90,6 +90,7 @@ function LogIn(props?:any) {
         label="Give your password"
         name="passWD" 
         variant="outlined"
+        type="password"
         fullWidth={true}
         onChange={textAreaHandler}
         error={Boolean(errorhandling.error)}
@@ -101,7 +102,7 @@ function LogIn(props?:any) {
         type="submit"
         startIcon={<LoginIcon/>}>Log in</Button>
         </form>
-        {/*check how to hide passwd*/}</>)
+        </>)
 }
 
 

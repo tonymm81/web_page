@@ -43,6 +43,10 @@ version 132:
 report:
 made up the Work_time component. When user choose the page, opens up the login view. depends what user are logged in text field are open and next thing to do is back end code to worktime component. I use the same textfield handler in both components but in onSubmit drives different function.
 
+version 133:
+report: Employee field data saving and error handling is working now okay. Next thing to do is create
+the employer view and print out the saved data from employee. I also want to add delete button
+
 
 
 npm installs in this project:

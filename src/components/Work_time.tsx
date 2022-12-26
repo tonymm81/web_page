@@ -1,4 +1,4 @@
-import { Button, Container, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, Container, FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
@@ -10,16 +10,20 @@ import LogIn from "./LogIn";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 
+interface WarningTexts extends Employee_data {}
 
 function Work_time (props?:any){
-    props.setHeadliner("Working time application")
+    props.setHeadliner("Working time application")//this will change the headliner
     const textHandler : Employee_data  = useRef<Employee_data>({});
     const [timenow, setTimenow] = useState<Date>(new Date())
     const [workID, setWorkID] = useState([" it talo id: 1020","jätelaitos id: 1300", "joku laitos id: 1502"])
     const [selectedID, setSelectedID] = useState<string>("")
     const [employeeView, setEmployeeView] = useState<boolean>(true)
     const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
-
+    const [warningHandling, setWarningHandling] = useState<WarningTexts>({})
+    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([])
+    const [employeeName, setEmployeeName] = useState<string>("mister test")
+ 
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{
         textHandler.current[e.target.name] = e.target.value
          }   
@@ -27,11 +31,36 @@ function Work_time (props?:any){
     const employeeField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault();
         console.log("employee")
+        let employeewarnings : WarningTexts = {}
+
+        if (textHandler.current.jobDescription === undefined){
+            employeewarnings = {...employeewarnings, description : "Please enter description"}
+            console.log("no job description")
+        }
+        if (textHandler.current.jobHours === undefined){
+            employeewarnings = {...employeewarnings, hours_employee : "Please enter job hours"}
+            console.log("no job hours")
+        }
+        if (selectedID.length === 0){
+            employeewarnings = {...employeewarnings, hours_employee : "Please choose job id"}
+            console.log("no job id")
+        }
+        if( Object.entries(employeewarnings).length >0 ){
+            setWarningHandling({...employeewarnings}) //here we save the possible errors for helper text
+        }else{
+            console.log("no errors")
+            setSaveEmployeeData([timenow, 
+                textHandler.current.jobHours, 
+                textHandler.current.jobDescription,
+                textHandler.current.jobID,
+                employeeName])
+        }
     }
 
     const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault();
         console.log("employer")
+        let employerwarnings : WarningTexts = {}
     }
 
     return(
@@ -50,7 +79,7 @@ function Work_time (props?:any){
         (employeeView)? 
         <form onSubmit={employeeField} >
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
-        <Typography variant="h4">Welcome employee test</Typography>
+        <Typography variant="h4">Welcome employee {employeeName}</Typography>
        
         <TextField
             label="Give here job description"
@@ -59,6 +88,8 @@ function Work_time (props?:any){
             fullWidth={true}
             className='worktimeFields'
             onChange={textfieldsHandler}
+            error={Boolean(warningHandling.description)}
+            helperText={warningHandling.description}
             />
         <TextField
             className='worktimeFields'
@@ -67,7 +98,10 @@ function Work_time (props?:any){
             variant="outlined"
             fullWidth={true}
             onChange={textfieldsHandler}
+            error={Boolean(warningHandling.hours_employee)}
+            helperText={warningHandling.hours_employee}
             />
+        <FormControl sx={{ m: 1, minWidth: 120 }} error>
         <InputLabel id="jobID">choose job id</InputLabel>
         <Select
            id="jobID"
@@ -75,12 +109,14 @@ function Work_time (props?:any){
            value={selectedID}
            fullWidth={true}
            className='worktimeFields'
-           defaultValue="select job id here"
+           defaultValue=""
            onChange={(e : SelectChangeEvent) => { setSelectedID(e.target.value) }}
         >
             {workID.map((num) =>  {return <MenuItem value={num} key={num}> {num}</MenuItem>})}
            
         </Select>
+        <FormHelperText>{warningHandling.jobID}</FormHelperText>
+      </FormControl>
 
 <DateTimePicker 
             label="choose here date and time"

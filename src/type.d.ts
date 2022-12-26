@@ -23,7 +23,7 @@ interface Employer_data{
 interface Employee_data{
     [key? : string] : any;
     datetime? : Date
-    hours_employee? : number
+    hours_employee? : number | string
     description? : string
     jobID? : string
     employeeName? : string
