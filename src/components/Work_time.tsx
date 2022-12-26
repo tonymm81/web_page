@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 
 interface WarningTexts extends Employee_data {}
+interface WarningTextsemployer extends Employer_data {}
 
 function Work_time (props?:any){
     props.setHeadliner("Working time application")//this will change the headliner
@@ -21,6 +22,7 @@ function Work_time (props?:any){
     const [employeeView, setEmployeeView] = useState<boolean>(true)
     const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
     const [warningHandling, setWarningHandling] = useState<WarningTexts>({})
+    const [warningHandlingemployer, setWarningHandlingemployer] = useState<WarningTextsemployer>({})
     const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([])
     const [employeeName, setEmployeeName] = useState<string>("mister test")
  
@@ -54,13 +56,41 @@ function Work_time (props?:any){
                 textHandler.current.jobDescription,
                 textHandler.current.jobID,
                 employeeName])
+            alert("Data saved!")
         }
     }
 
     const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault();
         console.log("employer")
-        let employerwarnings : WarningTexts = {}
+        let employerwarnings : WarningTextsemployer = {}
+        if (textHandler.current.employeeName === undefined){
+            employerwarnings = {...employerwarnings, employee : "Please enter employees name"}
+            console.log("no name given")
+        }
+        if (textHandler.current.workIDs === undefined){
+            employerwarnings = {...employerwarnings, workIDS : "Please enter the work id"}
+            console.log("no job id")
+        }
+        if (textHandler.current.payment === undefined){
+            employerwarnings = {...employerwarnings, payment : "Please give the payment"}
+            console.log("no payment")
+        }
+        if (textHandler.current.Taxs === undefined){
+            employerwarnings = {...employerwarnings, vat : "Please give tax precent"}
+            console.log("no vat")
+        }
+        if( Object.entries(employerwarnings).length >0 ){
+            setWarningHandlingemployer({...employerwarnings}) //here we save the possible errors for helper text
+        }else{
+            console.log("no errors")
+            setSaveEmployeeData([timenow, 
+                textHandler.current.payment, 
+                textHandler.current.Taxs,
+                textHandler.current.employeeName,
+                textHandler.current.workIDs])
+            alert("Data saved!")
+        }
     }
 
     return(
@@ -101,7 +131,7 @@ function Work_time (props?:any){
             error={Boolean(warningHandling.hours_employee)}
             helperText={warningHandling.hours_employee}
             />
-        <FormControl sx={{ m: 1, minWidth: 120 }} error>
+        <FormControl error={Boolean(warningHandling.jobID)}>
         <InputLabel id="jobID">choose job id</InputLabel>
         <Select
            id="jobID"
@@ -150,15 +180,18 @@ function Work_time (props?:any){
                     name="employeeName"
                     variant="outlined"
                     fullWidth={true} 
-                    onChange={textfieldsHandler}/>
-
+                    onChange={textfieldsHandler}
+                    error={Boolean(warningHandlingemployer.employee)}
+                    helperText={warningHandlingemployer.employeee}/>
                     <TextField
                         className='worktimeFields'
                         label="Give here workID"
                         name="workIDs"
                         variant="outlined"
                         fullWidth={true}
-                        onChange={textfieldsHandler} />
+                        onChange={textfieldsHandler}
+                        error={Boolean(warningHandlingemployer.workIDS)}
+                        helperText={warningHandlingemployer.workIDS} />
 
                     <TextField
                         className='worktimeFields'
@@ -166,7 +199,9 @@ function Work_time (props?:any){
                         name="payment"
                         variant="outlined"
                         fullWidth={true}
-                        onChange={textfieldsHandler} />
+                        onChange={textfieldsHandler} 
+                        error={Boolean(warningHandlingemployer.payment)}
+                        helperText={warningHandlingemployer.payment}/>
 
                     <TextField
                         className='worktimeFields'
@@ -174,7 +209,9 @@ function Work_time (props?:any){
                         name="Taxs"
                         variant="outlined"
                         fullWidth={true} 
-                        onChange={textfieldsHandler}/>
+                        onChange={textfieldsHandler}
+                        error={Boolean(warningHandlingemployer.vat)}
+                        helperText={warningHandlingemployer.vat}/>
 
                     
 

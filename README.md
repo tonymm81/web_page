@@ -45,7 +45,11 @@ made up the Work_time component. When user choose the page, opens up the login v
 
 version 133:
 report: Employee field data saving and error handling is working now okay. Next thing to do is create
-the employer view and print out the saved data from employee. I also want to add delete button
+the employer view and print out the saved data from employee. I also want to add delete button.
+
+Also employer error handling and data saving is working now.
+
+bug: Fix the textfields that when user saves the data fields must become empty.
 
 
 

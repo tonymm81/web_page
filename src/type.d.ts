@@ -12,12 +12,11 @@ interface Forecast_json{
 }
 
 interface Employer_data{
-    payment : number
-    vat : number
-    employer : string
-    employee : string
-    hours : number
-    hours_all : number
+    [key? : string] : any;
+    payment? : number |string
+    vat? : number |string
+    employee? : string
+    workIDS? : string
 }
 
 interface Employee_data{
