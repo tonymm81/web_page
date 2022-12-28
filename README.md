@@ -53,9 +53,14 @@ bug: Fix the textfields that when user saves the data fields must become empty.
 
 bug: the map loop throws an error and i think that interface is empty? I have to make a temp array and after that 
 array i can save it to interface. (This bug fixed.)
-
-report : In emåployee view you can delete now what there are saved now.
 Plan: make edit button work.
+report : In emåployee view you can delete now what there are saved now.
+
+version 134
+Added some photos to about me page and projects page. Also make routing work to this pages
+
+
+
 
 
 npm installs in this project:

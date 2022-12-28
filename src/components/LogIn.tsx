@@ -72,7 +72,7 @@ function LogIn(props?:any) {
     return(<> 
     <form onSubmit={checkUser}>
     <Typography>Hey! This is demo login. If you want to log in with employer account use 
-        username employer and pass word test. Employee view use employee for user name 
+        username employer and password test. Employee view use employee for username 
         and same password.
     </Typography>
     <TextField

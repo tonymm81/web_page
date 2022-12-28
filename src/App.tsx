@@ -8,6 +8,7 @@ import Forecast from './components/Forecast'
 import Work_time from './components/Work_time';
 import LogIn from './components/LogIn';
 import Projects from './components/Projects';
+import AboutMe from './components/AboutMe';
 
 
 
@@ -28,7 +29,8 @@ const App : React.FC = () : React.ReactElement => {
                                       />} />
       <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} />} />
       <Route path="/LogIn" element={<LogIn/>} />
-      <Route path="/Projects" element={<Projects/>} />
+      <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} />} />
+      <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} />} />
     </Routes>
    </Container>
   );

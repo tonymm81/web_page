@@ -51,6 +51,7 @@
   min-width: auto;
   min-height: 1000px;
   box-shadow: 5px 5px 5px black;
+  color:white;
 }
 
 .workingtime{
@@ -73,7 +74,28 @@
   box-shadow: 3px 3px 3px black;
   border-radius: 5%;
   margin:5px;
-  color:rgb(241, 235, 240);
+  color:rgb(255, 254, 254);
+}
+
+.projects{
+  background-image: url('./photos/projects.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px black;
+
+}
+
+.Aboutme{
+  background-image: url('./photos/aboutme.jpg');
+  background-repeat: no-repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px black;
 }
 
 

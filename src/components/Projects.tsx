@@ -1,11 +1,16 @@
-
+import { Container } from "@mui/material";
+import '../App.css'
 
 
 
 function Projects(props?:any){
+    props.setHeadliner("My Projects")
+
+    return(<Container className="projects" >
 
 
-    return(<></>)
+
+    </Container>)
 }
 
 export default Projects;

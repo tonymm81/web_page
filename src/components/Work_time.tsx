@@ -63,7 +63,7 @@ function Work_time (props?:any){
                 jobID : selectedID,
                 employeeName : employeeName
             }
-            textHandler.current = {}
+            textHandler.current.jobHours = "" 
             setSaveEmployeeData([...saveEmployeeData, savetemp])
             alert("Data saved!")
         }
