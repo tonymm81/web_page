@@ -52,8 +52,10 @@ Also employer error handling and data saving is working now.
 bug: Fix the textfields that when user saves the data fields must become empty.
 
 bug: the map loop throws an error and i think that interface is empty? I have to make a temp array and after that 
-array i can save it to interface.
+array i can save it to interface. (This bug fixed.)
 
+report : In emåployee view you can delete now what there are saved now.
+Plan: make edit button work.
 
 
 npm installs in this project:

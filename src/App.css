@@ -68,6 +68,15 @@
   margin-bottom: 10px;
 }
 
+.listViewItems{
+  border:3px solid black;
+  box-shadow: 3px 3px 3px black;
+  border-radius: 5%;
+  margin:5px;
+  color:rgb(241, 235, 240);
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

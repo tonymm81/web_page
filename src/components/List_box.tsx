@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CodeIcon from '@mui/icons-material/Code';
 import '../App.css';
 
 // This is the drawer and appmenu component where user can navigate
@@ -67,6 +68,16 @@ const List_box : React.FC = () : React.ReactElement => {
                   <EditIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Working time" />
+              </ListItemButton>
+              
+              <ListItemButton
+                component={Link}
+                to="/Projects"
+              >
+                <ListItemIcon>
+                  <CodeIcon/>
+                </ListItemIcon>
+                <ListItemText primary="My projects" />
               </ListItemButton>
 
               <ListItemButton

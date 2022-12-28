@@ -10,6 +10,8 @@ import LogIn from "./LogIn";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Save from "@mui/icons-material/Save";
 
 interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
@@ -24,7 +26,7 @@ function Work_time (props?:any){
     const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
     const [warningHandling, setWarningHandling] = useState<WarningTexts>({})
     const [warningHandlingemployer, setWarningHandlingemployer] = useState<WarningTextsemployer>({})
-    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([])
+    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([{datetime : new Date(), hours_employee : "8", description : "Some job", jobID :"id:00", employeeName:"test"}])
     const [employeeName, setEmployeeName] = useState<string>("mister test")
     const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([])
  
@@ -52,15 +54,17 @@ function Work_time (props?:any){
         if( Object.entries(employeewarnings).length >0 ){
             setWarningHandling({...employeewarnings}) //here we save the possible errors for helper text
         }else{
-            console.log("no errors")
-            let savetemp : Employee_data[] = []
-
-            
-           /* setSaveEmployeeData( timenow, 
-                textHandler.current.jobHours, 
-                textHandler.current.jobDescription,
-                textHandler.current.jobID,
-                employeeName)*/
+            setWarningHandling([])
+            console.log("no errors", saveEmployeeData)
+            let savetemp : Employee_data = {
+                datetime : timenow,
+                hours_employee : textHandler.current.jobHours,
+                description : textHandler.current.jobDescription,
+                jobID : selectedID,
+                employeeName : employeeName
+            }
+            textHandler.current = {}
+            setSaveEmployeeData([...saveEmployeeData, savetemp])
             alert("Data saved!")
         }
     }
@@ -94,6 +98,7 @@ function Work_time (props?:any){
                 textHandler.current.Taxs,
                 textHandler.current.employeeName,
                 textHandler.current.workIDs])
+            textHandler.current = {}
             setEmployeeName(textHandler.current.employeeName)
             setWorkID(workID => [...workID, textHandler.current.workIDs])
             console.log(textHandler.current.workIDs)
@@ -106,7 +111,15 @@ function Work_time (props?:any){
         console.log("jalla jalla")
 
     }
+    const deleteSavedData = (idx:Number) : void =>{
+        console.log("delle delle")
+        var r = window.confirm("Are you sure you want to delete this?")
+        if (r){
+            setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
+            
+        }
 
+    }
     return(
     <Container className="workingtime">
          <Button variant="contained" 
@@ -145,7 +158,7 @@ function Work_time (props?:any){
             error={Boolean(warningHandling.hours_employee)}
             helperText={warningHandling.hours_employee}
             />
-        <FormControl error={Boolean(warningHandling.jobID)}>
+        <FormControl error={Boolean(warningHandling.jobID)} fullWidth={true}>
         <InputLabel id="jobID">choose job id</InputLabel>
         <Select
            id="jobID"
@@ -235,17 +248,18 @@ function Work_time (props?:any){
                             type="submit"
                         >Submit and save</Button></>
                         </form> } 
-
+                        {!loginVIEW?
                         <List>
 
 {saveEmployeeData.map( (item : Employee_data, idx : number) => {
 
    return (
-       <ListItem key={idx} className="poistolista" >
+       <ListItem key={idx} className="listViewItems" >
        
        <ListItemText >Work id : {item.jobID} ,
          Working hours :  {item.hours_employee} ,
             Time:   {String(item.datetime)} ,
+            description : {item.description}
             
            </ListItemText>
            <ListItemIcon>
@@ -256,13 +270,20 @@ function Work_time (props?:any){
                
                
                </IconButton>
+               <IconButton 
+                   onClick={() => {deleteSavedData(idx)}}
+                   edge="start">
+                   <DeleteForeverIcon />
+               
+               
+               </IconButton>
                </ListItemIcon>
        </ListItem>
    );
 
 } ) }
 
-</List>
+</List> : <p></p>}
         </Container>) 
 }
 
