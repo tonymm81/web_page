@@ -32,16 +32,12 @@ function Forecast (props?:any){
                 ...fullForecast,
                 Whole_forecast : {},
                 errors : true,
-                errorText : 'Error happened ${error}'
+                errorText : `Error happened ${error}`
             })
             fullForecastSearch.current = false
             
         }
         }
-
-
-        
-
     }
 useEffect(() => {
     if (props.allowForecast){
@@ -55,9 +51,23 @@ useEffect(() => {
     }
 }, [])
     let datatesting = Object.keys(fullForecast.Whole_forecast)
+
+    const saveNeededData = () : void =>{
+        let TempSaveValue : Forecast_needed[] = []
+        
+        try{
+            let listLenght = fullForecast.Whole_forecast['list']
+            
+        }catch(error){
+            console.log(`ei ${error}`)
+        }
+    }
     
+    function getIconUrl(code: string): string {
+        return `http://openweathermap.org/img/wn/${code}.png`;
+      } 
     //{Object.entries(fullForecast.Whole_forecast['list']).map((data, idx) => {return <p key={idx}>{data[idx]}</p>})}
-    console.log(datatesting.map((type, idx) => {return }))
+    console.log(fullForecast.Whole_forecast)
     //let test = fullForecast.Whole_forecast['list'].map((item : Forecast_json, index : number) => {return(item.Whole_forecast[index])})
     console.log(Object.keys(fullForecast.Whole_forecast).map(( array : string, idx: number, all : any) => {return(all[idx] )}))
     return(

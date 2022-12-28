@@ -4,10 +4,22 @@ interface Forecast_index{
 }
 
 interface Forecast_json{
-    Whole_forecast : {}
+    Whole_forecast : Forecast_index
     day_forecast? : Forecast_index
     errors?: boolean
     errorText? : string
+
+}
+
+interface Forecast_needed{
+    [key? : number] : number;
+    temp_min : number
+    temp_max : number
+    wind : number
+    timeStamp : Date
+    icon : string
+    shorDescription : string
+    visibility : string
 
 }
 
