@@ -111,6 +111,11 @@
 
 .divTag{
   text-align: justify;
+  background-color: antiquewhite;
+}
+
+h2{
+  background-color: antiquewhite;
 }
 
 .App-logo {

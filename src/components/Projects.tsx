@@ -88,6 +88,45 @@ function Projects(props?:any){
                     <img src={WPAcontrol} alt="wpa1"/>
                 <h2>Workingplace automation highvoltage unit</h2>
                     <img src={wpahighvoltage} alt="wpa2"/>
+                    <div className="divTag">
+                    -this is my school project. It has been exiting project because i have to study a lot about hardware side.
+                    this device has two microkontrollers. arduino uno and nucleo f303re. arduino keeps the rfid reader(spi) 
+                    and communication with nucleo via SPI. Arduino also measures the temperature and adjust the fan speed 
+                    depending on set temperature. Set temperature you can adjusment with potentiometer. 
+                    Arduino has also 20x4 led screen what uses I2C commmunication. 
+                    It also adjust the fan speed via mosfet but there i have to make some optical isolator because motor 
+                    distraction signal.
+                    Second microcontroller nucleo is the slave device. Arduino gives permission to start and also to shutdown 
+                    with Spi communication. nucleo has second spi communication pins what are controlling spi oled screen 
+                    and two sn74hc595n chips. one chip is for leds and second is using relays via uln2804 chip. 
+                    Relays are connecting the power to sockets. There is 5 sockets where 2 of them are because lights, 
+                    one to soldering station , one to power unit and one to the main power.
+                    Near screen is three button where user can select what devices should power 
+                    up when permission is true. When soldering is choosed, device keeps watching is
+                     the user in the room with ultrasonic sensor and motion sensor. 
+                     If not its shutdown the soldering station because fire security and waits if the user is coming back room.
+                      Device has also wlan(working on it) what ask time from udp and print it to screen. 
+                      Device has also lux sensor what prints the value to screen.<br/>
+                    Parts:<br/>
+                    Arduino uno<br/>
+                    Nucleo f303re microcontroller<br/>
+                    uln2806 chip<br/>
+                    sn74hc595 chip x2pc<br/>
+                    welleman rfid reader<br/>
+                    20x4 I2C lcd screen<br/>
+                    sh1106 oled screen (spi)<br/>
+                    mosfet 2amps<br/>
+                    resistor 18k 4pc<br/>
+                    resistor 800 ohm 6pc<br/>
+                    resistor 300 ohm 4pc<br/>
+                    switch 3pc<br/>
+                    potentiometer 1pc<br/>
+                    ultrasonic sensor HCSR04<br/>
+                    dht11 sensor<br/>
+                    welleman motion sensor<br/>
+                    welleman lux sensor<br/>
+                    leds 8pc<br/>
+                    </div>
         </Dialog>
     
         <Button variant="contained" 
@@ -104,7 +143,14 @@ function Projects(props?:any){
                     <img src={tableProject} alt="tp1"/>
                 <h2>Here is rasbian, touch screen and gearbox motor</h2>
                     <img src={tableprojectRasbian} alt="tp2"/>
-
+                    <div className="divTag">
+                    This project is for adjusment of table level from floor. 
+                    It has also graphical interface where you can control the desk level and wlan plugs and bulbs.
+                    it has rasbperry pi4, 7 inch touch screen, uln2804 chip, three relays and resistors. 
+                    there is also gearbox motor what lift or lower the desk. 
+                    ultrasonic sensor measures the desk distance from floor and you can save your favorite setup and load it later. 
+                    We can save all light and plugs setup and distance from floor.
+                    </div>
         </Dialog>
 
         <Button variant="contained" 
