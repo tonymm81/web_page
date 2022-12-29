@@ -16,6 +16,7 @@ function Projects(props?:any){
     const [openTableProject, setOpenTableProject] = useState<boolean>(false);
     const [openWPA, setOpenWPA] = useState<boolean>(false);
     const [openBitcoin, setOpenBitcoin] = useState<boolean>(false);
+    const [openFrontend, setOpenFrontend] = useState<boolean>(false);
 
     return(<Container className="projects" >    
     
@@ -185,8 +186,22 @@ function Projects(props?:any){
                 i made try, execpt clause if user wont give date to search, and also edit buttons places.
         </Dialog>
     
-
-    
+        <Button variant="contained" 
+            color="inherit"
+            onClick={()=>{setOpenFrontend(true)}}
+            sx={{margin:5}}>Front end project from school</Button>
+            <Dialog open={openFrontend}>
+                <Button variant="contained"
+                href="https://gitfront.io/r/tonymm81/Y2aTWxe7n7hj/frontend/"
+                >Link to this project's code</Button>
+                <Button
+                variant="contained"
+                onClick={()=>{setOpenFrontend(false)}}>Close this view</Button>
+                <h2>This is my frontend project from school</h2>
+                <div className="digTag">
+                    This is only html and css code. I use css animation and styling on this project.
+                </div>
+            </Dialog>
 
 
     </Container>)
