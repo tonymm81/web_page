@@ -62,7 +62,7 @@ where we can save the json data what needed and printout it to list with icons.
 
 version 135
 I make the projects view with dialog. Every project button opens the view where is short story about
-project and some photos and link to projects code
+project and some photos and link to projects code.
 
 
 
