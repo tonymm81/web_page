@@ -98,6 +98,20 @@
   box-shadow: 5px 5px 5px black;
 }
 
+.projectDialog{
+  min-width:1000px;
+  min-height: 1000px;
+  background-color: black;
+}
+
+.projectButtons{
+  margin:5px;
+  box-shadow: 3px 3px 3px black;
+}
+
+.divTag{
+  text-align: justify;
+}
 
 .App-logo {
   height: 40vmin;

@@ -60,7 +60,9 @@ Added some photos to about me page and projects page. Also make routing work to 
 is startpage i added a dialog where is littlebit information about the page. I made the interface to forecast
 where we can save the json data what needed and printout it to list with icons.
 
-
+version 135
+I make the projects view with dialog. Every project button opens the view where is short story about
+project and some photos and link to projects code
 
 
 

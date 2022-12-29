@@ -99,7 +99,7 @@ const List_box : React.FC = () : React.ReactElement => {
             sx={{fontSize: "25pt", flexGrow : 1}}
             className='list_box'
         >Menu</Typography>
-        <Button onClick={() => (alert("perkele!!"))} >This web page code link</Button>
+        <Button href="https://gitfront.io/r/tonymm81/zci1eHz74uFc/web-page/" >This web page code link</Button>
         </Toolbar>
     </AppBar>
     </CssBaseline>
