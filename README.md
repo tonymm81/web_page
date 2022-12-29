@@ -64,6 +64,10 @@ version 135
 I make the projects view with dialog. Every project button opens the view where is short story about
 project and some photos and link to projects code.
 
+version 136
+report:
+Started to make a forecast component. Trying to save fron json to object but it doesnt work. Some how index numer is not okay to complier so i have to figure out why this doesn't work.
+
 
 
 npm installs in this project:
