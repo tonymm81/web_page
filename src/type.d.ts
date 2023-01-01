@@ -11,7 +11,7 @@ interface Forecast_json {
 }
 
 interface Forecast_needed{
-    [key? : number] : number
+    [key : number] : number |any
     temp_min : number
     temp_max : number
     wind : number
