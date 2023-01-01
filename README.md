@@ -68,6 +68,15 @@ version 136
 report:
 Started to make a forecast component. Trying to save fron json to object but it doesnt work. Some how index numer is not okay to complier so i have to figure out why this doesn't work.
 
+version 137
+report: Forecast is working now. When you are saving items to object in component you have to be carefull
+when react re renders the page, In my case that cause data  missing. Now i have to make a search view where
+user can type the town or city. I have to make there also somekind of error handling.
+
+bug:
+Text field error helper test wont work. i made an if clause what gives user that api call response if
+city not found.
+
 
 
 npm installs in this project:

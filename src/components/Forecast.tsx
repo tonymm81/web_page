@@ -25,7 +25,15 @@ function Forecast (props?:any){
             
                 const connectionFC = await fetch(`https://xamkbit.azurewebsites.net/saaennuste/${userchoose}`);
                 const apidataFC = await connectionFC.json();
-                
+                if(apidataFC['cod'] === '404'){
+                    setFullForecast({
+                        ...fullForecast,
+                        Whole_forecast : {},
+                        errors : true,
+                        errorText : "City not found"
+                    })
+                    console.log("nooot found", fullForecast.errorText)
+                }
                 setFullForecast({
                     ...fullForecast,
                     Whole_forecast : apidataFC,
@@ -62,8 +70,27 @@ useEffect(() => {
     }
 }, [])
     
+    const userTextFieldInput = (e:any):void => {
+        let valueToCheck = userInput.current!.value
+        valueToCheck.toLowerCase()
+        var temp =""
+        for (let i = 0; i <= valueToCheck.length; i++){
+            var aaa = /ä/g;
+            var ooo = /ö/g;
+            var johhoh = /å/g;
+    
+            temp = valueToCheck.replace(aaa, "a").replace(ooo, "o").replace(johhoh, "o")        
+            
+          }
+          setUserchoose(temp)
+          savePermission.current=true
+          props.setAllowForecast(true)
+          setBackdrop(false)
+          fullForecastSearch.current=false
+          get_forecast()
+    }
 
-const saveNeededData = () : void =>{
+    const saveNeededData = () : void =>{
         setForecastSaved([])
         let TempSaveValue : Forecast_needed[] = [...forecastSaved]
         let i = 0
@@ -118,14 +145,15 @@ const saveNeededData = () : void =>{
      {backdrop? 
     <><Button color='inherit'
                     variant="contained"
-                    startIcon={<SearchIcon />}> Search! </Button><>
+                    startIcon={<SearchIcon />}
+                    onClick={userTextFieldInput}> Search! </Button><>
                         <List>
                             {forecastSaved.map((item: Forecast_needed, index: number) => {
                                 return (
                                     <ListItem key={index} className="listViewItems">
                                         <ListItemText>
                                             {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} ,Time ${item.timeStamp}`}
-                                            {`Wind :${item.wind} Meters per second and : ${item.shorDescription} , Visibility: ${item.visibility} meters`}
+                                            {` Wind :${item.wind} Meters per second and : ${item.shorDescription} , Visibility: ${item.visibility} meters`}
                                             <ListItemIcon><img src={getIconUrl(String(item.icon))} /></ListItemIcon>
                                         </ListItemText>
                                     </ListItem>
