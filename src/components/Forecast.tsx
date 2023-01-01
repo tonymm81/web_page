@@ -154,7 +154,7 @@ useEffect(() => {
                                         <ListItemText>
                                             {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} ,Time ${item.timeStamp}`}
                                             {` Wind :${item.wind} Meters per second and : ${item.shorDescription} , Visibility: ${item.visibility} meters`}
-                                            <ListItemIcon><img src={getIconUrl(String(item.icon))} /></ListItemIcon>
+                                            <ListItemIcon><img src={getIconUrl(String(item.icon))} alt={String(index)}/></ListItemIcon>
                                         </ListItemText>
                                     </ListItem>
 
