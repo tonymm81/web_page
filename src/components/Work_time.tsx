@@ -122,11 +122,11 @@ function Work_time (props?:any){
     }
     return(
 
-    <Container className="workingtime"> {'in this view is two ifclauses. second shows the login component text fields'}
+    <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
          <Button variant="contained"    
         color="inherit"
         onClick={() => {setLogInVIEW(true)}}
-        startIcon={<LogoutIcon/>}>Log out</Button> {'and second shows wich user is logged in. employee and employer has own views'}
+        startIcon={<LogoutIcon/>}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
         {loginVIEW?
         
         <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>

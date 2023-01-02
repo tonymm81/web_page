@@ -131,7 +131,7 @@ useEffect(() => {
     console.log(fullForecast.Whole_forecast)
     console.log("temp save ", forecastSaved) 
     return( 
-    <Container maxWidth="xl"  className='forecast'> {'here we printout whe weatherforecast with icons to list component Here is also textfield.'}
+    <Container maxWidth="xl"  className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
        
         <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
         <TextField
