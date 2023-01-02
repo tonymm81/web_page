@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 function Forecast (props?:any){
-    if (props.headLiner === "forecast"){
+    if (props.headLiner === "forecast"){//headliner
 
     }else{
         props.setHeadliner("Forecast")
@@ -19,7 +19,7 @@ function Forecast (props?:any){
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
     //icon:"", shorDescription:"",visibility : 0    }
 
-    const get_forecast = async () : Promise<any> => {
+    const get_forecast = async () : Promise<any> => { //here we get apicall and save the data
         if (!fullForecastSearch.current){
             try {
             
@@ -61,7 +61,7 @@ useEffect(() => {
        get_forecast()
          
     }   
-}, [userchoose])
+}, [userchoose])// if town name changes lets get new forecast from api
 
 useEffect(() => {
     if(props.allowForecast && !fullForecastSearch.current){
@@ -70,7 +70,7 @@ useEffect(() => {
     }
 }, [])
     
-    const userTextFieldInput = (e:any):void => {
+    const userTextFieldInput = (e:any):void => { // when user feeds an input, it handles here and also some error handling
         let valueToCheck = userInput.current!.value
         valueToCheck.toLowerCase()
         var temp =""
@@ -90,7 +90,7 @@ useEffect(() => {
           get_forecast()
     }
 
-    const saveNeededData = () : void =>{
+    const saveNeededData = () : void =>{ // here we save all needed data from api. This Object is easier to handle in graphics components
         setForecastSaved([])
         let TempSaveValue : Forecast_needed[] = [...forecastSaved]
         let i = 0
@@ -107,7 +107,7 @@ useEffect(() => {
                                     console.log("inside", TempSaveValue[i])
                                     i = i+1
             }
-            if (TempSaveValue && forecastSaved.length === 0){
+            if (TempSaveValue && forecastSaved.length === 0){ // This allows to save data only once.
                 setForecastSaved( [...TempSaveValue])
                 savePermission.current = false
                 console.log("save", savePermission.current, TempSaveValue)
@@ -120,7 +120,7 @@ useEffect(() => {
     }
     
     function getIconUrl(code: string): string {
-        return `http://openweathermap.org/img/wn/${code}.png`;
+        return `http://openweathermap.org/img/wn/${code}.png`; //weahter api icon
       } 
     if (fullForecastSearch.current){
         if (savePermission.current && forecastSaved.length === 0){
@@ -130,8 +130,8 @@ useEffect(() => {
     }
     console.log(fullForecast.Whole_forecast)
     console.log("temp save ", forecastSaved) 
-    return(
-    <Container maxWidth="xl"  className='forecast'>
+    return( 
+    <Container maxWidth="xl"  className='forecast'> {'here we printout whe weatherforecast with icons to list component Here is also textfield.'}
        
         <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
         <TextField

@@ -1,4 +1,4 @@
-
+//here is my applications interfaces
 interface Forecast_index{
     [key:string ] :  number|any
 }

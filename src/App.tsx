@@ -10,7 +10,7 @@ import LogIn from './components/LogIn';
 import Projects from './components/Projects';
 import AboutMe from './components/AboutMe';
 
-
+// this is the main program.Only routes shown here
 
 const App : React.FC = () : React.ReactElement => {
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")

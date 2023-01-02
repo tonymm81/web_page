@@ -9,7 +9,7 @@ import tableprojectRasbian from '../photos/tableprojectRasbian.jpg'
 import WPAcontrol from '../photos/WPAcontrol.jpg'
 import wpahighvoltage from '../photos/WPAhighvoltage.jpg'
 
-
+// this component shows my projects. By clicking button, it shows dialog with links to projects code and some photos and descriptions.
 function Projects(props?:any){
     props.setHeadliner("My Projects")
     const [openWeatherstation, setOpenWeatherstation] = useState<boolean>(false);

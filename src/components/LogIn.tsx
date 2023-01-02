@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 
 interface textfieldErrors extends LogINuser {} //this is for error handling.
 
-function LogIn(props?:any) {
+function LogIn(props?:any) { //this function is the login view where user can log in to page.
     // here are the values
     const[employeeUSRname, setEmployeeUSRname] = useState<string>("employee");
     const[employerUSRname, setEmployerUsrname] = useState<string>("employer");

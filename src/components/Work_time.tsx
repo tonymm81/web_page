@@ -15,7 +15,7 @@ import Save from "@mui/icons-material/Save";
 
 interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
-
+//this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
     props.setHeadliner("Working time application")//this will change the headliner
     const textHandler : Employee_data  = useRef<Employee_data>({});
@@ -30,13 +30,13 @@ function Work_time (props?:any){
     const [employeeName, setEmployeeName] = useState<string>("mister test")
     const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([])
  
-    const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{
+    const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandler.current[e.target.name] = e.target.value
          }   
          
     const employeeField = (e? : React.FormEvent, value?:any | null) :void =>{
-        e?.preventDefault();
-        console.log("employee")
+        e?.preventDefault();//This unction is error handling and data saving. If some information is missing the error helper text shows it.
+        console.log("employee") 
         let employeewarnings : WarningTexts = {}
 
         if (textHandler.current.jobDescription === undefined){
@@ -70,7 +70,7 @@ function Work_time (props?:any){
     }
 
     const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
-        e?.preventDefault();
+        e?.preventDefault(); // this function is error handling and data saving. This is employer view data saving.
         console.log("employer")
         let employerwarnings : WarningTextsemployer = {}
         if (textHandler.current.employeeName === undefined){
@@ -108,10 +108,10 @@ function Work_time (props?:any){
        
     }
     const editSavedData = (idx:Number) : void =>{
-        console.log("jalla jalla")
+        console.log("jalla jalla") // this is not finished
 
     }
-    const deleteSavedData = (idx:Number) : void =>{
+    const deleteSavedData = (idx:Number) : void =>{ // here user can delete selected data
         console.log("delle delle")
         var r = window.confirm("Are you sure you want to delete this?")
         if (r){
@@ -121,11 +121,12 @@ function Work_time (props?:any){
 
     }
     return(
-    <Container className="workingtime">
-         <Button variant="contained" 
+
+    <Container className="workingtime"> {'in this view is two ifclauses. second shows the login component text fields'}
+         <Button variant="contained"    
         color="inherit"
         onClick={() => {setLogInVIEW(true)}}
-        startIcon={<LogoutIcon/>}>Log out</Button>
+        startIcon={<LogoutIcon/>}>Log out</Button> {'and second shows wich user is logged in. employee and employer has own views'}
         {loginVIEW?
         
         <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>

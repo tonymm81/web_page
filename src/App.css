@@ -9,8 +9,7 @@
   border-radius: 3%;
 }
 
-
-
+/*I use styles always from here. i think its much more clear than mixed in components code.*/
 .headliner{
   background-color: rgb(186, 196, 215);
   border: solid 2px black;

@@ -7,7 +7,7 @@ import { useState } from 'react';
 function StartPage(props:any){
     props.setHeadliner("Welcome to my web page!")
     const [openDialog, setOpenDialog] = useState<boolean>(false);
-
+ //in this component here we have dialog box and buttons. Short information about a page.
 return(
 <Container className='start_image' >
     <Button variant="contained" 
