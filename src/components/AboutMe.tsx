@@ -3,8 +3,12 @@ import '../App.css'
 
 //this component is not done yet.
 function AboutMe(props : any){
-    props.setHeadliner("Information about me")
+    if (props.headLiner === "Information about me"){
 
+    }else{
+        props.setHeadliner("Information about me")
+        props.setAllowForecast(true)
+    }
     return(<Container className="Aboutme"></Container>)
 }
 

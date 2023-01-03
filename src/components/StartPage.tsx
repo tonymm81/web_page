@@ -5,7 +5,13 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import { useState } from 'react';
 
 function StartPage(props:any){
-    props.setHeadliner("Welcome to my web page!")
+    if (props.headLiner === "Welcome to my web page!"){//headliner
+
+    }else{
+        props.setHeadliner("Welcome to my web page!")
+        props.setAllowForecast(true)
+    }
+    
     const [openDialog, setOpenDialog] = useState<boolean>(false);
  //in this component here we have dialog box and buttons. Short information about a page.
 return(

@@ -27,10 +27,13 @@ const App : React.FC = () : React.ReactElement => {
                                       setAllowForecast={setAllowForecast}
                                       allowForecast={allowForecast}
                                       />} />
-      <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} />} />
+      <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} 
+                                                  setAllowForecast={setAllowForecast}/>} />
       <Route path="/LogIn" element={<LogIn/>} />
-      <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} />} />
-      <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} />} />
+      <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} 
+                                                allowForecast={allowForecast}/>} />
+      <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} 
+                                              allowForecast={allowForecast}/>} />
     </Routes>
    </Container>
   );

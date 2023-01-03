@@ -11,7 +11,13 @@ import wpahighvoltage from '../photos/WPAhighvoltage.jpg'
 
 // this component shows my projects. By clicking button, it shows dialog with links to projects code and some photos and descriptions.
 function Projects(props?:any){
-    props.setHeadliner("My Projects")
+    if(props.headLiner === "My Projects"){
+
+    }else{
+            props.setHeadliner("My Projects")//this will change the headliner
+            props.setAllowForecast(true)
+    }
+    
     const [openWeatherstation, setOpenWeatherstation] = useState<boolean>(false);
     const [openTableProject, setOpenTableProject] = useState<boolean>(false);
     const [openWPA, setOpenWPA] = useState<boolean>(false);

@@ -42,6 +42,7 @@ function Forecast (props?:any){
                 })
                 fullForecastSearch.current = true
                 props.setAllowForecast(false)
+                //savePermission.current = true
                 
         } catch (error){
             setFullForecast({
@@ -64,6 +65,7 @@ useEffect(() => {
 }, [userchoose])// if town name changes lets get new forecast from api
 
 useEffect(() => {
+    console.log("reloading.", props.allowForecast, fullForecastSearch.current, savePermission.current)
     if(props.allowForecast && !fullForecastSearch.current){
         get_forecast()
         

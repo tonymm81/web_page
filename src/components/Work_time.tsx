@@ -17,7 +17,12 @@ interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
-    props.setHeadliner("Working time application")//this will change the headliner
+    if(props.headLiner === "Working time application"){
+
+    }else{
+            props.setHeadliner("Working time application")//this will change the headliner
+            props.setAllowForecast(true)
+    }
     const textHandler : Employee_data  = useRef<Employee_data>({});
     const [timenow, setTimenow] = useState<Date>(new Date())
     const [workID, setWorkID] = useState([" it talo id: 1020","jätelaitos id: 1300", "joku laitos id: 1502"])

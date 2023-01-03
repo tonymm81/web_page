@@ -77,6 +77,8 @@ bug:
 Text field error helper test wont work. i made an if clause what gives user that api call response if
 city not found.
 
+bug: when you come back to forecast view again, it starts loading but nothing happens. after refreshing a page it works fine. Perhaps i have to plan how to set boolean variables wich allows application to
+load api again. his is because props boolean stays false if user is selecting different page.
 
 
 npm installs in this project:
