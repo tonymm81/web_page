@@ -21,7 +21,8 @@ const App : React.FC = () : React.ReactElement => {
     
     <List_box/> 
     <Routes>
-      <Route path="/" element={ <StartPage setHeadliner={setHeadliner}/> } />
+      <Route path="/" element={ <StartPage setHeadliner={setHeadliner}
+                                  setAllowForecast={setAllowForecast}/> } />
       <Route path="/Forecast" element={<Forecast 
                                       setHeadliner={setHeadliner}
                                       setAllowForecast={setAllowForecast}
@@ -31,9 +32,9 @@ const App : React.FC = () : React.ReactElement => {
                                                   setAllowForecast={setAllowForecast}/>} />
       <Route path="/LogIn" element={<LogIn/>} />
       <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} 
-                                                allowForecast={allowForecast}/>} />
+                                                setAllowForecast={setAllowForecast}/>} />
       <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} 
-                                              allowForecast={allowForecast}/>} />
+                                              setAllowForecast={setAllowForecast}/>} />
     </Routes>
    </Container>
   );

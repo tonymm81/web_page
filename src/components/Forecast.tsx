@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 function Forecast (props?:any){
-    if (props.headLiner === "forecast"){//headliner
+    if (props.headLiner === "Forecast"){//headliner
 
     }else{
         props.setHeadliner("Forecast")
@@ -58,6 +58,7 @@ function Forecast (props?:any){
         setBackdrop(true)
     }
 useEffect(() => {
+    console.log("userchooce changed", props.allowForecast, fullForecastSearch.current, savePermission.current)
     if (props.allowForecast){
        get_forecast()
          
@@ -93,7 +94,7 @@ useEffect(() => {
     }
 
     const saveNeededData = () : void =>{ // here we save all needed data from api. This Object is easier to handle in graphics components
-        setForecastSaved([])
+        //setForecastSaved([])
         let TempSaveValue : Forecast_needed[] = [...forecastSaved]
         let i = 0
         try{
