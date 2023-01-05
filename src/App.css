@@ -122,11 +122,12 @@ h2{
   min-height: 200px;
   float:left;
   text-align: left;
+  color:antiquewhite;
 }
 
 .profilePic{
   bottom: 10px;
-  
+  float:right;
 }
 .App-logo {
   height: 40vmin;

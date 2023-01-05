@@ -13,18 +13,19 @@ function AboutMe(props : any){
     return(<Container className="Aboutme">
         <Box className="AboutMeBox">
             <Typography variant="h3">Hello!</Typography>
-            <p>I have worked inplumbing intrusty 21 years and now it's time to get job where my<br/>
+            <p>I have worked in plumbing intrusty 21 years and now it's time to get job where my<br/>
                 health last better that phsychical work. I have study programming about 4 years<br/>
                 and a more i learn this became more interesting. Programming is nice, fun, fascionating <br/>
                 job and my dream is that i find a job where i can build programs, debug them and <br/>
                 do the testing. I have done IOT projects also and hardware side is huge. <br/>
                 Now i am studying a grade witch hopefully helps me to get this dreamed job <br/>
-                Bachelor of Business Administration - Data procressing is grade <br/>
+                Bachelor of Business Administration - Data procressing is the grade. <br/>
                 My hobbies are excercise and drum playing. I am also good team player <br/>
                 in job. I have two blackmetal bands and we have also puplish records<br/>
                 Bands are Uhrilahja and Musta Suru. If you are interested to know <br/>
                 more about me i put the links and email address down belove<br/>
-                <Link href="www.linkedin.com/in/toni-mäenpää-404461222" rel="noopener">Linkeldin</Link>
+                <Link href="www.linkedin.com/in/toni-mäenpää-404461222" rel="noreferrer"
+                target="_blank">Linkeldin</Link>
 
             </p>
         </Box>
