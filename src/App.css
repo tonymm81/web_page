@@ -117,6 +117,17 @@ h2{
   background-color: antiquewhite;
 }
 
+.AboutMeBox{
+  min-width: 200px;
+  min-height: 200px;
+  float:left;
+  text-align: left;
+}
+
+.profilePic{
+  bottom: 10px;
+  
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
