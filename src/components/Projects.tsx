@@ -1,4 +1,4 @@
-import { Box, Button, Container, Dialog } from "@mui/material";
+import { Box, Button, Container, Dialog, Typography } from "@mui/material";
 import '../App.css'
 import { useState } from "react";
 import weatherstation from '../photos/weatherstationFront.jpg'
@@ -25,7 +25,7 @@ function Projects(props?:any){
     const [openFrontend, setOpenFrontend] = useState<boolean>(false);
 
     return(<Container className="projects" >    
-    
+        
         <Button variant="contained" 
             color="inherit"
             onClick={()=>{setOpenWeatherstation(true)}}

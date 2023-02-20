@@ -10,21 +10,47 @@ function Forecast (props?:any){
     }else{
         props.setHeadliner("Forecast")
     }
+    const weahter_api = process.env.REACT_APP_API_KEY
     const fullForecastSearch : React.MutableRefObject<boolean> = useRef(false);
+    const locationSearch : React.MutableRefObject<boolean> = useRef(false);
     const savePermission : React.MutableRefObject<boolean> = useRef(true);
     const [userchoose, setUserchoose] = useState<string>("tampere")
     const [fullForecast, setFullForecast] = useState<Forecast_json>({Whole_forecast : {}})
     const userInput : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+    const userInputcountry : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [backdrop, setBackdrop] = useState<boolean>(false)
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
+    const lat : React.MutableRefObject<undefined> = useRef();
+    const lon : React.MutableRefObject<undefined> = useRef();
+
+
     //icon:"", shorDescription:"",visibility : 0    }
+    const get_location = async (city_name : string, country_code : string) : Promise<any> => {
+        if (!locationSearch.current) {
+        try{
+            const returndata = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${country_code}&limit=${5}&appid=${weahter_api}`)
+            const locationinfo = await returndata.json()
+            console.log("Location info function",locationinfo)
+            locationSearch.current= true
+            lat.current = locationinfo[0]['lat']
+            lon.current = locationinfo[0]['lon']
+            setUserchoose(locationinfo[0]['name'])
+            console.log("huhuu")
+        }catch(error){
+            console.log(error)
+        }
+        }
+        console.log("do we even visit here")
+    }
 
     const get_forecast = async () : Promise<any> => { //here we get apicall and save the data
+        console.log("koordinaatit", lat.current, lon.current)
         if (!fullForecastSearch.current){
             try {
             
-                const connectionFC = await fetch(`https://xamkbit.azurewebsites.net/saaennuste/${userchoose}`);
+                const connectionFC = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat.current}&lon=${lon.current}&appid=${weahter_api}&units=metric`); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
                 const apidataFC = await connectionFC.json();
+                console.log(apidataFC)
                 if(apidataFC['cod'] === '404'){
                     setFullForecast({
                         ...fullForecast,
@@ -55,20 +81,26 @@ function Forecast (props?:any){
             
         }
         }
+        
         setBackdrop(true)
     }
 useEffect(() => {
-    console.log("userchooce changed", props.allowForecast, fullForecastSearch.current, savePermission.current)
+    //console.log("userchooce changed", props.allowForecast, fullForecastSearch.current, savePermission.current)
     if (props.allowForecast){
-       get_forecast()
+        //locationSearch.current = false
+        get_location("Tampere", "FI")
+       //get_forecast()
+       setTimeout(() => get_forecast(), 1000)
          
     }   
 }, [userchoose])// if town name changes lets get new forecast from api
 
 useEffect(() => {
-    console.log("reloading.", props.allowForecast, fullForecastSearch.current, savePermission.current)
+    //console.log("reloading.", props.allowForecast, fullForecastSearch.current, savePermission.current)
     if(props.allowForecast && !fullForecastSearch.current){
-        get_forecast()
+        //locationSearch.current = false
+        get_location("Tampere", "FI")
+        setTimeout(() => get_forecast(), 1000)
         
     }
 }, [])
@@ -90,7 +122,9 @@ useEffect(() => {
           props.setAllowForecast(true)
           setBackdrop(false)
           fullForecastSearch.current=false
-          get_forecast()
+          locationSearch.current=false
+          get_location(temp, userInputcountry.current!.value)
+          setTimeout(() => get_forecast(), 1000)
     }
 
     const saveNeededData = () : void =>{ // here we save all needed data from api. This Object is easier to handle in graphics components
@@ -107,13 +141,13 @@ useEffect(() => {
                                     , icon : fullForecast.Whole_forecast['list'][i]['weather'][0]['icon']
                                     , shorDescription : fullForecast.Whole_forecast['list'][i]['weather'][0]['main']
                                     , visibility : fullForecast.Whole_forecast['list'][i]['visibility']}
-                                    console.log("inside", TempSaveValue[i])
+                                    //console.log("inside", TempSaveValue[i])
                                     i = i+1
             }
             if (TempSaveValue && forecastSaved.length === 0){ // This allows to save data only once.
                 setForecastSaved( [...TempSaveValue])
                 savePermission.current = false
-                console.log("save", savePermission.current, TempSaveValue)
+                //console.log("save", savePermission.current, TempSaveValue)
                 TempSaveValue = []
             }
         }catch(error){
@@ -128,19 +162,27 @@ useEffect(() => {
     if (fullForecastSearch.current){
         if (savePermission.current && forecastSaved.length === 0){
             setTimeout(() => saveNeededData(), 1000)
-            console.log("whaaaaat")
+            //console.log("whaaaaat")
         }
     }
-    console.log(fullForecast.Whole_forecast)
-    console.log("temp save ", forecastSaved) 
+    //console.log(fullForecast.Whole_forecast)
+    //console.log("temp save ", forecastSaved) 
     return( 
     <Container maxWidth="xl"  className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
        
         <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
         <TextField
           variant="outlined"
-          label="Give city or town name what you want to search"
+          label="Give city or town name what you want to search (Default Tampere)"
           inputRef={userInput}
+          fullWidth
+          error={fullForecast.errors}
+          helperText={fullForecast.errorText}
+        />
+        <TextField
+          variant="outlined"
+          label="Please  enter countrycode"
+          inputRef={userInputcountry}
           fullWidth
           error={fullForecast.errors}
           helperText={fullForecast.errorText}

@@ -26,6 +26,7 @@ function AboutMe(props : any){
                 more about me i put the links and email address down belove<br/>
                 <Link href="www.linkedin.com/in/toni-mäenpää-404461222" rel="noreferrer"
                 target="_blank">Linkeldin</Link>
+                Email : tonimaenpaa81(at).gmail.com
 
             </p>
         </Box>

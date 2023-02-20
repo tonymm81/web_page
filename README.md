@@ -84,6 +84,13 @@ version 138
 Added information aboutme component. Link is not working and profile picture location must adjust to better
 place
 
+I put my own forecast api to this page and also i have to do apicall for longitude and latitude for place what user select.
+Next i have to make a text fields where user can give countrycode. But this weatherapi doesn't work on us :)
+
+version 139
+forecast view is working now and user can give the wanted town or city to input field.
+plan: I have to make this page mobile user friendly. I have to edit css that my page is working on mobile devices.
+
 
 npm installs in this project:
 

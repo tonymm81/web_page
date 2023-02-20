@@ -23,7 +23,8 @@ return(
     view where you can search forecast based on choosed city or town. There is working time application also. There
     user can log in as employer and fill up the needed information. In employee view employee can save jod hours and datetime and
     job description. There is also my projects view where you can watch my projects code. Last page is information about me. And in 
-    menu bar there is drawer where user can navigate to another pages. in menubar is also link to this webpages code.
+    menu bar there is drawer where user can navigate to another pages. in menubar is also link to this webpages code. And this website
+    are not oprimazed to mobile devices. I do that later after i finish that course in the school :)
     <Button variant="contained" color="inherit" onClick={() => {setOpenDialog(false)}}>Close</Button>
     </Dialog>
 
