@@ -1,12 +1,16 @@
 .App {
   text-align: center;
   background-color: rgb(186, 196, 215);
-  min-width: 1200px;
+  max-width: 1200px;
   min-height: 1200px;
   border: solid 2px black;
   box-shadow: 5px 5px 5px black;
   margin-top: 20px;
   border-radius: 3%;
+}
+
+h3.MuiTypography-h3{
+  font-size: 40px;
 }
 
 /*I use styles always from here. i think its much more clear than mixed in components code.*/
@@ -16,16 +20,21 @@
   text-shadow: 2px 2px 2px;
   border-radius: 5%;
   box-shadow: 5px 5px 5px black;
+  
 }
 
 .list_box{
   margin-top: 10px;
-  
   opacity: 20;
   
 }
 
+.mobileView{
+  display:none;
+}
+
 .toolbar{
+  
   background-color: rgb(186, 196, 215);
   border: solid 2px black;
   margin-bottom: 10px;
@@ -36,9 +45,10 @@
 .start_image{
   background-image: url('./photos/img_start.jpg');
   background-repeat: no-repeat;
-  background-size: auto;
-  min-width: auto;
-  min-height: 1000px;
+  background-size: 100% fixed;
+  margin:10px;
+  width:100%;
+  min-height:1100px;
   border-radius: 2%;
   box-shadow: 5px 5px 5px black;
 }
@@ -46,7 +56,7 @@
 .forecast{
   background-image: url('./photos/forecast.jpg');
   background-repeat: repeat;
-  background-size: auto;
+  background-size: 100% fixed;
   min-width: auto;
   min-height: 1000px;
   box-shadow: 5px 5px 5px black;
@@ -134,11 +144,18 @@ h2{
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 2s linear;
+@media only screen and (max-width:600px) {
+  h3.MuiTypography-h3{
+    font-size: 1.6rem;
   }
-}
+  .list_box{
+    display:none;
+  }
+  .mobileView{
+    display:inline-block;
+    margin:2px;
+    padding:5px;
+  }
 
 .App-header {
   background-color: #282c34;
@@ -151,15 +168,5 @@ h2{
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(880deg);
-  }
-}

@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CodeIcon from '@mui/icons-material/Code';
 import '../App.css';
+import { link } from 'fs';
 
 // This is the drawer and appmenu component where user can navigate
 const List_box : React.FC = () : React.ReactElement => {
@@ -99,6 +100,17 @@ const List_box : React.FC = () : React.ReactElement => {
             sx={{fontSize: "25pt", flexGrow : 1}}
             className='list_box'
         >Menu</Typography>
+        <div className='mobileView'>
+        <Button variant='contained' 
+            component={Link} to="/Forecast">Forecast</Button>
+        <Button variant='contained' 
+            component={Link} to="/Projects">My projects</Button>
+        <Button variant='contained'
+            component={Link} to="/AboutMe">about me</Button>
+        <Button variant='contained' 
+            component={Link} to="/Work_time">Working time</Button>
+        <Button variant='contained' 
+            component={Link} to="/">Homepage</Button></div>
         <Button href="https://gitfront.io/r/tonymm81/zci1eHz74uFc/web-page/" >This web page code link</Button>
         </Toolbar>
     </AppBar>

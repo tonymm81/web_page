@@ -91,6 +91,9 @@ version 139
 forecast view is working now and user can give the wanted town or city to input field.
 plan: I have to make this page mobile user friendly. I have to edit css that my page is working on mobile devices.
 
+Now i tested the mobile view. Page is scaling the smaller devices and in mobile devices, hamburger menu disappear and
+there is showing button navigation and headliner font is scaling smaller. I have to do more breakpoints to css
+
 
 npm installs in this project:
 

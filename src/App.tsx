@@ -17,7 +17,7 @@ const App : React.FC = () : React.ReactElement => {
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
   return (
    <Container className='App'>
-    <Typography className='headliner' variant="h2">{headliner}</Typography>
+    <Typography className='headliner' variant="h3">{headliner}</Typography>
     
     <List_box/> 
     <Routes>
