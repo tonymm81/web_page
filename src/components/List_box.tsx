@@ -101,17 +101,17 @@ const List_box : React.FC = () : React.ReactElement => {
             className='list_box'
         >Menu</Typography>
         <div className='mobileView'>
-        <Button variant='contained' 
+        <Button variant='contained' size='small'
             component={Link} to="/Forecast">Forecast</Button>
-        <Button variant='contained' 
+        <Button variant='contained' size='small'
             component={Link} to="/Projects">My projects</Button>
-        <Button variant='contained'
+        <Button variant='contained' size='small'
             component={Link} to="/AboutMe">about me</Button>
-        <Button variant='contained' 
+        <Button variant='contained' size='small'
             component={Link} to="/Work_time">Working time</Button>
-        <Button variant='contained' 
+        <Button variant='contained' size='small'
             component={Link} to="/">Homepage</Button></div>
-        <Button href="https://gitfront.io/r/tonymm81/zci1eHz74uFc/web-page/" >This web page code link</Button>
+        <Button href="https://gitfront.io/r/tonymm81/zci1eHz74uFc/web-page/" size="small">This web page code link</Button>
         </Toolbar>
     </AppBar>
     </CssBaseline>

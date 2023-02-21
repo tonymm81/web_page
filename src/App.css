@@ -2,7 +2,7 @@
   text-align: center;
   background-color: rgb(186, 196, 215);
   max-width: 1200px;
-  min-height: 1200px;
+  /*min-height: 1200px;*/
   border: solid 2px black;
   box-shadow: 5px 5px 5px black;
   margin-top: 20px;
@@ -49,6 +49,7 @@ h3.MuiTypography-h3{
   margin:10px;
   width:100%;
   min-height:1100px;
+  
   border-radius: 2%;
   box-shadow: 5px 5px 5px black;
 }
@@ -100,11 +101,13 @@ h3.MuiTypography-h3{
 .Aboutme{
   background-image: url('./photos/aboutme.jpg');
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: 100% fixed;
   min-width: auto;
   min-height: 1000px;
   border-radius: 2%;
   box-shadow: 5px 5px 5px black;
+  padding:10px;
+  margin: 10px;
 }
 
 .projectDialog{
@@ -132,7 +135,7 @@ h2{
   min-height: 200px;
   float:left;
   text-align: left;
-  color:antiquewhite;
+  color:rgb(240, 240, 240);
 }
 
 .profilePic{
@@ -152,12 +155,18 @@ h2{
     display:none;
   }
   .mobileView{
-    display:inline-block;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin:2px;
     padding:5px;
   }
-
-.App-header {
+  .AboutMeBox{
+    color:rgb(245, 19, 234);
+    text-align: justify;
+  }
+  
+/*.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -166,7 +175,7 @@ h2{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+}*/
 
 }
 
