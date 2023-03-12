@@ -142,6 +142,11 @@ h2{
   bottom: 10px;
   float:right;
 }
+
+.news_page{
+  width:100%
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -166,16 +171,6 @@ h2{
     text-align: justify;
   }
   
-/*.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}*/
 
 }
 

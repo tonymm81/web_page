@@ -9,6 +9,7 @@ import Work_time from './components/Work_time';
 import LogIn from './components/LogIn';
 import Projects from './components/Projects';
 import AboutMe from './components/AboutMe';
+import News_page from './components/News_page'
 
 // this is the main program.Only routes shown here
 
@@ -33,6 +34,9 @@ const App : React.FC = () : React.ReactElement => {
       <Route path="/LogIn" element={<LogIn/>} />
       <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} 
                                                 setAllowForecast={setAllowForecast}/>} />
+
+      <Route path="/News_page" element={<News_page setHeadliner={setHeadliner} 
+                                              setAllowForecast={setAllowForecast}/>} />
       <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} 
                                               setAllowForecast={setAllowForecast}/>} />
     </Routes>

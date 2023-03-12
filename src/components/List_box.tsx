@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import EditIcon from '@mui/icons-material/Edit';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -83,6 +84,16 @@ const List_box : React.FC = () : React.ReactElement => {
 
               <ListItemButton
                 component={Link}
+                to="/News_page"
+              >
+                <ListItemIcon>
+                  <LibraryBooksIcon/>
+                </ListItemIcon>
+                <ListItemText primary="News page" />
+              </ListItemButton>
+
+              <ListItemButton
+                component={Link}
                 to="/AboutMe"
               >
                 <ListItemIcon>
@@ -105,6 +116,8 @@ const List_box : React.FC = () : React.ReactElement => {
             component={Link} to="/Forecast">Forecast</Button>
         <Button variant='contained' size='small'
             component={Link} to="/Projects">My projects</Button>
+        <Button variant='contained' size='small'
+            component={Link} to="/News_page">News page</Button>
         <Button variant='contained' size='small'
             component={Link} to="/AboutMe">about me</Button>
         <Button variant='contained' size='small'

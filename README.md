@@ -94,6 +94,10 @@ plan: I have to make this page mobile user friendly. I have to edit css that my 
 Now i tested the mobile view. Page is scaling the smaller devices and in mobile devices, hamburger menu disappear and
 there is showing button navigation and headliner font is scaling smaller. I have to do more breakpoints to css
 
+version 140
+Building up the newas page. I choose to use news API called site. Documentations are clear. 
+i add graphics, there is now textfield for search word and also select component to country code.
+
 
 npm installs in this project:
 
