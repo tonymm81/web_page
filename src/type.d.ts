@@ -45,3 +45,14 @@ interface LogINuser{
     passwd? : string
     error? :string
 }
+
+interface News_api_index{
+    [key:string ] :  number|any
+}
+
+interface News_api_json {
+    Whole_news_api : News_api_index
+    errors?: boolean
+    errorText? : string
+
+}

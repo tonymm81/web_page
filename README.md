@@ -98,6 +98,9 @@ version 140
 Building up the newas page. I choose to use news API called site. Documentations are clear. 
 i add graphics, there is now textfield for search word and also select component to country code.
 
+version 141
+News page api has made. Still get cors error, so i have to check the solution about it. Also added search buttons to this news page.
+
 
 npm installs in this project:
 
