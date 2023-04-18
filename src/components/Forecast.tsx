@@ -11,6 +11,7 @@ function Forecast (props?:any){
         props.setHeadliner("Forecast")
     }
     const weahter_api = process.env.REACT_APP_API_KEY
+    
     const fullForecastSearch : React.MutableRefObject<boolean> = useRef(false);
     const locationSearch : React.MutableRefObject<boolean> = useRef(false);
     const savePermission : React.MutableRefObject<boolean> = useRef(true);

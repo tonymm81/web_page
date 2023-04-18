@@ -1,9 +1,10 @@
-import { Box, Button, Container, FormControl, FormHelperText, InputLabel, Link, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
+import { Box, Button, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
 import '../App.css'
 import { useRef, useState } from "react";
 
 function News_page (props:any){
     const news_api = process.env.REACT_APP_API_KEY_NEWS
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
     const sortby : React.MutableRefObject<String> = useRef("");
     const search_word : React.MutableRefObject<String> = useRef("");
@@ -34,7 +35,7 @@ function News_page (props:any){
     const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
         if (news_api_permission.current){
             try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
-                const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, {
+                const connectionNews = await fetch(`${proxyUrl}https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, {
                     method: 'GET',
                     headers: {
                       accept: 'application/json',
@@ -123,6 +124,19 @@ function News_page (props:any){
         </Select>
         <FormHelperText>{errors_country.current}</FormHelperText>
       </FormControl>
+      <FormControl>
+    <Typography variant="h3">Select the news cathegory</Typography>
+  <FormLabel id="demo-radio-buttons-group-label">select here</FormLabel>
+  <RadioGroup
+    aria-labelledby="demo-radio-buttons-group-label"
+    defaultValue="female"
+    name="radio-buttons-group"
+  >
+    <FormControlLabel value="Top-news" control={<Radio />} label="Top news" />
+    <FormControlLabel value="Everything" control={<Radio />} label="everything" />
+    <FormControlLabel value="other" control={<Radio />} label="Other" />
+  </RadioGroup>
+</FormControl>
 
         </Container>
         </>
