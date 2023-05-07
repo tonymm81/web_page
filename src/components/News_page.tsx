@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 function News_page (props:any){
     const news_api = process.env.REACT_APP_API_KEY_NEWS
+    const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
     const sortby : React.MutableRefObject<String> = useRef("");
     const search_word : React.MutableRefObject<String> = useRef("");
@@ -34,12 +35,18 @@ function News_page (props:any){
     const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
         if (news_api_permission.current){
             try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
-                const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, {
-                    method: 'GET',
+                const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, 
+                //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
+                {
+                   method: 'GET',
+                   mode:'cors',
+                   
                     headers: {
-                      accept: 'application/json',
+                    accept: 'application/json',
+                    cors:cors_server,
+                    
                     },
-                  }); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
+            }); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
                 const apidatanews = await connectionNews.json();
                 //it gives the cors error 
                 if(apidatanews['cod'] === '404'){

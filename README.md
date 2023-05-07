@@ -101,6 +101,10 @@ i add graphics, there is now textfield for search word and also select component
 version 141
 News page api has made. Still get cors error, so i have to check the solution about it. Also added search buttons to this news page.
 
+version 142
+cors server is up and configured. Some problem there is, because i dont know how to make apicall with
+this cors server.
+
 
 npm installs in this project:
 
@@ -123,3 +127,6 @@ npm install @date-io/jalaali
 npm install date-fns --save
 
 npm install @mui/x-date-pickers
+
+folder cors-server
+npm init -y 
