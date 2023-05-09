@@ -101,10 +101,14 @@ i add graphics, there is now textfield for search word and also select component
 version 141
 News page api has made. Still get cors error, so i have to check the solution about it. Also added search buttons to this news page.
 
+<<<<<<< HEAD
 version 142
 cors server is up and configured. Some problem there is, because i dont know how to make apicall with
 this cors server.
 
+=======
+Added newws page radiobutton group where user can choose the news cathegory. 
+>>>>>>> ae0c31632c58f0d73e11be35678d54bef7407a8a
 
 npm installs in this project:
 
