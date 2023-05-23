@@ -105,6 +105,9 @@ version 142
 cors server is up and configured. Some problem there is, because i dont know how to make apicall with
 this cors server.
 
+version 143
+cors is okay now. I use a proxy setting in package.json. Lets build some graphics to news api component. 
+
 
 npm installs in this project:
 
@@ -130,3 +133,5 @@ npm install @mui/x-date-pickers
 
 folder cors-server
 npm init -y 
+npm i express
+to start: node app

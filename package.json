@@ -1,5 +1,6 @@
 {
   "name": "omasivu",
+  "proxy":"https://newsapi.org",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +28,7 @@
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.4",
-    "proxy": "http://localhost:8080",
+    "proxy":"https://newsapi.org",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

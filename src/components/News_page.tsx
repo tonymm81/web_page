@@ -1,12 +1,14 @@
-import { Box, Button, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
+import { Box, Button, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
 import '../App.css'
 import { useRef, useState } from "react";
+import { format, differenceInDays } from 'date-fns';
 
 function News_page (props:any){
     const news_api = process.env.REACT_APP_API_KEY_NEWS
     const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
-    const sortby : React.MutableRefObject<String> = useRef("");
+    const [timefrom, setTimefrom] = useState<Date>(new Date())
+    const radiobutton_choose : React.MutableRefObject<String> = useRef("");
     const search_word : React.MutableRefObject<String> = useRef("");
     const userInput_search : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [Chooce_country, setChoose_country ] = useState<string>("");
@@ -24,7 +26,7 @@ function News_page (props:any){
         "LT",
         "PL"
     ])
-    const [cathegory, setCathegory] = useState(["everything -G", "top-headlines -G"])
+    const [cathegory, setCathegory] = useState(["everything", "top-headlines"])
 
     if (props.headLiner === "News page"){
     }else{
@@ -33,9 +35,12 @@ function News_page (props:any){
     }
 
     const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
+        var apidatanews = {}//:JSON = {} as JSON
         if (news_api_permission.current){
             try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
-                const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, 
+                if (radiobutton_choose.current === "1"){
+                    console.log("eeveriting",cathegory[0], search_word.current, format(timefrom, "Y-M-d"))
+                    const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&to=${format(timefrom, "Y-M-d")}&sortBy=popularity&apiKey=${news_api}`, 
                 //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
                 {
                    method: 'GET',
@@ -43,21 +48,40 @@ function News_page (props:any){
                    
                     headers: {
                     accept: 'application/json',
-                    cors:cors_server,
+                    },
+
+            }); 
+            const apidatanews = await connectionNews.json(); 
+            console.log(connectionNews, apidatanews)   
+            }
+                if (radiobutton_choose.current === "0"){
+                    console.log("toop", Chooce_country, cathegory[1], search_word.current)
+                    const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[1]}?country=${Chooce_country}&apiKey=${news_api}`, 
+                    //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
+                {
+                    method: 'GET',
+                    mode:'cors',
+                   
+                    headers: {
+                    accept: 'application/json',
+                    
                     
                     },
-            }); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
-                const apidatanews = await connectionNews.json();
-                //it gives the cors error 
-                if(apidatanews['cod'] === '404'){
-                    setSave_news_api({
-                        ...save_news_api,
-                        Whole_news_api : {},
-                        errors : true,
-                        errorText : "news not found"
-                    })
-                    console.log("nooot found", save_news_api.errorText)
+            });
+            const apidatanews = await connectionNews.json(); 
+            console.log(connectionNews, apidatanews)
                 }
+                
+                //it gives the cors error 
+                //if(apidatanews['cod'] === '404'){
+                    //setSave_news_api({
+                     //   ...save_news_api,
+                      //  Whole_news_api : {},
+                     //   errors : true,
+                     //   errorText : "news not found"
+                   // })
+                    //console.log("nooot found", save_news_api.errorText)
+               // }
                 setSave_news_api({
                     ...save_news_api,
                     Whole_news_api : apidatanews,
@@ -80,7 +104,7 @@ function News_page (props:any){
     const userInputField = (e : any) : void =>{ //make here user input field what gets the apidata
         e?.preventDefault();
         news_api_permission.current=true
-        console.log("pöö", search_word.current)
+        console.log("pöö", search_word.current, radiobutton_choose.current, format(timefrom, "Y-M-d"))
         get_new_data(Chooce_country, search_word)
         console.log(save_news_api.Whole_news_api)
 
@@ -131,18 +155,31 @@ function News_page (props:any){
         <FormHelperText>{errors_country.current}</FormHelperText>
       </FormControl>
       <FormControl>
-    <Typography variant="h3">Select the news cathegory</Typography>
-  <FormLabel id="demo-radio-buttons-group-label">select here</FormLabel>
+    <Typography variant="h5">Select the news cathegory</Typography>
+  <FormLabel id="demo-radio-buttons-group-label">r</FormLabel>
   <RadioGroup
     aria-labelledby="demo-radio-buttons-group-label"
-    defaultValue="female"
+    defaultValue="1"
     name="radio-buttons-group"
+    onChange={(e:any)=>(radiobutton_choose.current=e.target.value)}
   >
-    <FormControlLabel value="Top-news" control={<Radio />} label="Top news" />
-    <FormControlLabel value="Everything" control={<Radio />} label="everything" />
-    <FormControlLabel value="other" control={<Radio />} label="Other" />
+    <FormControlLabel value="0" control={<Radio />} label="Top news" />
+    <FormControlLabel value="1" control={<Radio />} label="everything" />
+   
   </RadioGroup>
 </FormControl>
+        <List>
+            {Object.keys(save_news_api.Whole_news_api).map((item)=> {
+                return (
+                    <ListItem key={item}>
+                        <ListItemText>
+                        {`author: ${save_news_api.Whole_news_api[item[0]]}`}
+                    
+                        </ListItemText>
+                    </ListItem>
+                );
+            })}
+        </List>
 
         </Container>
         </>
@@ -150,4 +187,4 @@ function News_page (props:any){
     
 }
 
-export default News_page
+export default News_page;
