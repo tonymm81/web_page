@@ -1,6 +1,6 @@
 import { Box, Button, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
 import '../App.css'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { format, differenceInDays } from 'date-fns';
 
 function News_page (props:any){
@@ -15,6 +15,7 @@ function News_page (props:any){
     const errors : React.MutableRefObject<String> = useRef("");
     const errors_country : React.MutableRefObject<String> = useRef("");
     const [save_news_api, setSave_news_api] = useState<News_api_json>({Whole_news_api : {}})
+    const [newsSaved, setNewsSaved] = useState<New_api_needed[]>([])
     const [country_codes, setCountry_codes] = useState([
         "FI",
         "SE",
@@ -35,41 +36,40 @@ function News_page (props:any){
     }
 
     const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
-        var apidatanews = {}//:JSON = {} as JSON
+        const apidatanews = {} //:JSON = {} as JSON
         if (news_api_permission.current){
             try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
                 if (radiobutton_choose.current === "1"){
                     console.log("eeveriting",cathegory[0], search_word.current, format(timefrom, "Y-M-d"))
                     const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&to=${format(timefrom, "Y-M-d")}&sortBy=popularity&apiKey=${news_api}`, 
                 //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
-                {
-                   method: 'GET',
-                   mode:'cors',
-                   
-                    headers: {
-                    accept: 'application/json',
-                    },
-
-            }); 
-            const apidatanews = await connectionNews.json(); 
-            console.log(connectionNews, apidatanews)   
-            }
-                if (radiobutton_choose.current === "0"){
-                    console.log("toop", Chooce_country, cathegory[1], search_word.current)
-                    const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[1]}?country=${Chooce_country}&apiKey=${news_api}`, 
-                    //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
-                {
+                    {
                     method: 'GET',
                     mode:'cors',
                    
                     headers: {
                     accept: 'application/json',
-                    
-                    
                     },
-            });
+
+                    }); 
+                const apidatanews = await connectionNews.json(); 
+                console.log(connectionNews, apidatanews)   
+                }
+                if (radiobutton_choose.current === "0"){
+                    console.log("toop", Chooce_country, cathegory[1], search_word.current)
+                    const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[1]}?country=${Chooce_country}&apiKey=${news_api}`, 
+                    //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
+                    {
+                    method: 'GET',
+                    mode:'cors',
+                   
+                    headers: {
+                    accept: 'application/json',
+                    },
+                    });
             const apidatanews = await connectionNews.json(); 
-            console.log(connectionNews, apidatanews)
+            console.log('testin again',apidatanews)
+           
                 }
                 
                 //it gives the cors error 
@@ -99,7 +99,8 @@ function News_page (props:any){
             }
         }
         news_api_permission.current = false
-
+        console.log("tessting error", save_news_api.Whole_news_api)
+        
     }
     const userInputField = (e : any) : void =>{ //make here user input field what gets the apidata
         e?.preventDefault();
@@ -107,6 +108,9 @@ function News_page (props:any){
         console.log("pöö", search_word.current, radiobutton_choose.current, format(timefrom, "Y-M-d"))
         get_new_data(Chooce_country, search_word)
         console.log(save_news_api.Whole_news_api)
+        console.log(`testing ${save_news_api.Whole_news_api['articles']}`)
+        save_news_data()
+        console.log(`testing 2 ${save_news_api.Whole_news_api['Response']}`)
 
     }
 
@@ -115,6 +119,41 @@ function News_page (props:any){
        
     }
 
+    const save_news_data = () : void =>{
+        let TempValue : New_api_needed[] = [...newsSaved]
+        let i = 0
+        try {
+            let jsonlength = save_news_api.Whole_news_api[1]['articles'].length
+            for (i = 0; i < jsonlength;){
+                TempValue[i] = {...TempValue[i], articles : save_news_api.Whole_news_api['articles'],
+                                author : save_news_api.Whole_news_api[i]['author'],
+                                puplishDate : save_news_api.Whole_news_api[i]['publishedAt'],
+                                source : save_news_api.Whole_news_api[i]['source']['name'],
+                                title : save_news_api.Whole_news_api[i]['title'],
+                                url : save_news_api.Whole_news_api[i]['url']
+                            }
+                i = i + 1
+            }
+            if ( newsSaved.length === 0){
+                setNewsSaved([...TempValue])
+                console.log(`saved ${TempValue}`)
+                TempValue = []
+
+                // make here save permission
+            }
+        }
+        catch(error){
+            console.log(`ei ${error}`)
+        }
+
+    
+    }
+    
+    useEffect(() =>{
+        setTimeout(() => save_news_data(), 1000)
+        console.log("yietue muuttui")
+    }, [save_news_api.Whole_news_api])
+    console.log(save_news_api.Whole_news_api)
     return(
         <>
         <Container>
@@ -156,15 +195,15 @@ function News_page (props:any){
       </FormControl>
       <FormControl>
     <Typography variant="h5">Select the news cathegory</Typography>
-  <FormLabel id="demo-radio-buttons-group-label">r</FormLabel>
+  <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
   <RadioGroup
     aria-labelledby="demo-radio-buttons-group-label"
     defaultValue="1"
     name="radio-buttons-group"
     onChange={(e:any)=>(radiobutton_choose.current=e.target.value)}
   >
-    <FormControlLabel value="0" control={<Radio />} label="Top news" />
-    <FormControlLabel value="1" control={<Radio />} label="everything" />
+    <FormControlLabel value="0" control={<Radio />} label="Top news (must choose vountry!)" />
+    <FormControlLabel value="1" control={<Radio />} label="everything (give search word!)" />
    
   </RadioGroup>
 </FormControl>

@@ -107,6 +107,7 @@ this cors server.
 
 version 143
 cors is okay now. I use a proxy setting in package.json. Lets build some graphics to news api component. 
+bug: This version has problem on news_page components. It wont save data from json. I have to figure out, what is the problem.
 
 
 npm installs in this project:
