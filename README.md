@@ -101,7 +101,17 @@ i add graphics, there is now textfield for search word and also select component
 version 141
 News page api has made. Still get cors error, so i have to check the solution about it. Also added search buttons to this news page.
 
-Added newws page radiobutton group where user can choose the news cathegory. 
+version 142
+cors server is up and configured. Some problem there is, because i dont know how to make apicall with
+this cors server.
+
+version 143
+cors is okay now. I use a proxy setting in package.json. Lets build some graphics to news api component. 
+bug: This version has problem on news_page components. It wont save data from json. I have to figure out, what is the problem.
+
+version 144
+Now the news page saves the data like i want. Next plan is to make a graphics, and aslo fix one bug from forecast api.
+
 
 npm installs in this project:
 
@@ -124,3 +134,8 @@ npm install @date-io/jalaali
 npm install date-fns --save
 
 npm install @mui/x-date-pickers
+
+folder cors-server
+npm init -y 
+npm i express
+to start: node app

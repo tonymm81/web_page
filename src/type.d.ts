@@ -56,3 +56,16 @@ interface News_api_json {
     errorText? : string
 
 }
+
+interface New_api_needed {
+    [key : number] : number |any
+    description? : string
+    content? : string
+    author : string
+    puplishDate : string
+    source : string
+    title : string
+    url : string
+    ulr_image? : string
+    
+}

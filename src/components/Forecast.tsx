@@ -61,7 +61,7 @@ function Forecast (props?:any){
                     })
                     console.log("nooot found", fullForecast.errorText)
                 }
-                setFullForecast({
+                setFullForecast({ // fix this nonsense
                     ...fullForecast,
                     Whole_forecast : apidataFC,
                     errors: false,
