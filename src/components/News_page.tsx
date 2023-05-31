@@ -35,7 +35,7 @@ function News_page (props:any){
     const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
         if (news_api_permission.current){
             try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
-                const connectionNews = await fetch(`${proxyUrl}https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, {
+                const connectionNews = await fetch(`https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&from=2023-04-10&sortBy=popularity&apiKey=${news_api}`, {
                     method: 'GET',
                     headers: {
                       accept: 'application/json',
@@ -129,12 +129,12 @@ function News_page (props:any){
   <FormLabel id="demo-radio-buttons-group-label">select here</FormLabel>
   <RadioGroup
     aria-labelledby="demo-radio-buttons-group-label"
-    defaultValue="female"
+    defaultValue="cathegory"
     name="radio-buttons-group"
   >
-    <FormControlLabel value="Top-news" control={<Radio />} label="Top news" />
+    <FormControlLabel value="top-headlines" control={<Radio />} label="Top news" />
     <FormControlLabel value="Everything" control={<Radio />} label="everything" />
-    <FormControlLabel value="other" control={<Radio />} label="Other" />
+    
   </RadioGroup>
 </FormControl>
 
