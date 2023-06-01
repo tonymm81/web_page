@@ -161,6 +161,14 @@ h2{
   font-size: 5px;
   max-width:100%;
 }
+.news_image{
+  max-width: 30%;
+}
+
+.news_page_cont{
+ max-width: 100%;
+  
+}
 
 @media only screen and (max-width:600px) {
   h3.MuiTypography-h3{

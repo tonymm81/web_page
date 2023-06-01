@@ -116,6 +116,10 @@ fixed. now the page shows top news from choosed country and everything based on 
 
 Bug: The news link is too long, it isi,nt responsive at all. It goes over the list column lines. 
 
+added backdrop while site is loading api request. added also images from everything news view. Somehow this image works only everything cathegory. Api response dont have url link to image in top news.
+
+added also in type.d.ts file a new interface to save needed data from apicall. This data will used to graphics.
+
 
 npm installs in this project:
 

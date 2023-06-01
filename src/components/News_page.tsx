@@ -1,13 +1,15 @@
-import { Box, Button, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
+import { Backdrop, Box, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
 import '../App.css'
 import { useEffect, useRef, useState } from "react";
 import { format, differenceInDays } from 'date-fns';
 
-function News_page (props:any){
+function News_page (props:any){ // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
+                                // everything needs a keyword and datetime, top-news need only country code
     const news_api = process.env.REACT_APP_API_KEY_NEWS
     const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
     const [show_items, setShow_items ] = useState<boolean>(false);
+    const [backdrop_bl, setBackdrop_bl ] = useState<boolean>(false);
     const [timefrom, setTimefrom] = useState<Date>(new Date())
     const radiobutton_choose : React.MutableRefObject<String> = useRef("");
     const search_word : React.MutableRefObject<String> = useRef("");
@@ -91,21 +93,17 @@ function News_page (props:any){
             }
         }
         news_api_permission.current = false
-        
+        setBackdrop_bl(false)
     }
     const userInputField = (e : any) : void =>{ //make here user input field what gets the apidata
         e?.preventDefault();
         setNewsSaved([])
         news_api_permission.current=true
+        setBackdrop_bl(true)
         get_new_data(Chooce_country, search_word)
 
-       
-        //console.log(save_news_api.Whole_news_api)
-        //console.log(`testing ${save_news_api.Whole_news_api['articles']}`)
-        //save_news_data()
-        
-
     }
+
     const show_item_radiobutton = (rb:any) :void =>{ // not working the way i want
         radiobutton_choose.current = rb
         console.log("here in rb", rb, radiobutton_choose.current)
@@ -169,7 +167,7 @@ function News_page (props:any){
 
     return(
         <>
-        <Container>
+        <Container className="news_page_cont">
             
             <Typography variant="h3">Welcome to news page</Typography>
             <form onSubmit={userInputField}>
@@ -240,6 +238,7 @@ function News_page (props:any){
                         <ListItemText>
                           {" Description: "} {item.description}
                            {" Content "}{item.content}
+                           <ListItemIcon > <img className="news_image" src={item.ulr_image} alt={String(index)}/></ListItemIcon>
                         </ListItemText>
                         :
                         <></>
@@ -248,7 +247,9 @@ function News_page (props:any){
                 );
             })}
         </List>
-
+        <Backdrop open={backdrop_bl}>
+         <CircularProgress color="inherit" />
+       </Backdrop>
         </Container>
         </>
     )
