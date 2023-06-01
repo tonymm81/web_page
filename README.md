@@ -112,6 +112,10 @@ bug: This version has problem on news_page components. It wont save data from js
 version 144
 Now the news page saves the data like i want. Next plan is to make a graphics, and aslo fix one bug from forecast api.
 
+fixed. now the page shows top news from choosed country and everything based on search word. next thing to do is add calendar where user can choose time line. Then i have to do the error handling on textfields and etc. 
+
+Bug: The news link is too long, it isi,nt responsive at all. It goes over the list column lines. 
+
 
 npm installs in this project:
 

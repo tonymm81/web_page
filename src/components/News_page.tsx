@@ -7,6 +7,7 @@ function News_page (props:any){
     const news_api = process.env.REACT_APP_API_KEY_NEWS
     const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
+    const [show_items, setShow_items ] = useState<boolean>(false);
     const [timefrom, setTimefrom] = useState<Date>(new Date())
     const radiobutton_choose : React.MutableRefObject<String> = useRef("");
     const search_word : React.MutableRefObject<String> = useRef("");
@@ -61,7 +62,7 @@ function News_page (props:any){
                     });
 
                 const apidatanews = await connectionNews.json(); 
-                console.log('testin again',apidatanews['articles'])
+                //console.log('testin again',apidatanews['articles'])
                 if(apidatanews['cod'] === '404'){
                     setSave_news_api({
                         ...save_news_api,
@@ -69,7 +70,7 @@ function News_page (props:any){
                        errors : true,
                         errorText : "news not found"
                     })
-                    //console.log("nooot found", save_news_api.errorText)
+                    
                 }else {
                 setSave_news_api({
                     ...save_news_api,
@@ -90,7 +91,6 @@ function News_page (props:any){
             }
         }
         news_api_permission.current = false
-        console.log("tessting error", save_news_api.Whole_news_api)
         
     }
     const userInputField = (e : any) : void =>{ //make here user input field what gets the apidata
@@ -98,11 +98,24 @@ function News_page (props:any){
         setNewsSaved([])
         news_api_permission.current=true
         get_new_data(Chooce_country, search_word)
-        console.log(save_news_api.Whole_news_api)
-        console.log(`testing ${save_news_api.Whole_news_api['articles']}`)
+
+       
+        //console.log(save_news_api.Whole_news_api)
+        //console.log(`testing ${save_news_api.Whole_news_api['articles']}`)
         //save_news_data()
         
 
+    }
+    const show_item_radiobutton = (rb:any) :void =>{ // not working the way i want
+        radiobutton_choose.current = rb
+        console.log("here in rb", rb, radiobutton_choose.current)
+        if (radiobutton_choose.current === "0"){
+            setShow_items(true)
+        }
+        else{
+            setShow_items(false)
+        }
+        console.log(show_items)
     }
 
     const text_field_handler = (ee : React.ChangeEvent<HTMLInputElement>) : void =>{
@@ -133,7 +146,7 @@ function News_page (props:any){
             }
             if ( newsSaved.length === 0){
                 setNewsSaved([...TempValue])
-                console.log(`saved ${TempValue}`)
+                //console.log(`saved ${TempValue}`)
                 TempValue = []
 
                 // make here save permission
@@ -148,14 +161,19 @@ function News_page (props:any){
     
     useEffect(() =>{
         setTimeout(() => save_news_data(), 1000)
-        console.log("yietue muuttui")
+        console.log("interface changed")
     }, [save_news_api.Whole_news_api])
     console.log(save_news_api.Whole_news_api)
+    
+   
+
     return(
         <>
         <Container>
+            
             <Typography variant="h3">Welcome to news page</Typography>
             <form onSubmit={userInputField}>
+                
             <TextField
                 variant="outlined"
                 label="Give the keyword to search news"
@@ -163,15 +181,11 @@ function News_page (props:any){
                 fullWidth
                 error={Boolean(errors.current)}
                 helperText={errors.current}
+                disabled={show_items}
             />
-            <Button
-            variant="contained"
-            color="inherit"
-            fullWidth
-            type="submit"
             
-            >Search!</Button>
-            </form>
+           
+            
             <FormControl error={Boolean(errors_country.current)} fullWidth={true}>
                 <InputLabel id="countryID">Choose country code</InputLabel>
                     <Select
@@ -182,7 +196,7 @@ function News_page (props:any){
                         fullWidth={true}
                         className='worktimeFields'
                         defaultValue={"Select country id here"}
-                        
+                        disabled ={!show_items}
                         onChange={(e : SelectChangeEvent) => { setChoose_country(e.target.value) }}
                     >
             {country_codes.map((num, idx) =>  {return <MenuItem value={num} key={idx}> {num}</MenuItem>})}
@@ -190,6 +204,14 @@ function News_page (props:any){
         </Select>
         <FormHelperText>{errors_country.current}</FormHelperText>
       </FormControl>
+      <Button
+            variant="contained"
+            color="inherit"
+            fullWidth
+            type="submit"
+            
+            >Search!</Button>
+      </form>
       <FormControl>
     <Typography variant="h5">Select the news cathegory</Typography>
   <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
@@ -197,7 +219,7 @@ function News_page (props:any){
     aria-labelledby="demo-radio-buttons-group-label"
     defaultValue="1"
     name="radio-buttons-group"
-    onChange={(e:any)=>(radiobutton_choose.current=e.target.value)}
+    onChange={(rb:any)=>{show_item_radiobutton(rb.target.value)}}
   >
     <FormControlLabel value="0" control={<Radio />} label="Top news (must choose vountry!)" />
     <FormControlLabel value="1" control={<Radio />} label="everything (give search word!)" />
@@ -207,11 +229,21 @@ function News_page (props:any){
         <List>
             {newsSaved.map((item, index)=> {
                 return (
-                    <ListItem key={index}>
+                    <ListItem key={index} className="listViewItems">
                         <ListItemText>
-                        {`author: ${item.author}`}
-                    
+                        <Typography variant="h6">{`${item.title}`}</Typography>
+                        {`Time: ${item.puplishDate} `}
+                        {` Author: ${item.author} `}
+                        {` Source: ${item.source} `}
+                        <Link className="Links" >{item.url}</Link></ListItemText>
+                        {item.description! ?
+                        <ListItemText>
+                          {" Description: "} {item.description}
+                           {" Content "}{item.content}
                         </ListItemText>
+                        :
+                        <></>
+                        }
                     </ListItem>
                 );
             })}

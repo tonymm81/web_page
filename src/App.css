@@ -20,6 +20,7 @@ h3.MuiTypography-h3{
   text-shadow: 2px 2px 2px;
   border-radius: 5%;
   box-shadow: 5px 5px 5px black;
+  width: 100%;
   
 }
 
@@ -80,6 +81,9 @@ h3.MuiTypography-h3{
 }
 
 .listViewItems{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
   border:3px solid black;
   box-shadow: 3px 3px 3px black;
   border-radius: 5%;
@@ -150,6 +154,12 @@ h2{
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.Links{
+  align-items: center;
+  font-size: 5px;
+  max-width:100%;
 }
 
 @media only screen and (max-width:600px) {

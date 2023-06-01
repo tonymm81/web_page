@@ -60,13 +60,13 @@ function Forecast (props?:any){
                         errorText : "City not found"
                     })
                     console.log("nooot found", fullForecast.errorText)
-                }
-                setFullForecast({ // fix this nonsense
+                }else{
+                setFullForecast({ 
                     ...fullForecast,
                     Whole_forecast : apidataFC,
                     errors: false,
                     errorText : ""
-                })
+                })}
                 fullForecastSearch.current = true
                 props.setAllowForecast(false)
                 //savePermission.current = true
