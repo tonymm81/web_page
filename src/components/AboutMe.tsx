@@ -24,8 +24,8 @@ function AboutMe(props : any){
                 in job. I have two blackmetal bands and we have also puplish records<br/>
                 Bands are Uhrilahja and Musta Suru. If you are interested to know <br/>
                 more about me i put the links and email address down belove<br/>
-                <Link href="www.linkedin.com/in/toni-mäenpää-404461222" rel="noreferrer"
-                target="_blank">Linkeldin</Link>
+                <Link href="www.linkedin.com/in/toni-mäenpää-404461222" rel="noopener"
+                target="_blank" variant="button" color="inherit" >Linkeldin </Link>
                 Email : tonimaenpaa81(at).gmail.com
 
             </p>

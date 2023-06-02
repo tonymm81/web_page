@@ -9,6 +9,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
     const news_api = process.env.REACT_APP_API_KEY_NEWS
     const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
+    const total_result :  React.MutableRefObject<number> = useRef(0);
     const [show_items, setShow_items ] = useState<boolean>(false);
     const [backdrop_bl, setBackdrop_bl ] = useState<boolean>(false);
     const [timefrom, setTimefrom] = useState<Date>(new Date())
@@ -143,6 +144,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                 }
                 i = i + 1
             }
+            total_result.current = save_news_api.Whole_news_api['totalResults']
             if ( newsSaved.length === 0){
                 setNewsSaved([...TempValue])
                 //console.log(`saved ${TempValue}`)
@@ -225,6 +227,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
    
   </RadioGroup>
 </FormControl>
+        <Typography variant="h5"> Total results: {total_result.current}</Typography>
         <List>
             {newsSaved.map((item, index)=> {
                 return (
