@@ -120,6 +120,9 @@ added backdrop while site is loading api request. added also images from everyth
 
 added also in type.d.ts file a new interface to save needed data from apicall. This data will used to graphics.
 
+Report:
+now news page is woking well. The links button is not overflowing any more. There is only button, what takes user to source web page. I also notice the security, when user open the link from my page. I use the MUI's recomended setting.
+
 
 npm installs in this project:
 

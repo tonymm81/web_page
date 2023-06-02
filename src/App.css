@@ -156,9 +156,14 @@ h2{
   pointer-events: none;
 }
 
+/*link goes over the html element. Fix this bug..*/
 .Links{
-  align-items: center;
-  font-size: 5px;
+  /*display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  justify-items: center;
+  align-items: center;*/
+  font-size: 15px;
   max-width:100%;
 }
 .news_image{

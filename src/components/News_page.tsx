@@ -3,6 +3,7 @@ import '../App.css'
 import { useEffect, useRef, useState } from "react";
 import { format, differenceInDays } from 'date-fns';
 
+
 function News_page (props:any){ // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
                                 // everything needs a keyword and datetime, top-news need only country code
     const news_api = process.env.REACT_APP_API_KEY_NEWS
@@ -160,8 +161,8 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
     useEffect(() =>{
         setTimeout(() => save_news_data(), 1000)
         console.log("interface changed")
-    }, [save_news_api.Whole_news_api])
-    console.log(save_news_api.Whole_news_api)
+    }, [save_news_api])
+    console.log()
     
    
 
@@ -233,7 +234,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                         {`Time: ${item.puplishDate} `}
                         {` Author: ${item.author} `}
                         {` Source: ${item.source} `}
-                        <Link className="Links" >{item.url}</Link></ListItemText>
+                        <Link  className="Links" target="_blank" rel='noopener' variant="button" href={item.url}>link to site</Link></ListItemText>
                         {item.description! ?
                         <ListItemText>
                           {" Description: "} {item.description}
