@@ -114,7 +114,7 @@ Now the news page saves the data like i want. Next plan is to make a graphics, a
 
 fixed. now the page shows top news from choosed country and everything based on search word. next thing to do is add calendar where user can choose time line. Then i have to do the error handling on textfields and etc. 
 
-Bug: The news link is too long, it isi,nt responsive at all. It goes over the list column lines. 
+Bug: The news link is too long, it isi,nt responsive at all. It goes over the list column lines(fixed). 
 
 added backdrop while site is loading api request. added also images from everything news view. Somehow this image works only everything cathegory. Api response dont have url link to image in top news.
 
@@ -122,6 +122,10 @@ added also in type.d.ts file a new interface to save needed data from apicall. T
 
 Report:
 now news page is woking well. The links button is not overflowing any more. There is only button, what takes user to source web page. I also notice the security, when user open the link from my page. I use the MUI's recomended setting.
+
+report: Fixing also the working time component. still missing features, but i have to fix the data save
+problems. 
+
 
 
 npm installs in this project:

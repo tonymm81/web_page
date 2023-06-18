@@ -46,12 +46,12 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
         if (news_api_permission.current){
             try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
                 if (radiobutton_choose.current === "1"){
-                  api_address = `https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&to=${format(timefrom, "Y-M-d")}&sortBy=popularity&apiKey=${news_api}`
+                  api_address = `https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&to=${format(timefrom, "Y-M-d")}&language=en&sortBy=popularity&apiKey=${news_api}`
                
                 }
                 if (radiobutton_choose.current === "0"){
                    
-                   api_address = `https://newsapi.org/v2/${cathegory[1]}?country=${Chooce_country}&apiKey=${news_api}`
+                   api_address = `https://newsapi.org/v2/${cathegory[1]}?country=${Chooce_country}&language=en&apiKey=${news_api}`
            
                 }
                 const connectionNews = await fetch(api_address, 

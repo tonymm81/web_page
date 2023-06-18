@@ -24,6 +24,8 @@ function Work_time (props?:any){
             props.setAllowForecast(true)
     }
     const textHandler : Employee_data  = useRef<Employee_data>({});
+    const textHandleremployer : Employee_data  = useRef<Employer_data>({});
+    const [working_hours, setWorkinghours] = useState<[]>([]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
     const [workID, setWorkID] = useState([" it talo id: 1020","jätelaitos id: 1300", "joku laitos id: 1502"])
     const [selectedID, setSelectedID] = useState<string>("")
@@ -42,6 +44,10 @@ function Work_time (props?:any){
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandler.current[e.target.name] = e.target.value
          }   
+
+    const textfieldsHandlerEmployer  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
+        textHandleremployer.current[e.target.name] = e.target.value
+        }   
          
     const employeeField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault();//This unction is error handling and data saving. If some information is missing the error helper text shows it.
@@ -82,36 +88,36 @@ function Work_time (props?:any){
         e?.preventDefault(); // this function is error handling and data saving. This is employer view data saving.
         console.log("employer")
         let employerwarnings : WarningTextsemployer = {}
-        if (textHandler.current.employeeName === undefined){
+        if (textHandleremployer.current.employeeName === undefined){
             employerwarnings = {...employerwarnings, employee : "Please enter employees name"}
             console.log("no name given")
         }
-        if (textHandler.current.workIDs === undefined){
+        if (textHandleremployer.current.workIDs === undefined){
             employerwarnings = {...employerwarnings, workIDs : "Please enter the work id"}
             console.log("no job id")
         }
-        if (textHandler.current.payment === undefined){
+        if (textHandleremployer.current.payment === undefined){
             employerwarnings = {...employerwarnings, payment : "Please give the payment"}
             console.log("no payment")
         }
-        if (textHandler.current.Taxs === undefined){
+        if (textHandleremployer.current.Taxs === undefined){
             employerwarnings = {...employerwarnings, vat : "Please give tax precent"}
             console.log("no vat")
         }
         if( Object.entries(employerwarnings).length >0 ){
             setWarningHandlingemployer({...employerwarnings}) //here we save the possible errors for helper text
         }else{
-            console.log("no errors")
-            setSaveEmployerData([timenow, 
-                textHandler.current.payment, 
-                textHandler.current.Taxs,
-                textHandler.current.employeeName,
-                textHandler.current.workIDs])
-            textHandler.current = {}
-            setEmployeeName(textHandler.current.employeeName)
-            setWorkID(workID => [...workID, textHandler.current.workIDs])
-            console.log(textHandler.current.workIDs)
-            
+            console.log("no errors in employer function")
+            setSaveEmployerData([ 
+                textHandleremployer.current.payment, 
+                textHandleremployer.current.Taxs,
+                textHandleremployer.current.employeeName,
+                textHandleremployer.current.workIDs])
+                
+            setEmployeeName(textHandleremployer.current.employeeName)
+            setWorkID([...workID, textHandleremployer.current.workIDs])
+            console.log(textHandleremployer.current.workIDs)
+            textHandleremployer.current = {}
             alert("Data saved!")
         }
        
@@ -127,6 +133,10 @@ function Work_time (props?:any){
             setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
             
         }
+
+    }
+
+    const count_hours_taxes = () : void =>{
 
     }
     return(
@@ -217,7 +227,7 @@ function Work_time (props?:any){
                     name="employeeName"
                     variant="outlined"
                     fullWidth={true} 
-                    onChange={textfieldsHandler}
+                    onChange={textfieldsHandlerEmployer}
                     error={Boolean(warningHandlingemployer.employee)}
                     helperText={warningHandlingemployer.employeee}/>
                     <TextField
@@ -226,7 +236,7 @@ function Work_time (props?:any){
                         name="workIDs"
                         variant="outlined"
                         fullWidth={true}
-                        onChange={textfieldsHandler}
+                        onChange={textfieldsHandlerEmployer}
                         error={Boolean(warningHandlingemployer.workIDs)}
                         helperText={warningHandlingemployer.workIDs} />
 
@@ -236,7 +246,7 @@ function Work_time (props?:any){
                         name="payment"
                         variant="outlined"
                         fullWidth={true}
-                        onChange={textfieldsHandler} 
+                        onChange={textfieldsHandlerEmployer} 
                         error={Boolean(warningHandlingemployer.payment)}
                         helperText={warningHandlingemployer.payment}/>
 
@@ -246,7 +256,7 @@ function Work_time (props?:any){
                         name="Taxs"
                         variant="outlined"
                         fullWidth={true} 
-                        onChange={textfieldsHandler}
+                        onChange={textfieldsHandlerEmployer}
                         error={Boolean(warningHandlingemployer.vat)}
                         helperText={warningHandlingemployer.vat}/>
 
@@ -258,6 +268,7 @@ function Work_time (props?:any){
                             type="submit"
                         >Submit and save</Button></>
                         </form> } 
+                        <Typography>Working hours: {working_hours}</Typography>
                         {!loginVIEW?
                         <List>
 
