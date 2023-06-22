@@ -126,6 +126,10 @@ now news page is woking well. The links button is not overflowing any more. Ther
 report: Fixing also the working time component. still missing features, but i have to fix the data save
 problems. 
 
+version 145 
+started to add some features on work_time component. There will be field, where user can check hours and payment in total.
+there is some asyncronous data problems, but i have to figure it out first how to deal it easily.
+
 
 
 npm installs in this project:

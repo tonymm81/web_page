@@ -222,7 +222,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
     name="radio-buttons-group"
     onChange={(rb:any)=>{show_item_radiobutton(rb.target.value)}}
   >
-    <FormControlLabel value="0" control={<Radio />} label="Top news (must choose vountry!)" />
+    <FormControlLabel value="0" control={<Radio />} label="Top news (must choose country!)" />
     <FormControlLabel value="1" control={<Radio />} label="everything (give search word!)" />
    
   </RadioGroup>
