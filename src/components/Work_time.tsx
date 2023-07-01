@@ -26,6 +26,8 @@ function Work_time (props?:any){
     const textHandler : Employee_data  = useRef<Employee_data>({});
     const update_permission = useRef<boolean>(false);
     const update_calculate = useRef<boolean>(false);
+    let descriptiontemp = ""
+    let job_hour = 0
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
@@ -137,8 +139,16 @@ function Work_time (props?:any){
         }
        
     }
-    const editSavedData = (idx:Number) : void =>{
-        console.log("jalla jalla") // this is not finished
+    const editSavedData = (idx:number) : void =>{
+        
+        let temp_object : Employee_data[]= [...saveEmployeeData]
+        console.log("jalla jalla", temp_object) // this is not finished
+        descriptiontemp = String(temp_object[idx].description)
+        job_hour = Number(temp_object[idx].hours_employee)
+        setTimenow(temp_object[idx].datetime!)
+        setSelectedID(temp_object[idx].obID!)
+        //temp_object[idx]
+
 
     }
     const deleteSavedData = (idx:Number) : void =>{ // here user can delete selected data
@@ -146,7 +156,7 @@ function Work_time (props?:any){
         var r = window.confirm("Are you sure you want to delete this?")
         if (r){
             setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
-            
+            update_calculate.current=true
         }
         count_hours_taxes()
     }
@@ -205,6 +215,7 @@ function Work_time (props?:any){
             label="Give here job description"
             name="jobDescription"
             variant="outlined"
+            defaultValue={descriptiontemp}
             fullWidth={true}
             className='worktimeFields'
             onChange={textfieldsHandler}
@@ -216,6 +227,7 @@ function Work_time (props?:any){
             label="Write here how much hours you use this project"
             name="jobHours"
             type="number"
+            defaultValue={job_hour}
             variant="outlined"
             fullWidth={true}
             onChange={textfieldsHandler}
@@ -262,8 +274,8 @@ function Work_time (props?:any){
         
      </LocalizationProvider>  
             <Typography>Working hours: {working_hours[0]} h
-                        Payment so far:{working_hours[1]} € 
-                        payment after taxes:{working_hours[2]} €
+                        Payment so far: {working_hours[1]} € 
+                        payment after taxes: {working_hours[2]} €
             </Typography>      
      </form>
     :
