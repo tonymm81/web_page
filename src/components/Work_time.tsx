@@ -1,5 +1,5 @@
 import { Button, Container, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -25,6 +25,7 @@ function Work_time (props?:any){
     }
     const textHandler : Employee_data  = useRef<Employee_data>({});
     const update_permission = useRef<boolean>(false);
+    const update_calculate = useRef<boolean>(false);
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
@@ -40,7 +41,7 @@ function Work_time (props?:any){
                                                                                 jobID :"id:00", 
                                                                                 employeeName:"test"}])
     const [employeeName, setEmployeeName] = useState<string>("mister test")
-    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 0, vat : 0, employee : "", workIDS : ""}])
+    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, vat : 20, employee : "", workIDS : ""}])
  
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandler.current[e.target.name] = e.target.value
@@ -81,13 +82,20 @@ function Work_time (props?:any){
             }
             textHandler.current.jobHours = "" 
             
-            setTimeout(() => { setSaveEmployeeData([...saveEmployeeData, savetemp]); }, 2000);
-            //useEffect(() => { setSaveEmployeeData([...saveEmployeeData, savetemp])}, [savetemp])
-            count_hours_taxes()
+            setSaveEmployeeData([...saveEmployeeData, savetemp]);
+            
             update_permission.current = true
             alert("Data saved!")
         }
     }
+     useEffect (() =>{
+        if(update_permission.current===true){
+            setSaveEmployeeData([...saveEmployeeData]);
+            console.log("käytiin use effektissä..", saveEmployeeData)
+            update_permission.current=false
+            count_hours_taxes()
+        }
+    }, [saveEmployeeData])
 
     const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault(); // this function is error handling and data saving. This is employer view data saving.
@@ -140,28 +148,40 @@ function Work_time (props?:any){
             setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
             
         }
-
+        count_hours_taxes()
     }
 
     const count_hours_taxes = () : void =>{
         let i = 0
-        let tempval = working_hours[0]
+        setWorkinghours([0,0,0])
+        let templist = ([...working_hours])// making a templist to save working hours from interface
+        update_calculate.current=true
+        let tempval = 0
+        let tempval2 = 0
+        try {
         console.log("laskenta", saveEmployeeData[1].hours_employee)
         for(i = 0; i < Object.entries(saveEmployeeData).length; i = i +1){
             tempval = saveEmployeeData[i].hours_employee! 
             console.log("loopp", saveEmployeeData[i].hours_employee!)
-            working_hours[0] = tempval + working_hours[0]
+            tempval2 = tempval + tempval2
         }
-        
+        templist[0] = tempval2
+        templist[1] = Number(saveEmployerData[0].payment) * tempval2 //calculate the hours from view
+        templist[2] = (100 - Number(saveEmployerData[0].vat)) / 100 * templist[1]
+        setWorkinghours(templist)
+        }
+        catch (error){
+            console.log("Object is empty!! ", error)
+        }
     }
 
     useEffect (() => {
-        if(update_permission.current === true){
-            count_hours_taxes()
-            console.log("use!")
-            update_permission.current = false
+        if(update_calculate.current === true){
+            setWorkinghours([...working_hours])
+            update_calculate.current=false
+            console.log("calculator useeffekt")
         }
-    }   ,[])
+    }   ,[working_hours])
     return(
 
     <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
