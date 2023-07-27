@@ -133,6 +133,8 @@ there is some asyncronous data problems, but i have to figure it out first how t
 version 146
 new features updated on workingtime. Now the program calculates the hours, payment, and payment after taxes.
 
+report: adding some styles. 
+
 
 
 npm installs in this project:

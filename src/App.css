@@ -6,6 +6,7 @@
   border: solid 2px black;
   box-shadow: 5px 5px 5px black;
   margin-top: 20px;
+  margin:10px;
   border-radius: 3%;
 }
 
@@ -20,13 +21,17 @@ h3.MuiTypography-h3{
   text-shadow: 2px 2px 2px;
   border-radius: 5%;
   box-shadow: 5px 5px 5px black;
-  width: 100%;
-  
+  margin-top:10px;
+  margin:10px;
+  padding: 10px;
 }
 
 .list_box{
   margin-top: 10px;
   opacity: 20;
+  margin:10px;
+  padding:10px;
+  
   
 }
 
@@ -35,7 +40,7 @@ h3.MuiTypography-h3{
 }
 
 .toolbar{
-  
+  margin:10px;
   background-color: rgb(186, 196, 215);
   border: solid 2px black;
   margin-bottom: 10px;
@@ -147,8 +152,12 @@ h2{
   float:right;
 }
 
-.news_page{
-  width:100%
+.news_page{/*page is resizing wrong. Figure out, what is the problem. */
+  width:100%;
+  min-height:1000px;
+  min-width: auto;
+  height: auto;
+  
 }
 
 .App-logo {
@@ -156,13 +165,7 @@ h2{
   pointer-events: none;
 }
 
-/*link goes over the html element. Fix this bug..*/
 .Links{
-  /*display: -webkit-box;
-  overflow: hidden;
-  word-break: break-all;
-  justify-items: center;
-  align-items: center;*/
   font-size: 15px;
   max-width:100%;
 }
@@ -171,7 +174,14 @@ h2{
 }
 
 .news_page_cont{
- max-width: 100%;
+  background-image: url('./photos/news_background.jpg');
+  background-repeat: repeat;
+  background-size: 100% fixed;
+  min-width: auto;
+  min-height: 1000px;
+  box-shadow: 5px 5px 5px black;
+  color:white;
+  margin:40px;
   
 }
 

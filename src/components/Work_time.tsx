@@ -26,8 +26,8 @@ function Work_time (props?:any){
     const textHandler : Employee_data  = useRef<Employee_data>({});
     const update_permission = useRef<boolean>(false);
     const update_calculate = useRef<boolean>(false);
-    let descriptiontemp = ""
-    let job_hour = 0
+    const descriptiontemp =  useRef<string>("")
+    const job_hour = useRef<number>(0)
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
@@ -47,6 +47,7 @@ function Work_time (props?:any){
  
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandler.current[e.target.name] = e.target.value
+        
          }   
 
     const textfieldsHandlerEmployer  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
@@ -87,7 +88,11 @@ function Work_time (props?:any){
             setSaveEmployeeData([...saveEmployeeData, savetemp]);
             
             update_permission.current = true
+            job_hour.current = 0
+            descriptiontemp.current=""
             alert("Data saved!")
+            
+            
         }
     }
      useEffect (() =>{
@@ -135,18 +140,20 @@ function Work_time (props?:any){
             setWorkID([...workID, textHandleremployer.current.workIDs])
             console.log(textHandleremployer.current.workIDs,saveEmployerData)
             textHandleremployer.current = {}
+            
             alert("Data saved!")
         }
        
     }
-    const editSavedData = (idx:number) : void =>{
+    const editSavedData = (idx:number) : void =>{ //this has to plan well. Not working yet
         
         let temp_object : Employee_data[]= [...saveEmployeeData]
-        console.log("jalla jalla", temp_object) // this is not finished
-        descriptiontemp = String(temp_object[idx].description)
-        job_hour = Number(temp_object[idx].hours_employee)
+        console.log("jalla jalla", temp_object[idx]) // this is not finished
+        descriptiontemp.current = String(temp_object[idx].description)
+        job_hour.current = Number(temp_object[idx].hours_employee)
         setTimenow(temp_object[idx].datetime!)
-        setSelectedID(temp_object[idx].obID!)
+        setSelectedID(temp_object[idx].jobID!)
+        console.log("values:", descriptiontemp.current, job_hour.current, timenow, selectedID)
         //temp_object[idx]
 
 
@@ -215,7 +222,8 @@ function Work_time (props?:any){
             label="Give here job description"
             name="jobDescription"
             variant="outlined"
-            defaultValue={descriptiontemp}
+            
+            defaultValue={descriptiontemp.current}
             fullWidth={true}
             className='worktimeFields'
             onChange={textfieldsHandler}
@@ -227,7 +235,8 @@ function Work_time (props?:any){
             label="Write here how much hours you use this project"
             name="jobHours"
             type="number"
-            defaultValue={job_hour}
+            
+            defaultValue={job_hour.current}
             variant="outlined"
             fullWidth={true}
             onChange={textfieldsHandler}

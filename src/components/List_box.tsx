@@ -18,7 +18,7 @@ const List_box : React.FC = () : React.ReactElement => {
 
   return (
     <CssBaseline>
-    <AppBar position="static" className='list_box'>
+    <AppBar position="static" className='list_box' color='transparent'>
         <Toolbar className='toolbar'>
           <IconButton
             className='list_box'
@@ -113,17 +113,23 @@ const List_box : React.FC = () : React.ReactElement => {
         >Menu</Typography>
         <div className='mobileView'>
         <Button variant='contained' size='small'
-            component={Link} to="/Forecast">Forecast</Button>
+            component={Link} to="/Forecast"
+            sx={{marginBottom : "10px"}}>Forecast</Button>
         <Button variant='contained' size='small'
-            component={Link} to="/Projects">My projects</Button>
+            component={Link} to="/Projects"
+            sx={{marginBottom : "10px"}}>My projects</Button>
         <Button variant='contained' size='small'
-            component={Link} to="/News_page">News page</Button>
+            component={Link} to="/News_page"
+            sx={{marginBottom : "10px"}}>News page</Button>
         <Button variant='contained' size='small'
-            component={Link} to="/AboutMe">about me</Button>
+            component={Link} to="/AboutMe"
+            sx={{marginBottom : "10px"}}>about me</Button>
         <Button variant='contained' size='small'
-            component={Link} to="/Work_time">Working time</Button>
+            component={Link} to="/Work_time"
+            sx={{marginBottom : "10px"}}>Working time</Button>
         <Button variant='contained' size='small'
-            component={Link} to="/">Homepage</Button></div>
+            component={Link} to="/"
+            sx={{marginBottom : "10px"}}>Homepage</Button></div>
         <Button href="https://gitfront.io/r/tonymm81/zci1eHz74uFc/web-page/" size="small">This web page code link</Button>
         </Toolbar>
     </AppBar>
