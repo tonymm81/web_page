@@ -11,23 +11,18 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { text } from "node:stream/consumers";
 
 
 interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
-    if(props.headLiner === "Working time application"){
-
-    }else{
-            props.setHeadliner("Working time application")//this will change the headliner
-            props.setAllowForecast(true)
-    }
-    const textHandler : Employee_data  = useRef<Employee_data>({});
+    
+    const textHandler : Employee_data  = useRef<Employee_data>({ });
     const update_permission = useRef<boolean>(false);
+    const show_button = useRef<boolean>(false);
     const update_calculate = useRef<boolean>(false);
-    const descriptiontemp =  useRef<string>("")
-    const job_hour = useRef<number>(0)
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
@@ -44,7 +39,14 @@ function Work_time (props?:any){
                                                                                 employeeName:"test"}])
     const [employeeName, setEmployeeName] = useState<string>("mister test")
     const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, vat : 20, employee : "", workIDS : ""}])
- 
+    if(props.headLiner === "Working time application"){
+
+    }else{
+            props.setHeadliner("Working time application")//this will change the headliner
+            props.setAllowForecast(true)
+            
+    }
+    
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandler.current[e.target.name] = e.target.value
         
@@ -57,6 +59,7 @@ function Work_time (props?:any){
     const employeeField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault();//This unction is error handling and data saving. If some information is missing the error helper text shows it.
         console.log("employee") 
+        show_button.current= false
         let employeewarnings : WarningTexts = {}
 
         if (textHandler.current.jobDescription === undefined){
@@ -88,8 +91,8 @@ function Work_time (props?:any){
             setSaveEmployeeData([...saveEmployeeData, savetemp]);
             
             update_permission.current = true
-            job_hour.current = 0
-            descriptiontemp.current=""
+            textHandler.current[0] = {}
+            console.log("testaillaa taas",textHandler.current)
             alert("Data saved!")
             
             
@@ -146,15 +149,15 @@ function Work_time (props?:any){
        
     }
     const editSavedData = (idx:number) : void =>{ //this has to plan well. Not working yet
-        
+        show_button.current = true //this disabled save data button and enabling save changes button
         let temp_object : Employee_data[]= [...saveEmployeeData]
         console.log("jalla jalla", temp_object[idx]) // this is not finished
-        descriptiontemp.current = String(temp_object[idx].description)
-        job_hour.current = Number(temp_object[idx].hours_employee)
+        textHandler.current[0].jobDescription = String(temp_object[idx].description)
+        textHandler.current[0].jobHours = Number(temp_object[idx].hours_employee)
         setTimenow(temp_object[idx].datetime!)
         setSelectedID(temp_object[idx].jobID!)
-        console.log("values:", descriptiontemp.current, job_hour.current, timenow, selectedID)
-        //temp_object[idx]
+    
+        
 
 
     }
@@ -222,8 +225,8 @@ function Work_time (props?:any){
             label="Give here job description"
             name="jobDescription"
             variant="outlined"
+            value={textHandler.current[0]?.jobDescription! }
             
-            defaultValue={descriptiontemp.current}
             fullWidth={true}
             className='worktimeFields'
             onChange={textfieldsHandler}
@@ -235,8 +238,8 @@ function Work_time (props?:any){
             label="Write here how much hours you use this project"
             name="jobHours"
             type="number"
+            value={textHandler.current[0]?.jobHours! }
             
-            defaultValue={job_hour.current}
             variant="outlined"
             fullWidth={true}
             onChange={textfieldsHandler}
@@ -279,7 +282,15 @@ function Work_time (props?:any){
         color="inherit"
         startIcon={<SaveIcon/>}
         type="submit"
+        disabled={show_button.current}
         >Save the data</Button>
+
+<Button variant="contained"
+        color="inherit"
+        startIcon={<SaveIcon/>}
+        type="submit"
+        disabled={!show_button.current}
+        >Save changes</Button>
         
      </LocalizationProvider>  
             <Typography>Working hours: {working_hours[0]} h

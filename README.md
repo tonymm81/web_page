@@ -133,7 +133,11 @@ there is some asyncronous data problems, but i have to figure it out first how t
 version 146
 new features updated on workingtime. Now the program calculates the hours, payment, and payment after taxes.
 
-report: adding some styles. 
+report: adding some styles. addin button, what is enabled, when user want to edit saved data.
+
+bug: when hitting the edit button from employee view, text shows on textfields but you cannot write there nothing. after saving the field it allows you to give input to textfield.. Problem is perhaps in texhadler object. I have to figure out this to next version.
+
+
 
 
 
