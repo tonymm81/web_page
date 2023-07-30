@@ -49,7 +49,7 @@ function Work_time (props?:any){
     
     const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandler.current[e.target.name] = e.target.value
-        
+        console.log("texthandler", textHandler.current[e.target.name], e.target.name)
          }   
 
     const textfieldsHandlerEmployer  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
@@ -91,10 +91,11 @@ function Work_time (props?:any){
             setSaveEmployeeData([...saveEmployeeData, savetemp]);
             
             update_permission.current = true
-            textHandler.current[0] = {}
+            //textHandler.current[0] = {}
             console.log("testaillaa taas",textHandler.current)
             alert("Data saved!")
-            
+            //textHandler.current['jobDescription'] = ""
+            //textHandler.current['jobHours'] = ""
             
         }
     }
@@ -152,11 +153,11 @@ function Work_time (props?:any){
         show_button.current = true //this disabled save data button and enabling save changes button
         let temp_object : Employee_data[]= [...saveEmployeeData]
         console.log("jalla jalla", temp_object[idx]) // this is not finished
-        textHandler.current[0].jobDescription = String(temp_object[idx].description)
-        textHandler.current[0].jobHours = Number(temp_object[idx].hours_employee)
+        textHandler.current['jobDescription'] = temp_object[idx].description
+        textHandler.current['jobHours'] = temp_object[idx].hours_employee
         setTimenow(temp_object[idx].datetime!)
         setSelectedID(temp_object[idx].jobID!)
-    
+        console.log("tietue", textHandler.current)
         
 
 
@@ -225,7 +226,7 @@ function Work_time (props?:any){
             label="Give here job description"
             name="jobDescription"
             variant="outlined"
-            value={textHandler.current[0]?.jobDescription! }
+            value={textHandler?.current[0]['jobDescrion']}
             
             fullWidth={true}
             className='worktimeFields'
@@ -238,7 +239,7 @@ function Work_time (props?:any){
             label="Write here how much hours you use this project"
             name="jobHours"
             type="number"
-            value={textHandler.current[0]?.jobHours! }
+            value={textHandler?.current[0]['jobHours'] }
             
             variant="outlined"
             fullWidth={true}

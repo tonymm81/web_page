@@ -66,7 +66,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                     });
 
                 const apidatanews = await connectionNews.json(); 
-                //console.log('testin again',apidatanews['articles'])
+            
                 if(apidatanews['cod'] === '404'){
                     setSave_news_api({
                         ...save_news_api,
@@ -108,14 +108,14 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
 
     const show_item_radiobutton = (rb:any) :void =>{ // not working the way i want
         radiobutton_choose.current = rb
-        console.log("here in rb", rb, radiobutton_choose.current)
+        
         if (radiobutton_choose.current === "0"){
             setShow_items(true)
         }
         else{
             setShow_items(false)
         }
-        console.log(show_items)
+        
     }
 
     const text_field_handler = (ee : React.ChangeEvent<HTMLInputElement>) : void =>{
@@ -147,10 +147,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
             total_result.current = save_news_api.Whole_news_api['totalResults']
             if ( newsSaved.length === 0){
                 setNewsSaved([...TempValue])
-                //console.log(`saved ${TempValue}`)
                 TempValue = []
-
-                // make here save permission
             }
         }
         catch(error){
@@ -162,9 +159,8 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
     
     useEffect(() =>{
         setTimeout(() => save_news_data(), 1000)
-        console.log("interface changed")
     }, [save_news_api])
-    console.log()
+    
     
    
 
