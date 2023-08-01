@@ -137,9 +137,11 @@ report: adding some styles. addin button, what is enabled, when user want to edi
 
 bug: when hitting the edit button from employee view, text shows on textfields but you cannot write there nothing. after saving the field it allows you to give input to textfield.. Problem is perhaps in texhadler object. I have to figure out this to next version.
 
+version 147
 
+version 146 bug fixed. Now user can edit saved data from employeeview. Also textfields are working now. I made changes and wont use employee view interface connected useref values.
 
-
+i also add the employee info to employer view.
 
 npm installs in this project:
 

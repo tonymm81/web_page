@@ -19,8 +19,9 @@ interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
     
-    const textHandler : Employee_data  = useRef<Employee_data>({ });
     const update_permission = useRef<boolean>(false);
+    const [description_temp, setDescription_temp] = useState("")
+    const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
     const update_calculate = useRef<boolean>(false);
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
@@ -47,11 +48,7 @@ function Work_time (props?:any){
             
     }
     
-    const textfieldsHandler  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
-        textHandler.current[e.target.name] = e.target.value
-        console.log("texthandler", textHandler.current[e.target.name], e.target.name)
-         }   
-
+    
     const textfieldsHandlerEmployer  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandleremployer.current[e.target.name] = e.target.value
         }   
@@ -62,11 +59,11 @@ function Work_time (props?:any){
         show_button.current= false
         let employeewarnings : WarningTexts = {}
 
-        if (textHandler.current.jobDescription === undefined){
+        if (description_temp === ""  ){
             employeewarnings = {...employeewarnings, description : "Please enter description"}
             console.log("no job description")
         }
-        if (textHandler.current.jobHours === undefined){
+        if (jobhours_temp === 0 ){
             employeewarnings = {...employeewarnings, jobID : "Please enter job hours"}
             console.log("no job hours")
         }
@@ -81,21 +78,21 @@ function Work_time (props?:any){
             console.log("no errors", saveEmployeeData)
             let savetemp : Employee_data = {
                 datetime : timenow,
-                hours_employee : Number(textHandler.current.jobHours),
-                description : textHandler.current.jobDescription,
+                hours_employee : Number(jobhours_temp),
+                description : description_temp,
                 jobID : selectedID,
                 employeeName : employeeName
             }
-            textHandler.current.jobHours = "" 
+            
             
             setSaveEmployeeData([...saveEmployeeData, savetemp]);
             
             update_permission.current = true
-            //textHandler.current[0] = {}
-            console.log("testaillaa taas",textHandler.current)
+            setDescription_temp("")
+            setJobhours_temp(0)
+            
             alert("Data saved!")
-            //textHandler.current['jobDescription'] = ""
-            //textHandler.current['jobHours'] = ""
+           
             
         }
     }
@@ -152,13 +149,11 @@ function Work_time (props?:any){
     const editSavedData = (idx:number) : void =>{ //this has to plan well. Not working yet
         show_button.current = true //this disabled save data button and enabling save changes button
         let temp_object : Employee_data[]= [...saveEmployeeData]
-        console.log("jalla jalla", temp_object[idx]) // this is not finished
-        textHandler.current['jobDescription'] = temp_object[idx].description
-        textHandler.current['jobHours'] = temp_object[idx].hours_employee
+        setDescription_temp(String(temp_object[idx].description))
+        setJobhours_temp(Number(temp_object[idx].hours_employee))
         setTimenow(temp_object[idx].datetime!)
         setSelectedID(temp_object[idx].jobID!)
-        console.log("tietue", textHandler.current)
-        
+        setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
 
 
     }
@@ -209,14 +204,14 @@ function Work_time (props?:any){
          <Button variant="contained"    
         color="inherit"
         onClick={() => {setLogInVIEW(true)}}
-        startIcon={<LogoutIcon/>}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
+        startIcon={<LogoutIcon/>}
+        disabled={loginVIEW}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
         {loginVIEW?
         
         <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>
         
         :
         
-
         (employeeView)? 
         <form onSubmit={employeeField} >
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
@@ -224,26 +219,24 @@ function Work_time (props?:any){
        
         <TextField
             label="Give here job description"
+            value={description_temp}
             name="jobDescription"
             variant="outlined"
-            value={textHandler?.current[0]['jobDescrion']}
-            
             fullWidth={true}
             className='worktimeFields'
-            onChange={textfieldsHandler}
+            onChange={(e) => {setDescription_temp(e.target.value)}}
             error={Boolean(warningHandling.description)}
             helperText={warningHandling.description}
             />
         <TextField
             className='worktimeFields'
             label="Write here how much hours you use this project"
+            value={jobhours_temp}
             name="jobHours"
             type="number"
-            value={textHandler?.current[0]['jobHours'] }
-            
             variant="outlined"
             fullWidth={true}
-            onChange={textfieldsHandler}
+            onChange={(e) => {setJobhours_temp(Number(e.target.value))}}
             error={Boolean(warningHandling.jobID)}
             helperText={warningHandling.jobID}
             />
@@ -350,8 +343,32 @@ function Work_time (props?:any){
                             startIcon={<SaveIcon />}
                             type="submit"
                         >Submit and save</Button></>
+                        {saveEmployerData.map( (emp:Employer_data, idxn : number) => {
+                            return(
+                                <List>
+                                    <ListItem key={idxn} className="listViewItems" >
+       
+                        <ListItemText > Employee name : {emp.employee} ,
+                                        Employee payment :  {emp.payment} ,
+                                        Employee tax precent {emp.vat} ,
+                                        Entered job_id : {emp.workIDS}
+            
+                        </ListItemText>
+                            <ListItemIcon>
+                                <IconButton 
+                                    onClick={() => {editSavedData(idxn)}}
+                                    edge="start"
+                                    disabled={!employeeView}>
+                                <EditIcon />
+                                </IconButton>
+                            </ListItemIcon>
+                        </ListItem>
+                                </List>
+                            )
+                        })} 
+                        </form> 
                         
-                        </form> } 
+                        } 
                         
                         {!loginVIEW?
                         <List>
@@ -370,7 +387,9 @@ function Work_time (props?:any){
            <ListItemIcon>
                <IconButton 
                    onClick={() => {editSavedData(idx)}}
-                   edge="start">
+                   edge="start"
+                   disabled={!employeeView}>
+                    
                    <EditIcon />
                
                
