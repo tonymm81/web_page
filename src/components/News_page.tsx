@@ -30,7 +30,8 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
         "EE",
         "US",
         "LT",
-        "PL"
+        "PL",
+        "AU"
     ])
     const [cathegory, setCathegory] = useState(["everything", "top-headlines"])
 
@@ -99,11 +100,19 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
     }
     const userInputField = (e : any) : void =>{ //make here user input field what gets the apidata
         e?.preventDefault();
-        setNewsSaved([])
-        news_api_permission.current=true
-        setBackdrop_bl(true)
-        get_new_data(Chooce_country, search_word)
-
+        if (radiobutton_choose.current === "0" && Chooce_country === "" || Chooce_country === undefined){
+            errors_country.current = "Please choose country"
+        }
+        else if (radiobutton_choose.current === "1" && search_word.current === undefined || search_word.current == ""){
+            errors.current = "Please give searc hword"
+        }else{
+            errors_country.current = ""
+            errors.current = ""
+            setNewsSaved([])
+            news_api_permission.current=true
+            setBackdrop_bl(true)
+            get_new_data(Chooce_country, search_word)
+        }
     }
 
     const show_item_radiobutton = (rb:any) :void =>{ // not working the way i want
@@ -182,7 +191,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
             />
             
            
-            
+            <Typography>{errors_country.current}</Typography>
             <FormControl error={Boolean(errors_country.current)} fullWidth={true}>
                 <InputLabel id="countryID">Choose country code</InputLabel>
                     <Select

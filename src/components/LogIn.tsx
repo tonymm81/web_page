@@ -73,7 +73,7 @@ function LogIn(props?:any) { //this function is the login view where user can lo
     <form onSubmit={checkUser}>
     <Typography>Hey! This is demo login. If you want to log in with employer account use 
         username employer and password test. Employee view use employee for username 
-        and same password.
+        and same password. (Nothing will be saved on browser or server)
     </Typography>
     <TextField
         label="Give user name"

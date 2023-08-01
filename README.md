@@ -6,8 +6,9 @@ Plan:
 1.i start to do a page where you can search forecast to one day and five days also in choosed location.
 2.Next thing i was planning the working time record program where you can add your payment and how much is the tax precent.
 in this page you can login as employee or employer. Both characters has a two different accounts and permissions.
-3.Next view is perhaps webshop view, this can change soon. Iam not sure if i ever publish this webpage.
-4.Planning....
+3.there is news page, where user can search english top news choosed coutry or choose keyword to find news.
+4.There is my projects page, where user can watch short description about my projekts.
+5.about me page, where is short description about me.
 
 report:
 1.i make type.d.ts file because i like these file interfaces, its so handy!! First i use it to forecast component and later to another components also.
@@ -141,7 +142,9 @@ version 147
 
 version 146 bug fixed. Now user can edit saved data from employeeview. Also textfields are working now. I made changes and wont use employee view interface connected useref values.
 
-i also add the employee info to employer view.
+i also add the employee info to employer view. 
+
+I make a errorhandling on news page. It has been forgatted earlier.
 
 npm installs in this project:
 

@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { text } from "node:stream/consumers";
+
 
 
 interface WarningTexts extends Employee_data {}
@@ -38,16 +38,17 @@ function Work_time (props?:any){
                                                                                 description : "Some job", 
                                                                                 jobID :"id:00", 
                                                                                 employeeName:"test"}])
-    const [employeeName, setEmployeeName] = useState<string>("mister test")
-    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, vat : 20, employee : "", workIDS : ""}])
+    const [employeeName, setEmployeeName] = useState<string>("person test")
+    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, 
+                                                                                vat : 20,
+                                                                                employee : "", 
+                                                                                workIDS : ""}])
     if(props.headLiner === "Working time application"){
 
     }else{
-            props.setHeadliner("Working time application")//this will change the headliner
-            props.setAllowForecast(true)
-            
+        props.setHeadliner("Working time application")//this will change the headliner
+        props.setAllowForecast(true)
     }
-    
     
     const textfieldsHandlerEmployer  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandleremployer.current[e.target.name] = e.target.value
@@ -55,27 +56,22 @@ function Work_time (props?:any){
          
     const employeeField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault();//This unction is error handling and data saving. If some information is missing the error helper text shows it.
-        console.log("employee") 
         show_button.current= false
         let employeewarnings : WarningTexts = {}
 
         if (description_temp === ""  ){
             employeewarnings = {...employeewarnings, description : "Please enter description"}
-            console.log("no job description")
         }
         if (jobhours_temp === 0 ){
             employeewarnings = {...employeewarnings, jobID : "Please enter job hours"}
-            console.log("no job hours")
         }
         if (selectedID.length === 0){
             employeewarnings = {...employeewarnings, jobID : "Please choose job id"}
-            console.log("no job id")
         }
         if( Object.entries(employeewarnings).length >0 ){
             setWarningHandling({...employeewarnings}) //here we save the possible errors for helper text
         }else{
             setWarningHandling([])
-            console.log("no errors", saveEmployeeData)
             let savetemp : Employee_data = {
                 datetime : timenow,
                 hours_employee : Number(jobhours_temp),
@@ -84,13 +80,12 @@ function Work_time (props?:any){
                 employeeName : employeeName
             }
             
-            
             setSaveEmployeeData([...saveEmployeeData, savetemp]);
-            
             update_permission.current = true
             setDescription_temp("")
             setJobhours_temp(0)
-            
+            setSelectedID("")
+            setTimenow(new Date())
             alert("Data saved!")
            
             
@@ -99,7 +94,6 @@ function Work_time (props?:any){
      useEffect (() =>{
         if(update_permission.current===true){
             setSaveEmployeeData([...saveEmployeeData]);
-            console.log("käytiin use effektissä..", saveEmployeeData)
             update_permission.current=false
             count_hours_taxes()
         }
@@ -107,28 +101,23 @@ function Work_time (props?:any){
 
     const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault(); // this function is error handling and data saving. This is employer view data saving.
-        console.log("employer")
         let employerwarnings : WarningTextsemployer = {}
         if (textHandleremployer.current.employeeName === undefined){
             employerwarnings = {...employerwarnings, employee : "Please enter employees name"}
-            console.log("no name given")
         }
         if (textHandleremployer.current.workIDs === undefined){
             employerwarnings = {...employerwarnings, workIDs : "Please enter the work id"}
-            console.log("no job id")
         }
         if (textHandleremployer.current.payment === undefined){
             employerwarnings = {...employerwarnings, payment : "Please give the payment"}
-            console.log("no payment")
         }
         if (textHandleremployer.current.Taxs === undefined){
             employerwarnings = {...employerwarnings, vat : "Please give tax precent"}
-            console.log("no vat")
         }
         if( Object.entries(employerwarnings).length >0 ){
             setWarningHandlingemployer({...employerwarnings}) //here we save the possible errors for helper text
         }else{
-            console.log("no errors in employer function")
+            
             let savetempEmployer : Employer_data = {
                 payment : textHandleremployer.current.payment,
                 vat : textHandleremployer.current.Taxs,
@@ -136,29 +125,25 @@ function Work_time (props?:any){
                 workIDS : textHandleremployer.current.workIDs
             }
             setSaveEmployerData([savetempEmployer])
-                
             setEmployeeName(textHandleremployer.current.employeeName)
             setWorkID([...workID, textHandleremployer.current.workIDs])
-            console.log(textHandleremployer.current.workIDs,saveEmployerData)
             textHandleremployer.current = {}
-            
             alert("Data saved!")
         }
        
     }
-    const editSavedData = (idx:number) : void =>{ //this has to plan well. Not working yet
+    const editSavedData = (idx:number) : void =>{ //here user can edit the saved data
         show_button.current = true //this disabled save data button and enabling save changes button
         let temp_object : Employee_data[]= [...saveEmployeeData]
         setDescription_temp(String(temp_object[idx].description))
         setJobhours_temp(Number(temp_object[idx].hours_employee))
         setTimenow(temp_object[idx].datetime!)
         setSelectedID(temp_object[idx].jobID!)
-        setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
+        setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])//When editing data, lets  remove old version
 
 
     }
     const deleteSavedData = (idx:Number) : void =>{ // here user can delete selected data
-        console.log("delle delle")
         var r = window.confirm("Are you sure you want to delete this?")
         if (r){
             setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
@@ -175,17 +160,15 @@ function Work_time (props?:any){
         let tempval = 0
         let tempval2 = 0
         try {
-        console.log("laskenta", saveEmployeeData[1].hours_employee)
-        for(i = 0; i < Object.entries(saveEmployeeData).length; i = i +1){
-            tempval = saveEmployeeData[i].hours_employee! 
-            console.log("loopp", saveEmployeeData[i].hours_employee!)
-            tempval2 = tempval + tempval2
-        }
-        templist[0] = tempval2
-        templist[1] = Number(saveEmployerData[0].payment) * tempval2 //calculate the hours from view
-        templist[2] = (100 - Number(saveEmployerData[0].vat)) / 100 * templist[1]
-        setWorkinghours(templist)
-        }
+            for(i = 0; i < Object.entries(saveEmployeeData).length; i = i +1){
+                tempval = saveEmployeeData[i].hours_employee! 
+                tempval2 = tempval + tempval2
+                }
+            templist[0] = tempval2
+            templist[1] = Number(saveEmployerData[0].payment) * tempval2 //calculate the hours from view
+            templist[2] = (100 - Number(saveEmployerData[0].vat)) / 100 * templist[1]
+            setWorkinghours(templist)
+            }
         catch (error){
             console.log("Object is empty!! ", error)
         }
@@ -195,17 +178,18 @@ function Work_time (props?:any){
         if(update_calculate.current === true){
             setWorkinghours([...working_hours])
             update_calculate.current=false
-            console.log("calculator useeffekt")
+            
         }
     }   ,[working_hours])
     return(
 
     <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
          <Button variant="contained"    
-        color="inherit"
-        onClick={() => {setLogInVIEW(true)}}
-        startIcon={<LogoutIcon/>}
-        disabled={loginVIEW}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
+            color="inherit"
+            onClick={() => {setLogInVIEW(true)}}
+            startIcon={<LogoutIcon/>}
+            disabled={loginVIEW}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
+            
         {loginVIEW?
         
         <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>
@@ -215,7 +199,7 @@ function Work_time (props?:any){
         (employeeView)? 
         <form onSubmit={employeeField} >
          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fi}>
-        <Typography variant="h4">Welcome employee {employeeName}</Typography>
+        <Typography variant="h4">Welcome user {employeeName}</Typography> {/*Here is employee field view*/}
        
         <TextField
             label="Give here job description"
@@ -257,7 +241,7 @@ function Work_time (props?:any){
         <FormHelperText>{warningHandling.jobID}</FormHelperText>
       </FormControl>
 
-<DateTimePicker 
+        <DateTimePicker 
             label="choose here date and time"
             className='worktimeFields'
             value={timenow}
@@ -286,7 +270,7 @@ function Work_time (props?:any){
         disabled={!show_button.current}
         >Save changes</Button>
         
-     </LocalizationProvider>  
+     </LocalizationProvider>  {/*Here page shows payment and hours counted based on user given input.*/}
             <Typography>Working hours: {working_hours[0]} h
                         Payment so far: {working_hours[1]} € 
                         payment after taxes: {working_hours[2]} €
@@ -294,7 +278,7 @@ function Work_time (props?:any){
      </form>
     :
     <form onSubmit={employerField}>
-    <Typography variant="h4">Welcome employer test</Typography>
+    <Typography variant="h4">Welcome employer test</Typography> {/*Here is employer field view*/}
     <><TextField
                     className='worktimeFields'
                     label="Enter here employee name"
@@ -349,20 +333,12 @@ function Work_time (props?:any){
                                     <ListItem key={idxn} className="listViewItems" >
        
                         <ListItemText > Employee name : {emp.employee} ,
-                                        Employee payment :  {emp.payment} ,
-                                        Employee tax precent {emp.vat} ,
+                                        Employee payment :  {emp.payment} €/h,
+                                        Employee tax precent {emp.vat} %,
                                         Entered job_id : {emp.workIDS}
             
                         </ListItemText>
-                            <ListItemIcon>
-                                <IconButton 
-                                    onClick={() => {editSavedData(idxn)}}
-                                    edge="start"
-                                    disabled={!employeeView}>
-                                <EditIcon />
-                                </IconButton>
-                            </ListItemIcon>
-                        </ListItem>
+                                    </ListItem>
                                 </List>
                             )
                         })} 
@@ -380,7 +356,7 @@ function Work_time (props?:any){
        
        <ListItemText >Work id : {item.jobID} ,
          Working hours :  {item.hours_employee} ,
-            Time:   {String(item.datetime)} ,
+            Time:   {String(format(item.datetime!, "d.M.Y HH:mm "))} ,
             description : {item.description}
             
            </ListItemText>
@@ -389,17 +365,12 @@ function Work_time (props?:any){
                    onClick={() => {editSavedData(idx)}}
                    edge="start"
                    disabled={!employeeView}>
-                    
                    <EditIcon />
-               
-               
                </IconButton>
                <IconButton 
                    onClick={() => {deleteSavedData(idx)}}
                    edge="start">
                    <DeleteForeverIcon />
-               
-               
                </IconButton>
                </ListItemIcon>
        </ListItem>
