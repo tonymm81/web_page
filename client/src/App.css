@@ -1,0 +1,210 @@
+.App {
+  text-align: center;
+  background-color: rgb(186, 196, 215);
+  max-width: 1200px;
+  /*min-height: 1200px;*/
+  border: solid 2px black;
+  box-shadow: 5px 5px 5px black;
+  margin-top: 20px;
+  margin:10px;
+  border-radius: 3%;
+}
+
+h3.MuiTypography-h3{
+  font-size: 40px;
+}
+
+/*I use styles always from here. i think its much more clear than mixed in components code.*/
+.headliner{
+  background-color: rgb(186, 196, 215);
+  border: solid 2px black;
+  text-shadow: 2px 2px 2px;
+  border-radius: 5%;
+  box-shadow: 5px 5px 5px black;
+  margin-top:10px;
+  margin:10px;
+  padding: 10px;
+}
+
+.list_box{
+  margin-top: 10px;
+  opacity: 20;
+  margin:10px;
+  padding:10px;
+  
+  
+}
+
+.mobileView{
+  display:none;
+}
+
+.toolbar{
+  margin:10px;
+  background-color: rgb(186, 196, 215);
+  border: solid 2px black;
+  margin-bottom: 10px;
+  box-shadow: 5px 5px 5px black;
+  border-radius: 5%;
+}
+
+.start_image{
+  background-image: url('./photos/img_start.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% fixed;
+  margin:10px;
+  width:100%;
+  min-height:1100px;
+  
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px black;
+}
+
+.forecast{
+  background-image: url('./photos/forecast.jpg');
+  background-repeat: repeat;
+  background-size: 100% fixed;
+  opacity: 2.6;
+  min-width: auto;
+  min-height: 1000px;
+  box-shadow: 5px 5px 5px black;
+  color:white;
+}
+
+.workingtime{
+  background-image: url('./photos/working.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px black;
+}
+
+.worktimeFields{
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+
+.listViewItems{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  border:3px solid black;
+  box-shadow: 3px 3px 3px black;
+  border-radius: 5%;
+  margin:8px;
+  color:rgb(255, 254, 254);
+}
+
+.projects{
+  background-image: url('./photos/projects.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  min-width: auto;
+  min-height: 1000px;
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px black;
+
+}
+
+.Aboutme{
+  background-image: url('./photos/aboutme.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% fixed;
+  min-width: auto;
+  min-height: 1000px;
+  border-radius: 2%;
+  box-shadow: 5px 5px 5px black;
+  padding:10px;
+  margin: 10px;
+}
+
+.projectDialog{
+  min-width:1000px;
+  min-height: 1000px;
+  background-color: black;
+}
+
+.projectButtons{
+  margin:5px;
+  box-shadow: 3px 3px 3px black;
+}
+
+.divTag{
+  text-align: justify;
+  background-color: antiquewhite;
+}
+
+h2{
+  background-color: antiquewhite;
+}
+
+.AboutMeBox{
+  min-width: 200px;
+  min-height: 200px;
+  float:left;
+  text-align: left;
+  color:rgb(240, 240, 240);
+}
+
+.profilePic{
+  bottom: 10px;
+  float:right;
+}
+
+.news_page{/*page is resizing wrong. Figure out, what is the problem. */
+  width:100%;
+  min-height:1000px;
+  min-width: auto;
+  height: auto;
+  
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.Links{
+  font-size: 15px;
+  max-width:100%;
+}
+.news_image{
+  max-width: 30%;
+}
+
+.news_page_cont{
+  background-image: url('./photos/news_background.jpg');
+  background-repeat: repeat;
+  background-size: 100% fixed;
+  min-width: auto;
+  min-height: 1000px;
+  box-shadow: 5px 5px 5px black;
+  color:white;
+  margin:40px;
+  
+}
+
+@media only screen and (max-width:600px) {
+  h3.MuiTypography-h3{
+    font-size: 1.6rem;
+  }
+  .list_box{
+    display:none;
+  }
+  .mobileView{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin:2px;
+    padding:5px;
+  }
+  .AboutMeBox{
+    color:rgb(245, 19, 234);
+    text-align: justify;
+  }
+  
+
+}
+
