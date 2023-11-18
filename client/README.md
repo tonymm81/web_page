@@ -155,8 +155,13 @@ I have to think about the routes how to make them and what route have token.
 ## version 149
 
 Backend and database is now okay, but still not connected to client. I have to plan, how move the apicaals to backend
+bug. node gives error in fetch import. I have to figure out how to make apicall. This fetch wont work
 
+## version 150
 
+I make the forecast apicall route to backend. I am usin the axios because node-fetch didnt work.
+
+Also added to database blog page data schema. 
 
 ## npm installs in this project:
 

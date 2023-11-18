@@ -1,18 +1,18 @@
 {
-  "name": "so2-demo-07",
+  "name": "my_webpage_backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "proxy": "https://newsapi.org",
   "scripts": {
     "start": "npx nodemon index.ts"
   },
-  
-  "proxy": "https://newsapi.org",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.4.2",
+    "axios": "^1.6.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
