@@ -14,37 +14,38 @@ apiKommenttiRouter.use(express.json());
 const weahter_api = process.env.REACT_APP_API_KEY
     
 
-const lat : JsonArray =[]
-const lon : JsonArray = []
+//var lat : JsonArray =[]
+//var lon : JsonArray = []
 
-const get_forecast = async () : Promise<any> => {
+const get_forecast = async (lat:any, lon:any) : Promise<any> => {
     const forecastresponse: AxiosResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weahter_api}&units=metric`); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
     const responseData: JsonArray = forecastresponse.data;
-
+    console.log("forecast", responseData)
     return responseData
 }
 
 const get_location = async (city_name : string, country_code : string) : Promise<any> => {
     const locationresponse: AxiosResponse = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${country_code}&limit=${5}&appid=${weahter_api}`)
     const responseDataLocation: JsonArray = locationresponse.data;
-    //let lat = responseDataLocation?[0]['lat']
-    //let lon = responseDataLocation?[0]['lon']
-    
+    //var lat = responseDataLocation?[0]['lat']
+    //var lon = responseDataLocation?[0]['lon']
+    console.log("location", responseDataLocation)
+    return //lat, lon
 }
 
 
 
 apiKommenttiRouter.get("/forecast", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-   
+        console.log("kaydaanko")
         if (req.body.forecast.length > 0){
 
         try {
             var callLocation = await get_location(req.body.city_name, req.body.country_code)
-            var callForecast = await get_forecast()
+            var callForecast = await get_forecast("", "")
 
           
     
-            res.json({luotu: true});
+            res.json(callLocation);
     
         } catch (e : any) {
             next(new ServerError(400, "puutteelliset tiedot"))

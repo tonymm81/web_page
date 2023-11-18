@@ -42,7 +42,8 @@ function Forecast (props?:any){
     }
 
     const get_forecast = async () : Promise<any> => { //here we get apicall and save the data
-
+        let testing = await fetch('/api/forecast/forecast',{ method: "GET"})
+        console.log(testing)
         if (!fullForecastSearch.current){
             try {
             

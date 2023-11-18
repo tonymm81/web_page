@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
-  "proxy": "https://newsapi.org",
+  "proxy2": "https://newsapi.org",
+  "proxy": "http://localhost:3108",
   "scripts": {
     "start": "npx nodemon index.ts"
   },
