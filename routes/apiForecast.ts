@@ -7,9 +7,9 @@ import { JsonArray } from '@prisma/client/runtime/library';
 
 const prisma : PrismaClient = new PrismaClient();
 
-const apiKommenttiRouter : express.Router = express.Router();
+const apiForecastRouter : express.Router = express.Router();
 
-apiKommenttiRouter.use(express.json());
+apiForecastRouter.use(express.json());
 
 const weahter_api = process.env.REACT_APP_API_KEY
     
@@ -37,10 +37,10 @@ const get_location = async (city_name : string, country_code : string) : Promise
 
 
 
-apiKommenttiRouter.get("/forecast", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiForecastRouter.get("/forecast", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
         console.log("kaydaanko")
         
-        //req.query.city_name = "tampere"
+        //Make here a time rule, what rules, if we get new data or not
         if (String(req.query.city_name).length > 0){
 
         try {
@@ -79,7 +79,7 @@ apiKommenttiRouter.get("/forecast", async (req : express.Request, res : express.
     }
    
 });
-apiKommenttiRouter.get("/forecast_saved", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiForecastRouter.get("/forecast_saved", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
 
     try {
         res.json(await prisma.forecast.findMany());
@@ -89,4 +89,4 @@ apiKommenttiRouter.get("/forecast_saved", async (req : express.Request, res : ex
 
 });
 
-export default apiKommenttiRouter;
+export default apiForecastRouter;

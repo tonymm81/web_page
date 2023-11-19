@@ -27,6 +27,7 @@ npm install react-quill --legacy-peer-deps
  npm install axios
  npm install node-fetch
  npm install @types/node-fetch
+ npm install date-fns
  
 cd weatherstation/web_page/web_page
 cd weatherstation/web_page/web_page/client
