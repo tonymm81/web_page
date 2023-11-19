@@ -1,4 +1,4 @@
-This is first my own react project.
+# This is first my own react project.
 
 ## version 100:
 
@@ -146,7 +146,7 @@ i also add the employee info to employer view.
 
 I make a errorhandling on news page. It has been forgatted earlier.
 
-## verson 148
+# verson 148 Backend building and sql database adding
 
 Plan: Starting to make some backend code. Iam planning to move the apicalls to backend. I have tro figure out what sql server i should use. Backend will work on node expre
 
@@ -162,6 +162,15 @@ bug. node gives error in fetch import. I have to figure out how to make apicall.
 I make the forecast apicall route to backend. I am usin the axios because node-fetch didnt work.
 
 Also added to database blog page data schema. 
+
+## version151
+Now i have apicalls in forecast component in backend. I make there a router, what will do the apicall and save the searched data to database.
+I also make a route, what returns the database data back to client. In client app i have to modify the code, that i can delete apicall from there.
+
+Now forecast component is working. In client side we get the data from batabase dependin on searchword. If database hav the 
+user choosen location, then it returns an old data. otherwise we get new forecast from api in backend router called apiForecastRouter.ts.
+
+Plan: I have to make i datetime if clause. There i will compare, if the database values are too old, lets search the new forecast.
 
 ## npm installs in this project:
 

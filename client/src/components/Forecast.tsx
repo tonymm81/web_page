@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from '@mui/material';
+import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { format } from "date-fns";
 
 function Forecast (props?:any){
     if (props.headLiner === "Forecast"){//headliner
@@ -10,8 +10,8 @@ function Forecast (props?:any){
     }else{
         props.setHeadliner("Forecast")
     }
-    const weahter_api = process.env.REACT_APP_API_KEY
     
+    const [what_city, setWhat_city] = useState<string>("tampere")
     const fullForecastSearch : React.MutableRefObject<boolean> = useRef(false);
     const locationSearch : React.MutableRefObject<boolean> = useRef(false);
     const savePermission : React.MutableRefObject<boolean> = useRef(true);
@@ -21,82 +21,67 @@ function Forecast (props?:any){
     const userInputcountry : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [backdrop, setBackdrop] = useState<boolean>(false)
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
-    const lat : React.MutableRefObject<undefined> = useRef();
-    const lon : React.MutableRefObject<undefined> = useRef();
+   
 
-    const get_location = async (city_name : string, country_code : string) : Promise<any> => {
-        if (!locationSearch.current) {
-        try{
-            const returndata = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${country_code}&limit=${5}&appid=${weahter_api}`)
-            const locationinfo = await returndata.json()
-            locationSearch.current= true
-            lat.current = locationinfo[0]['lat']
-            lon.current = locationinfo[0]['lon']
-            setUserchoose(locationinfo[0]['name'])
-            
-        }catch(error){
-            console.log(error)
-        }
-        }
-        
-    }
-
-    const get_forecast = async () : Promise<any> => { //here we get apicall and save the data
-        let testing = await fetch('/api/forecast/forecast',{ method: "GET"})
-        console.log(testing)
-        if (!fullForecastSearch.current){
-            try {
-            
-                const connectionFC = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat.current}&lon=${lon.current}&appid=${weahter_api}&units=metric`); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
-                const apidataFC = await connectionFC.json();
-                if(apidataFC['cod'] === '404'){
-                    setFullForecast({
-                        ...fullForecast,
-                        Whole_forecast : {},
-                        errors : true,
-                        errorText : "City not found"
-                    })
-                    
-                }else{
-                setFullForecast({ 
-                    ...fullForecast,
-                    Whole_forecast : apidataFC,
-                    errors: false,
-                    errorText : ""
-                })}
-                fullForecastSearch.current = true
-                props.setAllowForecast(false)
-                
-                
-        } catch (error){
-            setFullForecast({
-                ...fullForecast,
-                Whole_forecast : {},
-                errors : true,
-                errorText : `Error happened ${error}`
-            })
-            fullForecastSearch.current = false
-            
-        }
-        }
-        
+   
+    const get_forecast_from_server = async (userchoose : string) : Promise<any> => {
+        setBackdrop(false)
+        setFullForecast({Whole_forecast : {}, errors : false, errorText : ""})
+        if(userchoose === what_city){
+            if (!locationSearch.current) {
+                //
+                let url = `/api/forecast/forecast_saved`
+                try{
+                    const response = await fetch(url, {method : "GET"}) // get data from backend
+                    const response_json = await response.json()
+                    if (response.status === 200){
+                        console.log("get old forecast")
+                        setForecastSaved([...response_json])
+                        
+                        }else{
+                            setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
+                        }
+                    }catch(error){
+                        console.log(error)
+                        setFullForecast({Whole_forecast : {}, errors : true, errorText : `could not find old city ${error}`})
+                        
+                    }
+                }}else{
+                    try{
+                        let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi`
+                        const response = await fetch(url, {method : "GET"}) // get data from backend
+                        const response_json = await response.json()
+                        if (response.status === 200){
+                            console.log("get new forecast")
+                            setForecastSaved([...response_json])
+                            //setWhat_city(forecastSaved[0].town_or_city)
+                        }else{
+                            setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
+                        }
+                        }catch(error){
+                            console.log(error)
+                            setFullForecast({Whole_forecast : {}, errors : true, errorText : `could not find new city ${error}`})
+                        } 
+                }
+        //saveNeededData()
         setBackdrop(true)
+        setWhat_city(forecastSaved[0].town_or_city)
     }
+
+   
 useEffect(() => {
     if (props.allowForecast){
+        get_forecast_from_server(userchoose)
        
-        get_location("Tampere", "FI")
-       //get_forecast()
-       setTimeout(() => get_forecast(), 1000)
          
     }   
 }, [userchoose])// if town name changes lets get new forecast from api
 
 useEffect(() => {
     if(props.allowForecast && !fullForecastSearch.current){
-        //locationSearch.current = false
-        get_location("Tampere", "FI")
-        setTimeout(() => get_forecast(), 1000)
+       
+        get_forecast_from_server(userchoose)
+        
         
     }
 }, [])
@@ -119,50 +104,26 @@ useEffect(() => {
           setBackdrop(false)
           fullForecastSearch.current=false
           locationSearch.current=false
-          get_location(temp, userInputcountry.current!.value)
-          setTimeout(() => get_forecast(), 1000)
+          get_forecast_from_server(temp)
+          //setWhat_city(temp)
     }
 
-    const saveNeededData = () : void =>{ // here we save all needed data from api. This Object is easier to handle in graphics components
-        //setForecastSaved([])
-        let TempSaveValue : Forecast_needed[] = [...forecastSaved]
-        let i = 0
-        try{
-            let listLenght = fullForecast.Whole_forecast['list'].length
-            for (i = 0; i < listLenght;){
-                TempSaveValue[i] = {...TempSaveValue[i], temp_min : fullForecast.Whole_forecast['list'][i]['main']['temp_min']
-                                    ,temp_max : fullForecast.Whole_forecast['list'][i]['main']['temp_max']
-                                    , wind : fullForecast.Whole_forecast['list'][i]['wind']['speed']
-                                    , timeStamp : fullForecast.Whole_forecast['list'][i]['dt_txt']
-                                    , icon : fullForecast.Whole_forecast['list'][i]['weather'][0]['icon']
-                                    , shorDescription : fullForecast.Whole_forecast['list'][i]['weather'][0]['main']
-                                    , visibility : fullForecast.Whole_forecast['list'][i]['visibility']}
-                                    i = i+1
-            }
-            if (TempSaveValue && forecastSaved.length === 0){ // This allows to save data only once.
-                setForecastSaved( [...TempSaveValue])
-                savePermission.current = false
-                
-                TempSaveValue = []
-            }
-        }catch(error){
-            console.log(`ei ${error}`)
-        } 
-    }
     
     function getIconUrl(code: string): string {
         return `http://openweathermap.org/img/wn/${code}.png`; //weahter api icon
       } 
     if (fullForecastSearch.current){
         if (savePermission.current && forecastSaved.length === 0){
-            setTimeout(() => saveNeededData(), 1000)
+            //setTimeout(() => saveNeededData(), 1000)
             
         }
     }
-    
+    console.log(forecastSaved)
     return( 
     <Container maxWidth="xl"  className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
-       
+         {(Boolean(fullForecast.errors))
+        ? <Alert severity="error">{fullForecast.errorText}</Alert>
+        : (fullForecast.errors)} 
         <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
         <TextField
           variant="outlined"
@@ -190,7 +151,7 @@ useEffect(() => {
                                 return (
                                     <ListItem key={index} className="listViewItems">
                                         <ListItemText>
-                                            {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} ,Time ${item.timeStamp}`}
+                                            {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} ,Time ${String(format(new Date(item.timestamp), "y-m-d h"))}`}
                                             {` Wind :${item.wind} Meters per second and : ${item.shorDescription} , Visibility: ${item.visibility} meters`}
                                             <ListItemIcon><img src={getIconUrl(String(item.icon))} alt={String(index)}/></ListItemIcon>
                                         </ListItemText>
@@ -203,7 +164,7 @@ useEffect(() => {
     
     :<Backdrop open={true}>
          <CircularProgress color="inherit" />
-       </Backdrop> }
+       </Backdrop> } 
         
     </Container>
     )

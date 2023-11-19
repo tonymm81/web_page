@@ -25,6 +25,7 @@ model forecast {
   icon            String   @db.Text
   shorDescription String   @db.Text
   visibility      Int
+  town_or_city    String   @db.Text
 }
 
 model news_data {

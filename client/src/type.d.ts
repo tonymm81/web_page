@@ -15,11 +15,11 @@ interface Forecast_needed{
     temp_min : number
     temp_max : number
     wind : number
-    timeStamp : Date
+    timestamp : Date
     icon : string
     shorDescription : string
     visibility : number
-
+    town_or_city : string
 }
 
 interface Employer_data{
