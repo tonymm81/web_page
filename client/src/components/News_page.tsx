@@ -41,69 +41,51 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
         props.setAllowForecast(true)
     }
 
-    const get_new_data_from_server = async (Chooce_country : string, search_word : any) : Promise<any> => { 
-        //  const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { 
-            //api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=US
-            ///api/news/news?userchoose=0&cathegory=everything&searchword=tesla
-    }
-
-    const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
-        const connectionNews ={}//:JSON = {} as JSON
+    const get_new_data_from_server = async (Chooce_country : string, search_word : string) : Promise<any> => { 
         let api_address = ''
-        if (news_api_permission.current){
-            try{ // in apicall we have to define values, what give the datetime to this search and cathegory also
+            
+            if (news_api_permission.current){
+                try{
+                if (radiobutton_choose.current ==="2"){
+                    api_address = `/api/news/news_saved`
+                }
                 if (radiobutton_choose.current === "1"){
-                  api_address = `https://newsapi.org/v2/${cathegory[0]}?q=${search_word.current}&to=${format(timefrom, "Y-M-d")}&language=en&sortBy=popularity&apiKey=${news_api}`
-               
+                    api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}`
                 }
                 if (radiobutton_choose.current === "0"){
-                   
-                   api_address = `https://newsapi.org/v2/${cathegory[1]}?country=${Chooce_country}&language=en&apiKey=${news_api}`
-           
+                    api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}`
                 }
-                const connectionNews = await fetch(api_address, 
-                    //const connectionNews = await fetch('http://localhost:8080/cors', {mode:'cors'})// this is working now.
-                    {
-                    method: 'GET',
-                    mode:'cors',
-                   
-                    headers: {
-                    accept: 'application/json',
-                    },
-                    });
-
+                console.log(api_address)
+                const connectionNews = await fetch(api_address, {method: "GET"})
                 const apidatanews = await connectionNews.json(); 
-            
-                if(apidatanews['cod'] === '404'){
-                    setSave_news_api({
-                        ...save_news_api,
-                       Whole_news_api : {},
-                       errors : true,
-                        errorText : "news not found"
-                    })
-                    
-                }else {
-                setSave_news_api({
-                    ...save_news_api,
-                    Whole_news_api : apidatanews,
-                    errors : false,
-                    errorText : ""
-                })
-                }
 
-            }catch (error){
-                console.log("api error", error)
-                setSave_news_api({
+                if (connectionNews.status === 200){
+                    setNewsSaved([...apidatanews])
+                    total_result.current = apidatanews.length
+                }else{
+                    setSave_news_api({
+                        Whole_news_api : {},
+                        errors : true,
+                        errorText : `Error happened : ${connectionNews.status}`
+                    })
+                }
+                }
+                
+                catch(errors){
+                    console.log("api error", errors)
+                    setSave_news_api({
                     ...save_news_api,
                     Whole_news_api : {},
                     errors : true,
-                    errorText : String(error)
+                    errorText : String(errors)
                 })
             }
-        }
+        } 
         news_api_permission.current = false
         setBackdrop_bl(false)
     }
+
+   
     const userInputField = (e : any) : void =>{ //make here user input field what gets the apidata
         e?.preventDefault();
         if (radiobutton_choose.current === "0" && Chooce_country === "" || Chooce_country === undefined){
@@ -117,7 +99,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
             setNewsSaved([])
             news_api_permission.current=true
             setBackdrop_bl(true)
-            get_new_data(Chooce_country, search_word)
+            get_new_data_from_server(Chooce_country, String(search_word.current))
         }
     }
 
@@ -138,46 +120,16 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
        
     }
 
-    const save_news_data = () : void =>{
-        let TempValue : New_api_needed[] = [...newsSaved]
-        let i = 0
-        try {
-            let jsonlength = save_news_api.Whole_news_api['articles'].length
-            for (i = 0; i < jsonlength;){
-                TempValue[i] = {...TempValue[i], 
-                                author : save_news_api.Whole_news_api['articles'][i]['author'],
-                                puplishDate : save_news_api.Whole_news_api['articles'][i]['publishedAt'],
-                                source : save_news_api.Whole_news_api['articles'][i]['source']['name'],
-                                title : save_news_api.Whole_news_api['articles'][i]['title'],
-                                url : save_news_api.Whole_news_api['articles'][i]['url']
-                            }
-                if (radiobutton_choose.current === "1"){
-                    TempValue[i] = {...TempValue[i], description : save_news_api.Whole_news_api['articles'][i]['description'],
-                                    content : save_news_api.Whole_news_api['articles'][i]['content'],
-                                    ulr_image : save_news_api.Whole_news_api['articles'][i]['urlToImage']                  
-                }
-                }
-                i = i + 1
-            }
-            total_result.current = save_news_api.Whole_news_api['totalResults']
-            if ( newsSaved.length === 0){
-                setNewsSaved([...TempValue])
-                TempValue = []
-            }
-        }
-        catch(error){
-            console.log(`ei ${error}`)
-        }
-
-    
-    }
-    
-    useEffect(() =>{
-        setTimeout(() => save_news_data(), 1000)
-    }, [save_news_api])
     
     
-   
+    useEffect(()=>{
+        radiobutton_choose.current = "2"
+        news_api_permission.current = true
+        get_new_data_from_server(Chooce_country, String(search_word.current))
+        
+    }, [])
+    
+   //console.log("news image", newsSaved[0].ulr_image)
 
     return(
         <>
@@ -244,12 +196,12 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                 return (
                     <ListItem key={index} className="listViewItems">
                         <ListItemText>
-                        <Typography variant="h6">{`${item.title}`}</Typography>
+                        <Typography variant="h6">{`${item.tnewsTitle}`}</Typography>
                         {`Time: ${item.puplishDate} `}
                         {` Author: ${item.author} `}
                         {` Source: ${item.source} `}
                         <Link  className="Links" target="_blank" rel='noopener' variant="button" href={item.url}>link to site</Link></ListItemText>
-                        {item.description! ?
+                        {item.description ?
                         <ListItemText>
                           {" Description: "} {item.description}
                            {" Content "}{item.content}

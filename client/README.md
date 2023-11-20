@@ -182,6 +182,12 @@ I still problem, that i get the cannot read undefined on apiNews.ts apicall. I m
 
 Bug fixed. but apicalls are the wrong order Lets fix that for next. Then i can make changes to client side.
 
+report: Now i have editesd the client side apicalls. It happens now in server and i also added a feature that when you load the page first tiem, it will load from database the lastest search and loop it to graphics. I have to make here also timestamp based search times.
+### make timestamp based search control here also
+
+### next i have to make worktime app.
+first of all, we have to secure connection, when user is logged in. I use token. And also data saving should happen on database.
+If i save the passwords to sql, i should use i security hash to password.
 
 ## npm installs in this project:
 

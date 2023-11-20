@@ -62,9 +62,9 @@ interface New_api_needed {
     description? : string
     content? : string
     author : string
-    puplishDate : string
+    puplishDate : Date
     source : string
-    title : string
+    tnewsTitle : string
     url : string
     ulr_image? : string
     

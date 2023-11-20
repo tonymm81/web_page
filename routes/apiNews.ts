@@ -19,7 +19,7 @@ const get_news_everything = async (cathegory : string, search_word : string) : P
     let api_address = `https://newsapi.org/v2/${cathegory}?q=${search_word}&to=${format(timefrom, "Y-M-d")}&language=en&sortBy=popularity&apiKey=${news_api}` 
     const newsEverythingResponse = await fetch(api_address)
     const responseDataNewsEverything = await newsEverythingResponse.json()
-    //console.log("forecast", responseDataNewsEverything)
+    console.log("forecast",  cathegory, search_word)
     return responseDataNewsEverything 
 }
 
@@ -61,11 +61,15 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
                 for (i = 0; i < jsonlength;){
                     await prisma.news_data.create({
                         data: {
+                            description : news_everything['articles'][i]['description'],
+                            content : news_everything['articles'][i]['content'],
                             author : news_everything['articles'][i]['author'],
                             puplishDate : news_everything['articles'][i]['publishedAt'],
                             source : news_everything['articles'][i]['source']['name'],
                             tnewsTitle : news_everything['articles'][i]['title'],
-                            url : news_everything['articles'][i]['url'] 
+                            url : news_everything['articles'][i]['url'],
+                            ulr_image : news_everything['articles'][i]['urlToImage']
+                            
                         }
                     })
                     i = i +1
@@ -87,14 +91,15 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
                 for (i = 0; i < jsonlength;){
                     await prisma.news_data.create({
                         data: {
+                            
                             author : news_everything['articles'][i]['author'],
                             puplishDate : news_everything['articles'][i]['publishedAt'],
                             source : news_everything['articles'][i]['source']['name'],
                             tnewsTitle : news_everything['articles'][i]['title'],
                             url : news_everything['articles'][i]['url'],
-                            description : news_everything['articles'][i]['description'],
-                            content : news_everything['articles'][i]['content'],
-                            ulr_image : news_everything['articles'][i]['url']
+                           
+                            
+                            
                         }
                     })
                     i = i +1
@@ -117,7 +122,7 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
    
 });
 apiNewsRouter.get("/news_saved", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
+    console.log("saved news")
     try {
         res.json(await prisma.news_data.findMany());
     } catch (e : any) {
