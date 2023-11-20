@@ -42,7 +42,7 @@ function Work_time (props?:any){
     const [employeeName, setEmployeeName] = useState<string>("person test")
     const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, 
                                                                                 vat : 20,
-                                                                                employee : "", 
+                                                                                employee_name : "", 
                                                                                 workIDS : ""}])
     if(props.headLiner === "Working time application"){
 
@@ -55,13 +55,18 @@ function Work_time (props?:any){
        let worktimeUrl = ''
         if(who_is_using === "employee"){
         
-            worktimeUrl = `/api/WorkTime/employeedata`
+            worktimeUrl = employee_id ?  `/api/WorkTime/employeedata?employee_worktime_id=${employee_id}` : `/api/WorkTime/employeedata`;
         }
         if (who_is_using === "employer"){
             worktimeUrl =  `/api/WorkTime/employerdata`;
         }
         let settings : fetchSettings = { 
-          method : metod_where || "GET"
+          method : metod_where || "GET",
+          headers : {
+          
+            'Authorization' : `Bearer ${props.token}`,
+            
+          }
         };
         if (metod_where === "POST") {
 
@@ -78,28 +83,23 @@ function Work_time (props?:any){
           }
           
         try {
-          const yhteys = await fetch(worktimeUrl, settings);
-          
+          const connection = await fetch(worktimeUrl, settings);
+          const recieved = await connection.json()
     
-          if (yhteys.status === 200) {
+          if (connection.status === 200) {
             console.log("piisaako status")
-            /*setApiData({
-              ...apiData,
-              kokouutiset : await yhteys.json(),
-              haettu : true
-            });*/
-            /*setApiDatakommentit({
-              ...kommentit,
-              kommentitkoko : await kommenteille.json(),
-              haettu : true
-            })*/
-           
+           if (who_is_logging === "employee"){
+                setSaveEmployeeData([...recieved])
+           }
+           if (who_is_logging === "employer"){
+                setSaveEmployerData([...recieved])
+           }
     
           } else {
     
             let errorMessage :string = "";
     
-            switch (yhteys.status) {
+            switch (connection.status) {
     
               case 400 : errorMessage = "Error post of get routes"; break;
               case 401 : setLogInVIEW(true); break;
@@ -155,10 +155,12 @@ function Work_time (props?:any){
                 hours_employee : Number(jobhours_temp),
                 description : description_temp,
                 jobID : selectedID,
-                employeeName : employeeName
+                employeeName : employeeName,
+                employee_worktime_id : 1
             }
             
-            setSaveEmployeeData([...saveEmployeeData, savetemp]);
+            //setSaveEmployeeData([...saveEmployeeData, savetemp]);
+            apiCall("POST", "employee", 1, savetemp)
             update_permission.current = true
             setDescription_temp("")
             setJobhours_temp(0)
@@ -199,10 +201,11 @@ function Work_time (props?:any){
             let savetempEmployer : Employer_data = {
                 payment : textHandleremployer.current.payment,
                 vat : textHandleremployer.current.Taxs,
-                employee : textHandleremployer.current.employeeName,
+                employee_name : textHandleremployer.current.employeeName,
                 workIDS : textHandleremployer.current.workIDs
             }
-            setSaveEmployerData([savetempEmployer])
+            //setSaveEmployerData([savetempEmployer])
+            apiCall("POST", "employer", 2, savetempEmployer)
             setEmployeeName(textHandleremployer.current.employeeName)
             setWorkID([...workID, textHandleremployer.current.workIDs])
             textHandleremployer.current = {}
@@ -437,7 +440,7 @@ function Work_time (props?:any){
        
        <ListItemText >Work id : {item.jobID} ,
          Working hours :  {item.hours_employee} ,
-            Time:   {String(format(item.datetime!, "d.M.Y HH:mm "))} ,
+            Time:   {String(format(new Date(item.datetime!), "d.M.Y HH:mm "))} ,
             description : {item.description}
             
            </ListItemText>

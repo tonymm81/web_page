@@ -26,7 +26,7 @@ interface Employer_data{
     [key? : string] : any;
     payment? : number |string
     vat? : number |string
-    employee? : string
+    employee_name? : string
     workIDS? : string
 }
 
@@ -45,6 +45,7 @@ interface LogINuser{
     username? : string
     passwd? : string
     error? :string
+    who_is_logging? : string
 }
 
 interface News_api_index{

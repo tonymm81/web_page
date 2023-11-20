@@ -11,23 +11,34 @@ apiWorkTimeRouter.use(express.json());
 
 
 apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
- 
-      if (req.body.tuote?.length > 0) {
+    console.log("are we posting employee", req.body)
+      if (req.body.description.length > 0) {
 
         try {
 
-            /*await prisma.kayttaja.create({
-                data : {
-                    kayttajatunnus : req.body.kayttajatunnus,
-                    salasana : req.body.salasana
-                    
-                }
-            });*/
-    
-            res.json({tunnus: true});
+            await prisma.user_data.update({
+                where : {
+                    user_id : Number(req.body.employee_worktime_id),
+                },
+                data: {
+                  
+                    //muokattuPWM : req.body.muokattuPWM,
+                    employee_data : {
+                        create : {
+                                datetime_emp : new Date(req.body.datetime),
+                                hours_employee : req.body.hours_employee,
+                                description : req.body.description,
+                                jobID : req.body.jobID,
+                                employeeName : req.body.employee_name
+                        },
+                    },
+                },
+            })
+            console.log("did it?")
+            res.json(prisma.employee_data.findMany({where: {employee_worktime_id : req.body.user_id }}));
     
         } catch (e : any) {
-            next(new ServerError())
+            next(new ServerError(400, "db error"))
         }
 
     } else {
@@ -37,48 +48,40 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
 });
 
 apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
- 
-    if (req.body.tuote?.length > 0) {
+    console.log("employer data add", req.body) 
+    if (req.body.employee?.length > 0) {
 
       try {
-
-          /*await prisma.kayttaja.create({
+        console.log("employer data add", req.body) 
+          await prisma.employer_data.create({
               data : {
-                  kayttajatunnus : req.body.kayttajatunnus,
-                  salasana : req.body.salasana
-                  
+                  payment : Number(req.body.payment),
+                  vat : Number(req.body.vat),
+                  employee_name : String(req.body.employee_name),
+                  workid_s : String(req.body.workIDS)
               }
-          });*/
-  
-          res.json({tunnus: true});
+          });
+          console.log("just for sure")
+          res.json(await prisma.employer_data.findMany({}));
   
       } catch (e : any) {
-          next(new ServerError())
+            console.log("database error", e)
+          next(new ServerError(400, "database error"))
       }
 
   } else {
-      next(new ServerError(400, "ServerErrorellinen pyynnön body"));
+      next(new ServerError(400, "ServerError"));
   } 
 
 });
 
-apiWorkTimeRouter.get("/employee", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
+apiWorkTimeRouter.get("/employeedata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+    req.query.employee_worktime_id = String(1)
      try {
-
-        /*if (await prisma.employee_data.count({
-            where : {
-                employee_worktime_id : Number(req.params.id)
-            }
-        }) === 1) {
-            res.json(await prisma.employee_data.findUnique({
-                where : {
-                    kommenttiId : Number(req.params.id)
-                }
-            }))
-        } else {
-            next(new ServerError(400, "ServerErrorelinen id"));
-        }*/
+        if (req.query.id){
+            res.json(await prisma.employee_data.findMany({where : 
+                {employee_worktime_id : Number(req.query.employee_worktime_id)}}))
+        }
         
     } catch (e: any) {
         next(new ServerError());
@@ -87,7 +90,7 @@ apiWorkTimeRouter.get("/employee", async (req : express.Request, res : express.R
 
 });
 
-apiWorkTimeRouter.get("/employer", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
 
     try {
        res.json(await prisma.employer_data.findMany({}));

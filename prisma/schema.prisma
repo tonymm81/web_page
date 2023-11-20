@@ -80,5 +80,5 @@ model employer_data {
   payment         Int
   vat             Int
   employee_name   String @db.Text
-  workid_s        String @map("workid:s") @db.Text
+  workid_s        String @db.Text
 }

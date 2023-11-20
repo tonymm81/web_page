@@ -198,6 +198,15 @@ plan: i have to make button, where user can do new employee username and passwor
 
 client app have now the apicall funktion. I have to get data from backend if token is valid.
 
+## version 155
+
+worktime component has token secured access to apiWorkTime.ts. It can add data and read it also. 
+
+
+### bug: employee view data adding wont show nothing..
+
+The request should do right. Now the user id is missing and that cause the problem. now we have to think about it little bit.
+
 ## npm installs in this project:
 
 Mariadb 10.10
