@@ -18,6 +18,7 @@ interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
+    const [who_is_logging, setWho_is_logging] = useState<string>("")
     
     const update_permission = useRef<boolean>(false);
     const [description_temp, setDescription_temp] = useState("")
@@ -49,6 +50,83 @@ function Work_time (props?:any){
         props.setHeadliner("Working time application")//this will change the headliner
         props.setAllowForecast(true)
     }
+    const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
+
+       let worktimeUrl = ''
+        if(who_is_using === "employee"){
+        
+            worktimeUrl = `/api/WorkTime/employeedata`
+        }
+        if (who_is_using === "employer"){
+            worktimeUrl =  `/api/WorkTime/employerdata`;
+        }
+        let settings : fetchSettings = { 
+          method : metod_where || "GET"
+        };
+        if (metod_where === "POST") {
+
+            settings = {
+              ...settings,
+              headers : {
+                ...settings.headers,
+                'Content-Type' : 'application/json',
+                
+              },
+              body : JSON.stringify(new_data)
+            }
+            
+          }
+          
+        try {
+          const yhteys = await fetch(worktimeUrl, settings);
+          
+    
+          if (yhteys.status === 200) {
+            console.log("piisaako status")
+            /*setApiData({
+              ...apiData,
+              kokouutiset : await yhteys.json(),
+              haettu : true
+            });*/
+            /*setApiDatakommentit({
+              ...kommentit,
+              kommentitkoko : await kommenteille.json(),
+              haettu : true
+            })*/
+           
+    
+          } else {
+    
+            let errorMessage :string = "";
+    
+            switch (yhteys.status) {
+    
+              case 400 : errorMessage = "Error post of get routes"; break;
+              case 401 : setLogInVIEW(true); break;
+              default : errorMessage = "Palvelimella tapahtui odottamaton virhe"; break;
+    
+            }
+    
+            /*setApiData({
+              ...apiData,
+              virhe : virheteksti,
+              haettu : true
+            });*/
+    
+          }
+    
+        } catch (e : any) {
+    
+          /*setApiData({
+            ...apiData,
+            virhe : `Palvelimeen ei saada yhteyttä, ${e}`,
+            haettu : true
+          });*/
+    
+        }
+    
+      }
+    
     
     const textfieldsHandlerEmployer  = (e : React.ChangeEvent<HTMLInputElement>) : void =>{ // user input saves the data  here.
         textHandleremployer.current[e.target.name] = e.target.value
@@ -192,8 +270,11 @@ function Work_time (props?:any){
             
         {loginVIEW?
         
-        <LogIn setEmployeeView={setEmployeeView} setLogInVIEW={setLogInVIEW}/>
-        
+        <LogIn  setEmployeeView={setEmployeeView} 
+                setLogInVIEW={setLogInVIEW} 
+                setWho_is_logging={setWho_is_logging} 
+                setToken={props.setToken}/>
+                
         :
         
         (employeeView)? 

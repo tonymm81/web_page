@@ -14,6 +14,7 @@ import News_page from './components/News_page'
 // this is the main program.Only routes shown here
 
 const App : React.FC = () : React.ReactElement => {
+  const [token, setToken] = useState<string>(String(localStorage.getItem("token")));
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
   return (
@@ -30,8 +31,10 @@ const App : React.FC = () : React.ReactElement => {
                                       allowForecast={allowForecast}
                                       />} />
       <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} 
-                                                  setAllowForecast={setAllowForecast}/>} />
-      <Route path="/LogIn" element={<LogIn/>} />
+                                                  setAllowForecast={setAllowForecast}
+                                                  setToken={setToken}
+                                                  token={token}/>} />
+      <Route path="/LogIn" element={<LogIn setToken={setToken} />} />
       <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} 
                                                 setAllowForecast={setAllowForecast}/>} />
 

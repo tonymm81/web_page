@@ -8,12 +8,16 @@ datasource db {
 }
 
 model employee_data {
-  employee_id    Int      @id @default(autoincrement())
-  datetime_emp   DateTime @db.DateTime(0)
-  hours_employee Int
-  description    String   @db.Text
-  jobID          String   @db.Text
-  employeeName   String   @db.Text
+  employee_id          Int       @id @default(autoincrement())
+  datetime_emp         DateTime  @db.DateTime(0)
+  hours_employee       Int
+  description          String    @db.Text
+  jobID                String    @db.Text
+  employeeName         String    @db.Text
+  employee_worktime_id Int
+  user_data            user_data @relation(fields: [employee_worktime_id], references: [user_id], onUpdate: Restrict, map: "employee_data_ibfk_1")
+
+  @@index([employee_worktime_id], map: "employee_worktime_id")
 }
 
 model forecast {
@@ -41,10 +45,12 @@ model news_data {
 }
 
 model user_data {
-  user_id    Int    @id @default(autoincrement())
-  user_name  String @db.Text
-  user_pwd   String @db.Text
-  user_error String @db.Text
+  user_id        Int             @id @default(autoincrement())
+  user_name      String          @db.Text
+  user_pwd       String          @db.Text
+  user_error     String          @db.Text
+  who_is_logging String          @db.Text
+  employee_data  employee_data[]
 }
 
 model blog {
@@ -67,4 +73,12 @@ model blog_messages {
   blog              blog     @relation(fields: [blog_id_related], references: [blog_id], onUpdate: Restrict, map: "blog_messages_ibfk_1")
 
   @@index([blog_id_related], map: "blog_id_related")
+}
+
+model employer_data {
+  empoyer_data_id Int    @id @default(autoincrement())
+  payment         Int
+  vat             Int
+  employee_name   String @db.Text
+  workid_s        String @map("workid:s") @db.Text
 }

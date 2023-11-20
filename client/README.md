@@ -189,6 +189,15 @@ report: Now i have editesd the client side apicalls. It happens now in server an
 first of all, we have to secure connection, when user is logged in. I use token. And also data saving should happen on database.
 If i save the passwords to sql, i should use i security hash to password.
 
+## version 154
+Now the login works fine. It takes user from database. The password is crypted to database.
+
+Plan: In worktime app i have to move the client app data to database.
+plan: Perhaps i should do the relation on database. This how i can print out soecific workers work time writings(this is done)
+plan: i have to make button, where user can do new employee username and passwords.
+
+client app have now the apicall funktion. I have to get data from backend if token is valid.
+
 ## npm installs in this project:
 
 Mariadb 10.10

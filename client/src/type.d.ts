@@ -37,6 +37,7 @@ interface Employee_data{
     description? : string
     jobID? : string
     employeeName? : string
+    employee_worktime_id? : number
 }
 
 interface LogINuser{
@@ -69,3 +70,10 @@ interface New_api_needed {
     ulr_image? : string
     
 }
+
+interface fetchSettings {
+    method : string
+    headers? : any
+    body? : string
+  }
+  

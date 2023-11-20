@@ -4,13 +4,13 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma : PrismaClient = new PrismaClient();
 
-const apiOstoksetRouter : express.Router = express.Router();
+const apiWorkTimeRouter : express.Router = express.Router();
 
-apiOstoksetRouter.use(express.json());
+apiWorkTimeRouter.use(express.json());
 
 
 
-apiOstoksetRouter.post("/employeedata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
  
       if (req.body.tuote?.length > 0) {
 
@@ -36,7 +36,7 @@ apiOstoksetRouter.post("/employeedata", async (req : express.Request, res : expr
 
 });
 
-apiOstoksetRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
  
     if (req.body.tuote?.length > 0) {
 
@@ -62,16 +62,16 @@ apiOstoksetRouter.post("/employerdata", async (req : express.Request, res : expr
 
 });
 
-apiOstoksetRouter.get("/employee", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiWorkTimeRouter.get("/employee", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
 
      try {
 
-        /*if (await prisma.kommentit.count({
+        /*if (await prisma.employee_data.count({
             where : {
-                kommenttiId : Number(req.params.id)
+                employee_worktime_id : Number(req.params.id)
             }
         }) === 1) {
-            res.json(await prisma.kommentit.findUnique({
+            res.json(await prisma.employee_data.findUnique({
                 where : {
                     kommenttiId : Number(req.params.id)
                 }
@@ -87,18 +87,14 @@ apiOstoksetRouter.get("/employee", async (req : express.Request, res : express.R
 
 });
 
-apiOstoksetRouter.get("/employer", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+apiWorkTimeRouter.get("/employer", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
 
     try {
-       /* res.json(await prisma.uutiset.findMany({
-            where : {
-                uutisId : Number(res.locals.kayttaja.id)
-            }
-        }));*/
+       res.json(await prisma.employer_data.findMany({}));
     } catch (e : any) {
         next(new ServerError());
     }
 
 });
 
-export default apiOstoksetRouter;
+export default apiWorkTimeRouter;

@@ -46,13 +46,13 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
             
             if (news_api_permission.current){
                 try{
-                if (radiobutton_choose.current ==="2"){
+                if (radiobutton_choose.current ==="2"){//lets fetch the lastest search
                     api_address = `/api/news/news_saved`
                 }
-                if (radiobutton_choose.current === "1"){
+                if (radiobutton_choose.current === "1"){ // Lets search everything based on search word
                     api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}`
                 }
-                if (radiobutton_choose.current === "0"){
+                if (radiobutton_choose.current === "0"){ // Lets search top headlines from given country code
                     api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}`
                 }
                 console.log(api_address)

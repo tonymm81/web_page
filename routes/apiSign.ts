@@ -13,15 +13,16 @@ apiSignRouter.use(express.json());
 apiSignRouter.post("/signin", async (req : express.Request, res : express.Response, next : express.NextFunction) : Promise<void> => {
     console.log("tuleeko signinnii")
 
-    let hashattu = crypto.createHash("SHA512").update(req.body.salasana).digest("hex");
+    let crypted = crypto.createHash("SHA512").update(req.body.passwd).digest("hex");
+    console.log(crypted)
     try {
-        await prisma.user_data.create({
+       await prisma.user_data.create({
             data : {
                 
-                user_name : req.body.kayttajatunnus,
-                user_pwd : hashattu,
-                user_error : ""
-                
+                user_name : req.body.username,
+                user_pwd : crypted,
+                user_error : "",
+                who_is_logging : req.body.user
                 
             }
         });
