@@ -170,11 +170,18 @@ I also make a route, what returns the database data back to client. In client ap
 Now forecast component is working. In client side we get the data from batabase dependin on searchword. If database hav the 
 user choosen location, then it returns an old data. otherwise we get new forecast from api in backend router called apiForecastRouter.ts.
 
-Plan: I have to make i datetime if clause. There i will compare, if the database values are too old, lets 
+### Plan: I have to make i datetime if clause. There i will compare, if the database values are too old, lets 
 search the new forecast.
 
 ## version 152
-bug: apiNews.ts have empty object error bug. But i have to go get some sleep..
+### bug: apiNews.ts have empty object error bug. But i have to go get some sleep..
+
+I still problem, that i get the cannot read undefined on apiNews.ts apicall. I make there also then clause, that program will wait that data is saved. I also check console logging that data is valid and the keyword is working. I dont know waht to do about this..
+
+## version 153
+
+Bug fixed. but apicalls are the wrong order Lets fix that for next. Then i can make changes to client side.
+
 
 ## npm installs in this project:
 

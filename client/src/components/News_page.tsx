@@ -41,6 +41,12 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
         props.setAllowForecast(true)
     }
 
+    const get_new_data_from_server = async (Chooce_country : string, search_word : any) : Promise<any> => { 
+        //  const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { 
+            //api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=US
+            ///api/news/news?userchoose=0&cathegory=everything&searchword=tesla
+    }
+
     const get_new_data = async (Chooce_country : string, search_word : any) : Promise<any> => { //here we get apicall and save the data
         const connectionNews ={}//:JSON = {} as JSON
         let api_address = ''
