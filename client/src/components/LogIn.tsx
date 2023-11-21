@@ -35,13 +35,15 @@ function LogIn(props?:any) { //this function is the login view where user can lo
                     })
                 });
                 if (connection.status === 200){ // if not giving errors, lets take token annd who is logged
-                    let {token, user} = await connection.json();
+                    let {token, username, who_is_logging, user_id} = await connection.json();
                     props.setToken(token)
-                    props.setWho_is_logging(user)
+                    props.setEmployeeName(username)
+                    props.setWho_is_logging(who_is_logging)
+                    props.setUser_id(user_id)
                     console.log("login", token)
                     localStorage.setItem("token", token);
                     errors = {}
-                    if (user === "employer"){
+                    if (who_is_logging === "employer"){
                         props.setEmployeeView(false) // employer side of webpage
 
                     }else{
@@ -72,8 +74,8 @@ function LogIn(props?:any) { //this function is the login view where user can lo
     return(<> 
     <form onSubmit={checkUser}>
     <Typography>Hey! This is demo login. If you want to log in with employer account use 
-        username employer and password test. Employee view use employee for username 
-        and same password. (Nothing will be saved on browser or server)
+        username jane_smith and password test. Employee view use john_smith for username 
+        and same test password. (Nothing will be saved on browser or server)
     </Typography>
     <TextField
         label="Give user name"

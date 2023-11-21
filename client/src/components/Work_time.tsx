@@ -19,8 +19,8 @@ interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
     const [who_is_logging, setWho_is_logging] = useState<string>("")
-    
     const update_permission = useRef<boolean>(false);
+    const [user_id, setUser_id] = useState<Number>(0)
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
@@ -53,9 +53,13 @@ function Work_time (props?:any){
     const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
 
        let worktimeUrl = ''
-        if(who_is_using === "employee"){
+        if(who_is_using === "employee" && metod_where === "GET"){
         
-            worktimeUrl = employee_id ?  `/api/WorkTime/employeedata?employee_worktime_id=${employee_id}` : `/api/WorkTime/employeedata`;
+            worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
+        }
+        if(who_is_using === "employee" && metod_where === "POST"){
+        
+            worktimeUrl = `/api/WorkTime/employeedata`;
         }
         if (who_is_using === "employer"){
             worktimeUrl =  `/api/WorkTime/employerdata`;
@@ -155,8 +159,8 @@ function Work_time (props?:any){
                 hours_employee : Number(jobhours_temp),
                 description : description_temp,
                 jobID : selectedID,
-                employeeName : employeeName,
-                employee_worktime_id : 1
+                employee_name : employeeName,
+                employee_worktime_id : Number(user_id)
             }
             
             //setSaveEmployeeData([...saveEmployeeData, savetemp]);
@@ -262,6 +266,14 @@ function Work_time (props?:any){
             
         }
     }   ,[working_hours])
+
+    useEffect (() => {
+        if (employeeView){
+            apiCall("GET", "employee", 1)
+        }else{
+            apiCall("GET", "employer")
+        }
+    }, [employeeView, loginVIEW])
     return(
 
     <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
@@ -276,7 +288,9 @@ function Work_time (props?:any){
         <LogIn  setEmployeeView={setEmployeeView} 
                 setLogInVIEW={setLogInVIEW} 
                 setWho_is_logging={setWho_is_logging} 
-                setToken={props.setToken}/>
+                setToken={props.setToken}
+                setEmployeeName={setEmployeeName}
+                setUser_id={setUser_id}/>
                 
         :
         
@@ -362,7 +376,7 @@ function Work_time (props?:any){
      </form>
     :
     <form onSubmit={employerField}>
-    <Typography variant="h4">Welcome employer test</Typography> {/*Here is employer field view*/}
+    <Typography variant="h4">Welcome employer {employeeName}</Typography> {/*Here is employer field view*/}
     <><TextField
                     className='worktimeFields'
                     label="Enter here employee name"
@@ -438,9 +452,9 @@ function Work_time (props?:any){
    return (
        <ListItem key={idx} className="listViewItems" >
        
-       <ListItemText >Work id : {item.jobID} ,
+       <ListItemText > employee name : {item.employeeName}Work id : {item.jobID} ,
          Working hours :  {item.hours_employee} ,
-            Time:   {String(format(new Date(item.datetime!), "d.M.Y HH:mm "))} ,
+            Time:   {String(item.datetime!)} ,
             description : {item.description}
             
            </ListItemText>

@@ -207,6 +207,10 @@ worktime component has token secured access to apiWorkTime.ts. It can add data a
 
 The request should do right. Now the user id is missing and that cause the problem. now we have to think about it little bit.
 
+## version 156
+
+now the worktime component get data from back end. It also can get the work time data only spefific user_id relation. If user make new user to this program, another user can see only his own work time data.
+
 ## npm installs in this project:
 
 Mariadb 10.10
