@@ -13,15 +13,15 @@ apiSignRouter.use(express.json());
 apiSignRouter.post("/signin", async (req : express.Request, res : express.Response, next : express.NextFunction) : Promise<void> => {
     console.log("tuleeko signinnii", req.body)
 
-    let crypted = crypto.createHash("SHA512").update(req.body.passwd).digest("hex");
-    console.log(req.body)
+    let crypted = crypto.createHash("SHA512").update(req.body.password).digest("hex");
+    console.log(req.body, crypted)
     try {
        await prisma.user_data.create({
             data : {
                 
                 user_name : String(req.body.userName),
                 user_pwd : crypted,
-                user_error : req.body.user_error,
+                user_error : String(req.body.user_error),
                 who_is_logging : String(req.body.who_is_logging)
                 
             }
@@ -34,8 +34,9 @@ apiSignRouter.post("/signin", async (req : express.Request, res : express.Respon
 
            
 
-    } catch {
-        next(new ServerError());
+    } catch(err) {
+        next(new ServerError(401, "noouuu"));
+        console.log("database error : ",err)
     }
 
 });

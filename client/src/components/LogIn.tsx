@@ -28,12 +28,13 @@ function LogIn(props?:any) { //this function is the login view where user can lo
                     body : JSON.stringify({
                         userName : textHandler.current?.newusrName,
                         password : textHandler.current?.newpassWD,
-                        user_error : "",
+                        user_error : "none",
                         who_is_logging : "employee"
                     })
                 });
                 if (connection_sign.status === 200){
                     console.log("ok")//add this status to graphics
+                    alert("New user saved!")
                     
                 }
             }

@@ -20,7 +20,7 @@ interface WarningTextsemployer extends Employer_data {}
 function Work_time (props?:any){
     const [who_is_logging, setWho_is_logging] = useState<string>("")
     const update_permission = useRef<boolean>(false);
-    const [user_id, setUser_id] = useState<Number>(0)
+    const [user_id, setUser_id] = useState<number>(0)
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
@@ -31,7 +31,7 @@ function Work_time (props?:any){
     const [workID, setWorkID] = useState([" it talo id: 1020","jätelaitos id: 1300", "joku laitos id: 1502"])
     const [selectedID, setSelectedID] = useState<string>("")
     const [employeeView, setEmployeeView] = useState<boolean>(true)
-    const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
+    const [loginVIEW,setLogInVIEW] = useState<boolean>(false);
     const [warningHandling, setWarningHandling] = useState<WarningTexts>({})
     const [warningHandlingemployer, setWarningHandlingemployer] = useState<WarningTextsemployer>({})
     const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([{datetime : new Date(), 
@@ -96,7 +96,9 @@ function Work_time (props?:any){
                 setSaveEmployeeData([...recieved])
            }
            if (who_is_logging === "employer"){
-                setSaveEmployerData([...recieved])
+                setSaveEmployerData([...recieved.employer_data])
+                setSaveEmployeeData([...recieved.allEmployees])
+                
            }
     
           } else {
@@ -269,7 +271,7 @@ function Work_time (props?:any){
 
     useEffect (() => {
         if (employeeView){
-            apiCall("GET", "employee", 1)
+            apiCall("GET", "employee", user_id)
         }else{
             apiCall("GET", "employer")
         }

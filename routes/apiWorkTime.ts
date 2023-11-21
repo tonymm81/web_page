@@ -9,6 +9,30 @@ const apiWorkTimeRouter : express.Router = express.Router();
 apiWorkTimeRouter.use(express.json());
 
 
+apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+    req.query.employee_worktime_id = String(1)
+     try {
+        if (req.params.id){
+            res.json(await prisma.employee_data.findMany({where : 
+                {employee_worktime_id : Number(req.params.id)}}))
+        }
+        
+    } catch (e: any) {
+        next(new ServerError());
+    }
+    
+
+});
+
+apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+
+});
+
+
+apiWorkTimeRouter.put("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+
+});
+
 
 apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     console.log("are we posting employee", req.body.employee_worktime_id)
@@ -48,6 +72,25 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
 
 });
 
+
+
+apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+
+    try {
+
+        let employer_data = await prisma.employer_data.findMany({})
+        let allEmployees = await prisma.employee_data.findMany({})
+       res.json({employer_data, allEmployees});
+    } catch (e : any) {
+        next(new ServerError());
+    }
+
+});
+
+apiWorkTimeRouter.delete("/employerdata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+
+});
+
 apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     console.log("employer data add", req.body) 
     if (req.body.employee?.length > 0) {
@@ -76,29 +119,9 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
 
 });
 
-apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    req.query.employee_worktime_id = String(1)
-     try {
-        if (req.params.id){
-            res.json(await prisma.employee_data.findMany({where : 
-                {employee_worktime_id : Number(req.params.id)}}))
-        }
-        
-    } catch (e: any) {
-        next(new ServerError());
-    }
-    
+apiWorkTimeRouter.put("/employerdata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
 
 });
 
-apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
-    try {
-       res.json(await prisma.employer_data.findMany({}));
-    } catch (e : any) {
-        next(new ServerError());
-    }
-
-});
 
 export default apiWorkTimeRouter;

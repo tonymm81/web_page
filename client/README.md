@@ -219,6 +219,10 @@ also make new user is not completed. Backend code is okay but client is missing 
 
 ### report version 155 bug fixed.
 
+## version 157
+
+Now user can add new user to database. I also add in apiWorktime.ts some different database searches. When employer ask get the router return all employer data and all employees data.
+
 ## npm installs in this project:
 
 Mariadb 10.10
