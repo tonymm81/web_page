@@ -183,7 +183,8 @@ I still problem, that i get the cannot read undefined on apiNews.ts apicall. I m
 Bug fixed. but apicalls are the wrong order Lets fix that for next. Then i can make changes to client side.
 
 report: Now i have editesd the client side apicalls. It happens now in server and i also added a feature that when you load the page first tiem, it will load from database the lastest search and loop it to graphics. I have to make here also timestamp based search times.
-### make timestamp based search control here also
+
+### make timestamp based search control newspage also
 
 ### next i have to make worktime app.
 first of all, we have to secure connection, when user is logged in. I use token. And also data saving should happen on database.
@@ -210,6 +211,13 @@ The request should do right. Now the user id is missing and that cause the probl
 ## version 156
 
 now the worktime component get data from back end. It also can get the work time data only spefific user_id relation. If user make new user to this program, another user can see only his own work time data.
+
+### plan
+i have to make the workid:s relation to specific employee. also i have to make relation to employer field, what is user payment and taxes. i have to edit database littlebit and make also new database search absed on them. And work id:s are saved in client app. That should be on database.
+
+also make new user is not completed. Backend code is okay but client is missing view add new employee.
+
+### report version 155 bug fixed.
 
 ## npm installs in this project:
 
