@@ -1,3 +1,5 @@
+
+
 //here is my applications interfaces
 interface Forecast_index{
     [key:string ] :  number|any
@@ -27,12 +29,12 @@ interface Employer_data{
     payment? : number |string
     vat? : number |string
     employee_name? : string
-    workIDS? : string
+    employer_work_id? : number
 }
 
 interface Employee_data{
     [key? : string] : any;
-    datetime? : Date
+    datetime_emp? : Date
     hours_employee? : number 
     description? : string
     jobID? : string
@@ -77,4 +79,13 @@ interface fetchSettings {
     headers? : any
     body? : string
   }
+  
+  interface Working_place_ids{
+    working_id_ids : number
+    employee_id : number
+    employee_name : string
+    workplace_id : string
+
+  }
+
   

@@ -18,9 +18,9 @@ interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
-    const [who_is_logging, setWho_is_logging] = useState<string>("")
-    const update_permission = useRef<boolean>(false);
-    const [user_id, setUser_id] = useState<number>(0)
+    const [who_is_logging, setWho_is_logging] = useState<string>("") // this is for api calls from server
+    const update_permission = useRef<boolean>(false); // this is because react component looping
+    const [user_id, setUser_id] = useState<number>(0) // this we need to save data correct relation in database
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
@@ -28,13 +28,14 @@ function Work_time (props?:any){
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
-    const [workID, setWorkID] = useState([" it talo id: 1020","jätelaitos id: 1300", "joku laitos id: 1502"])
+    const [workID, setWorkID] = useState<Working_place_ids[]>([])
+    const [employees_names_database, setEmplyees_names_database] = useState<[]>([])
     const [selectedID, setSelectedID] = useState<string>("")
     const [employeeView, setEmployeeView] = useState<boolean>(true)
-    const [loginVIEW,setLogInVIEW] = useState<boolean>(false);
+    const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
     const [warningHandling, setWarningHandling] = useState<WarningTexts>({})
     const [warningHandlingemployer, setWarningHandlingemployer] = useState<WarningTextsemployer>({})
-    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([{datetime : new Date(), 
+    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([{datetime_emp : new Date(), 
                                                                                 hours_employee : 8, 
                                                                                 description : "Some job", 
                                                                                 jobID :"id:00", 
@@ -43,7 +44,7 @@ function Work_time (props?:any){
     const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, 
                                                                                 vat : 20,
                                                                                 employee_name : "", 
-                                                                                workIDS : ""}])
+                                                                                employer_work_id : 0}])
     if(props.headLiner === "Working time application"){
 
     }else{
@@ -93,12 +94,14 @@ function Work_time (props?:any){
           if (connection.status === 200) {
             console.log("piisaako status")
            if (who_is_logging === "employee"){
-                setSaveEmployeeData([...recieved])
+                setSaveEmployeeData([...recieved.employeework])
+                setWorkID([...recieved.employee_work_places])
            }
            if (who_is_logging === "employer"){
                 setSaveEmployerData([...recieved.employer_data])
                 setSaveEmployeeData([...recieved.allEmployees])
-                
+                setEmplyees_names_database(recieved.employee_names)
+                console.log("testing emplyer save data", employees_names_database)
            }
     
           } else {
@@ -275,7 +278,8 @@ function Work_time (props?:any){
         }else{
             apiCall("GET", "employer")
         }
-    }, [employeeView, loginVIEW])
+    }, [employeeView, loginVIEW, user_id])
+    //apiCall("GET", "employer")
     return(
 
     <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
@@ -335,7 +339,7 @@ function Work_time (props?:any){
            defaultValue=""
            onChange={(e : SelectChangeEvent) => { setSelectedID(e.target.value) }}
         >
-            {workID.map((num, idx) =>  {return <MenuItem value={num} key={idx}> {num}</MenuItem>})}
+            {workID.map((num, idx) =>  {return <MenuItem value={num.workplace_id} key={idx}> {num.workplace_id}</MenuItem>})}
            
         </Select>
         <FormHelperText>{warningHandling.jobID}</FormHelperText>

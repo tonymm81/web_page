@@ -7,8 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model blog {
+  blog_id       Int             @id @default(autoincrement())
+  user_name     String          @db.Text
+  start_date    DateTime        @db.DateTime(0)
+  headliner     String          @db.Text
+  hl_test       String          @db.Text
+  editDate      DateTime        @default(now()) @db.DateTime(0)
+  answered      Int
+  blog_messages blog_messages[]
+}
+
+model blog_messages {
+  blog_id_related   Int
+  message_id        Int      @id @default(autoincrement())
+  user_name_message String   @db.Text
+  editedDate        DateTime @default(now()) @db.DateTime(0)
+  message           String   @db.Text
+  blog              blog     @relation(fields: [blog_id_related], references: [blog_id], onUpdate: Restrict, map: "blog_messages_ibfk_1")
+
+  @@index([blog_id_related], map: "blog_id_related")
+}
+
 model employee_data {
-  employee_id          Int       @id @default(autoincrement())
+  employee_id_auto     Int       @id @default(autoincrement())
   datetime_emp         DateTime  @db.DateTime(0)
   hours_employee       Int
   description          String    @db.Text
@@ -18,6 +40,14 @@ model employee_data {
   user_data            user_data @relation(fields: [employee_worktime_id], references: [user_id], onUpdate: Restrict, map: "employee_data_ibfk_1")
 
   @@index([employee_worktime_id], map: "employee_worktime_id")
+}
+
+model employer_data {
+  empoyer_data_id  Int    @id @default(autoincrement())
+  payment          Int
+  vat              Int
+  employee_name    String @db.Text
+  employer_work_id Int
 }
 
 model forecast {
@@ -53,32 +83,11 @@ model user_data {
   employee_data  employee_data[]
 }
 
-model blog {
-  blog_id       Int             @id @default(autoincrement())
-  user_name     String          @db.Text
-  start_date    DateTime        @db.DateTime(0)
-  headliner     String          @db.Text
-  hl_test       String          @db.Text
-  editDate      DateTime        @default(now()) @db.DateTime(0)
-  answered      Int
-  blog_messages blog_messages[]
-}
+model working_ids {
+  working_id_ids Int    @id @default(autoincrement())
+  employee_id    Int
+  employee_name  String @db.Text
+  workplace_id   String @db.Text
 
-model blog_messages {
-  blog_id_related   Int
-  message_id        Int      @id @default(autoincrement())
-  user_name_message String   @db.Text
-  editedDate        DateTime @default(now()) @db.DateTime(0)
-  message           String   @db.Text
-  blog              blog     @relation(fields: [blog_id_related], references: [blog_id], onUpdate: Restrict, map: "blog_messages_ibfk_1")
-
-  @@index([blog_id_related], map: "blog_id_related")
-}
-
-model employer_data {
-  empoyer_data_id Int    @id @default(autoincrement())
-  payment         Int
-  vat             Int
-  employee_name   String @db.Text
-  workid_s        String @db.Text
+  @@index([employee_id], map: "employee_working_id")
 }

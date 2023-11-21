@@ -63,7 +63,7 @@ function LogIn(props?:any) { //this function is the login view where user can lo
                     props.setEmployeeName(username)
                     props.setWho_is_logging(who_is_logging)
                     props.setUser_id(user_id)
-                    console.log("login", token)
+                    
                     localStorage.setItem("token", token);
                     errors = {}
                     if (who_is_logging === "employer"){

@@ -223,6 +223,12 @@ also make new user is not completed. Backend code is okay but client is missing 
 
 Now user can add new user to database. I also add in apiWorktime.ts some different database searches. When employer ask get the router return all employer data and all employees data.
 
+### bug:
+1. employer data wont saved.
+2. employer data wont work also in get
+3. employee view time is undefined..
+4. 
+
 ## npm installs in this project:
 
 Mariadb 10.10

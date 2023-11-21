@@ -13,8 +13,11 @@ apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : e
     req.query.employee_worktime_id = String(1)
      try {
         if (req.params.id){
-            res.json(await prisma.employee_data.findMany({where : 
-                {employee_worktime_id : Number(req.params.id)}}))
+
+            let employeework = await prisma.employee_data.findMany({where : 
+                {employee_worktime_id : Number(req.params.id)}})
+            let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(req.params.id)}})
+            res.json({employeework,employee_work_places})
         }
         
     } catch (e: any) {
@@ -75,13 +78,22 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
 
 
 apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
+    console.log("are we in get employer data")
+    let who = "employee"
     try {
-
-        let employer_data = await prisma.employer_data.findMany({})
-        let allEmployees = await prisma.employee_data.findMany({})
-       res.json({employer_data, allEmployees});
+        let employee_names = await prisma.user_data.findMany({
+                                                            where: {
+                                                            who_is_logging: "employee",
+                                                            },
+                                                            select: {
+                                                            user_name: true,
+                                                                },
+                                                                });
+        let employer_data = await prisma.employer_data.findMany()
+        let allEmployees = await prisma.employee_data.findMany()
+       res.json({employer_data, allEmployees, employee_names});
     } catch (e : any) {
+        console.log("are we in get employer data", e)
         next(new ServerError());
     }
 
@@ -102,9 +114,12 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
                   payment : Number(req.body.payment),
                   vat : Number(req.body.vat),
                   employee_name : String(req.body.employee_name),
-                  workid_s : String(req.body.workIDS)
+                  employer_work_id : Number(req.body.employee_work_id)
               }
           });
+          await prisma.working_ids.create({data: {employee_id : Number(req.body.employee_work_id),
+                                                        employee_name : String(req.body.employee_name),
+                                                        workplace_id : req.body.workIDS}})
           console.log("just for sure")
           res.json(await prisma.employer_data.findMany({}));
   
