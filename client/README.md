@@ -227,7 +227,19 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 1. employer data wont saved.
 2. employer data wont work also in get
 3. employee view time is undefined..
-4. 
+4. also employee data wont load after saving the worktime data.
+
+4 is fixed. there was missing databasesearch on post method employee route.
+3 is fixed. It was wrong name value in map loop.
+2 is fixed. found a typo in apiworktimerouter
+1 is fixed also.
+
+## version 158
+ i have make a select element in employer view, There he can choose correct employee and store his user_id that we can use correct workingplace id:S and payments to right employee.
+
+ now i have to clean unused valus avay from clients code and make also delete and put routes
+
+ Now is possible to delete specific employee data in client view,
 
 ## npm installs in this project:
 

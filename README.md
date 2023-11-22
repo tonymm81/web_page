@@ -36,7 +36,7 @@ cd weatherstation/web_page/web_page/client
 
 started to plan backend and database. I have to move apicalls from client app to back end.
 
-Now we have to think how to make api calls from client. We have to also figure out, why node fetch wont work.
+Now we have to think how to make api calls from client. We have to also figure out, why node fetch wont work. (fixed. it was missing @types)
 
-I will keep up the version report on client README.MD
+I will keep up the version report on client/README.MD
 

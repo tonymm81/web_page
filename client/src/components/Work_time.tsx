@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import {LocalizationProvider, DateTimePicker} from '@mui/x-date-pickers'
 //icons import
 import LogIn from "./LogIn";
@@ -24,6 +24,7 @@ function Work_time (props?:any){
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
+    const [chosen_employee, setChosen_employee] = useState<string>("");
     const update_calculate = useRef<boolean>(false);
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
@@ -54,15 +55,15 @@ function Work_time (props?:any){
     const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
 
        let worktimeUrl = ''
-        if(who_is_using === "employee" && metod_where === "GET"){
+        if(who_is_using === "employee" && metod_where === "GET" || metod_where === "PUT" || metod_where === "DELETE"){ // employee side wnats to them data
         
             worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
         }
-        if(who_is_using === "employee" && metod_where === "POST"){
+        if(who_is_using === "employee" && metod_where === "POST"){ // if employee posting, id not needed
         
             worktimeUrl = `/api/WorkTime/employeedata`;
         }
-        if (who_is_using === "employer"){
+        if (who_is_using === "employer"){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata`;
         }
         let settings : fetchSettings = { 
@@ -88,20 +89,22 @@ function Work_time (props?:any){
           }
           
         try {
+        console.log("connection path", worktimeUrl, metod_where)
           const connection = await fetch(worktimeUrl, settings);
           const recieved = await connection.json()
     
           if (connection.status === 200) {
-            console.log("piisaako status")
+           // console.log("piisaako status")
            if (who_is_logging === "employee"){
                 setSaveEmployeeData([...recieved.employeework])
                 setWorkID([...recieved.employee_work_places])
+                //console.log("did it save in client side", who_is_logging)
            }
            if (who_is_logging === "employer"){
                 setSaveEmployerData([...recieved.employer_data])
                 setSaveEmployeeData([...recieved.allEmployees])
                 setEmplyees_names_database(recieved.employee_names)
-                console.log("testing emplyer save data", employees_names_database)
+                //console.log("testing emplyer save data", employees_names_database)
            }
     
           } else {
@@ -168,8 +171,7 @@ function Work_time (props?:any){
                 employee_worktime_id : Number(user_id)
             }
             
-            //setSaveEmployeeData([...saveEmployeeData, savetemp]);
-            apiCall("POST", "employee", 1, savetemp)
+            apiCall("POST", "employee", user_id, savetemp)
             update_permission.current = true
             setDescription_temp("")
             setJobhours_temp(0)
@@ -191,8 +193,8 @@ function Work_time (props?:any){
     const employerField = (e? : React.FormEvent, value?:any | null) :void =>{
         e?.preventDefault(); // this function is error handling and data saving. This is employer view data saving.
         let employerwarnings : WarningTextsemployer = {}
-        if (textHandleremployer.current.employeeName === undefined){
-            employerwarnings = {...employerwarnings, employee : "Please enter employees name"}
+        if (chosen_employee === undefined){
+            employerwarnings = {...employerwarnings, employee : "Please choose employees name"}
         }
         if (textHandleremployer.current.workIDs === undefined){
             employerwarnings = {...employerwarnings, workIDs : "Please enter the work id"}
@@ -210,15 +212,14 @@ function Work_time (props?:any){
             let savetempEmployer : Employer_data = {
                 payment : textHandleremployer.current.payment,
                 vat : textHandleremployer.current.Taxs,
-                employee_name : textHandleremployer.current.employeeName,
+                employee_name : chosen_employee,
+                employee_work_id : user_id,
                 workIDS : textHandleremployer.current.workIDs
             }
-            //setSaveEmployerData([savetempEmployer])
-            apiCall("POST", "employer", 2, savetempEmployer)
-            setEmployeeName(textHandleremployer.current.employeeName)
-            setWorkID([...workID, textHandleremployer.current.workIDs])
+            apiCall("POST", "employer", 8, savetempEmployer)
             textHandleremployer.current = {}
             alert("Data saved!")
+            
         }
        
     }
@@ -233,10 +234,11 @@ function Work_time (props?:any){
 
 
     }
-    const deleteSavedData = (idx:Number) : void =>{ // here user can delete selected data
+    const deleteSavedData = (employee_field_auto_id : number) : void =>{ // here user can delete selected data
         var r = window.confirm("Are you sure you want to delete this?")
         if (r){
-            setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
+            apiCall("DELETE", "employee", employee_field_auto_id )
+            //setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
             update_calculate.current=true
         }
         count_hours_taxes()
@@ -263,6 +265,16 @@ function Work_time (props?:any){
             console.log("Object is empty!! ", error)
         }
     }
+    const save_selected_employee = (e:any) : void => {
+        e?.preventDefault();
+        setChosen_employee(e.target.value as string)
+        for (let i = 0 ; i < employees_names_database.length; i++){
+            if (String(e.target.value) === employees_names_database[i]['user_name']){
+                setUser_id(employees_names_database[i]['user_id'] as number)
+                
+            } 
+        }    
+    }
 
     useEffect (() => {
         if(update_calculate.current === true){
@@ -279,7 +291,7 @@ function Work_time (props?:any){
             apiCall("GET", "employer")
         }
     }, [employeeView, loginVIEW, user_id])
-    //apiCall("GET", "employer")
+    
     return(
 
     <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
@@ -383,15 +395,24 @@ function Work_time (props?:any){
     :
     <form onSubmit={employerField}>
     <Typography variant="h4">Welcome employer {employeeName}</Typography> {/*Here is employer field view*/}
-    <><TextField
-                    className='worktimeFields'
-                    label="Enter here employee name"
-                    name="employeeName"
-                    variant="outlined"
-                    fullWidth={true} 
-                    onChange={textfieldsHandlerEmployer}
-                    error={Boolean(warningHandlingemployer.employee)}
-                    helperText={warningHandlingemployer.employeee}/>
+
+    <>            <FormControl error={Boolean(warningHandlingemployer.employee)} fullWidth={true}>
+                    <InputLabel id="employeeName">choose employee name</InputLabel>
+                        <Select
+                            id="employeeNameSelector"
+                            label="Choose wich eployee" 
+                            value={chosen_employee}
+                            name="employeeName"
+                            fullWidth={true}
+                            className='worktimeFields'
+                            defaultValue=""
+                            onChange={(e :any) => {save_selected_employee(e)}}
+                             >
+            {employees_names_database.map((num, idx) =>  {return <MenuItem value={num['user_name']} key={idx}> {num['user_name']}</MenuItem>})}
+           
+                        </Select>
+                        <FormHelperText>{warningHandlingemployer.employee}</FormHelperText>
+                    </FormControl>
                     <TextField
                         className='worktimeFields'
                         label="Give here workID"
@@ -436,10 +457,10 @@ function Work_time (props?:any){
                                 <List>
                                     <ListItem key={idxn} className="listViewItems" >
        
-                        <ListItemText > Employee name : {emp.employee} ,
+                        <ListItemText > Employee name : {emp.employee_name} ,
                                         Employee payment :  {emp.payment} €/h,
                                         Employee tax precent {emp.vat} %,
-                                        Entered job_id : {emp.workIDS}
+                                        
             
                         </ListItemText>
                                     </ListItem>
@@ -460,7 +481,7 @@ function Work_time (props?:any){
        
        <ListItemText > employee name : {item.employeeName}Work id : {item.jobID} ,
          Working hours :  {item.hours_employee} ,
-            Time:   {String(item.datetime!)} ,
+            Time:   {String(item.datetime_emp)} ,
             description : {item.description}
             
            </ListItemText>
@@ -472,7 +493,7 @@ function Work_time (props?:any){
                    <EditIcon />
                </IconButton>
                <IconButton 
-                   onClick={() => {deleteSavedData(idx)}}
+                   onClick={() => {deleteSavedData(Number(item.employee_id_auto))}}
                    edge="start">
                    <DeleteForeverIcon />
                </IconButton>

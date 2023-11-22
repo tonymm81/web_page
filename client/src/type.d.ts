@@ -26,14 +26,17 @@ interface Forecast_needed{
 
 interface Employer_data{
     [key? : string] : any;
+    empoyer_data_id? :number
     payment? : number |string
     vat? : number |string
     employee_name? : string
     employer_work_id? : number
+    workIDS? : string
 }
 
 interface Employee_data{
     [key? : string] : any;
+    employee_id_auto? : number
     datetime_emp? : Date
     hours_employee? : number 
     description? : string
@@ -44,6 +47,7 @@ interface Employee_data{
 
 interface LogINuser{
     [key? : string] : any;
+    user_id? : number
     username? : string
     passwd? : string
     error? :string

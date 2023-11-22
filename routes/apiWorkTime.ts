@@ -28,7 +28,23 @@ apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : e
 });
 
 apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+    let search_based_user = await prisma.employee_data.findMany({where : 
+                                                        {employee_id_auto : Number(req.params.id)},
+                                                            select: {employee_worktime_id : true}})
+    if (await prisma.employee_data.count({where: {employee_id_auto : Number(req.params.id)}})){
+        try{
+            await prisma.employee_data.delete({where: {employee_id_auto : Number(req.params.id)}})
 
+            let employeework = await prisma.employee_data.findMany({where : 
+                {employee_worktime_id : Number(search_based_user)}})
+            let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(search_based_user)}})
+            res.json({employeework,employee_work_places})
+
+        }catch(show_me_error_oh_mighty_database){
+            console.log("error db delete", show_me_error_oh_mighty_database)
+            next(new ServerError(404, "ratapase"))
+        }
+    }
 });
 
 
@@ -62,7 +78,11 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
                 },
             })
             console.log("did it?")
-            res.json(prisma.employee_data.findMany({where: {employee_worktime_id : Number(req.body.employee_worktime_id) }}));
+            let employeework = await prisma.employee_data.findMany({where : 
+                {employee_worktime_id : Number(req.body.employee_worktime_id)}})
+
+            let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(req.body.employee_worktime_id)}})
+            res.json({employeework,employee_work_places})
     
         } catch (e : any) {
             console.log("db error", e)
@@ -78,7 +98,7 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
 
 
 apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    console.log("are we in get employer data")
+    console.log("are we in get employer data", req.body)
     let who = "employee"
     try {
         let employee_names = await prisma.user_data.findMany({
@@ -86,6 +106,7 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
                                                             who_is_logging: "employee",
                                                             },
                                                             select: {
+                                                            user_id : true,
                                                             user_name: true,
                                                                 },
                                                                 });
@@ -105,11 +126,11 @@ apiWorkTimeRouter.delete("/employerdata/:id", async (req : express.Request, res 
 
 apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     console.log("employer data add", req.body) 
-    if (req.body.employee?.length > 0) {
+    if (req.body.employee_name?.length > 0) {
 
       try {
         console.log("employer data add", req.body) 
-          await prisma.employer_data.create({
+          let employer = await prisma.employer_data.create({
               data : {
                   payment : Number(req.body.payment),
                   vat : Number(req.body.vat),
@@ -117,11 +138,25 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
                   employer_work_id : Number(req.body.employee_work_id)
               }
           });
-          await prisma.working_ids.create({data: {employee_id : Number(req.body.employee_work_id),
+          let workid = await prisma.working_ids.create({data: {employee_id : Number(req.body.employee_work_id),
                                                         employee_name : String(req.body.employee_name),
-                                                        workplace_id : req.body.workIDS}})
-          console.log("just for sure")
-          res.json(await prisma.employer_data.findMany({}));
+                                                        workplace_id : req.body.workIDS}});
+          
+
+        let employee_names = await prisma.user_data.findMany({
+                                                            where: {
+                                                            who_is_logging: "employee",
+                                                            },
+                                                            select: {
+                                                            user_id : true,
+                                                            user_name: true,
+                                                                },
+                                                                });
+        let employer_data = await prisma.employer_data.findMany()
+        let allEmployees = await prisma.employee_data.findMany()
+        console.log("did we save", employer, workid)
+       res.json({employer_data, allEmployees, employee_names});
+       //res.json()
   
       } catch (e : any) {
             console.log("database error", e)

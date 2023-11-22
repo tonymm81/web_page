@@ -96,9 +96,11 @@ function LogIn(props?:any) { //this function is the login view where user can lo
 
     return(<> 
     <form onSubmit={checkUser}>
-    <Typography>Hey! This is demo login. If you want to log in with employer account use 
+    <Typography variant="body1" display="inline">Hey! This is demo login. If you want to log in with employer account use 
         username jane_smith and password test. Employee view use john_smith for username 
-        and same test password. (Nothing will be saved on browser or server)
+        and same test password. Employee has to make user name and pass word so employer can make him
+        working place id and payment info. After that employee can login and mark his work time details to application.
+        data will saved on server database with secured route.
     </Typography>
     <TextField
         label="Give user name"
@@ -128,7 +130,7 @@ function LogIn(props?:any) { //this function is the login view where user can lo
         startIcon={<LoginIcon/>}>Log in</Button>
         </form>
         <form onSubmit={addUser}>
-    <Typography>Here you can add new employee. When you have entered the username and password. please login after you enter the new user data.
+    <Typography variant="body1">Here you can add new employee. When you have entered the username and password. please login after you enter the new user data.
     </Typography>
     <TextField
         label="Give new user name"
