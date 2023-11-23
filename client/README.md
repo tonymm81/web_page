@@ -241,37 +241,38 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 
  Now is possible to delete specific employee data in client view,
 
+ ## version 159
+ I add annoying captcha to start page. After success captcha server gives a token, what we need to make apicalls to server.
+
+ I also update the npm packages to client.
+
 ## npm installs in this project:
 
 Mariadb 10.10
 
-npm install @mui/lab
+- npm install @mui/lab
 
-npm install @mui/material @emotion/react @emotion/styled
+- npm install @mui/material @emotion/react @emotion/styled
 
-npm install @mui/material @mui/styled-engine-sc styled-components
+- npm install @mui/material @mui/styled-engine-sc styled-components
 
-npm install @fontsource/roboto
+- npm install @fontsource/roboto
 
-npm install @mui/icons-material
+- npm install @mui/icons-material
 
-npm install react-router-dom @types/react-router-dom
+- npm install react-router-dom @types/react-router-dom
 
-npm install moment-jalaali
+- npm install moment-jalaali
 
-npm install @date-io/jalaali
+- npm install @date-io/jalaali
 
-npm install date-fns --save
+- npm install date-fns --save
 
-npm install @mui/x-date-pickers
+- npm install @mui/x-date-pickers
 
-folder cors-server
-npm init -y 
-npm i express
-to start: node app
+- npm install --save react-google-recaptcha
 
- "private-package": "git+https://user:pass@gitlab.privateorg.com/project/package#commithash",
- "proxy":"https://newsapi.org",
-  "private-package": "git+https://user:pass@gitlab.privateorg.com/project/package#commithash",
-   
-   
+- npm i --save-dev @types/react-google-recaptcha
+
+
+ 

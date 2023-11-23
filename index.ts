@@ -32,6 +32,22 @@ const checkToken = (req : express.Request, res : express.Response, next : expres
 
 }
 
+const checkTokenSecondary = (req : express.Request, res : express.Response, next : express.NextFunction) => {
+
+    try {
+
+        let token : string = req.headers.authorization!.split(" ")[1];
+
+        res.locals.username = jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
+
+        next();
+
+    } catch (e: any) {
+        res.status(401).json({});
+    }
+
+}
+
 app.use(express.static(path.resolve(__dirname, "public")));
 
 app.use("/api/auth", apiAuthRouter);

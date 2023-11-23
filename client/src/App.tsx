@@ -15,21 +15,29 @@ import News_page from './components/News_page'
 
 const App : React.FC = () : React.ReactElement => {
   const [token, setToken] = useState<string>(String(localStorage.getItem("token")));
+  const [tokenSecondary, setTokenSecondary] = useState<string>(String(localStorage.getItem("token")));
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
+  const [captcha, setCaptcha] = useState<boolean>(true)
   return (
+    
    <Container className='App'>
+    
     <Typography className='headliner' variant="h3">{headliner}</Typography>
     
     <List_box/> 
     <Routes>
       <Route path="/" element={ <StartPage setHeadliner={setHeadliner}
-                                  setAllowForecast={setAllowForecast}/> } />
+                                  headliner={headliner}
+                                  setAllowForecast={setAllowForecast}
+                                  captcha={captcha} 
+                                  setCaptcha={setCaptcha} 
+                                  setTokenSecondary={setTokenSecondary} /> } />
       <Route path="/Forecast" element={<Forecast 
                                       setHeadliner={setHeadliner}
                                       setAllowForecast={setAllowForecast}
                                       allowForecast={allowForecast}
-                                      />} />
+                                      tokenSecondary={tokenSecondary} />} />
       <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} 
                                                   setAllowForecast={setAllowForecast}
                                                   setToken={setToken}
@@ -39,11 +47,13 @@ const App : React.FC = () : React.ReactElement => {
                                                 setAllowForecast={setAllowForecast}/>} />
 
       <Route path="/News_page" element={<News_page setHeadliner={setHeadliner} 
-                                              setAllowForecast={setAllowForecast}/>} />
+                                              setAllowForecast={setAllowForecast}
+                                              tokenSecondary={tokenSecondary}/>} />
       <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} 
                                               setAllowForecast={setAllowForecast}/>} />
     </Routes>
    </Container>
+   
   );
 }
 
