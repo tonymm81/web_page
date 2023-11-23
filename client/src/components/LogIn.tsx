@@ -100,7 +100,8 @@ function LogIn(props?:any) { //this function is the login view where user can lo
         username jane_smith and password test. Employee view use john_smith for username 
         and same test password. Employee has to make user name and pass word so employer can make him
         working place id and payment info. After that employee can login and mark his work time details to application.
-        data will saved on server database with secured route.
+        data will saved on server database with secured route. 
+        Please dont save here any real person information or backaccount information.
     </Typography>
     <TextField
         label="Give user name"

@@ -69,7 +69,8 @@ return(
 
     <Dialog open={props.captcha}><Typography variant="body1">Hello. I have this site 2 different free api services. Sorry but i have to test
                                                             that you are not robot who i shammering my site apicalls. After test you can use my
-                                                            like you want
+                                                            like you want. If text is not clear press update button near textfield. Only
+                                                            Uppercase letters and numbers allowed. 
                                                             </Typography> <Captcha validate={(res)=>{close_captcha(res)}}/>
         Enter the code and continue</Dialog>
 </Container>

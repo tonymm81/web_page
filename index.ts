@@ -22,6 +22,8 @@ const checkToken = (req : express.Request, res : express.Response, next : expres
 
         let token : string = req.headers.authorization!.split(" ")[1];
 
+        
+
         res.locals.username = jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY));
 
         next();
@@ -37,12 +39,13 @@ const checkTokenSecondary = (req : express.Request, res : express.Response, next
     try {
 
         let token : string = req.headers.authorization!.split(" ")[1];
-
-        res.locals.username = jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
-
+        //console.log("indexts",token)
+        //res.locals.secondarytoken = jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
+        jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
         next();
 
     } catch (e: any) {
+        console.log("error", e)
         res.status(401).json({});
     }
 
@@ -54,9 +57,9 @@ app.use("/api/auth", apiAuthRouter);
 
 app.use("/api/signin", apiSignRouter);
 
-app.use("/api/news", apiNewsRouter);
+app.use("/api/news", checkTokenSecondary, apiNewsRouter);
 
-app.use("/api/forecast", apiForecastRouter);
+app.use("/api/forecast",checkTokenSecondary, apiForecastRouter);
 
 app.use("/api/WorkTime", checkToken, apiWorkTimeRouter);
 
@@ -65,7 +68,7 @@ app.use(serverErrorHandler);
 app.use((req : express.Request, res : express.Response, next : express.NextFunction) => {
 
     if (!res.headersSent) {
-        res.status(404).json({ viesti : "Virheellinen reitti"});
+        res.status(404).json({ viesti : "wrong route"});
     }
 
     next();
@@ -73,6 +76,6 @@ app.use((req : express.Request, res : express.Response, next : express.NextFunct
 
 app.listen(port, () => {
 
-    console.log(`Palvelin käynnistyi porttiin : ${port}`);    
+    console.log(`server has started on port : ${port}`);    
 
 });

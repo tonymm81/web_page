@@ -1,4 +1,4 @@
-import { Button, Container, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Alert, Button, Container, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
@@ -18,6 +18,7 @@ interface WarningTexts extends Employee_data {}
 interface WarningTextsemployer extends Employer_data {}
 //this component is work time application. LOgIN component belongs to this component
 function Work_time (props?:any){
+    const Apierror = useRef<string>("");
     const [who_is_logging, setWho_is_logging] = useState<string>("") // this is for api calls from server
     const update_permission = useRef<boolean>(false); // this is because react component looping
     const [user_id, setUser_id] = useState<number>(0) // this we need to save data correct relation in database
@@ -36,16 +37,9 @@ function Work_time (props?:any){
     const [loginVIEW,setLogInVIEW] = useState<boolean>(true);
     const [warningHandling, setWarningHandling] = useState<WarningTexts>({})
     const [warningHandlingemployer, setWarningHandlingemployer] = useState<WarningTextsemployer>({})
-    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([{datetime_emp : new Date(), 
-                                                                                hours_employee : 8, 
-                                                                                description : "Some job", 
-                                                                                jobID :"id:00", 
-                                                                                employeeName:"test"}])
-    const [employeeName, setEmployeeName] = useState<string>("person test")
-    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([{payment: 12, 
-                                                                                vat : 20,
-                                                                                employee_name : "", 
-                                                                                employer_work_id : 0}])
+    const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([])
+    const [employeeName, setEmployeeName] = useState<string>("")
+    const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([])
     if(props.headLiner === "Working time application"){
 
     }else{
@@ -53,13 +47,13 @@ function Work_time (props?:any){
         props.setAllowForecast(true)
     }
     const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
-
+        Apierror.current = ""
        let worktimeUrl = ''
-        if(who_is_using === "employee" && metod_where === "GET" || metod_where === "PUT" || metod_where === "DELETE"){ // employee side wnats to them data
+        if((who_is_using === "employee" && metod_where === "GET") || (metod_where === "PUT") || (metod_where === "DELETE")){ // employee side wnats to them data
         
             worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
         }
-        if(who_is_using === "employee" && metod_where === "POST"){ // if employee posting, id not needed
+        if((who_is_using === "employee") && (metod_where === "POST")){ // if employee posting, id not needed
         
             worktimeUrl = `/api/WorkTime/employeedata`;
         }
@@ -118,22 +112,13 @@ function Work_time (props?:any){
               default : errorMessage = "Palvelimella tapahtui odottamaton virhe"; break;
     
             }
-    
-            /*setApiData({
-              ...apiData,
-              virhe : virheteksti,
-              haettu : true
-            });*/
+            Apierror.current = errorMessage
     
           }
     
         } catch (e : any) {
     
-          /*setApiData({
-            ...apiData,
-            virhe : `Palvelimeen ei saada yhteyttä, ${e}`,
-            haettu : true
-          });*/
+         Apierror.current = e
     
         }
     
@@ -216,6 +201,7 @@ function Work_time (props?:any){
                 employee_work_id : user_id,
                 workIDS : textHandleremployer.current.workIDs
             }
+            
             apiCall("POST", "employer", 8, savetempEmployer)
             textHandleremployer.current = {}
             alert("Data saved!")
@@ -230,7 +216,8 @@ function Work_time (props?:any){
         setJobhours_temp(Number(temp_object[idx].hours_employee))
         setTimenow(temp_object[idx].datetime!)
         setSelectedID(temp_object[idx].jobID!)
-        setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])//When editing data, lets  remove old version
+        //apiCall("PUT", "employee", temp_object[idx].employee_id_auto, temp_object)
+        //setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])//When editing data, lets  remove old version
 
 
     }
@@ -238,7 +225,7 @@ function Work_time (props?:any){
         var r = window.confirm("Are you sure you want to delete this?")
         if (r){
             apiCall("DELETE", "employee", employee_field_auto_id )
-            //setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])
+            apiCall("GET", "employee", employee_field_auto_id )
             update_calculate.current=true
         }
         count_hours_taxes()
@@ -293,8 +280,9 @@ function Work_time (props?:any){
     }, [employeeView, loginVIEW, user_id])
     
     return(
-
+        
     <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
+        <Typography variant="h5">{Apierror.current}</Typography>
          <Button variant="contained"    
             color="inherit"
             onClick={() => {setLogInVIEW(true)}}

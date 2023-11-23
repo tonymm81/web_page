@@ -34,10 +34,10 @@ apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res 
     if (await prisma.employee_data.count({where: {employee_id_auto : Number(req.params.id)}})){
         try{
             await prisma.employee_data.delete({where: {employee_id_auto : Number(req.params.id)}})
-
+            console.log("delete route",search_based_user)
             let employeework = await prisma.employee_data.findMany({where : 
-                {employee_worktime_id : Number(search_based_user)}})
-            let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(search_based_user)}})
+                {employee_worktime_id : Number(search_based_user[0].employee_worktime_id)}})
+            let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(search_based_user[0].employee_worktime_id)}})
             res.json({employeework,employee_work_places})
 
         }catch(show_me_error_oh_mighty_database){
@@ -49,7 +49,7 @@ apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res 
 
 
 apiWorkTimeRouter.put("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
+    console.log("put", req.body)
 });
 
 

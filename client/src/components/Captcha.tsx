@@ -73,7 +73,7 @@ export class Captcha extends Component<AppProps, AppState> {
         // Uppercase
         !(char >= 65 && char <= 90) &&
         // Lowercase
-        !(char >= 97 && char <= 122) &&
+        //!(char >= 97 && char <= 122) &&
         // Numeric
         !(char >= 48 && char <= 57)
       );
@@ -105,14 +105,14 @@ export class Captcha extends Component<AppProps, AppState> {
           backgroundColor: "lightgray",
           borderRadius: "3px",
           padding: "3px",
-          width: "133px",
+          width: "233px",
           boxSizing: "border-box",
           border: "1px solid gray"
         }}
       >
         <canvas
-          width="125"
-          height="30"
+          width="225"
+          height="130"
           style={{
             borderRadius: "3px"
           }}
@@ -121,7 +121,7 @@ export class Captcha extends Component<AppProps, AppState> {
         <div>
           <input
             style={{
-              width: "100px",
+              width: "200px",
               boxSizing: "border-box",
               borderRadius: "3px"
             }}

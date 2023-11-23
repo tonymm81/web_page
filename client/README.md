@@ -246,6 +246,15 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 
  I also update the npm packages to client.
 
+ ## version 160
+ Now i have token in forecast and newspage routes. succesfull capcha gives the client token.
+
+ I modified captcha littlebit. Now there is only number and uppercase letters
+ Delete route is working now in work_time.tsx. Next i have to modify the edit field.
+
+ Put is not easy to make. Now all form are connected to POST datasaving function.
+
+
 ## npm installs in this project:
 
 Mariadb 10.10

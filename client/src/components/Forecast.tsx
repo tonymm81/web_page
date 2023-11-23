@@ -32,7 +32,7 @@ function Forecast (props?:any){
                 //
                 let url = `/api/forecast/forecast_saved`
                 try{
-                    const response = await fetch(url, {method : "GET"}) // get data from backend
+                    const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
                     const response_json = await response.json()
                     if (response.status === 200){
                         console.log("get old forecast")
@@ -49,7 +49,7 @@ function Forecast (props?:any){
                 }}else{
                     try{
                         let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi`
-                        const response = await fetch(url, {method : "GET"}) // get data from backend
+                        const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
                         const response_json = await response.json()
                         if (response.status === 200){
                             console.log("get new forecast")
@@ -65,8 +65,11 @@ function Forecast (props?:any){
                 }
         //saveNeededData()
         setBackdrop(true)
-        setWhat_city(forecastSaved[0].town_or_city)
-    }
+        if (forecastSaved[0]?.town_or_city  !== undefined){
+            setWhat_city(forecastSaved[0].town_or_city)
+        }else{
+            setWhat_city("tampere")
+        }}
 
    
 useEffect(() => {

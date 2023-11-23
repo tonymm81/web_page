@@ -5,7 +5,7 @@ interface Forecast_index{
     [key:string ] :  number|any
 }
 
-interface Forecast_json {
+interface Forecast_json { 
     Whole_forecast : Forecast_index
     errors?: boolean
     errorText? : string

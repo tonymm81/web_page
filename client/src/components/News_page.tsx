@@ -56,7 +56,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                     api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}`
                 }
                 console.log(api_address)
-                const connectionNews = await fetch(api_address, {method: "GET"})
+                const connectionNews = await fetch(api_address, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}})
                 const apidatanews = await connectionNews.json(); 
 
                 if (connectionNews.status === 200){

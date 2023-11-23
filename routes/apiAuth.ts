@@ -53,7 +53,7 @@ apiAuthRouter.post("/login/getsSecondary", async (req : express.Request, res : e
     //console.log(hash)
     try {
 
-    let tokenSecondary = jwt.sign({ }, String(process.env.ACCESS_TOKEN_KE_secondary));
+    let tokenSecondary = jwt.sign({ }, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
     res.json(tokenSecondary)            
 
     } catch {
