@@ -21,9 +21,6 @@ const checkToken = (req : express.Request, res : express.Response, next : expres
     try {
 
         let token : string = req.headers.authorization!.split(" ")[1];
-
-        
-
         res.locals.username = jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY));
 
         next();
@@ -39,8 +36,7 @@ const checkTokenSecondary = (req : express.Request, res : express.Response, next
     try {
 
         let token : string = req.headers.authorization!.split(" ")[1];
-        //console.log("indexts",token)
-        //res.locals.secondarytoken = jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
+       
         jwt.verify(token, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
         next();
 

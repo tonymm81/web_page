@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { ServerError } from '../errors/errorHalndler';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import axios from 'axios';
 
 const apiAuthRouter : express.Router = express.Router();
 
@@ -48,16 +49,23 @@ apiAuthRouter.post("/login", async (req : express.Request, res : express.Respons
 
 });
 apiAuthRouter.post("/login/getsSecondary", async (req : express.Request, res : express.Response, next : express.NextFunction) : Promise<void> => {
-    console.log("loging token")
-    
+    console.log("loging token", req.body.Response_from_google)
+    let token_from_client =  req.body.Response_from_google
     //console.log(hash)
     try {
-
-    let tokenSecondary = jwt.sign({ }, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
-    res.json(tokenSecondary)            
+        const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_CAPTCHA}&response=${token_from_client}`)
+        if (response.data.success){
+            let tokenSecondary = jwt.sign({ }, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
+            console.log("does it success")
+            res.json(tokenSecondary)  
+        }else{
+            next(new ServerError(401, "unauthorized")); 
+        }
+    
+             
 
     } catch {
-        next(new ServerError());
+        next(new ServerError(401, "unauthorized"));
     }
 
 });

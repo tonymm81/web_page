@@ -37,7 +37,7 @@ interface Employer_data{
 interface Employee_data{
     [key? : string] : any;
     employee_id_auto? : number
-    datetime_emp? : Date
+    datetime_emp? : Date 
     hours_employee? : number 
     description? : string
     jobID? : string

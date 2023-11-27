@@ -19,6 +19,7 @@ const App : React.FC = () : React.ReactElement => {
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
   const [captcha, setCaptcha] = useState<boolean>(true)
+  const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   return (
     
    <Container className='App'>
@@ -32,7 +33,8 @@ const App : React.FC = () : React.ReactElement => {
                                   setAllowForecast={setAllowForecast}
                                   captcha={captcha} 
                                   setCaptcha={setCaptcha} 
-                                  setTokenSecondary={setTokenSecondary} /> } />
+                                  setTokenSecondary={setTokenSecondary}
+                                  refreshReCaptcha={refreshReCaptcha} /> } />
       <Route path="/Forecast" element={<Forecast 
                                       setHeadliner={setHeadliner}
                                       setAllowForecast={setAllowForecast}

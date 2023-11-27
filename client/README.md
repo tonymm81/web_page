@@ -254,6 +254,16 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 
  Put is not easy to make. Now all form are connected to POST datasaving function.
 
+ ## version 161
+ i change the letter and number captcha to googles iam not robot tag.. The old one was too annoying.
+
+ Lets keep the old captcha for backup if the new one doesnt work agaist the bad robots.
+
+ Googles captcha working well. It takes after successed test the token key and post it to backend code. 
+ There we make another post to googles site and check if the client given token is valid. If it is, lets
+ return the token from client to secured connection, what needs forecast api and newspage.
+ 
+
 
 ## npm installs in this project:
 
@@ -279,7 +289,7 @@ Mariadb 10.10
 
 - npm install @mui/x-date-pickers
 
-- npm install --save react-google-recaptcha
+- npm install react-google-recaptcha-v3
 
 - npm i --save-dev @types/react-google-recaptcha
 

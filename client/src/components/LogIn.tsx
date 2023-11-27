@@ -17,6 +17,7 @@ function LogIn(props?:any) { //this function is the login view where user can lo
         textHandler.current[e.target.name] = e.target.value
     }
     const addUser =  async (e? : React.FormEvent, value?:any | null) : Promise<void> =>{
+        let errors : textfieldErrors = {}
         e?.preventDefault();
         if(textHandler.current.newusrName){  // if username and password is given lets move on
             if(textHandler.current.newpassWD){
@@ -36,6 +37,8 @@ function LogIn(props?:any) { //this function is the login view where user can lo
                     console.log("ok")//add this status to graphics
                     alert("New user saved!")
                     
+                }else{
+                    errors = {...errors, error:"Give username and password"}
                 }
             }
         }
