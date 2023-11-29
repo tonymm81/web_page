@@ -10,7 +10,7 @@ apiWorkTimeRouter.use(express.json());
 
 
 apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    req.query.employee_worktime_id = String(1)
+    req.query.employee_worktime_id = String(1)// this will search one specific employee data
      try {
         if (req.params.id){
 
@@ -28,6 +28,7 @@ apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : e
 });
 
 apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+   // this will delete the chosen employeedata
     let search_based_user = await prisma.employee_data.findMany({where : 
                                                         {employee_id_auto : Number(req.params.id)},
                                                             select: {employee_worktime_id : true}})
@@ -50,12 +51,54 @@ apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res 
 
 apiWorkTimeRouter.put("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     console.log("put", req.body)
+    if (await prisma.employee_data.count({// this will edit the chosen employee data
+        where : {
+            employee_id_auto : Number(req.params.id)
+        }
+        })) {
+        if (req.body.description?.length > 0 ) {
+
+            try {
+
+                await prisma.employee_data.update({
+                    where : {
+                        employee_id_auto : Number(req.params.id)
+                    },
+                    data : {
+                        datetime_emp : req.body.datetime_emp,
+                        hours_employee : req.body.hours_employee,
+                        description : req.body.description,
+                        jobID : req.body.jobID
+                    }
+                });
+                let employee_worktime_id = await prisma.employee_data.findFirst({where: 
+                                                                        {employee_id_auto : Number(req.params.id),
+                                                                        }, select : {
+                                                                            employee_worktime_id : true
+                                                                        }})
+                let employeework = await prisma.employee_data.findMany({where : 
+                    {employee_worktime_id : Number(employee_worktime_id?.employee_worktime_id)}})
+    
+                let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(employee_worktime_id?.employee_worktime_id)}})
+                res.json({employeework,employee_work_places})
+        
+            } catch (e : any) {
+                next(new ServerError())
+            }
+
+        } else {
+            next(new ServerError(400, "Data is faulty"));
+        }
+    } else {
+        next(new ServerError (400, "wrong id"));
+    }
+
 });
 
 
 apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     console.log("are we posting employee", req.body.employee_worktime_id)
-      if (req.body.description.length > 0) {
+      if (req.body.description.length > 0) {// if employee makes a new worktime writing, this will add with relation the data to specific employee
 
         try {
 
@@ -98,7 +141,7 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
 
 
 apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    console.log("are we in get employer data", req.body)
+    console.log("are we in get employer data", req.body) // when employer are log in, this will return all employer and employee data
     let who = "employee"
     try {
         let employee_names = await prisma.user_data.findMany({
@@ -125,7 +168,7 @@ apiWorkTimeRouter.delete("/employerdata/:id", async (req : express.Request, res 
 });
 
 apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    console.log("employer data add", req.body) 
+    console.log("employer data add", req.body) // if employee make a new employee data, this will add it to database and get back all employee data to client
     if (req.body.employee_name?.length > 0) {
 
       try {

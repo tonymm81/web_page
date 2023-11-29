@@ -22,6 +22,7 @@ function Work_time (props?:any){
     const [who_is_logging, setWho_is_logging] = useState<string>("") // this is for api calls from server
     const update_permission = useRef<boolean>(false); // this is because react component looping
     const [user_id, setUser_id] = useState<number>(0) // this we need to save data correct relation in database
+    const [database_id, setDatabase_id] = useState<number>(0)
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
@@ -69,6 +70,19 @@ function Work_time (props?:any){
           }
         };
         if (metod_where === "POST") {
+
+            settings = {
+              ...settings,
+              headers : {
+                ...settings.headers,
+                'Content-Type' : 'application/json',
+                
+              },
+              body : JSON.stringify(new_data)
+            }
+            
+          }
+          if (metod_where === "PUT") {
 
             settings = {
               ...settings,
@@ -212,14 +226,19 @@ function Work_time (props?:any){
     const editSavedData = (idx:number) : void =>{ //here user can edit the saved data
         show_button.current = true //this disabled save data button and enabling save changes button
         let temp_object : Employee_data[]= [...saveEmployeeData]
+        setDatabase_id(Number(temp_object[idx].employee_id_auto))
         setDescription_temp(String(temp_object[idx].description))
         setJobhours_temp(Number(temp_object[idx].hours_employee))
         setTimenow(temp_object[idx].datetime!)
         setSelectedID(temp_object[idx].jobID!)
-        //apiCall("PUT", "employee", temp_object[idx].employee_id_auto, temp_object)
-        //setSaveEmployeeData([...saveEmployeeData.filter((saveEmployeeData : Employee_data, idxe : Number) => idxe !== Number(idx))])//When editing data, lets  remove old version
-
-
+        
+    }
+    const confirm_update = () : void =>{// this will save the edited data to server database
+        apiCall("PUT", "employee", database_id, {
+        datetime_emp : timenow,
+        hours_employee: jobhours_temp,
+        description : description_temp,
+        jobID : selectedID})
     }
     const deleteSavedData = (employee_field_auto_id : number) : void =>{ // here user can delete selected data
         var r = window.confirm("Are you sure you want to delete this?")
@@ -231,7 +250,7 @@ function Work_time (props?:any){
         count_hours_taxes()
     }
 
-    const count_hours_taxes = () : void =>{
+    const count_hours_taxes = () : void =>{// this will not work anmore
         let i = 0
         setWorkinghours([0,0,0])
         let templist = ([...working_hours])// making a templist to save working hours from interface
@@ -252,7 +271,7 @@ function Work_time (props?:any){
             console.log("Object is empty!! ", error)
         }
     }
-    const save_selected_employee = (e:any) : void => {
+    const save_selected_employee = (e:any) : void => {// we have to save employers id also from select box
         e?.preventDefault();
         setChosen_employee(e.target.value as string)
         for (let i = 0 ; i < employees_names_database.length; i++){
@@ -370,7 +389,7 @@ function Work_time (props?:any){
 <Button variant="contained"
         color="inherit"
         startIcon={<SaveIcon/>}
-        type="submit"
+        onClick={confirm_update}
         disabled={!show_button.current}
         >Save changes</Button>
         

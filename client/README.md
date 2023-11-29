@@ -263,6 +263,12 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
  There we make another post to googles site and check if the client given token is valid. If it is, lets
  return the token from client to secured connection, what needs forecast api and newspage.
  
+ ## version 162
+ Now user can edit also the worktime data. I changed littlebit server code and also client code. 
+
+ ### bug:
+ There was the option, what calculate the payment before and after taxes. This wont work anymore. We
+ have to do this some another way. Lets plan it littleb it.
 
 
 ## npm installs in this project:
@@ -289,7 +295,7 @@ Mariadb 10.10
 
 - npm install @mui/x-date-pickers
 
-- npm install react-google-recaptcha-v3
+- npm install react-google-recaptcha-v2
 
 - npm i --save-dev @types/react-google-recaptcha
 
