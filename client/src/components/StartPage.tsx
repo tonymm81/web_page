@@ -40,26 +40,18 @@ const StartPage: React.FC<Props> = (props : Props) : React.ReactElement => {
     }
     
     const [openDialog, setOpenDialog] = useState<boolean>(false);
-    const close_captcha = async (res: boolean | string) : Promise<void> => {
-        //console.log(res)
-       // if (res === true){
+    const close_captcha = async (res: boolean | string) : Promise<void> => {// here we check the googles token and make request to server
             setDialogStart(false)
-            //console.log(dialogStart)
+            
             const gettequest = await fetch("/api/auth/login/getsSecondary", {method:"POST",  
                                                                                     headers : { 'Content-Type' : 'application/json'},
                                                                                 body:  JSON.stringify({"Response_from_google" : res}) })
             const tokenSecondary = await gettequest.json();
-            //console.log(tokenSecondary)
             props.setTokenSecondary(tokenSecondary)
             props.setCaptcha(false)
             navigate("/")
-       // }else{
-         ///   alert("please try again")
-      //  }
     }
-   // console.log(sitekey_capcha)
-  // old captcha <Captcha validate={(res)=>{close_captcha(res)}}/>  
- //in this component here we have dialog box and buttons. Short information about a page.
+  
 return(
     
 <Container className='start_image' >

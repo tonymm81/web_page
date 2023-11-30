@@ -1,6 +1,7 @@
 import express from 'express';
 import { ServerError } from '../errors/errorHalndler';
 import { PrismaClient } from '@prisma/client';
+import { count } from 'console';
 
 const prisma : PrismaClient = new PrismaClient();
 
@@ -9,11 +10,26 @@ const apiWorkTimeRouter : express.Router = express.Router();
 apiWorkTimeRouter.use(express.json());
 
 
+const count_payment_and_hours = async (ids : number) =>{// this will count the specific employee payment and tax informationn from db
+    let employee_payment = await prisma.employer_data.findFirst({where: {employer_work_id : ids ,
+                                                                        }, select: {payment: true, vat : true}})
+    let employee_hour_count = await prisma.employee_data.groupBy({
+                                                                by: [ 'employee_worktime_id'],
+                                                                where: {employee_worktime_id :ids},
+                                                                _sum: {
+                                                                hours_employee: true,
+                                                                },
+                                                                })
+    let payment_before_taxes = Number(employee_hour_count[0]._sum.hours_employee) * Number(employee_payment?.payment)
+    let payment_after_taxes = (100 - Number (employee_payment?.vat) / 100 * payment_before_taxes )                                                            
+    return [payment_after_taxes,payment_before_taxes, employee_hour_count]
+}
+
 apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    req.query.employee_worktime_id = String(1)// this will search one specific employee data
+    //req.query.employee_worktime_id = String(1)// this will search one specific employee data
      try {
         if (req.params.id){
-
+            let get_payment_information = await count_payment_and_hours(Number(req.params.id))
             let employeework = await prisma.employee_data.findMany({where : 
                 {employee_worktime_id : Number(req.params.id)}})
             let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(req.params.id)}})

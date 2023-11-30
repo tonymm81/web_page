@@ -49,7 +49,7 @@ apiAuthRouter.post("/login", async (req : express.Request, res : express.Respons
 
 });
 apiAuthRouter.post("/login/getsSecondary", async (req : express.Request, res : express.Response, next : express.NextFunction) : Promise<void> => {
-    console.log("loging token", req.body.Response_from_google)
+    //console.log("loging token", req.body.Response_from_google)
     let token_from_client =  req.body.Response_from_google
     //console.log(hash)
     try {

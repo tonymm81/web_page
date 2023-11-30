@@ -270,6 +270,9 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
  There was the option, what calculate the payment before and after taxes. This wont work anymore. We
  have to do this some another way. Lets plan it littleb it.
 
+ fixing the bug: I have to count on server side how much is the payment and after taxes also. Then return to client
+ counted hours, payment and payment after taxes. Now it calculate it in back end. Next the data has to visualize in client side
+
 
 ## npm installs in this project:
 
