@@ -27,7 +27,6 @@ function Work_time (props?:any){
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
     const [chosen_employee, setChosen_employee] = useState<string>("");
-    const update_calculate = useRef<boolean>(false);
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
     const [timenow, setTimenow] = useState<Date>(new Date())
@@ -106,7 +105,12 @@ function Work_time (props?:any){
            if (who_is_logging === "employee"){
                 setSaveEmployeeData([...recieved.employeework])
                 setWorkID([...recieved.employee_work_places])
-                //console.log("did it save in client side", who_is_logging)
+                let templist = ([...working_hours]) // here we save the payment information
+                templist[2] = recieved.get_payment_information[0]
+                templist[1] = recieved.get_payment_information[1]
+                templist[0] = recieved.get_payment_information[2][0]._sum.hours_employee
+                setWorkinghours(templist)
+                console.log("did it save in client side", recieved.get_payment_information)
            }
            if (who_is_logging === "employer"){
                 setSaveEmployerData([...recieved.employer_data])
@@ -185,7 +189,7 @@ function Work_time (props?:any){
         if(update_permission.current===true){
             setSaveEmployeeData([...saveEmployeeData]);
             update_permission.current=false
-            count_hours_taxes()
+            
         }
     }, [saveEmployeeData])
 
@@ -245,32 +249,12 @@ function Work_time (props?:any){
         if (r){
             apiCall("DELETE", "employee", employee_field_auto_id )
             apiCall("GET", "employee", employee_field_auto_id )
-            update_calculate.current=true
+            
         }
-        count_hours_taxes()
+        
     }
 
-    const count_hours_taxes = () : void =>{// this will not work anmore
-        let i = 0
-        setWorkinghours([0,0,0])
-        let templist = ([...working_hours])// making a templist to save working hours from interface
-        update_calculate.current=true
-        let tempval = 0
-        let tempval2 = 0
-        try {
-            for(i = 0; i < Object.entries(saveEmployeeData).length; i = i +1){
-                tempval = saveEmployeeData[i].hours_employee! 
-                tempval2 = tempval + tempval2
-                }
-            templist[0] = tempval2
-            templist[1] = Number(saveEmployerData[0].payment) * tempval2 //calculate the hours from view
-            templist[2] = (100 - Number(saveEmployerData[0].vat)) / 100 * templist[1]
-            setWorkinghours(templist)
-            }
-        catch (error){
-            console.log("Object is empty!! ", error)
-        }
-    }
+    
     const save_selected_employee = (e:any) : void => {// we have to save employers id also from select box
         e?.preventDefault();
         setChosen_employee(e.target.value as string)
@@ -282,13 +266,6 @@ function Work_time (props?:any){
         }    
     }
 
-    useEffect (() => {
-        if(update_calculate.current === true){
-            setWorkinghours([...working_hours])
-            update_calculate.current=false
-            
-        }
-    }   ,[working_hours])
 
     useEffect (() => {
         if (employeeView){

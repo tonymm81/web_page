@@ -21,8 +21,9 @@ const count_payment_and_hours = async (ids : number) =>{// this will count the s
                                                                 },
                                                                 })
     let payment_before_taxes = Number(employee_hour_count[0]._sum.hours_employee) * Number(employee_payment?.payment)
-    let payment_after_taxes = (100 - Number (employee_payment?.vat) / 100 * payment_before_taxes )                                                            
-    return [payment_after_taxes,payment_before_taxes, employee_hour_count]
+    let payment_after_taxes = (100 - Number (employee_payment?.vat)) / 100 * payment_before_taxes    // this calculate wrong
+    //console.log("what kind of values",payment_after_taxes,payment_before_taxes, employee_hour_count, employee_payment, ids)                                                         
+    return [payment_after_taxes, payment_before_taxes, employee_hour_count]
 }
 
 apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
@@ -33,7 +34,7 @@ apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : e
             let employeework = await prisma.employee_data.findMany({where : 
                 {employee_worktime_id : Number(req.params.id)}})
             let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(req.params.id)}})
-            res.json({employeework,employee_work_places})
+            res.json({employeework,employee_work_places, get_payment_information})
         }
         
     } catch (e: any) {
@@ -55,7 +56,8 @@ apiWorkTimeRouter.delete("/employeedata/:id", async (req : express.Request, res 
             let employeework = await prisma.employee_data.findMany({where : 
                 {employee_worktime_id : Number(search_based_user[0].employee_worktime_id)}})
             let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(search_based_user[0].employee_worktime_id)}})
-            res.json({employeework,employee_work_places})
+            let get_payment_information = await count_payment_and_hours(Number(search_based_user[0].employee_worktime_id))
+            res.json({employeework,employee_work_places, get_payment_information})
 
         }catch(show_me_error_oh_mighty_database){
             console.log("error db delete", show_me_error_oh_mighty_database)
@@ -95,8 +97,10 @@ apiWorkTimeRouter.put("/employeedata/:id", async (req : express.Request, res : e
                 let employeework = await prisma.employee_data.findMany({where : 
                     {employee_worktime_id : Number(employee_worktime_id?.employee_worktime_id)}})
     
+                let get_payment_information = await count_payment_and_hours(Number(employee_worktime_id?.employee_worktime_id))
+ 
                 let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(employee_worktime_id?.employee_worktime_id)}})
-                res.json({employeework,employee_work_places})
+                res.json({employeework,employee_work_places, get_payment_information})
         
             } catch (e : any) {
                 next(new ServerError())
@@ -139,9 +143,10 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
             console.log("did it?")
             let employeework = await prisma.employee_data.findMany({where : 
                 {employee_worktime_id : Number(req.body.employee_worktime_id)}})
+            let get_payment_information = await count_payment_and_hours(Number(req.body.employee_worktime_id))
 
             let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(req.body.employee_worktime_id)}})
-            res.json({employeework,employee_work_places})
+            res.json({employeework,employee_work_places, get_payment_information})
     
         } catch (e : any) {
             console.log("db error", e)

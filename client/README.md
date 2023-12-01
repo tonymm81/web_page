@@ -273,6 +273,15 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
  fixing the bug: I have to count on server side how much is the payment and after taxes also. Then return to client
  counted hours, payment and payment after taxes. Now it calculate it in back end. Next the data has to visualize in client side
 
+ ## version 163
+
+ Now the client view shows the calculated payment and sum of working hours. 
+
+ Plan. I have to make srver side apiworktime easier way. Now there is lots of copied database search.
+ i have to make couple of functions in there.
+
+ I have to make also view in employer page, where user can add working places id to specifig employee.
+
 
 ## npm installs in this project:
 
