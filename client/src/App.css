@@ -61,7 +61,7 @@ h3.MuiTypography-h3{
 }
 
 .forecast{
-  background-image: url('./photos/forecast.jpg');
+  background-image: url('./photos/forecastedited.png');
   background-repeat: repeat;
   background-size: 100% fixed;
   opacity: 2.6;
@@ -175,7 +175,7 @@ h2{
 }
 
 .news_page_cont{
-  background-image: url('./photos/news_background.jpg');
+  background-image: url('./photos/news_background_edited.png');
   background-repeat: repeat;
   background-size: 100% fixed;
   min-width: auto;

@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { working_ids } from "@prisma/client";
 
 
 
@@ -26,6 +27,7 @@ function Work_time (props?:any){
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
+    const [add_workid_only ,setAdd_workid_only] = useState<boolean>(false);
     const [chosen_employee, setChosen_employee] = useState<string>("");
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
     const [working_hours, setWorkinghours] = useState([0,0,0]);// make here a list or object, where we can save payments, before and after taxes
@@ -47,6 +49,7 @@ function Work_time (props?:any){
         props.setAllowForecast(true)
     }
     const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
+       
         Apierror.current = ""
        let worktimeUrl = ''
         if((who_is_using === "employee" && metod_where === "GET") || (metod_where === "PUT") || (metod_where === "DELETE")){ // employee side wnats to them data
@@ -103,16 +106,21 @@ function Work_time (props?:any){
           if (connection.status === 200) {
            // console.log("piisaako status")
            if (who_is_logging === "employee"){
+                setSaveEmployeeData([])
+            
                 setSaveEmployeeData([...recieved.employeework])
                 setWorkID([...recieved.employee_work_places])
-                let templist = ([...working_hours]) // here we save the payment information
-                templist[2] = recieved.get_payment_information[0]
-                templist[1] = recieved.get_payment_information[1]
-                templist[0] = recieved.get_payment_information[2][0]._sum.hours_employee
-                setWorkinghours(templist)
-                console.log("did it save in client side", recieved.get_payment_information)
+                if(recieved.get_payment_information[0]){// if employee is new, lets avoid object empty error
+                    let templist = ([...working_hours]) // here we save the payment information
+                    templist[2] = recieved.get_payment_information[0]
+                    templist[1] = recieved.get_payment_information[1]
+                    templist[0] = recieved.get_payment_information[2][0]._sum.hours_employee
+                    setWorkinghours(templist)
+                    console.log("did it save in client side", recieved.get_payment_information)
+                }
            }
            if (who_is_logging === "employer"){
+                setSaveEmployerData([])
                 setSaveEmployerData([...recieved.employer_data])
                 setSaveEmployeeData([...recieved.allEmployees])
                 setEmplyees_names_database(recieved.employee_names)
@@ -202,12 +210,14 @@ function Work_time (props?:any){
         if (textHandleremployer.current.workIDs === undefined){
             employerwarnings = {...employerwarnings, workIDs : "Please enter the work id"}
         }
-        if (textHandleremployer.current.payment === undefined){
-            employerwarnings = {...employerwarnings, payment : "Please give the payment"}
-        }
-        if (textHandleremployer.current.Taxs === undefined){
-            employerwarnings = {...employerwarnings, vat : "Please give tax precent"}
-        }
+        if (!add_workid_only){
+            if (textHandleremployer.current.payment === undefined){
+                employerwarnings = {...employerwarnings, payment : "Please give the payment"}
+                }
+            if (textHandleremployer.current.Taxs === undefined){
+                employerwarnings = {...employerwarnings, vat : "Please give tax precent"}
+                }
+            }
         if( Object.entries(employerwarnings).length >0 ){
             setWarningHandlingemployer({...employerwarnings}) //here we save the possible errors for helper text
         }else{
@@ -219,7 +229,7 @@ function Work_time (props?:any){
                 employee_work_id : user_id,
                 workIDS : textHandleremployer.current.workIDs
             }
-            
+            setAdd_workid_only(false)
             apiCall("POST", "employer", 8, savetempEmployer)
             textHandleremployer.current = {}
             alert("Data saved!")
@@ -413,6 +423,7 @@ function Work_time (props?:any){
                         type="number"
                         name="payment"
                         variant="outlined"
+                        disabled={add_workid_only}
                         fullWidth={true}
                         onChange={textfieldsHandlerEmployer} 
                         error={Boolean(warningHandlingemployer.payment)}
@@ -426,6 +437,7 @@ function Work_time (props?:any){
                         variant="outlined"
                         fullWidth={true} 
                         onChange={textfieldsHandlerEmployer}
+                        disabled={add_workid_only}
                         error={Boolean(warningHandlingemployer.vat)}
                         helperText={warningHandlingemployer.vat}/>
 
@@ -436,6 +448,12 @@ function Work_time (props?:any){
                             startIcon={<SaveIcon />}
                             type="submit"
                         >Submit and save</Button></>
+                        <Button variant="contained"
+                            color="inherit"
+                            startIcon={<SaveIcon />}
+                            onClick={()=>{setAdd_workid_only(true)}}
+                            disabled={add_workid_only}
+                        >Add only working id to employee</Button>
                         {saveEmployerData.map( (emp:Employer_data, idxn : number) => {
                             return(
                                 <List>
@@ -445,10 +463,16 @@ function Work_time (props?:any){
                                         Employee payment :  {emp.payment} €/h,
                                         Employee tax precent {emp.vat} %,
                                         
-            
+                                        {workID.map( (work : Working_place_ids, index : number) => {
+                                    return ( 
+                                        <List ><ListItem key={index}><ListItemText>{work.workplace_id}</ListItemText></ListItem></List>
+                                    )
+                                })}
                         </ListItemText>
+
                                     </ListItem>
                                 </List>
+                                
                             )
                         })} 
                         </form> 

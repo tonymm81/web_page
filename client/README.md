@@ -282,6 +282,11 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 
  I have to make also view in employer page, where user can add working places id to specifig employee.
 
+ ## version 164
+ There was in client side empty object error, when new user employee is loged in. It fixed now. 
+ New feature is that employer can make mor working place id per employee. I add the buttons and change error handling
+ in client side and serverside.
+
 
 ## npm installs in this project:
 

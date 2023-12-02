@@ -20,7 +20,7 @@ const count_payment_and_hours = async (ids : number) =>{// this will count the s
                                                                 hours_employee: true,
                                                                 },
                                                                 })
-    let payment_before_taxes = Number(employee_hour_count[0]._sum.hours_employee) * Number(employee_payment?.payment)
+    let payment_before_taxes = Number(employee_hour_count[0]?._sum.hours_employee) * Number(employee_payment?.payment)
     let payment_after_taxes = (100 - Number (employee_payment?.vat)) / 100 * payment_before_taxes    // this calculate wrong
     //console.log("what kind of values",payment_after_taxes,payment_before_taxes, employee_hour_count, employee_payment, ids)                                                         
     return [payment_after_taxes, payment_before_taxes, employee_hour_count]
@@ -28,16 +28,20 @@ const count_payment_and_hours = async (ids : number) =>{// this will count the s
 
 apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     //req.query.employee_worktime_id = String(1)// this will search one specific employee data
+    console.log("what is the id", req.params.id)
      try {
         if (req.params.id){
             let get_payment_information = await count_payment_and_hours(Number(req.params.id))
             let employeework = await prisma.employee_data.findMany({where : 
                 {employee_worktime_id : Number(req.params.id)}})
             let employee_work_places = await prisma.working_ids.findMany({where: {employee_id : Number(req.params.id)}})
+            console.log("where is the problem", get_payment_information, employee_work_places, employeework)
             res.json({employeework,employee_work_places, get_payment_information})
+           
         }
         
     } catch (e: any) {
+        console.log("error in get route", e)
         next(new ServerError());
     }
     
@@ -194,6 +198,7 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
 
       try {
         console.log("employer data add", req.body) 
+        if(req.body.payment !== undefined){
           let employer = await prisma.employer_data.create({
               data : {
                   payment : Number(req.body.payment),
@@ -202,6 +207,7 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
                   employer_work_id : Number(req.body.employee_work_id)
               }
           });
+        }
           let workid = await prisma.working_ids.create({data: {employee_id : Number(req.body.employee_work_id),
                                                         employee_name : String(req.body.employee_name),
                                                         workplace_id : req.body.workIDS}});
@@ -218,7 +224,7 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
                                                                 });
         let employer_data = await prisma.employer_data.findMany()
         let allEmployees = await prisma.employee_data.findMany()
-        console.log("did we save", employer, workid)
+        //console.log("did we save", employer, workid)
        res.json({employer_data, allEmployees, employee_names});
        //res.json()
   

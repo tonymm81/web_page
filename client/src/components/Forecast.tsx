@@ -68,7 +68,7 @@ function Forecast (props?:any){
         if (forecastSaved[0]?.town_or_city){
             setWhat_city(forecastSaved[0].town_or_city)
         }else{
-            setWhat_city("tampere")
+            setWhat_city("")
         }}
 
    
