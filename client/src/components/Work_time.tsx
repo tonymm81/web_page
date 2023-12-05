@@ -51,7 +51,7 @@ function Work_time (props?:any){
     const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
        
         Apierror.current = ""
-       let worktimeUrl = ''
+        let worktimeUrl = ''
         if((who_is_using === "employee" && metod_where === "GET") || (metod_where === "PUT") || (metod_where === "DELETE")){ // employee side wnats to them data
         
             worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
@@ -124,6 +124,7 @@ function Work_time (props?:any){
                 setSaveEmployerData([...recieved.employer_data])
                 setSaveEmployeeData([...recieved.allEmployees])
                 setEmplyees_names_database(recieved.employee_names)
+                setWorkID(recieved.working_places)
                 //console.log("testing emplyer save data", employees_names_database)
            }
     
@@ -254,12 +255,19 @@ function Work_time (props?:any){
         description : description_temp,
         jobID : selectedID})
     }
-    const deleteSavedData = (employee_field_auto_id : number) : void =>{ // here user can delete selected data
+    const deleteSavedData = (employee_field_auto_id : number, who? : string, what? : string) : void =>{ // here user can delete selected data
         var r = window.confirm("Are you sure you want to delete this?")
-        if (r){
-            apiCall("DELETE", "employee", employee_field_auto_id )
-            apiCall("GET", "employee", employee_field_auto_id )
-            
+        if (who === "employee"){
+            if (r){
+                apiCall("DELETE", "employee", employee_field_auto_id )
+                apiCall("GET", "employee", employee_field_auto_id )
+                }
+        } if(who==="employer"){
+            if(what === "Workid_delete"){
+                apiCall("DELETE", "employer")
+            }else{
+
+            }
         }
         
     }
@@ -453,7 +461,29 @@ function Work_time (props?:any){
                             startIcon={<SaveIcon />}
                             onClick={()=>{setAdd_workid_only(true)}}
                             disabled={add_workid_only}
-                        >Add only working id to employee</Button>
+                        >Add only working id to employee
+                        </Button>
+                        <Typography variant="body1" color={"white"}>Employees work place id:s
+                        </Typography>
+                        {workID.map( (work : Working_place_ids, index : number) => {
+                                    return ( 
+                                        <List >
+                                            <ListItem key={index} className="listViewItems">
+                                                
+                                                <ListItemText>Work places {work.workplace_id} person name {work.employee_name}
+                                                
+                                                <IconButton 
+                                                    onClick={() => {deleteSavedData(Number(work.employee_id),"employer", "Workid_delete")}}
+                                                    edge="end">
+                                                    <DeleteForeverIcon />
+                                                 </IconButton>
+                                                 
+                                                </ListItemText>
+                                            </ListItem>
+                                        </List>
+                                    )
+                                })}
+                        <Typography variant="body1" color={"white"}>Employees info</Typography>
                         {saveEmployerData.map( (emp:Employer_data, idxn : number) => {
                             return(
                                 <List>
@@ -463,13 +493,13 @@ function Work_time (props?:any){
                                         Employee payment :  {emp.payment} €/h,
                                         Employee tax precent {emp.vat} %,
                                         
-                                        {workID.map( (work : Working_place_ids, index : number) => {
-                                    return ( 
-                                        <List ><ListItem key={index}><ListItemText>{work.workplace_id}</ListItemText></ListItem></List>
-                                    )
-                                })}
+                                        
                         </ListItemText>
-
+                        <IconButton 
+                                                    onClick={() => {deleteSavedData(Number(emp.employee_id),"employer",)}}
+                                                    edge="end">
+                                                    <DeleteForeverIcon />
+                                                 </IconButton>
                                     </ListItem>
                                 </List>
                                 
@@ -481,7 +511,7 @@ function Work_time (props?:any){
                         
                         {!loginVIEW?
                         <List>
-
+<Typography variant="body1" color={"white"}>Employees work time writings</Typography>
 {saveEmployeeData.map( (item : Employee_data, idx : number) => {
 
    return (
@@ -501,8 +531,9 @@ function Work_time (props?:any){
                    <EditIcon />
                </IconButton>
                <IconButton 
-                   onClick={() => {deleteSavedData(Number(item.employee_id_auto))}}
-                   edge="start">
+                   onClick={() => {deleteSavedData(Number(item.employee_id_auto), "employee")}}
+                   edge="start"
+                   disabled={!employeeView}>
                    <DeleteForeverIcon />
                </IconButton>
                </ListItemIcon>

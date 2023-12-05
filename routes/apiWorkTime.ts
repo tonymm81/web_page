@@ -180,7 +180,8 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
                                                                 });
         let employer_data = await prisma.employer_data.findMany()
         let allEmployees = await prisma.employee_data.findMany()
-       res.json({employer_data, allEmployees, employee_names});
+        let working_places = await prisma.working_ids.findMany()
+       res.json({employer_data, allEmployees, employee_names, working_places});
     } catch (e : any) {
         console.log("are we in get employer data", e)
         next(new ServerError());
@@ -189,7 +190,7 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
 });
 
 apiWorkTimeRouter.delete("/employerdata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
+    console.log("deleting", req.params.id)
 });
 
 apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
