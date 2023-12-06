@@ -235,7 +235,7 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
 
       try {
         console.log("employer data add", req.body) 
-        if(req.body.payment !== undefined){
+        if(req.body.payment !== undefined){//if new employee, lets add all details
           let employer = await prisma.employer_data.create({
               data : {
                   payment : Number(req.body.payment),
@@ -245,7 +245,7 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
               }
           });
         }
-          let workid = await prisma.working_ids.create({data: {employee_id : Number(req.body.employee_work_id),
+        let workid = await prisma.working_ids.create({data: {employee_id : Number(req.body.employee_work_id),
                                                         employee_name : String(req.body.employee_name),
                                                         workplace_id : req.body.workIDS}});
           

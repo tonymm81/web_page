@@ -49,22 +49,38 @@ function Work_time (props?:any){
         props.setAllowForecast(true)
     }
     const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, what_delete? : string, working_id_ids? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
-       
+        console.log("coming values", metod_where, who_is_using, employee_id, what_delete,working_id_ids,new_data)
         Apierror.current = ""
         let worktimeUrl = ''
-        if((who_is_using === "employee" && metod_where === "GET") || (metod_where === "PUT") || (metod_where === "DELETE")){ // employee side wnats to them data
-        
+        if((who_is_using === "employee") && (metod_where === "GET")){ // employee side wnats to them data
+            console.log("employee, get, ")
+            worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
+        }
+        if((who_is_using === "employee") && (metod_where === "PUT")){ // employee side wnats to them data
+            console.log("employee, , put")
+            worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
+        }
+        if((who_is_using === "employee") && (metod_where === "DELETE")){ // employee side wnats to them data
+            console.log("employee, delete")
             worktimeUrl = `/api/WorkTime/employeedata/${employee_id}`;
         }
         if((who_is_using === "employee") && (metod_where === "POST")){ // if employee posting, id not needed
-        
+            console.log("employee post")
             worktimeUrl = `/api/WorkTime/employeedata`;
         }
-        if ((who_is_using === "employer") && (metod_where === "GET") || (metod_where === "POST")){ // employer needs all data
+        if ((who_is_using === "employer") && (metod_where === "GET")){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata`;
+            console.log("wrong path", who_is_using)
+            console.log("employer post, get, put")
+        }
+        if ((who_is_using === "employer") && (metod_where === "POST")){ // employer needs all data
+            worktimeUrl =  `/api/WorkTime/employerdata`;
+            console.log("wrong path", who_is_using)
+            console.log("employer post, get, put")
         }
         if ((who_is_using === "employer") && (metod_where === "DELETE")){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata/?what_delete=${what_delete}&Employee_id=${employee_id}&working_id_ids=${working_id_ids}`;
+            console.log("employer delete")
         }
         let settings : fetchSettings = { 
           method : metod_where || "GET",
@@ -292,10 +308,10 @@ function Work_time (props?:any){
     useEffect (() => {
         if (employeeView){
             //apiCall("GET", "employee", user_id)
-        }else{
-            apiCall("GET", "employer")
+        }if(!employeeView){
+            //apiCall("GET", "employer")
         }
-    }, [employeeView, loginVIEW, user_id])
+    }, [employeeView, loginVIEW])
     
     return(
         
