@@ -48,7 +48,7 @@ function Work_time (props?:any){
         props.setHeadliner("Working time application")//this will change the headliner
         props.setAllowForecast(true)
     }
-    const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
+    const apiCall = async (metod_where? : string, who_is_using? : string, employee_id? : number, what_delete? : string, working_id_ids? : number, new_data? : Employee_data | Employer_data) : Promise<void> => {
        
         Apierror.current = ""
         let worktimeUrl = ''
@@ -60,8 +60,11 @@ function Work_time (props?:any){
         
             worktimeUrl = `/api/WorkTime/employeedata`;
         }
-        if (who_is_using === "employer"){ // employer needs all data
+        if ((who_is_using === "employer") && (metod_where === "GET") || (metod_where === "POST")){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata`;
+        }
+        if ((who_is_using === "employer") && (metod_where === "DELETE")){ // employer needs all data
+            worktimeUrl =  `/api/WorkTime/employerdata/?what_delete=${what_delete}&Employee_id=${employee_id}&working_id_ids=${working_id_ids}`;
         }
         let settings : fetchSettings = { 
           method : metod_where || "GET",
@@ -183,7 +186,7 @@ function Work_time (props?:any){
                 employee_worktime_id : Number(user_id)
             }
             
-            apiCall("POST", "employee", user_id, savetemp)
+            apiCall("POST", "employee", user_id,"", 0, savetemp)
             update_permission.current = true
             setDescription_temp("")
             setJobhours_temp(0)
@@ -231,7 +234,7 @@ function Work_time (props?:any){
                 workIDS : textHandleremployer.current.workIDs
             }
             setAdd_workid_only(false)
-            apiCall("POST", "employer", 8, savetempEmployer)
+            apiCall("POST", "employer", 8,"", 0, savetempEmployer)
             textHandleremployer.current = {}
             alert("Data saved!")
             
@@ -249,13 +252,13 @@ function Work_time (props?:any){
         
     }
     const confirm_update = () : void =>{// this will save the edited data to server database
-        apiCall("PUT", "employee", database_id, {
+        apiCall("PUT", "employee", database_id, "",0, {
         datetime_emp : timenow,
         hours_employee: jobhours_temp,
         description : description_temp,
         jobID : selectedID})
     }
-    const deleteSavedData = (employee_field_auto_id : number, who? : string, what? : string) : void =>{ // here user can delete selected data
+    const deleteSavedData = (employee_field_auto_id : number, who? : string, what? : string, working_id_ids? : number) : void =>{ // here user can delete selected data
         var r = window.confirm("Are you sure you want to delete this?")
         if (who === "employee"){
             if (r){
@@ -264,10 +267,11 @@ function Work_time (props?:any){
                 }
         } if(who==="employer"){
             if(what === "Workid_delete"){
-                apiCall("DELETE", "employer")
+                apiCall("DELETE", "employer",employee_field_auto_id, "Workid_delete", working_id_ids)
             }else{
-
+                apiCall("DELETE", "employer",employee_field_auto_id, "Delete_all", working_id_ids)
             }
+            //apiCall("GET", "employee", employee_field_auto_id )
         }
         
     }
@@ -287,7 +291,7 @@ function Work_time (props?:any){
 
     useEffect (() => {
         if (employeeView){
-            apiCall("GET", "employee", user_id)
+            //apiCall("GET", "employee", user_id)
         }else{
             apiCall("GET", "employer")
         }
@@ -465,7 +469,7 @@ function Work_time (props?:any){
                         </Button>
                         <Typography variant="body1" color={"white"}>Employees work place id:s
                         </Typography>
-                        {workID.map( (work : Working_place_ids, index : number) => {
+                        {workID?.map( (work : Working_place_ids, index : number) => {
                                     return ( 
                                         <List >
                                             <ListItem key={index} className="listViewItems">
@@ -473,7 +477,7 @@ function Work_time (props?:any){
                                                 <ListItemText>Work places {work.workplace_id} person name {work.employee_name}
                                                 
                                                 <IconButton 
-                                                    onClick={() => {deleteSavedData(Number(work.employee_id),"employer", "Workid_delete")}}
+                                                    onClick={() => {deleteSavedData(Number(work.employee_id),"employer", "Workid_delete", work.working_id_ids)}}
                                                     edge="end">
                                                     <DeleteForeverIcon />
                                                  </IconButton>
@@ -496,7 +500,7 @@ function Work_time (props?:any){
                                         
                         </ListItemText>
                         <IconButton 
-                                                    onClick={() => {deleteSavedData(Number(emp.employee_id),"employer",)}}
+                                                    onClick={() => {deleteSavedData(Number(emp.employer_work_id),"employer", "Delete_all",emp.empoyer_data_id)}}
                                                     edge="end">
                                                     <DeleteForeverIcon />
                                                  </IconButton>

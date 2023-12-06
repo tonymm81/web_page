@@ -189,8 +189,44 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
 
 });
 
-apiWorkTimeRouter.delete("/employerdata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    console.log("deleting", req.params.id)
+apiWorkTimeRouter.delete("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
+    console.log("deleting", req.query)// this is not working
+    try{
+    if (req.query.what_delete === "Workid_delete"){
+        if (await prisma.working_ids.count({where: {working_id_ids : Number(req.query.working_id_ids)}})){// delete only workplace
+            await prisma.working_ids.delete({where: {working_id_ids : Number(req.query.working_id_ids)}})
+            console.log("should we delete id:s")
+        }
+    }
+    if (req.query.what_delete === "Delete_all"){// employees id is missing
+        if (await prisma.employer_data.count({where: {employer_work_id : Number(req.query.Employee_id)}})){// delete all data specific employee
+            let employerdata_id = await prisma.employer_data.findFirst({where: {employer_work_id : Number(req.query.working_id_ids)}, select: {empoyer_data_id : true}}) 
+            console.log("should we delete all data", employerdata_id)// repair this it is null
+            await prisma.employer_data.delete({where: {empoyer_data_id : Number(employerdata_id?.empoyer_data_id)}})// check
+            await prisma.employee_data.deleteMany({where: {employee_worktime_id : Number(req.query.working_id_ids)}})
+            await prisma.working_ids.deleteMany({where: {employee_id : Number(req.query.working_id_ids)}})
+            await prisma.user_data.delete({where: {user_id : Number(req.query.Employee_id)}})
+            // we need to delete user also!!!
+        }
+
+    }
+        let employee_names = await prisma.user_data.findMany({
+            where: {
+            who_is_logging: "employee",
+         },
+            select: {
+            user_id : true,
+            user_name: true,
+            },
+            });
+        let employer_data = await prisma.employer_data.findMany()
+        let allEmployees = await prisma.employee_data.findMany()
+        let working_places = await prisma.working_ids.findMany()
+       res.json({employer_data, allEmployees, employee_names, working_places});
+    }catch(dewleteerror){
+        console.log("are we in get employer data", dewleteerror)
+        next(new ServerError());   
+    }
 });
 
 apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
@@ -225,8 +261,8 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
                                                                 });
         let employer_data = await prisma.employer_data.findMany()
         let allEmployees = await prisma.employee_data.findMany()
-        //console.log("did we save", employer, workid)
-       res.json({employer_data, allEmployees, employee_names});
+        let working_places = await prisma.working_ids.findMany()
+       res.json({employer_data, allEmployees, employee_names, working_places});
        //res.json()
   
       } catch (e : any) {

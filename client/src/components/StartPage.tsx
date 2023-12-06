@@ -3,7 +3,7 @@ import '../App.css'
 import { Button, Container, Dialog, Typography } from '@mui/material';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
-import {Captcha} from "./Captcha";
+//import {Captcha} from "./Captcha";
 import { useEffect } from 'react';
 import { Navigate, NavigateFunction, useNavigate } from 'react-router-dom';
 import  ReCAPTCHA  from "react-google-recaptcha";

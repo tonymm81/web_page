@@ -291,6 +291,11 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
  Now we add the working place id:s view and add also delete buttons to employer view, where user can delete employee or workplace id:s. 
  This feature not working now but i will build it soon.
 
+ ### bug:
+ Employer can now delete created workingplace ids but all data removal to specific employee doesnt work.
+ And also i have to make use_effect rules in client software some another way. Now it makes after delete request also get request..
+ I think that i have to plan that delete all database searches. Whatid number we need.. 
+
 
 ## npm installs in this project:
 
