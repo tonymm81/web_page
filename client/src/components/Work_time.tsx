@@ -1,4 +1,4 @@
-import { Alert, Button, Container, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Alert, Button, Container, Dialog, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
@@ -27,6 +27,7 @@ function Work_time (props?:any){
     const [description_temp, setDescription_temp] = useState("")
     const [jobhours_temp, setJobhours_temp] = useState<Number>(0)
     const show_button = useRef<boolean>(false);
+    const [show_manual ,setShow_manual] = useState<boolean>(true);
     const [add_workid_only ,setAdd_workid_only] = useState<boolean>(false);
     const [chosen_employee, setChosen_employee] = useState<string>("");
     const textHandleremployer : Employer_data  = useRef<Employer_data>({});
@@ -70,17 +71,14 @@ function Work_time (props?:any){
         }
         if ((who_is_using === "employer") && (metod_where === "GET")){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata`;
-            console.log("wrong path", who_is_using)
-            console.log("employer post, get, put")
+            console.log("employer get")
         }
         if ((who_is_using === "employer") && (metod_where === "POST")){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata`;
-            console.log("wrong path", who_is_using)
-            console.log("employer post, get, put")
+            console.log("employer post")
         }
         if ((who_is_using === "employer") && (metod_where === "DELETE")){ // employer needs all data
             worktimeUrl =  `/api/WorkTime/employerdata/?what_delete=${what_delete}&Employee_id=${employee_id}&working_id_ids=${working_id_ids}`;
-            console.log("employer delete")
         }
         let settings : fetchSettings = { 
           method : metod_where || "GET",
@@ -140,11 +138,16 @@ function Work_time (props?:any){
            }
            if (who_is_logging === "employer"){
                 setSaveEmployerData([])
+                console.log("testing emplyer save data", recieved.employerdata)
                 setSaveEmployerData([...recieved.employer_data])
                 setSaveEmployeeData([...recieved.allEmployees])
                 setEmplyees_names_database(recieved.employee_names)
                 setWorkID(recieved.working_places)
-                //console.log("testing emplyer save data", employees_names_database)
+                /*setSaveEmployerData([...recieved.employerdata[0]])
+                setSaveEmployeeData([...recieved.employerdata[1]])
+                setEmployeeName(recieved.employerdata[2])
+                setWorkID(recieved.employerdata[3])
+                console.log("testing emplyer save data", recieved.employerdata)*/
            }
     
           } else {
@@ -296,20 +299,25 @@ function Work_time (props?:any){
     const save_selected_employee = (e:any) : void => {// we have to save employers id also from select box
         e?.preventDefault();
         setChosen_employee(e.target.value as string)
-        for (let i = 0 ; i < employees_names_database.length; i++){
-            if (String(e.target.value) === employees_names_database[i]['user_name']){
-                setUser_id(employees_names_database[i]['user_id'] as number)
+        try {
+            for (let i = 0 ; i < employees_names_database.length; i++){
+                if (String(e.target.value) === employees_names_database[i]['user_name']){
+                    setUser_id(employees_names_database[i]['user_id'] as number)
                 
-            } 
-        }    
+                } 
+            }}catch(error){
+                console.log(error)
+            }
     }
 
 
     useEffect (() => {
         if (employeeView){
-            //apiCall("GET", "employee", user_id)
+            if (who_is_logging === "employee"){
+                apiCall("GET", "employee", user_id)
+            }
         }if(!employeeView){
-            //apiCall("GET", "employer")
+            apiCall("GET", "employer")
         }
     }, [employeeView, loginVIEW])
     
@@ -322,6 +330,10 @@ function Work_time (props?:any){
             onClick={() => {setLogInVIEW(true)}}
             startIcon={<LogoutIcon/>}
             disabled={loginVIEW}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
+            <Button variant="contained"    
+            color="inherit"
+            onClick={() => {setShow_manual(true)}}
+            >Show manual</Button>
             
         {loginVIEW?
         
@@ -483,7 +495,7 @@ function Work_time (props?:any){
                             disabled={add_workid_only}
                         >Add only working id to employee
                         </Button>
-                        <Typography variant="body1" color={"white"}>Employees work place id:s
+                        <Typography variant="h5" color={"white"}>Employees work place id:s
                         </Typography>
                         {workID?.map( (work : Working_place_ids, index : number) => {
                                     return ( 
@@ -503,7 +515,7 @@ function Work_time (props?:any){
                                         </List>
                                     )
                                 })}
-                        <Typography variant="body1" color={"white"}>Employees info</Typography>
+                        <Typography variant="h5" color={"white"}>Employees info</Typography>
                         {saveEmployerData.map( (emp:Employer_data, idxn : number) => {
                             return(
                                 <List>
@@ -531,7 +543,7 @@ function Work_time (props?:any){
                         
                         {!loginVIEW?
                         <List>
-<Typography variant="body1" color={"white"}>Employees work time writings</Typography>
+<Typography variant="h5" color={"white"}>Employees work time writings</Typography>
 {saveEmployeeData.map( (item : Employee_data, idx : number) => {
 
    return (
@@ -563,6 +575,19 @@ function Work_time (props?:any){
 } ) }
 
 </List> : <p></p>}
+        <Dialog open={show_manual}> <Typography variant="h5"> Welcome to my worktime app</Typography> 
+                                    <Typography variant="body1">Dont use this app any real work or real person information saving.
+                                                                It is made only hobbies and also show what i can do with my coding skills</Typography>
+                                    <Typography variant="body2"> Here employee can make new user name and password. After making new log in 
+                                                                account details you can log in witn jane_smith and password test (employer view). There you can 
+                                                                select the created employee details and add workingplace ids and payment 
+                                                                Information and tax precent. Other wise you can add more working id:S specific employee.
+                                                                You can delete them or all employee data with specific employees name.</Typography>
+                                                                <Typography variant="body2">log in employee side john_smith and password is test or those details what you just made.
+                                                                when logged in employee side you can add job description,
+                                                                jobhours, and work place id what employer just create. you can choose the 
+                                                                datetime and after saving program shows the writings to loggen employee</Typography>
+                                                                <Button variant="contained" onClick={()=>{setShow_manual(false)}}>Close this</Button></Dialog>
         </Container>) 
 }
 

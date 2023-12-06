@@ -26,6 +26,22 @@ const count_payment_and_hours = async (ids : number) =>{// this will count the s
     return [payment_after_taxes, payment_before_taxes, employee_hour_count]
 }
 
+const get_employer_data_needed = async () =>{
+    let employee_names = await prisma.user_data.findMany({
+                                                        where: {
+                                                            who_is_logging: "employee",
+                                                                },
+                                                        select: {
+                                                            user_id : true,
+                                                            user_name: true,
+                                                                },
+                                                         });
+let employer_data = await prisma.employer_data.findMany()
+let allEmployees = await prisma.employee_data.findMany()
+let working_places = await prisma.working_ids.findMany()
+    return[employer_data, allEmployees, employee_names, working_places]
+} //employer_data, allEmployees, employee_names, working_places
+
 apiWorkTimeRouter.get("/employeedata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     //req.query.employee_worktime_id = String(1)// this will search one specific employee data
     console.log("what is the id", req.params.id)
@@ -181,10 +197,14 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
         let employer_data = await prisma.employer_data.findMany()
         let allEmployees = await prisma.employee_data.findMany()
         let working_places = await prisma.working_ids.findMany()
+        //let employerdata = await get_employer_data_needed()// this is not working. No matter how i save it in client side. it wont work..
+        //console.log(employerdata[0])
+        //next()
+        //res.json(employerdata)
        res.json({employer_data, allEmployees, employee_names, working_places});
     } catch (e : any) {
         console.log("are we in get employer data", e)
-        next(new ServerError());
+        next(new ServerError(404, "not found"));
     }
 
 });
@@ -192,14 +212,14 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
 apiWorkTimeRouter.delete("/employerdata", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
     console.log("deleting", req.query)// this is not working
     try{
-    if (req.query.what_delete === "Workid_delete"){
+    if (req.query.what_delete === "Workid_delete"){// this will delete only working places
         if (await prisma.working_ids.count({where: {working_id_ids : Number(req.query.working_id_ids)}})){// delete only workplace
             await prisma.working_ids.delete({where: {working_id_ids : Number(req.query.working_id_ids)}})
             console.log("should we delete id:s")
         }
     }
-    if (req.query.what_delete === "Delete_all"){// employees id is missing
-        if (await prisma.employer_data.count({where: {employer_work_id : Number(req.query.Employee_id)}})){// delete all data specific employee
+    if (req.query.what_delete === "Delete_all"){// this will delete all data what is related to specific employee
+        if (await prisma.employer_data.count({where: {employer_work_id : Number(req.query.working_id_ids)}})){// delete all data specific employee
             let employerdata_id = await prisma.employer_data.findFirst({where: {employer_work_id : Number(req.query.working_id_ids)}, select: {empoyer_data_id : true}}) 
             console.log("should we delete all data", employerdata_id)// repair this it is null
             await prisma.employer_data.delete({where: {empoyer_data_id : Number(employerdata_id?.empoyer_data_id)}})// check

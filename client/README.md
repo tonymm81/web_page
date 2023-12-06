@@ -296,6 +296,13 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
  And also i have to make use_effect rules in client software some another way. Now it makes after delete request also get request..
  I think that i have to plan that delete all database searches. Whatid number we need.. 
 
+ ## version 166
+ Now user can delete also all data what is ralatited to specific employee. Also i found the problem source, what cause database errors.
+ In client side there was if clauses, where we save to request settings id numbers etc. I build it betterway and many odd things 
+ vanish from my program..
+
+ I also made a information, that dont use my worktime app any real life things or dont save any personal data there.
+
 
 ## npm installs in this project:
 
