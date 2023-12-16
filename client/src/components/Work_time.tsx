@@ -138,16 +138,16 @@ function Work_time (props?:any){
            }
            if (who_is_logging === "employer"){
                 setSaveEmployerData([])
-                console.log("testing emplyer save data", recieved.employerdata)
-                setSaveEmployerData([...recieved.employer_data])
+                //console.log("testing emplyer save data", recieved.employerdata)
+                /*setSaveEmployerData([...recieved.employer_data])
                 setSaveEmployeeData([...recieved.allEmployees])
                 setEmplyees_names_database(recieved.employee_names)
-                setWorkID(recieved.working_places)
-                /*setSaveEmployerData([...recieved.employerdata[0]])
+                setWorkID(recieved.working_places)*/
+                setSaveEmployerData([...recieved.employerdata[0]])
                 setSaveEmployeeData([...recieved.employerdata[1]])
-                setEmployeeName(recieved.employerdata[2])
+                setEmplyees_names_database(recieved.employerdata[2])
                 setWorkID(recieved.employerdata[3])
-                console.log("testing emplyer save data", recieved.employerdata)*/
+                console.log("testing emplyer save data", recieved.employerdata)
            }
     
           } else {

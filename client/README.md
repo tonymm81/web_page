@@ -303,6 +303,10 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 
  I also made a information, that dont use my worktime app any real life things or dont save any personal data there.
 
+ ## version 167
+
+ Fixed couple of bugs. There was someerrors in delete route employer view. I also fix the login component error helper text.
+
 
 ## npm installs in this project:
 
