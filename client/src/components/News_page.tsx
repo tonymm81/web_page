@@ -7,7 +7,9 @@ import { format, differenceInDays } from 'date-fns';
 function News_page (props:any){ // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
                                 // everything needs a keyword and datetime, top-news need only country code
     const news_api = process.env.REACT_APP_API_KEY_NEWS
-    const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
+    //const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
+    const [searchTime, setSearchTime] = useState<number>(0)
+    const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
     const news_api_permission :  React.MutableRefObject<Boolean> = useRef(false);
     const total_result :  React.MutableRefObject<number> = useRef(0);
     const [show_items, setShow_items ] = useState<boolean>(false);
@@ -58,10 +60,12 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                 console.log(api_address)
                 const connectionNews = await fetch(api_address, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}})
                 const apidatanews = await connectionNews.json(); 
-
+                //console.log("apidata form", apidatanews[0])
                 if (connectionNews.status === 200){
-                    setNewsSaved([...apidatanews])
-                    total_result.current = apidatanews.length
+                    setNewsSaved([...apidatanews[0]])
+                    total_result.current = apidatanews[0].length
+                    setSearchTime(apidatanews[1][1])
+                    setSearchBoolean(apidatanews[1][0])
                 }else{
                     setSave_news_api({
                         Whole_news_api : {},
@@ -136,6 +140,8 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
         <Container className="news_page_cont">
             
             <Typography variant="h3">Welcome to news page</Typography>
+            <Typography variant="body1">You can search only one search per 5 minutes. This is free api. time from earlier search {searchTime/60000} min.</Typography>
+            {!searchBoolean? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <form onSubmit={userInputField}>
                 
             <TextField
@@ -205,7 +211,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                         <ListItemText>
                           {" Description: "} {item.description}
                            {" Content "}{item.content}
-                           <ListItemIcon > <img className="news_image" src={item.ulr_image} alt={String(index)}/></ListItemIcon>
+                           <ListItemIcon > <img className="news_image" src={item.ulr_image/*this has to move function with error handling */} alt={String(index)}/></ListItemIcon>
                         </ListItemText>
                         :
                         <></>

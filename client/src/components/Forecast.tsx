@@ -21,7 +21,8 @@ function Forecast (props?:any){
     const userInputcountry : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [backdrop, setBackdrop] = useState<boolean>(false)
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
-   
+    const [searchTime, setSearchTime] = useState<number>(0)
+    const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
 
    
     const get_forecast_from_server = async (userchoose : string) : Promise<any> => {
@@ -36,7 +37,8 @@ function Forecast (props?:any){
                     const response_json = await response.json()
                     if (response.status === 200){
                         console.log("get old forecast")
-                        setForecastSaved([...response_json])
+                        setForecastSaved([...response_json[0]])
+                        setSearchBoolean(false)
                         
                         }else{
                             setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
@@ -53,7 +55,9 @@ function Forecast (props?:any){
                         const response_json = await response.json()
                         if (response.status === 200){
                             console.log("get new forecast")
-                            setForecastSaved([...response_json])
+                            setForecastSaved([...response_json[0]])
+                            setSearchTime(response_json[1][1])
+                            setSearchBoolean(response_json[1][0])
                             //setWhat_city(forecastSaved[0].town_or_city)
                         }else{
                             setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
@@ -127,7 +131,9 @@ useEffect(() => {
             {(Boolean(fullForecast.errors))
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}
-            <Typography variant="h4">Get forecast. Now viewing {userchoose} forecast.</Typography>
+            <Typography variant="h4">Get forecast. Now viewing {what_city} forecast.</Typography>
+            <Typography variant="body2">You can search with key word only once per 5 minutes. This is free api service. Time from last search {searchTime/60000} min</Typography>
+            {!searchBoolean? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <TextField
                 variant="outlined"
                 label="Give city or town name what you want to search (Default Tampere)"

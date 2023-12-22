@@ -185,23 +185,10 @@ apiWorkTimeRouter.get("/employerdata", async (req : express.Request, res : expre
     console.log("are we in get employer data", req.body) // when employer are log in, this will return all employer and employee data
     let who = "employee"
     try {
-        let employee_names = await prisma.user_data.findMany({
-                                                            where: {
-                                                            who_is_logging: "employee",
-                                                            },
-                                                            select: {
-                                                            user_id : true,
-                                                            user_name: true,
-                                                                },
-                                                                });
-        let employer_data = await prisma.employer_data.findMany()
-        let allEmployees = await prisma.employee_data.findMany()
-        let working_places = await prisma.working_ids.findMany()
-        //let employerdata = await get_employer_data_needed()// this is not working. No matter how i save it in client side. it wont work..
-        //console.log(employerdata[0])
-        //next()
-        //res.json(employerdata)
-       res.json({employer_data, allEmployees, employee_names, working_places});
+        
+        let employerdata = await get_employer_data_needed()// get all employer data
+        res.json({employerdata})
+       //res.json({employer_data, allEmployees, employee_names, working_places, employerdata});
     } catch (e : any) {
         console.log("are we in get employer data", e)
         next(new ServerError(404, "not found"));
@@ -219,30 +206,19 @@ apiWorkTimeRouter.delete("/employerdata", async (req : express.Request, res : ex
         }
     }
     if (req.query.what_delete === "Delete_all"){// this will delete all data what is related to specific employee
-        if (await prisma.employer_data.count({where: {employer_work_id : Number(req.query.working_id_ids)}})){// delete all data specific employee
-            let employerdata_id = await prisma.employer_data.findFirst({where: {employer_work_id : Number(req.query.working_id_ids)}, select: {empoyer_data_id : true}}) 
+        if (await prisma.employer_data.count({where: {empoyer_data_id : Number(req.query.working_id_ids)}})){// delete all data specific employee
+            let employerdata_id = await prisma.employer_data.findFirst({where: {employer_work_id : Number(req.query.Employee_id)}, select: {empoyer_data_id : true}}) 
             console.log("should we delete all data", employerdata_id)// repair this it is null
             await prisma.employer_data.delete({where: {empoyer_data_id : Number(employerdata_id?.empoyer_data_id)}})// check
-            await prisma.employee_data.deleteMany({where: {employee_worktime_id : Number(req.query.working_id_ids)}})
-            await prisma.working_ids.deleteMany({where: {employee_id : Number(req.query.working_id_ids)}})
+            await prisma.employee_data.deleteMany({where: {employee_worktime_id : Number(req.query.Employee_id)}})
+            await prisma.working_ids.deleteMany({where: {employee_id : Number(req.query.Employee_id)}})
             await prisma.user_data.delete({where: {user_id : Number(req.query.Employee_id)}})
             // we need to delete user also!!!
         }
 
     }
-        let employee_names = await prisma.user_data.findMany({
-            where: {
-            who_is_logging: "employee",
-         },
-            select: {
-            user_id : true,
-            user_name: true,
-            },
-            });
-        let employer_data = await prisma.employer_data.findMany()
-        let allEmployees = await prisma.employee_data.findMany()
-        let working_places = await prisma.working_ids.findMany()
-       res.json({employer_data, allEmployees, employee_names, working_places});
+        let employerdata = await get_employer_data_needed()// get all employer data
+        res.json({employerdata})
     }catch(dewleteerror){
         console.log("are we in get employer data", dewleteerror)
         next(new ServerError());   
@@ -270,20 +246,8 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
                                                         workplace_id : req.body.workIDS}});
           
 
-        let employee_names = await prisma.user_data.findMany({
-                                                            where: {
-                                                            who_is_logging: "employee",
-                                                            },
-                                                            select: {
-                                                            user_id : true,
-                                                            user_name: true,
-                                                                },
-                                                                });
-        let employer_data = await prisma.employer_data.findMany()
-        let allEmployees = await prisma.employee_data.findMany()
-        let working_places = await prisma.working_ids.findMany()
-       res.json({employer_data, allEmployees, employee_names, working_places});
-       //res.json()
+        let employerdata = await get_employer_data_needed()// get all employer data
+        res.json({employerdata})
   
       } catch (e : any) {
             console.log("database error", e)

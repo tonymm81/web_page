@@ -303,6 +303,19 @@ Now user can add new user to database. I also add in apiWorktime.ts some differe
 
  I also made a information, that dont use my worktime app any real life things or dont save any personal data there.
 
+ ## version 167
+
+ Fixed couple of bugs. There was someerrors in delete route employer view. I also fix the login component error helper text.
+
+ ## version 168
+
+ I made the time rule, that user can search keywords newsapi and forecast only once per five nminutes.
+at this version there was some conlfict with github so i have to be careful. 
+i have to make some kind of calculator, when user can check, if the search time is over 5 minutes but how. I dont want to make so many 
+back end calls
+
+Now we have search time rule. User can make only 1 search per 5 min. Client application shows, if time is not complete, we are showing the old search.
+
 
 ## npm installs in this project:
 

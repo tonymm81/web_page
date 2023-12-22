@@ -28,7 +28,7 @@ apiAuthRouter.post("/login", async (req : express.Request, res : express.Respons
         if (req.body.userName === AppUser?.user_name) {
 
             let hash = crypto.createHash("SHA512").update(req.body.password).digest("hex");
-            console.log(hash)
+            //console.log(hash)
             if (hash === AppUser?.user_pwd) {
 
                 let token = jwt.sign({ id : AppUser.user_id, username : AppUser.user_name }, String(process.env.ACCESS_TOKEN_KEY));

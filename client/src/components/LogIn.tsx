@@ -12,12 +12,14 @@ function LogIn(props?:any) { //this function is the login view where user can lo
     
     const textHandler : LogINuser  = useRef<LogINuser>({});
     const [errorhandling, setErrorhandling] = useState<textfieldErrors>({})
+    const [errorhandling_new_usr, setErrorhandling_new_usr] = useState<textfieldErrors>({})
     const navigate : NavigateFunction = useNavigate();
     const textAreaHandler = (e : React.ChangeEvent<HTMLInputElement>) : void =>{//this is for textfield handling
         textHandler.current[e.target.name] = e.target.value
     }
     const addUser =  async (e? : React.FormEvent, value?:any | null) : Promise<void> =>{
         let errors : textfieldErrors = {}
+        setErrorhandling_new_usr({})
         e?.preventDefault();
         if(textHandler.current.newusrName){  // if username and password is given lets move on
             if(textHandler.current.newpassWD){
@@ -31,23 +33,32 @@ function LogIn(props?:any) { //this function is the login view where user can lo
                         password : textHandler.current?.newpassWD,
                         user_error : "none",
                         who_is_logging : "employee"
+                        
                     })
                 });
+                
                 if (connection_sign.status === 200){
                     console.log("ok")//add this status to graphics
                     alert("New user saved!")
-                    
+                    textHandler.current = {}
                 }else{
                     errors = {...errors, error:"Give username and password"}
+                    setErrorhandling_new_usr(errors)
                 }
+            }else{
+                errors = {...errors, error:"Give username and password"}
+                setErrorhandling_new_usr(errors)
             }
+        }else{
+            errors = {...errors, error:"Give username and password"}
+            setErrorhandling_new_usr(errors)
         }
     }
     const checkUser = async (e? : React.FormEvent, value?:any | null) : Promise<void> =>{//when button pressed, here we check the possible errors or save the data
         e?.preventDefault();
 
         let errors : textfieldErrors = {}
-
+        setErrorhandling({})
         if(textHandler.current.usrName){  // if username and password is given lets move on
             if(textHandler.current.passWD){
                 const connection = await fetch("/api/auth/login", { // post request what check in user has finded
@@ -81,12 +92,15 @@ function LogIn(props?:any) { //this function is the login view where user can lo
                 
                 
                 }
-            else {errors = {...errors, error:"wrong username or password"};}
+            else {
+                errors = {...errors, error:"wrong username or password"};
+                setErrorhandling(errors)}
     }
         
         if (textHandler.current.usrName === undefined || textHandler.current.passWD === null)
         {
             errors = {...errors, error:"Give username and password"}
+            setErrorhandling(errors)
             
         }
     
@@ -143,8 +157,8 @@ function LogIn(props?:any) { //this function is the login view where user can lo
         fullWidth={true}
         className='worktimeFields'
         onChange={textAreaHandler}
-        error={Boolean(errorhandling.error)}
-        helperText={errorhandling.error}
+        error={Boolean(errorhandling_new_usr.error)}
+        helperText={errorhandling_new_usr.error}
         />
     <TextField
         className='worktimeFields'
@@ -154,8 +168,8 @@ function LogIn(props?:any) { //this function is the login view where user can lo
         type="password"
         fullWidth={true}
         onChange={textAreaHandler}
-        error={Boolean(errorhandling.error)}
-        helperText={errorhandling.error}
+        error={Boolean(errorhandling_new_usr.error)}
+        helperText={errorhandling_new_usr.error}
         />
         <Button
         variant="contained"
