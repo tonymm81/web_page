@@ -11,10 +11,7 @@ function Forecast (props?:any){
         props.setHeadliner("Forecast")
     }
     
-    const [what_city, setWhat_city] = useState<string>("tampere")
-    const fullForecastSearch : React.MutableRefObject<boolean> = useRef(false);
-    const locationSearch : React.MutableRefObject<boolean> = useRef(false);
-    const savePermission : React.MutableRefObject<boolean> = useRef(true);
+    const [what_city, setWhat_city] = useState<string>("")
     const [userchoose, setUserchoose] = useState<string>("tampere")
     const [fullForecast, setFullForecast] = useState<Forecast_json>({Whole_forecast : {}})
     const userInput : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
@@ -28,9 +25,8 @@ function Forecast (props?:any){
     const get_forecast_from_server = async (userchoose : string) : Promise<any> => {
         setBackdrop(false)
         setFullForecast({Whole_forecast : {}, errors : false, errorText : ""})
-        if(userchoose === what_city){
-            if (!locationSearch.current) {
-                //
+        
+            if(userchoose === what_city){
                 let url = `/api/forecast/forecast_saved`
                 try{
                     const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
@@ -38,6 +34,8 @@ function Forecast (props?:any){
                     if (response.status === 200){
                         console.log("get old forecast")
                         setForecastSaved([...response_json[0]])
+                        setSearchTime(response_json[1][1])
+                        setSearchBoolean(response_json[1][0])
                         setSearchBoolean(false)
                         
                         }else{
@@ -48,7 +46,7 @@ function Forecast (props?:any){
                         setFullForecast({Whole_forecast : {}, errors : true, errorText : `could not find old city ${error}`})
                         
                     }
-                }}else{
+                }else{
                     try{
                         let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi`
                         const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
@@ -67,11 +65,12 @@ function Forecast (props?:any){
                             setFullForecast({Whole_forecast : {}, errors : true, errorText : `could not find new city ${error}`})
                         } 
                 }
-        //saveNeededData()
+            
         setBackdrop(true)
         if (forecastSaved[0]?.town_or_city){
             setWhat_city(forecastSaved[0].town_or_city)
         }else{
+            console.log("city is empty")
             setWhat_city("")
         }}
 
@@ -79,18 +78,13 @@ function Forecast (props?:any){
 useEffect(() => {
     if (props.allowForecast){
         get_forecast_from_server(userchoose)
-       
+        //setWhat_city(forecastSaved[0]?town_or_city)
          
     }   
 }, [userchoose])// if town name changes lets get new forecast from api
 
 useEffect(() => {
-    if(props.allowForecast && !fullForecastSearch.current){
-       
         get_forecast_from_server(userchoose)
-        
-        
-    }
 }, [])
     
     const userTextFieldInput = (e: any): void => { // when user feeds an input, it handles here and also some error handling
@@ -106,11 +100,8 @@ useEffect(() => {
 
         }
         setUserchoose(temp)
-        savePermission.current = true
         props.setAllowForecast(true)
         setBackdrop(false)
-        fullForecastSearch.current = false
-        locationSearch.current = false
         get_forecast_from_server(temp)
         //setWhat_city(temp)
     }
@@ -119,12 +110,7 @@ useEffect(() => {
     function getIconUrl(code: string): string {
         return `http://openweathermap.org/img/wn/${code}.png`; //weahter api icon
     }
-    if (fullForecastSearch.current) {
-        if (savePermission.current && forecastSaved.length === 0) {
-            //setTimeout(() => saveNeededData(), 1000)
-
-        }
-    }
+    
     console.log(forecastSaved)
     return( 
         <Container maxWidth="xl" className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
@@ -139,6 +125,7 @@ useEffect(() => {
                 label="Give city or town name what you want to search (Default Tampere)"
                 inputRef={userInput}
                 fullWidth
+                sx={{fontcolor:"white"}}
                 error={fullForecast.errors}
                 helperText={fullForecast.errorText}
             />

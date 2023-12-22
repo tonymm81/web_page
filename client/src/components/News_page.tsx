@@ -6,7 +6,7 @@ import { format, differenceInDays } from 'date-fns';
 
 function News_page (props:any){ // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
                                 // everything needs a keyword and datetime, top-news need only country code
-    const news_api = process.env.REACT_APP_API_KEY_NEWS
+    //const news_api = process.env.REACT_APP_API_KEY_NEWS
     //const cors_server = "'http://localhost:8080/cors', {mode:'cors'}"
     const [searchTime, setSearchTime] = useState<number>(0)
     const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
@@ -14,10 +14,10 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
     const total_result :  React.MutableRefObject<number> = useRef(0);
     const [show_items, setShow_items ] = useState<boolean>(false);
     const [backdrop_bl, setBackdrop_bl ] = useState<boolean>(false);
-    const [timefrom, setTimefrom] = useState<Date>(new Date())
+    //const [timefrom, setTimefrom] = useState<Date>(new Date())
     const radiobutton_choose : React.MutableRefObject<String> = useRef("");
     const search_word : React.MutableRefObject<String> = useRef("");
-    const userInput_search : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+    //const userInput_search : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [Chooce_country, setChoose_country ] = useState<string>("");
     const errors : React.MutableRefObject<String> = useRef("");
     const errors_country : React.MutableRefObject<String> = useRef("");
@@ -148,6 +148,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                 variant="outlined"
                 label="Give the keyword to search news"
                 onChange={text_field_handler}
+                
                 fullWidth
                 error={Boolean(errors.current)}
                 helperText={errors.current}

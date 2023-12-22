@@ -316,6 +316,12 @@ back end calls
 
 Now we have search time rule. User can make only 1 search per 5 min. Client application shows, if time is not complete, we are showing the old search.
 
+## version 168.1
+Bug fixes and code cleaning. Delete the unused values from forecast api. 
+
+### bug:
+forecast page wont show the forecast town what is saved to database.
+
 
 ## npm installs in this project:
 
