@@ -14,7 +14,7 @@ import { link } from 'fs';
 // This is the drawer and appmenu component where user can navigate
 const List_box : React.FC = () : React.ReactElement => {
   
-  const [valikkoAuki, setValikkoAuki] = useState<boolean>(false);
+  const [openMenu, setopenMenu] = useState<boolean>(false);
 
   return (
     <CssBaseline>
@@ -23,14 +23,14 @@ const List_box : React.FC = () : React.ReactElement => {
           <IconButton
             className='list_box'
             edge="start"
-            onClick={() => setValikkoAuki(true)}
+            onClick={() => setopenMenu(true)}
           >
             <MenuIcon/>
           </IconButton>
 
           <Drawer
-            open={valikkoAuki}
-            onClose={() => setValikkoAuki(false)}
+            open={openMenu}
+            onClose={() => setopenMenu(false)}
             className='list_box'
 
           >
@@ -40,7 +40,7 @@ const List_box : React.FC = () : React.ReactElement => {
                 width : "220px",
                 marginTop : "50px"
               }}
-              onClick={() => setValikkoAuki(false)}
+              onClick={() => setopenMenu(false)}
             >
               <ListItemButton
                 component={Link}
