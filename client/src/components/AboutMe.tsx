@@ -13,9 +13,9 @@ function AboutMe(props : any){
     return(<Container className="Aboutme">
         <Box className="AboutMeBox">
             <Typography variant="h3">Hello!</Typography>
-            <p>I have worked in plumbing intrusty 21 years and now it's time to get job where my<br/>
-                health last better that phsychical work. I have study programming about 4 years<br/>
-                and a more i learn this became more interesting. Programming is nice, fun, fascionating <br/>
+            <p>I have worked in plumbing intrusty 21 years. <br/>
+                I have study programming about 4 years and it's my hobby also.<br/>
+                 More i learn this became more interesting. Programming is nice, fun, fascionating <br/>
                 job and my dream is that i find a job where i can build programs, debug them and <br/>
                 do the testing. I have done IOT projects also and hardware side is huge. <br/>
                 Now i am studying a grade witch hopefully helps me to get this dreamed job <br/>

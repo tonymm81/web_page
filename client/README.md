@@ -323,6 +323,9 @@ Bug fixes and code cleaning. Delete the unused values from forecast api.
 forecast page wont show the forecast town what is saved to database.
 
 
+## version 168.2
+Some bug fixes and add build files to project
+
 ## npm installs in this project:
 
 Mariadb 10.10
@@ -351,5 +354,11 @@ Mariadb 10.10
 
 - npm i --save-dev @types/react-google-recaptcha
 
+server build:
+First npx tsc -init
+tsconfig and there uncommand outdir ./dist
+at the end of config file add before last mark "exclude" : ["node_moduls", "client"]
+and after that npx tsc
 
+copy package.json to dist and remove the typescript depencies.
  
