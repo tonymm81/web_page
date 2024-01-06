@@ -15,7 +15,7 @@ import News_page from './components/News_page'
 
 const App : React.FC = () : React.ReactElement => {
   const [token, setToken] = useState<string>(String(localStorage.getItem("token")));
-  const [tokenSecondary, setTokenSecondary] = useState<string>(String(localStorage.getItem("token")));
+  const [tokenSecondary, setTokenSecondary] = useState<string>(String(localStorage.getItem("tokensecondary")));
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
   const [captcha, setCaptcha] = useState<boolean>(true)
