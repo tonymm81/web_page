@@ -47,10 +47,14 @@ const StartPage: React.FC<Props> = (props : Props) : React.ReactElement => {
                                                                                     headers : { 'Content-Type' : 'application/json'},
                                                                                 body:  JSON.stringify({"Response_from_google" : res}) })
             const tokenSecondary = await gettequest.json();
-            props.setTokenSecondary(tokenSecondary)
-            props.setCaptcha(false)
-            localStorage.setItem("tokensecondary", tokenSecondary);
-            navigate("/")
+            if (gettequest.status === 200) {
+              props.setTokenSecondary(tokenSecondary)
+              props.setCaptcha(false)
+              localStorage.setItem("tokensecondary", tokenSecondary);
+              navigate("/")
+            }else{
+              alert("Capcha failed. Please try again and refresh you browser ")
+            }
 
     }
   

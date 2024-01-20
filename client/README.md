@@ -1,5 +1,8 @@
 # This is first my own react project.
 
+The page is released in kapsi server. The address is https://www.tonimaenpaa.fi 
+I am testing and building a page still so sometimes you will get server error but try later again.
+
 ## version 100:
 
 Plan:
@@ -325,6 +328,17 @@ forecast page wont show the forecast town what is saved to database.
 
 ## version 168.2
 Some bug fixes and add build files to project
+
+## version 169
+I make some changes about the search rule in apis. Now the client side sends a timestamp and in server side we compare timestamps and allow the search, if difference is 3 minutes
+
+i have still usestate delay problem in client app. I have to figure out it. The viewing forecast town name is changing too late. Only second search changes it
+
+Usestate fixed. I have to test it and find out is the problem really solved.
+
+I fixed the github links and also fix google capcha. 
+
+Plan: Should i protect the apiAuht route and apiSign route to secondary token? 
 
 ## npm installs in this project:
 

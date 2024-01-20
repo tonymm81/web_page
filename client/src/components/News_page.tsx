@@ -52,10 +52,10 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                     api_address = `/api/news/news_saved`
                 }
                 if (radiobutton_choose.current === "1"){ // Lets search everything based on search word
-                    api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}`
+                    api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}&news_timestamp=${props.news_timestamp}`
                 }
                 if (radiobutton_choose.current === "0"){ // Lets search top headlines from given country code
-                    api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}`
+                    api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}&news_timestamp=${props.news_timestamp}`
                 }
                 console.log(api_address)
                 const connectionNews = await fetch(api_address, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}})
@@ -66,6 +66,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
                     total_result.current = apidatanews[0].length
                     setSearchTime(apidatanews[1][1])
                     setSearchBoolean(apidatanews[1][0])
+                    props.setNews_timestamp(new Date())
                 }else{
                     setSave_news_api({
                         Whole_news_api : {},
@@ -140,7 +141,7 @@ function News_page (props:any){ // here user cant search news from newsapi.org. 
         <Container className="news_page_cont">
             
             <Typography variant="h3">Welcome to news page</Typography>
-            <Typography variant="body1">You can search only one search per 5 minutes. This is free api. time from earlier search {searchTime/60000} min.</Typography>
+            <Typography variant="body1">You can search only one search per 3 minutes. This is free api. time from earlier search {searchTime/60000} min.</Typography>
             {!searchBoolean? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <form onSubmit={userInputField}>
                 

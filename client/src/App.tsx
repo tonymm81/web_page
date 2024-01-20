@@ -20,6 +20,8 @@ const App : React.FC = () : React.ReactElement => {
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
   const [captcha, setCaptcha] = useState<boolean>(true)
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
+  const [forecast_timestamp, setForecast_timestamp] = useState<Date>(new Date());
+  const [news_timestamp, setNews_timestamp] = useState<Date>(new Date());
   return (
     
    <Container className='App'>
@@ -39,7 +41,9 @@ const App : React.FC = () : React.ReactElement => {
                                       setHeadliner={setHeadliner}
                                       setAllowForecast={setAllowForecast}
                                       allowForecast={allowForecast}
-                                      tokenSecondary={tokenSecondary} />} />
+                                      tokenSecondary={tokenSecondary}
+                                      forecast_timestamp={forecast_timestamp}
+                                      setForecast_timestamp={setForecast_timestamp} />} />
       <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} 
                                                   setAllowForecast={setAllowForecast}
                                                   setToken={setToken}
@@ -50,7 +54,9 @@ const App : React.FC = () : React.ReactElement => {
 
       <Route path="/News_page" element={<News_page setHeadliner={setHeadliner} 
                                               setAllowForecast={setAllowForecast}
-                                              tokenSecondary={tokenSecondary}/>} />
+                                              tokenSecondary={tokenSecondary}
+                                              news_timestamp={news_timestamp}
+                                              setNews_timestamp={setNews_timestamp}/>} />
       <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} 
                                               setAllowForecast={setAllowForecast}/>} />
     </Routes>

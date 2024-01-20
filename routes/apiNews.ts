@@ -14,7 +14,13 @@ apiNewsRouter.use(express.json());
 
 const news_api = process.env.REACT_APP_API_KEY_NEWS 
 
-let search_time = new Date()
+const get_time_news = () => {
+    let search_time = new Date()
+    search_time.setHours(search_time.getHours() + 2)
+    return search_time
+}
+
+let search_time_news = get_time_news()
 
 const get_news_everything = async (cathegory : string, search_word : string) : Promise<any> => { // get forecast
     let timefrom = new Date()
@@ -36,14 +42,14 @@ const get_news_topnews = async (cathegory : string, Chooce_country : string) : P
     
 }
 
-const check_search_time = (what_time : Date)  =>{
+const check_search_time = (what_time_news : Date)  =>{
     let search_permission = false
     //let checkTime = new Date()
-    let diffence = what_time.getTime() - search_time.getTime() 
-    console.log("show diffence",what_time.getTime() - search_time.getTime(), what_time, search_time)
-    if ( what_time.getTime() - search_time.getTime()  > 300000){
+    let diffence = what_time_news.getTime() - search_time_news.getTime() 
+    console.log("show diffence",what_time_news.getTime() - search_time_news.getTime(), what_time_news, search_time_news)
+    if ( what_time_news.getTime() - search_time_news.getTime()  > 180000){
         search_permission = true
-        search_time = new Date()
+        search_time_news = get_time_news()
         console.log("permission gived")
 
     }
@@ -53,9 +59,10 @@ const check_search_time = (what_time : Date)  =>{
 
 apiNewsRouter.get("/news", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
         console.log("kaydaanko uutisis")
-        let what_time = new Date()
+        //let what_time = new Date()
+        let what_time_news =  new Date(String(req.query.news_timestamp))
         let jsonlength = 0
-        let search_permission = check_search_time(what_time)
+        let search_permission = check_search_time(what_time_news)
         console.log("if allowed",search_permission[0])
         if (search_permission[0]){
         if(Number(req.query.userchoose) === 0 ){
@@ -144,8 +151,8 @@ apiNewsRouter.get("/news_saved", async (req : express.Request, res : express.Res
     console.log("saved news")
     try {
         //res.json(await prisma.news_data.findMany());
-        let what_time = new Date()
-        let search_permission = check_search_time(what_time)
+        let what_time_news = get_time_news()
+        let search_permission = check_search_time(what_time_news)
 
         let old_search = await prisma.news_data.findMany()
         res.json([old_search, search_permission]);

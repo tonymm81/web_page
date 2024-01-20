@@ -13,13 +13,18 @@ apiForecastRouter.use(express.json());
 
 const weahter_api = process.env.REACT_APP_API_KEY
 
-let search_time = new Date()
-    
+const get_time = () => {
+    let search_time = new Date()
+    search_time.setHours(search_time.getHours() + 2)
+    return search_time
+}
+
+let search_time = get_time()
 
 const get_forecast = async (lat:any) : Promise<any> => { // get forecast
     const forecastresponse: AxiosResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat[0]}&lon=${lat[1]}&appid=${weahter_api}&units=metric`); //https://xamkbit.azurewebsites.net/saaennuste/${userchoose}
     const responseData: JsonArray = forecastresponse.data;
-    console.log("forecast", responseData)
+    //console.log("forecast", responseData)
     return responseData
 }
 
@@ -37,15 +42,16 @@ const get_location = async (city_name : string, country_code : string) : Promise
     
 }
 
-const check_search_time = (what_time : Date)  =>{
+const check_search_time = (what_time : Date | any)  =>{
     let search_permission = false
     //let checkTime = new Date()
     let diffence = what_time.getTime() - search_time.getTime() 
     console.log("show diffence",what_time.getTime() - search_time.getTime(), what_time, search_time)
-    if ( what_time.getTime() - search_time.getTime()  > 300000){
+    if ( what_time.getTime() - search_time.getTime()  > 180000){
         search_permission = true
-        search_time = new Date()
-        console.log("permission gived")
+        search_time = get_time()
+        //search_time.setHours(search_time.getHours() + 2)
+        console.log("permission gived", search_time)
 
     }
     return [search_permission, diffence]
@@ -56,7 +62,8 @@ const check_search_time = (what_time : Date)  =>{
 
 apiForecastRouter.get("/forecast", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
         console.log("kaydaanko")
-        let what_time = new Date()
+        let what_time =  new Date(String(req.query.forecast_timestamp)) //new Date()
+        console.log(what_time)
         //Make here a time rule, what rules, if we get new data or not
         let permission = check_search_time(what_time)
         if (permission[0]){
@@ -102,7 +109,7 @@ apiForecastRouter.get("/forecast", async (req : express.Request, res : express.R
         res.json([return_forecast, permission]);    }
 });
 apiForecastRouter.get("/forecast_saved", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    let what_time = new Date()
+    let what_time = get_time()
     let permission = check_search_time(what_time)
     try {
         let return_forecast = await prisma.forecast.findMany()

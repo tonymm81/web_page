@@ -165,9 +165,9 @@ function Work_time (props?:any){
     
           }
     
-        } catch (e : any) {
+        } catch (e ) {
     
-         Apierror.current = e
+         //Apierror.current = e | "" 
     
         }
     

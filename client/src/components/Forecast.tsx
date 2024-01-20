@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from '@mui/material';
+import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, TextField, Typography, makeStyles } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { format } from "date-fns";
+
+
 
 function Forecast (props?:any){
     if (props.headLiner === "Forecast"){//headliner
@@ -37,7 +39,8 @@ function Forecast (props?:any){
                         setSearchTime(response_json[1][1])
                         setSearchBoolean(response_json[1][0])
                         setSearchBoolean(false)
-                        
+                        setWhat_city(response_json[0][0].town_or_city)
+                        setUserchoose(response_json[0][0].town_or_city)
                         }else{
                             setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
                         }
@@ -48,7 +51,7 @@ function Forecast (props?:any){
                     }
                 }else{
                     try{
-                        let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi`
+                        let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi&forecast_timestamp=${props.forecast_timestamp}`
                         const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
                         const response_json = await response.json()
                         if (response.status === 200){
@@ -56,7 +59,9 @@ function Forecast (props?:any){
                             setForecastSaved([...response_json[0]])
                             setSearchTime(response_json[1][1])
                             setSearchBoolean(response_json[1][0])
-                            //setWhat_city(forecastSaved[0].town_or_city)
+                            props.setForecast_timestamp(new Date())
+                            setWhat_city(response_json[0][0].town_or_city)
+                            setUserchoose(response_json[0][0].town_or_city)
                         }else{
                             setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
                         }
@@ -70,8 +75,8 @@ function Forecast (props?:any){
         if (forecastSaved[0]?.town_or_city){
             setWhat_city(forecastSaved[0].town_or_city)
         }else{
-            console.log("city is empty")
-            setWhat_city("")
+            console.log("city is empty", what_city)
+            //setWhat_city("")
         }}
 
    
@@ -111,21 +116,26 @@ useEffect(() => {
         return `http://openweathermap.org/img/wn/${code}.png`; //weahter api icon
     }
     
-    console.log(forecastSaved)
+    //console.log(forecastSaved)
     return( 
         <Container maxWidth="xl" className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
             {(Boolean(fullForecast.errors))
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}
             <Typography variant="h4">Get forecast. Now viewing {what_city} forecast.</Typography>
-            <Typography variant="body2">You can search with key word only once per 5 minutes. This is free api service. Time from last search {searchTime/60000} min</Typography>
+            <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {searchTime/60000} min</Typography>
             {!searchBoolean? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <TextField
                 variant="outlined"
                 label="Give city or town name what you want to search (Default Tampere)"
                 inputRef={userInput}
                 fullWidth
-                sx={{fontcolor:"white"}}
+                
+                sx={{'& .MuiInputBase-input': {
+                    backgroundColor: 'gray',
+                    },'& + &': {
+                        marginTop: '1rem',
+                      },}}
                 error={fullForecast.errors}
                 helperText={fullForecast.errorText}
             />
@@ -134,6 +144,10 @@ useEffect(() => {
                 label="Please  enter countrycode"
                 inputRef={userInputcountry}
                 fullWidth
+                sx={{'& .MuiInputBase-input': {
+                    backgroundColor: 'gray',},'& + &': {
+                        marginTop: '1rem',
+                      },}}
                 error={fullForecast.errors}
                 helperText={fullForecast.errorText}
             />

@@ -33,7 +33,7 @@ function Projects(props?:any){
         </Button>
         <Dialog open={openWeatherstation} className='projectDialog'>
             <Button variant="contained"
-               href="https://gitfront.io/r/tonymm81/984bdd8be3b18a8ec53f2e2a645b66b6d605abfd/weatherstation/" 
+               href="https://github.com/tonymm81/weather_station" 
                >Link to projects code</Button>
             <Button variant="contained" 
                 onClick={()=>{setOpenWeatherstation(false)}}>Close this view</Button>
@@ -87,7 +87,7 @@ function Projects(props?:any){
             sx={{margin:5}}>Project working place automation</Button>
         <Dialog open={openWPA}>
             <Button variant="contained"
-                href="https://gitfront.io/r/tonymm81/22e01bc9d177f854f1bff6a0aee8ca400c1ba95c/working-place-automation/" 
+                href="https://github.com/tonymm81/working-place-automation" 
                 >Link to this project code</Button>
             <Button variant="contained"
             onClick={()=>{setOpenWPA(false)}}>Close this view</Button>
@@ -142,7 +142,7 @@ function Projects(props?:any){
             sx={{margin:5}}>Project table and wlan control.</Button>
         <Dialog open={openTableProject}>
             <Button variant="contained" 
-                href="https://gitfront.io/r/tonymm81/Ckr76hdkyo8S/table-project/"
+                href="https://github.com/tonymm81/table_project"
                  >Link to this project code</Button>
             <Button variant="contained"
                 onClick={()=>{setOpenTableProject(false)}}>close this view</Button>

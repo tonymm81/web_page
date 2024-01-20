@@ -130,7 +130,7 @@ const List_box : React.FC = () : React.ReactElement => {
         <Button variant='contained' size='small'
             component={Link} to="/"
             sx={{marginBottom : "10px"}}>Homepage</Button></div>
-        <Button href="https://gitfront.io/r/tonymm81/zci1eHz74uFc/web-page/" size="small">This web page code link</Button>
+        <Button href="https://github.com/tonymm81/web_page" size="small">This web page code link</Button>
         </Toolbar>
     </AppBar>
     </CssBaseline>
