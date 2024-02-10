@@ -340,6 +340,16 @@ I fixed the github links and also fix google capcha.
 
 Plan: Should i protect the apiAuht route and apiSign route to secondary token? 
 
+## versio 170
+ I repair the refresh problem. The site was crashing if user refresh the browser. Now when this is done, 
+ we go back to main page. I will figure out, how to stay the correct page. now i sade location to localstore.
+ Same time i clean the console logs from code.
+
+ I remove the button navigation from mobile view.
+
+ BUGS: there will background image overflow on mobile version. also date-fns depencies is cousing error when i try to update the
+ node moduls
+
 ## npm installs in this project:
 
 Mariadb 10.10

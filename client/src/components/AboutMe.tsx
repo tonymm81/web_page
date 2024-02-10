@@ -8,6 +8,7 @@ function AboutMe(props : any){
 
     }else{
         props.setHeadliner("Information about me")
+        localStorage.setItem("last_path", "/AboutMe")
         props.setAllowForecast(true)
     }
     return(<Container className="Aboutme">
@@ -19,7 +20,7 @@ function AboutMe(props : any){
                 job and my dream is that i find a job where i can build programs, debug them and <br/>
                 do the testing. I have done IOT projects also and hardware side is huge. <br/>
                 Now i am studying a grade witch hopefully helps me to get this dreamed job <br/>
-                Bachelor of Business Administration - Data procressing is the grade. <br/>
+                Bachelor of Business Administration - Data procressing is the degree. <br/>
                 My hobbies are excercise and drum playing. I am also good team player <br/>
                 in job. I have two blackmetal bands and we have also puplish records<br/>
                 Bands are Uhrilahja and Musta Suru. If you are interested to know <br/>

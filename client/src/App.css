@@ -4,7 +4,7 @@
   max-width: 1200px;
   /*min-height: 1200px;*/
   border: solid 2px black;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
   margin-top: 20px;
   margin:10px;
   border-radius: 3%;
@@ -20,7 +20,7 @@ h3.MuiTypography-h3{
   border: solid 2px black;
   text-shadow: 2px 2px 2px;
   border-radius: 5%;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
   margin-top:10px;
   margin:10px;
   padding: 10px;
@@ -44,7 +44,7 @@ h3.MuiTypography-h3{
   background-color: rgb(186, 196, 215);
   border: solid 2px black;
   margin-bottom: 10px;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
   border-radius: 5%;
 }
 
@@ -57,18 +57,18 @@ h3.MuiTypography-h3{
   min-height:1100px;
   
   border-radius: 2%;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
 }
 
 .forecast{
   background-image: url('./photos/forecastedited.png');
   background-repeat: repeat;
   background-size: 100% fixed;
-  opacity: 2.6;
+  opacity: 112.6;
   min-width: auto;
   min-height: 1000px;
   box-shadow: 5px 5px 5px black;
-  color:white;
+  color:rgb(252, 247, 247);
 }
 
 .workingtime{
@@ -78,7 +78,7 @@ h3.MuiTypography-h3{
   min-width: auto;
   min-height: 1000px;
   border-radius: 2%;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
 }
 
 .worktimeFields{
@@ -101,28 +101,29 @@ h3.MuiTypography-h3{
   background-image: url('./photos/projects.jpg');
   background-repeat: repeat;
   background-size: auto;
-  min-width: auto;
+  max-width: 100%;
   min-height: 1000px;
   border-radius: 2%;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
 
 }
 
 .Aboutme{
+  margin: 2px;
   background-image: url('./photos/aboutme.jpg');
   background-repeat: no-repeat;
   background-size: 100% fixed;
   min-width: auto;
   min-height: 1000px;
   border-radius: 2%;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
   padding:10px;
   margin: 10px;
 }
 
 .projectDialog{
-  min-width:1000px;
-  min-height: 1000px;
+  max-width:1000px;
+  max-height: 1000px;
   background-color: black;
 }
 
@@ -132,6 +133,7 @@ h3.MuiTypography-h3{
 }
 
 .divTag{
+  margin: 2px;
   text-align: justify;
   background-color: antiquewhite;
 }
@@ -180,7 +182,7 @@ h2{
   background-size: 100% fixed;
   min-width: auto;
   min-height: 1000px;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 3px 3px 3px black;
   color:white;
   margin:40px;
   
@@ -191,7 +193,7 @@ h2{
     font-size: 1.6rem;
   }
   .list_box{
-    display:none;
+    /*display:none;*/
   }
   .mobileView{
     display:flex;

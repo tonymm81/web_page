@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import List_box from './components/List_box';
 import { Container, Typography } from '@mui/material';
 import StartPage from './components/StartPage';
@@ -13,7 +13,8 @@ import News_page from './components/News_page'
 
 // this is the main program.Only routes shown here
 
-const App : React.FC = () : React.ReactElement => {
+const App: React.FC = (): React.ReactElement => {
+  const navigate = useNavigate();
   const [token, setToken] = useState<string>(String(localStorage.getItem("token")));
   const [tokenSecondary, setTokenSecondary] = useState<string>(String(localStorage.getItem("tokensecondary")));
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
@@ -22,46 +23,55 @@ const App : React.FC = () : React.ReactElement => {
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const [forecast_timestamp, setForecast_timestamp] = useState<Date>(new Date());
   const [news_timestamp, setNews_timestamp] = useState<Date>(new Date());
-  return (
-    
-   <Container className='App'>
-    
-    <Typography className='headliner' variant="h3">{headliner}</Typography>
-    
-    <List_box/> 
-    <Routes>
-      <Route path="/" element={ <StartPage setHeadliner={setHeadliner}
-                                  headliner={headliner}
-                                  setAllowForecast={setAllowForecast}
-                                  captcha={captcha} 
-                                  setCaptcha={setCaptcha} 
-                                  setTokenSecondary={setTokenSecondary}
-                                  refreshReCaptcha={refreshReCaptcha} /> } />
-      <Route path="/Forecast" element={<Forecast 
-                                      setHeadliner={setHeadliner}
-                                      setAllowForecast={setAllowForecast}
-                                      allowForecast={allowForecast}
-                                      tokenSecondary={tokenSecondary}
-                                      forecast_timestamp={forecast_timestamp}
-                                      setForecast_timestamp={setForecast_timestamp} />} />
-      <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner} 
-                                                  setAllowForecast={setAllowForecast}
-                                                  setToken={setToken}
-                                                  token={token}/>} />
-      <Route path="/LogIn" element={<LogIn setToken={setToken} />} />
-      <Route path="/Projects" element={<Projects setHeadliner={setHeadliner} 
-                                                setAllowForecast={setAllowForecast}/>} />
+  const [browser_path, setBrowser_path] = useState<string>();
+  localStorage.setItem("last_path", "/");
 
-      <Route path="/News_page" element={<News_page setHeadliner={setHeadliner} 
-                                              setAllowForecast={setAllowForecast}
-                                              tokenSecondary={tokenSecondary}
-                                              news_timestamp={news_timestamp}
-                                              setNews_timestamp={setNews_timestamp}/>} />
-      <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner} 
-                                              setAllowForecast={setAllowForecast}/>} />
-    </Routes>
-   </Container>
-   
+  useEffect(() => {
+    setBrowser_path(String(localStorage.getItem("last_path")))
+    console.log("app.tsx", browser_path, localStorage.getItem("last_path"))
+    navigate(String(Boolean(browser_path) ? browser_path : "/"))
+  }, [])
+
+  return (
+
+    <Container className='App'>
+
+      <Typography className='headliner' variant="h3">{headliner}</Typography>
+
+      <List_box />
+      <Routes>
+        <Route path="/" element={<StartPage setHeadliner={setHeadliner}
+          headliner={headliner}
+          setAllowForecast={setAllowForecast}
+          captcha={captcha}
+          setCaptcha={setCaptcha}
+          setTokenSecondary={setTokenSecondary}
+          refreshReCaptcha={refreshReCaptcha} />} />
+        <Route path="/Forecast" element={<Forecast
+          setHeadliner={setHeadliner}
+          setAllowForecast={setAllowForecast}
+          allowForecast={allowForecast}
+          tokenSecondary={tokenSecondary}
+          forecast_timestamp={forecast_timestamp}
+          setForecast_timestamp={setForecast_timestamp} />} />
+        <Route path="/Work_time" element={<Work_time setHeadliner={setHeadliner}
+          setAllowForecast={setAllowForecast}
+          setToken={setToken}
+          token={token} />} />
+        <Route path="/LogIn" element={<LogIn setToken={setToken} />} />
+        <Route path="/Projects" element={<Projects setHeadliner={setHeadliner}
+          setAllowForecast={setAllowForecast} />} />
+
+        <Route path="/News_page" element={<News_page setHeadliner={setHeadliner}
+          setAllowForecast={setAllowForecast}
+          tokenSecondary={tokenSecondary}
+          news_timestamp={news_timestamp}
+          setNews_timestamp={setNews_timestamp} />} />
+        <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner}
+          setAllowForecast={setAllowForecast} />} />
+      </Routes>
+    </Container>
+
   );
 }
 

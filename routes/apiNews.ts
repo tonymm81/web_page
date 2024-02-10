@@ -27,7 +27,6 @@ const get_news_everything = async (cathegory : string, search_word : string) : P
     let api_address = `https://newsapi.org/v2/${cathegory}?q=${search_word}&to=${format(timefrom, "Y-M-d")}&language=en&sortBy=popularity&apiKey=${news_api}` 
     const newsEverythingResponse = await fetch(api_address)
     const responseDataNewsEverything = await newsEverythingResponse.json()
-    //console.log("forecast",  cathegory, search_word)
     return responseDataNewsEverything 
 }
 
@@ -36,7 +35,6 @@ const get_news_topnews = async (cathegory : string, Chooce_country : string) : P
     let api_address = `https://newsapi.org/v2/${cathegory}?country=${Chooce_country}&language=en&apiKey=${news_api}`
     const newsTopnewsResponse = await fetch(api_address);
     const responseDataTopnews = await newsTopnewsResponse.json();
-    //console.log(responseDataTopnews, cathegory, Chooce_country)
     return responseDataTopnews
     
     
@@ -46,7 +44,6 @@ const check_search_time = (what_time_news : Date)  =>{
     let search_permission = false
     //let checkTime = new Date()
     let diffence = what_time_news.getTime() - search_time_news.getTime() 
-    console.log("show diffence",what_time_news.getTime() - search_time_news.getTime(), what_time_news, search_time_news)
     if ( what_time_news.getTime() - search_time_news.getTime()  > 180000){
         search_permission = true
         search_time_news = get_time_news()
@@ -58,27 +55,21 @@ const check_search_time = (what_time_news : Date)  =>{
 
 
 apiNewsRouter.get("/news", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-        console.log("kaydaanko uutisis")
-        //let what_time = new Date()
         let what_time_news =  new Date(String(req.query.news_timestamp))
         let jsonlength = 0
         let search_permission = check_search_time(what_time_news)
-        console.log("if allowed",search_permission[0])
         if (search_permission[0]){
         if(Number(req.query.userchoose) === 0 ){
             var news_everything = await get_news_everything(String(req.query.cathegory), String(req.query.searchword))
                 
             try{
                 jsonlength = news_everything['articles'].length;
-                console.log("length", jsonlength)
             }catch(errors){
-                console.log("noou",errors, news_everything['articles'].length)
                 jsonlength = news_everything['articles'].length;
                 }
             try {
                 await prisma.news_data.deleteMany({}) // this will empy the database
                 let i = 0
-                console.log(news_everything['articles'].length)
                 
                 
                 for (i = 0; i < jsonlength;){
@@ -111,7 +102,6 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
                 await prisma.news_data.deleteMany({}) // this will empy the database
                 let i = 0
                 
-                console.log(news_everything['articles'].length)
                 for (i = 0; i < jsonlength;){
                     await prisma.news_data.create({
                         data: {
@@ -136,7 +126,6 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
             next(new ServerError(400, `Not find data for this search word from top news ${e}`))
         
         }} }else{
-            console.log("too fast")
             let old_search = await prisma.news_data.findMany()
             res.json([ old_search,search_permission]);
 
@@ -148,9 +137,7 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
    
 });
 apiNewsRouter.get("/news_saved", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    console.log("saved news")
     try {
-        //res.json(await prisma.news_data.findMany());
         let what_time_news = get_time_news()
         let search_permission = check_search_time(what_time_news)
 

@@ -6,92 +6,88 @@ import { format } from "date-fns";
 
 
 
-function Forecast (props?:any){
-    if (props.headLiner === "Forecast"){//headliner
+function Forecast(props?: any) {
+    if (props.headLiner === "Forecast") {//headliner
 
-    }else{
+    } else {
         props.setHeadliner("Forecast")
+        localStorage.setItem("last_path", "/Forecast")
     }
-    
+
     const [what_city, setWhat_city] = useState<string>("")
     const [userchoose, setUserchoose] = useState<string>("tampere")
-    const [fullForecast, setFullForecast] = useState<Forecast_json>({Whole_forecast : {}})
-    const userInput : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
-    const userInputcountry : React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+    const [fullForecast, setFullForecast] = useState<Forecast_json>({ Whole_forecast: {} })
+    const userInput: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+    const userInputcountry: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const [backdrop, setBackdrop] = useState<boolean>(false)
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
     const [searchTime, setSearchTime] = useState<number>(0)
     const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
 
-   
-    const get_forecast_from_server = async (userchoose : string) : Promise<any> => {
+
+    const get_forecast_from_server = async (userchoose: string): Promise<any> => {
         setBackdrop(false)
-        setFullForecast({Whole_forecast : {}, errors : false, errorText : ""})
-        
-            if(userchoose === what_city){
-                let url = `/api/forecast/forecast_saved`
-                try{
-                    const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
-                    const response_json = await response.json()
-                    if (response.status === 200){
-                        console.log("get old forecast")
-                        setForecastSaved([...response_json[0]])
-                        setSearchTime(response_json[1][1])
-                        setSearchBoolean(response_json[1][0])
-                        setSearchBoolean(false)
-                        setWhat_city(response_json[0][0].town_or_city)
-                        setUserchoose(response_json[0][0].town_or_city)
-                        }else{
-                            setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
-                        }
-                    }catch(error){
-                        console.log(error)
-                        setFullForecast({Whole_forecast : {}, errors : true, errorText : `could not find old city ${error}`})
-                        
-                    }
-                }else{
-                    try{
-                        let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi&forecast_timestamp=${props.forecast_timestamp}`
-                        const response = await fetch(url, {method : "GET", headers : {'Authorization' : `Bearer ${props.tokenSecondary}`}}) // get data from backend
-                        const response_json = await response.json()
-                        if (response.status === 200){
-                            console.log("get new forecast")
-                            setForecastSaved([...response_json[0]])
-                            setSearchTime(response_json[1][1])
-                            setSearchBoolean(response_json[1][0])
-                            props.setForecast_timestamp(new Date())
-                            setWhat_city(response_json[0][0].town_or_city)
-                            setUserchoose(response_json[0][0].town_or_city)
-                        }else{
-                            setFullForecast({Whole_forecast : {}, errors : true, errorText : `server error ${response.status}`})
-                        }
-                        }catch(error){
-                            console.log(error)
-                            setFullForecast({Whole_forecast : {}, errors : true, errorText : `could not find new city ${error}`})
-                        } 
+        setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
+
+        if (userchoose === what_city) {
+            let url = `/api/forecast/forecast_saved`
+            try {
+                const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
+                const response_json = await response.json()
+                if (response.status === 200) {
+                    setForecastSaved([...response_json[0]])
+                    setSearchTime(response_json[1][1])
+                    setSearchBoolean(response_json[1][0])
+                    setSearchBoolean(false)
+                    setWhat_city(response_json[0][0].town_or_city)
+                    setUserchoose(response_json[0][0].town_or_city)
+                } else {
+                    setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }
-            
+            } catch (error) {
+                setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find old city ${error}` })
+
+            }
+        } else {
+            try {
+                let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi&forecast_timestamp=${props.forecast_timestamp}`
+                const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
+                const response_json = await response.json()
+                if (response.status === 200) {
+                    setForecastSaved([...response_json[0]])
+                    setSearchTime(response_json[1][1])
+                    setSearchBoolean(response_json[1][0])
+                    props.setForecast_timestamp(new Date())
+                    setWhat_city(response_json[0][0].town_or_city)
+                    setUserchoose(response_json[0][0].town_or_city)
+                } else {
+                    setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
+                }
+            } catch (error) {
+                console.log(error)
+                setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find new city ${error}` })
+            }
+        }
+
         setBackdrop(true)
-        if (forecastSaved[0]?.town_or_city){
+        if (forecastSaved[0]?.town_or_city) {
             setWhat_city(forecastSaved[0].town_or_city)
-        }else{
-            console.log("city is empty", what_city)
-            //setWhat_city("")
-        }}
+        } else {
+        }
+    }
 
-   
-useEffect(() => {
-    if (props.allowForecast){
-        get_forecast_from_server(userchoose)
-        //setWhat_city(forecastSaved[0]?town_or_city)
-         
-    }   
-}, [userchoose])// if town name changes lets get new forecast from api
 
-useEffect(() => {
+    useEffect(() => {
+        if (props.allowForecast) {
+            get_forecast_from_server(userchoose)
+
+        }
+    }, [userchoose])// if town name changes lets get new forecast from api
+
+    useEffect(() => {
         get_forecast_from_server(userchoose)
-}, [])
-    
+    }, [])
+
     const userTextFieldInput = (e: any): void => { // when user feeds an input, it handles here and also some error handling
         let valueToCheck = userInput.current!.value
         valueToCheck.toLowerCase()
@@ -108,34 +104,34 @@ useEffect(() => {
         props.setAllowForecast(true)
         setBackdrop(false)
         get_forecast_from_server(temp)
-        //setWhat_city(temp)
     }
 
 
     function getIconUrl(code: string): string {
         return `http://openweathermap.org/img/wn/${code}.png`; //weahter api icon
     }
-    
-    //console.log(forecastSaved)
-    return( 
+
+    return (
         <Container maxWidth="xl" className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
             {(Boolean(fullForecast.errors))
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}
             <Typography variant="h4">Get forecast. Now viewing {what_city} forecast.</Typography>
-            <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {searchTime/60000} min</Typography>
-            {!searchBoolean? <Typography variant="body2">Now viewing old search</Typography> : <></>}
+            <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {searchTime / 60000} min</Typography>
+            {!searchBoolean ? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <TextField
                 variant="outlined"
                 label="Give city or town name what you want to search (Default Tampere)"
                 inputRef={userInput}
                 fullWidth
-                
-                sx={{'& .MuiInputBase-input': {
-                    backgroundColor: 'gray',
-                    },'& + &': {
+
+                sx={{
+                    '& .MuiInputBase-input': {
+                        backgroundColor: 'gray',
+                    }, '& + &': {
                         marginTop: '1rem',
-                      },}}
+                    },
+                }}
                 error={fullForecast.errors}
                 helperText={fullForecast.errorText}
             />
@@ -144,10 +140,13 @@ useEffect(() => {
                 label="Please  enter countrycode"
                 inputRef={userInputcountry}
                 fullWidth
-                sx={{'& .MuiInputBase-input': {
-                    backgroundColor: 'gray',},'& + &': {
+                sx={{
+                    '& .MuiInputBase-input': {
+                        backgroundColor: 'gray',
+                    }, '& + &': {
                         marginTop: '1rem',
-                      },}}
+                    },
+                }}
                 error={fullForecast.errors}
                 helperText={fullForecast.errorText}
             />
