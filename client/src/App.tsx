@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, HashRouter  } from 'react-router-dom';
 import List_box from './components/List_box';
 import { Container, Typography } from '@mui/material';
 import StartPage from './components/StartPage';
@@ -39,6 +39,7 @@ const App: React.FC = (): React.ReactElement => {
       <Typography className='headliner' variant="h3">{headliner}</Typography>
 
       <List_box />
+      
       <Routes>
         <Route path="/" element={<StartPage setHeadliner={setHeadliner}
           headliner={headliner}

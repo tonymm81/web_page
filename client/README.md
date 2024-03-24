@@ -350,6 +350,19 @@ Plan: Should i protect the apiAuht route and apiSign route to secondary token?
  BUGS: there will background image overflow on mobile version. also date-fns depencies is cousing error when i try to update the
  node moduls
 
+## version 171
+i did update the npm packages and vulnerabilities. I also fix the warnings what was caused by bad setState call in component.
+I also make some styles.
+
+## bug:
+The worktime wont show error helper text some reason.
+still in server when refresh the browser it gives the wrong route error code. To fix this i should use hashroute
+
+## plan
+I have to edit forecast to better graphical component.
+I have to make my graphical works page on my page.
+
+
 ## npm installs in this project:
 
 Mariadb 10.10
@@ -385,4 +398,6 @@ at the end of config file add before last mark "exclude" : ["node_moduls", "clie
 and after that npx tsc
 
 copy package.json to dist and remove the typescript depencies.
+client build
+npm run build
  

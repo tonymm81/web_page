@@ -1,6 +1,6 @@
 import { Box, Button, Container, Dialog, Typography } from "@mui/material";
 import '../App.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import weatherstation from '../photos/weatherstationFront.jpg'
 import weatherstationBack from '../photos/weatherstationBack.jpg'
 import esp from '../photos/Esp.jpg'
@@ -11,19 +11,23 @@ import wpahighvoltage from '../photos/WPAhighvoltage.jpg'
 
 // this component shows my projects. By clicking button, it shows dialog with links to projects code and some photos and descriptions.
 function Projects(props?: any) {
-    if (props.headLiner === "My Projects") {
-
-    } else {
-        props.setHeadliner("My Projects")//this will change the headliner
-        localStorage.setItem("last_path", "/Projects")
-        props.setAllowForecast(true)
-    }
+   
 
     const [openWeatherstation, setOpenWeatherstation] = useState<boolean>(false);
     const [openTableProject, setOpenTableProject] = useState<boolean>(false);
     const [openWPA, setOpenWPA] = useState<boolean>(false);
     const [openBitcoin, setOpenBitcoin] = useState<boolean>(false);
     const [openFrontend, setOpenFrontend] = useState<boolean>(false);
+    useEffect(() => {
+        
+        if (props.headLiner === "My Projects") {
+
+        } else {
+            props.setHeadliner("My Projects")//this will change the headliner
+            localStorage.setItem("last_path", "/Projects")
+            props.setAllowForecast(true)
+        }
+    }, [])
 
     return (<Container className="projects" >
 

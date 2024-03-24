@@ -113,7 +113,7 @@ function LogIn(props?:any) { //this function is the login view where user can lo
 
     return(<> 
     <form onSubmit={checkUser}>
-    <Typography variant="body1" display="inline">Hey! This is demo login. If you want to log in with employer account use 
+    <Typography variant="body1" display="inline" style={{ padding : 10}}>Hey! This is demo login. If you want to log in with employer account use 
         username jane_smith and password test. Employee view use john_smith for username 
         and same test password. Employee has to make user name and pass word so employer can make him
         working place id and payment info. After that employee can login and mark his work time details to application.

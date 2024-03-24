@@ -37,12 +37,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     ])
     const [cathegory, setCathegory] = useState(["everything", "top-headlines"])
 
-    if (props.headLiner === "News page") {
-    } else {
-        props.setHeadliner("News page")
-        localStorage.setItem("last_path", "/News_page")
-        props.setAllowForecast(true)
-    }
+  
 
     const get_new_data_from_server = async (Chooce_country: string, search_word: string): Promise<any> => {
         let api_address = ''
@@ -132,6 +127,12 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
         radiobutton_choose.current = "2"
         news_api_permission.current = true
         get_new_data_from_server(Chooce_country, String(search_word.current))
+        if (props.headLiner === "News page") {
+        } else {
+            props.setHeadliner("News page")
+            localStorage.setItem("last_path", "/News_page")
+            props.setAllowForecast(true)
+        }
 
     }, [])
 

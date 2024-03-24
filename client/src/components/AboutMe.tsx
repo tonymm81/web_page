@@ -1,21 +1,26 @@
 import { Box, Button, Container, Link, Typography } from "@mui/material"
 import '../App.css'
 import profilePicture from '../photos/profilePicture.gif'
+import { useEffect } from "react"
 
 //this component is not done yet.
 function AboutMe(props : any){
-    if (props.headLiner === "Information about me"){
+   
+    useEffect(() => {
+        
+        if (props.headLiner === "Information about me"){
 
-    }else{
-        props.setHeadliner("Information about me")
-        localStorage.setItem("last_path", "/AboutMe")
-        props.setAllowForecast(true)
-    }
+        }else{
+            props.setHeadliner("Information about me")
+            localStorage.setItem("last_path", "/AboutMe")
+            props.setAllowForecast(true)
+        }
+    }, [])
     return(<Container className="Aboutme">
         <Box className="AboutMeBox">
             <Typography variant="h3">Hello!</Typography>
             <p>I have worked in plumbing intrusty 21 years. <br/>
-                I have study programming about 4 years and it's my hobby also.<br/>
+                I have study programming about 5 years and it's my hobby also.<br/>
                  More i learn this became more interesting. Programming is nice, fun, fascionating <br/>
                 job and my dream is that i find a job where i can build programs, debug them and <br/>
                 do the testing. I have done IOT projects also and hardware side is huge. <br/>

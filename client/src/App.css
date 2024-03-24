@@ -136,6 +136,10 @@ h3.MuiTypography-h3{
   margin: 2px;
   text-align: justify;
   background-color: antiquewhite;
+  
+}
+.div_tag{
+  padding : 10px
 }
 
 h2{

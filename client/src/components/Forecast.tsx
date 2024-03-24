@@ -7,12 +7,7 @@ import { format } from "date-fns";
 
 
 function Forecast(props?: any) {
-    if (props.headLiner === "Forecast") {//headliner
-
-    } else {
-        props.setHeadliner("Forecast")
-        localStorage.setItem("last_path", "/Forecast")
-    }
+   
 
     const [what_city, setWhat_city] = useState<string>("")
     const [userchoose, setUserchoose] = useState<string>("tampere")
@@ -86,6 +81,12 @@ function Forecast(props?: any) {
 
     useEffect(() => {
         get_forecast_from_server(userchoose)
+        if (props.headLiner === "Forecast") {//headliner
+
+        } else {
+            props.setHeadliner("Forecast")
+            localStorage.setItem("last_path", "/Forecast")
+        }
     }, [])
 
     const userTextFieldInput = (e: any): void => { // when user feeds an input, it handles here and also some error handling

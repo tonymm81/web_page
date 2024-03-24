@@ -42,13 +42,7 @@ function Work_time(props?: any) {
     const [saveEmployeeData, setSaveEmployeeData] = useState<Employee_data[]>([])
     const [employeeName, setEmployeeName] = useState<string>("")
     const [saveEmployerData, setSaveEmployerData] = useState<Employer_data[]>([])
-    if (props.headLiner === "Working time application") {
-
-    } else {
-        props.setHeadliner("Working time application")//this will change the headliner
-        localStorage.setItem("last_path", "/Work_time")
-        props.setAllowForecast(true)
-    }
+   
     const apiCall = async (metod_where?: string, who_is_using?: string, employee_id?: number, what_delete?: string, working_id_ids?: number, new_data?: Employee_data | Employer_data): Promise<void> => {
         console.log("coming values", metod_where, who_is_using, employee_id, what_delete, working_id_ids, new_data)
         Apierror.current = ""
@@ -301,6 +295,13 @@ function Work_time(props?: any) {
 
     useEffect(() => {
         localStorage.setItem("last_path", "/Work_time")
+        if (props.headLiner === "Working time application") {
+
+        } else {
+            props.setHeadliner("Working time application")//this will change the headliner
+            localStorage.setItem("last_path", "/Work_time")
+            props.setAllowForecast(true)
+        }
     }, [])
     useEffect(() => {
         if (employeeView) {
@@ -566,7 +567,7 @@ function Work_time(props?: any) {
                     })}
 
                 </List> : <p></p>}
-            <Dialog open={show_manual}> <Typography variant="h5"> Welcome to my worktime app</Typography>
+            <Dialog open={show_manual}> <Typography variant="h5" style={{padding:10}}> Welcome to my worktime app</Typography>
                 <Typography variant="body1" className="div_tag">Dont use this app any real work or real person information saving.
                     It is made only hobbies and also show what i can do with my coding skills</Typography>
                 <Typography variant="body2" className="div_tag"> Here employee can make new user name and password. After making new log in
@@ -574,11 +575,11 @@ function Work_time(props?: any) {
                     select the created employee details and add workingplace ids and payment
                     Information and tax precent. Other wise you can add more working id:S specific employee.
                     You can delete them or all employee data with specific employees name.</Typography>
-                <Typography variant="body2">log in employee side john_smith and password is test or those details what you just made.
+                <Typography variant="body2" className="div_tag">log in employee side john_smith and password is test or those details what you just made.
                     when logged in employee side you can add job description,
                     jobhours, and work place id what employer just create. you can choose the
                     datetime and after saving program shows the writings to loggen employee</Typography>
-                <Button variant="contained" onClick={() => { setShow_manual(false) }}>Close this</Button></Dialog>
+                <Button variant="contained" style={{margin: 5}} onClick={() => { setShow_manual(false) }}>Close this</Button></Dialog>
         </Container>)
 }
 
