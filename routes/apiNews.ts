@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from 'axios';
 import { JsonArray } from '@prisma/client/runtime/library';
 import { format, differenceInDays } from 'date-fns';
 
+
 const prisma : PrismaClient = new PrismaClient();
 
 const apiNewsRouter : express.Router = express.Router();
