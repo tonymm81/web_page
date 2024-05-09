@@ -365,7 +365,11 @@ I have to edit forecast to better graphical component.
 I have to make my graphical works page on my page.
 
 
-
+## version 172
+- I get weird dot use require for import module error in server side. This was caused by node-fetch. I use npm uninstall node-fetch and npm install node-fetch@2 and this works fine.
+- This error was caused by esm module changes.
+- And i update nodemoduls in client sode and i got error from datetimepicker..
+- this is fixed now and lets make a fresh build to server
 
 
 # installs backend:
