@@ -10,6 +10,7 @@ import LogIn from './components/LogIn';
 import Projects from './components/Projects';
 import AboutMe from './components/AboutMe';
 import News_page from './components/News_page'
+import Portfolio from './components/Portfolio';
 
 // this is the main program.Only routes shown here
 
@@ -27,9 +28,14 @@ const App: React.FC = (): React.ReactElement => {
   localStorage.setItem("last_path", "/");
 
   useEffect(() => {
-    setBrowser_path(String(localStorage.getItem("last_path")))
-    console.log("app.tsx", browser_path, localStorage.getItem("last_path"))
-    navigate(String(Boolean(browser_path) ? browser_path : "/"))
+    if(browser_path === undefined){
+      localStorage.setItem("last_path", "/");
+      setBrowser_path("/")
+    }else{
+      setBrowser_path(String(localStorage.getItem("last_path")))
+      console.log("app.tsx", browser_path, localStorage.getItem("last_path"))
+      navigate(String(Boolean(browser_path) ? browser_path : "/"))
+    }
   }, [])
 
   return (
@@ -70,6 +76,8 @@ const App: React.FC = (): React.ReactElement => {
           setNews_timestamp={setNews_timestamp} />} />
         <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner}
           setAllowForecast={setAllowForecast} />} />
+         <Route path="/Portfolio" element={<Portfolio setHeadliner={setHeadliner}
+           />} />
       </Routes>
     </Container>
 

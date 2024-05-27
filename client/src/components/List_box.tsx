@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import EditIcon from '@mui/icons-material/Edit';
+import BadgeIcon from '@mui/icons-material/Badge';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import React, { useState } from 'react';
@@ -101,6 +102,16 @@ const List_box: React.FC = (): React.ReactElement => {
                 </ListItemIcon>
                 <ListItemText primary="About me" />
               </ListItemButton>
+              <ListItemButton
+                component={Link}
+                to="/Portfolio"
+              >
+                <ListItemIcon>
+                  <BadgeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Portfolio" />
+              </ListItemButton>
+
 
             </List>
 
