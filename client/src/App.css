@@ -51,7 +51,8 @@ h3.MuiTypography-h3{
 .start_image{
   background-image: url('./photos/img_start.jpg');
   background-repeat: no-repeat;
-  background-size: 100% fixed;
+  background-size: 100% cover;
+  background-position: center;
   margin:10px;
   width:100%;
   min-height:1100px;
@@ -63,7 +64,8 @@ h3.MuiTypography-h3{
 .forecast{
   background-image: url('./photos/forecastedited.png');
   background-repeat: repeat;
-  background-size: 100% fixed;
+  background-size: 100% cover;
+  background-position: center;
   opacity: 112.6;
   min-width: auto;
   min-height: 1000px;
@@ -74,7 +76,8 @@ h3.MuiTypography-h3{
 .workingtime{
   background-image: url('./photos/working.jpg');
   background-repeat: repeat;
-  background-size: auto;
+  background-size: 100% cover;
+  background-position: center;
   min-width: auto;
   min-height: 1000px;
   border-radius: 2%;
@@ -100,7 +103,8 @@ h3.MuiTypography-h3{
 .projects{
   background-image: url('./photos/projects.jpg');
   background-repeat: repeat;
-  background-size: auto;
+  background-size: 100% cover;
+  background-position: center;
   max-width: 100%;
   min-height: 1000px;
   border-radius: 2%;
@@ -112,7 +116,8 @@ h3.MuiTypography-h3{
   margin: 2px;
   background-image: url('./photos/aboutme.jpg');
   background-repeat: no-repeat;
-  background-size: 100% fixed;
+  background-size: 100% cover;
+  background-position: center;
   min-width: auto;
   min-height: 1000px;
   border-radius: 2%;
@@ -183,13 +188,41 @@ h2{
 .news_page_cont{
   background-image: url('./photos/news_background_edited.png');
   background-repeat: repeat;
-  background-size: 100% fixed;
+  background-size: 100% cover;
+  background-position: center;
   min-width: auto;
   min-height: 1000px;
   box-shadow: 3px 3px 3px black;
   color:white;
   margin:40px;
   
+}
+.Portfolioontainer{
+  width:100%;
+  min-height:1000px;
+  min-width: auto;
+  height: auto;
+
+}
+.portfolioPaper{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  background-color: cadetblue;
+}
+
+.portfolioCard {
+  width: 50%;
+  margin: 10px;
+  background-color: aliceblue;
+  
+}
+img {
+  max-width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
 }
 
 @media only screen and (max-width:600px) {
@@ -199,6 +232,19 @@ h2{
   .list_box{
     /*display:none;*/
   }
+  .portfolioPaper{
+    width: 100%;
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+  }
+  .portfolioCard {
+    width: 95%;
+    margin:10px;
+    
+    
+  }
+  
   .mobileView{
     display:flex;
     flex-direction: column;

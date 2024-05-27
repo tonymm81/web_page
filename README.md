@@ -371,6 +371,10 @@ I have to make my graphical works page on my page.
 - And i update nodemoduls in client sode and i got error from datetimepicker..
 - this is fixed now and lets make a fresh build to server
 
+## version 173
+- Starting to make portfolio view using MUI paper and Card components. Also i fixed the browser update bug.
+- It would be nice to find some code review components.
+
 
 # installs backend:
 
