@@ -375,6 +375,9 @@ I have to make my graphical works page on my page.
 - Starting to make portfolio view using MUI paper and Card components. Also i fixed the browser update bug.
 - It would be nice to find some code review components.
 
+## version 174
+- I have added some content to portfolio view and there is still a lot of work to do.
+- I have to add more descriptions about my schoolprojects. But i make there expand image view where user can watch the image in full screen mode. 
 
 # installs backend:
 
