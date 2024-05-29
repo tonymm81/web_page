@@ -9,6 +9,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import CodeIcon from '@mui/icons-material/Code';
 //images
 import projects from '../photos/projects.jpg'
 import GDeditor from '../photos/graafinen suunnittelu editori.png'
@@ -56,15 +57,15 @@ function Portfolio(props: any) {
     const [expandedSome, setExpandSome] = useState<boolean>(false)
     const [openImageExpand, setOpenImageExpand] = useState<boolean>(false)
 
-    const openImageExpandDialog = (whatImage : string) : void =>{
+    const openImageExpandDialog = (whatImage: string): void => {
         setOpenImageExpand(true)
         setImageexpand(whatImage)
     }
 
-    const closeImageExpandDialog = () : void =>{
+    const closeImageExpandDialog = (): void => {
         setOpenImageExpand(true)
     }
-    const handleExpandClick = (values: string):void => {// lets choose, what card will expand
+    const handleExpandClick = (values: string): void => {// lets choose, what card will expand
         if (values === "GD") {
             setExpandedGD(!expandedGD);
         }
@@ -119,7 +120,7 @@ function Portfolio(props: any) {
                         image={GDeditor}
                         alt="Graphical desing editor"
                     />
-                    <CardContent> 
+                    <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             I have made a new version website based on old version. I have planned Here
                             color palettes and views.
@@ -127,10 +128,10 @@ function Portfolio(props: any) {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(GDeditor)}>
+                            onClick={() => openImageExpandDialog(GDeditor)}>
                             <ZoomInIcon />
                         </IconButton>
-                       
+
                         <ExpandMore
                             expand={expandedGD}
                             onClick={() => handleExpandClick("GD")}
@@ -144,48 +145,49 @@ function Portfolio(props: any) {
                         <CardContent>
                             <Typography paragraph>Descripe:</Typography>
                             <Typography paragraph>
-                               I have tas in graphical desing course that make this web page outfit different way.
-                               I lookout the old page and take there from logo the colorpalette what i use in my work.
+                                I have task in graphical desing course that make this web page outfit different way.
+                                I lookout the old page and take there from logo the colorpalette what i use in my work.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={GDDesktop}
-                                    alt="Graphical desing desktop view"
-                                />
-                                <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(GDDesktop)}>
-                            <ZoomInIcon />
-                        </IconButton>
-                            <Typography paragraph>
-                               Here is the desktop view what I plan. Site is looking different that orginal site.
-                               nettilippu.fi was the orginal view. 
-                            </Typography>
-                            <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={GDmobile}
-                                    alt="Graphical desing mobile view"
-                                />
-                                 <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(GDmobile)}>
-                            <ZoomInIcon />
-                        </IconButton>
-                            <Typography paragraph>
-                               Next is the mobile view, what i have planned on tis site.
-                            </Typography>
-                            <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={GDWireframe}
-                                    alt="Graphical desing wireframe"
-                                />
+                                component="img"
+                                height="194"
+                                image={GDDesktop}
+                                alt="Graphical desing desktop view"
+                            />
                             <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(GDWireframe)}>
-                            <ZoomInIcon />
-                        </IconButton>    
+                                onClick={() => openImageExpandDialog(GDDesktop)}>
+                                <ZoomInIcon />
+                            </IconButton>
+                            <Typography paragraph>
+                                Here is the desktop view what I plan. Site is looking different that orginal site.
+                                nettilippu.fi was the orginal view. I use the background images and use transparency to mix images.
+                            </Typography>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={GDmobile}
+                                alt="Graphical desing mobile view"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(GDmobile)}>
+                                <ZoomInIcon />
+                            </IconButton>
+                            <Typography paragraph>
+                                Next is the mobile view, what i have planned on tis site. I try to do mobile view simple and clear
+                            </Typography>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={GDWireframe}
+                                alt="Graphical desing wireframe"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(GDWireframe)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography>
-                                I also made wireframe from this work before I start desing work.
+                                I also made wireframe from this work before I start desing work.This is important when you are planning
+                                the user friendly webpage or app.
                             </Typography>
                         </CardContent>
                     </Collapse>
@@ -214,15 +216,20 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I make this project with React native. It uses api calls, gps and camera in phone
+                            I make this project with React native. It uses api calls, gps and camera in phone. React-native is awsome tool 
+                            to develope phone applications. I use the Expo device libraries.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                    <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(PhoneAppCamera)}>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialog(PhoneAppCamera)}>
                             <ZoomInIcon />
-                        </IconButton>    
-                        <ExpandMore                 
+                        </IconButton>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialog(PhoneAppCamera)}>
+                            <CodeIcon />
+                        </IconButton>
+                        <ExpandMore
                             expand={expandedApp}
                             onClick={() => handleExpandClick("App")}
                             aria-expanded={expand}
@@ -236,50 +243,53 @@ function Portfolio(props: any) {
                             <Typography paragraph>description:</Typography>
                             <Typography paragraph>
                                 Upper photo tells about the camera view different screens. User can take a picture
-                                and give the headline text and the description text.
+                                and give the headline text and the description text. This application saves also location of photos.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={PhoneappStart}
-                                    alt="Paella dish"
-                                />
-                                 <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(PhoneappStart)}>
-                            <ZoomInIcon />
-                        </IconButton> 
+                                component="img"
+                                height="194"
+                                image={PhoneappStart}
+                                alt="Paella dish"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(PhoneappStart)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                               This photo tells about the phone app start view where is short description about
-                               application features.
+                                This photo tells about the phone app start view where is short description about
+                                application features. There is also menu component what is this applications navigation tool.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={PhoneAppForecast}
-                                    alt="Paella dish"
-                                />
-                                 <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(PhoneAppForecast)}>
-                            <ZoomInIcon />
-                        </IconButton> 
+                                component="img"
+                                height="194"
+                                image={PhoneAppForecast}
+                                alt="Paella dish"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(PhoneAppForecast)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                This photo tells about the forecast app. There user can search forecast 
-                                information based on user search word or phones gps coordinates.
+                                This photo tells about the forecast app. There user can search forecast
+                                information based on user search word or phones gps coordinates. This app uses
+                                a free api weather service.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={PhoneAppGps}
-                                    alt="Paella dish"
-                                />
-                                 <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(PhoneAppGps)}>
-                            <ZoomInIcon />
-                        </IconButton> 
+                                component="img"
+                                height="194"
+                                image={PhoneAppGps}
+                                alt="Paella dish"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(PhoneAppGps)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography>
                                 This photo tells about the gps tracker application, what calculates user excercise
-                                length based on gps coordinates
-                                </Typography>
+                                length based on gps coordinates. It counts coordinates in 5 seconds and compare the erlier and measured
+                                gps points and calculate the distance between coordinates. At the end of excersice application ask
+                                from user that do he/she want to save the excercise information of dismiss it.
+                            </Typography>
                         </CardContent>
                     </Collapse>
                 </Card>
@@ -309,15 +319,15 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I made this application view based on service desin courses team work.
+                            I made this application view based on service desin courses team work. I use imagination to create this user interface.
 
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                    <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(SDeditor)}>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialog(SDeditor)}>
                             <ZoomInIcon />
-                        </IconButton>    
+                        </IconButton>
                         <ExpandMore
                             expand={expandedSD}
                             onClick={() => handleExpandClick("SD")}
@@ -331,33 +341,34 @@ function Portfolio(props: any) {
                         <CardContent>
                             <Typography paragraph>describe:</Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={SDdesktop}
-                                    alt="Service desing desktop view"
-                                />
+                                component="img"
+                                height="194"
+                                image={SDdesktop}
+                                alt="Service desing desktop view"
+                            />
                             <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(SDdesktop)}>
-                            <ZoomInIcon />
-                        </IconButton>     
+                                onClick={() => openImageExpandDialog(SDdesktop)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
                                 Here is the desktop view from app. I planned this based on our team work documents.
 
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={SDmobile}
-                                    alt="Service desing mobile view"
-                                />
-                              <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(SDmobile)}>
-                            <ZoomInIcon />
-                        </IconButton>      
+                                component="img"
+                                height="194"
+                                image={SDmobile}
+                                alt="Service desing mobile view"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(SDmobile)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                               Here is the mobile view what i planned on.
+                                Here is the mobile view what i planned on. Notice that mobile view is to patient and the 
+                                desktop view is to healthcare employees. This app is measuring, how the patient is handling with his/her disiase.
                             </Typography>
-                            
+
                         </CardContent>
                     </Collapse>
                 </Card>
@@ -386,14 +397,18 @@ function Portfolio(props: any) {
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             This application search post marks from database and print out with a picture to
-                            web site.
+                            web site. You can search the postmarks based on artist, publish year or name.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                    <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(postmarkApp2)}>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialog(postmarkApp2)}>
                             <ZoomInIcon />
-                        </IconButton>         
+                        </IconButton>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialog(PhoneAppCamera)}>
+                            <CodeIcon />
+                        </IconButton>
                         <ExpandMore
                             expand={expandedAppSem}
                             onClick={() => handleExpandClick("AppSem")}
@@ -405,58 +420,46 @@ function Portfolio(props: any) {
                     </CardActions>
                     <Collapse in={expandedAppSem} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography paragraph>Method:</Typography>
+                            <Typography paragraph>Description:</Typography>
                             <Typography paragraph>
-                                Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-                                aside for 10 minutes.
+                                Application keeps postmarks information on database and take images from websie.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={postmarkApp}
-                                    alt="Postmark app"
-                                />
-                                <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(postmarkApp)}>
-                            <ZoomInIcon />
-                        </IconButton>         
+                                component="img"
+                                height="194"
+                                image={postmarkApp}
+                                alt="Postmark app"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(postmarkApp)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-                                medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-                                occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                                large plate and set aside, leaving chicken and chorizo in the pan. Add
-                                pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-                                stirring often until thickened and fragrant, about 10 minutes. Add
-                                saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+                                Here we search the post marks based on keyword 
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={postmarkApp3}
-                                    alt="Postmark app"
-                                />
-                                <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(postmarkApp3)}>
-                            <ZoomInIcon />
-                        </IconButton>         
+                                component="img"
+                                height="194"
+                                image={postmarkApp3}
+                                alt="Postmark app"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(postmarkApp3)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Add rice and stir very gently to distribute. Top with artichokes and
-                                peppers, and cook without stirring, until most of the liquid is absorbed,
-                                15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-                                mussels, tucking them down into the rice, and cook again without
-                                stirring, until mussels have opened and rice is just tender, 5 to 7
-                                minutes more. (Discard any mussels that don&apos;t open.)
+                                Here we search post marks based on artist name
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={postmarkApp4}
-                                    alt="Postmark app"
-                                />
-                                <IconButton aria-label="Expand image"
-                                    onClick={()=> openImageExpandDialog(postmarkApp4)}>
-                            <ZoomInIcon />
-                        </IconButton>         
+                                component="img"
+                                height="194"
+                                image={postmarkApp4}
+                                alt="Postmark app"
+                            />
+                            <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(postmarkApp4)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography>
                                 The last photo tells about the error handling, if the user given search word is not given any search values
                             </Typography>
@@ -489,7 +492,8 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I make this game with Unreal engine 5.23. Only graphical side
+                            I make this game with Unreal engine 5.23. Only graphical side. In this work i use foliage tools,
+                            landscape tools, material tools and unreal own editor to fix collacion in house mesh.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -618,20 +622,20 @@ function Portfolio(props: any) {
                     </Collapse>
                 </Card>
             </Paper>
-            <Dialog open={openImageExpand} 
-                    className='portfolioImageExpandDialog'
-                    fullScreen={true}
+            <Dialog open={openImageExpand}
+                className='portfolioImageExpandDialog'
+                fullScreen={true}
             >
-            <CardMedia
-                        component="img"
-                        className='portfolioCardmedia'
-                        image={imageExpand}
-                        alt="Paella dish"
-                    />
-            <DialogActions><Button variant="contained" 
-                                    color='inherit' 
-                                    onClick={()=> setOpenImageExpand(false)}
-                                    >Close image expand</Button></DialogActions>
+                <CardMedia
+                    component="img"
+                    className='portfolioCardmedia'
+                    image={imageExpand}
+                    alt="Paella dish"
+                />
+                <DialogActions><Button variant="contained"
+                    color='inherit'
+                    onClick={() => setOpenImageExpand(false)}
+                >Close image expand</Button></DialogActions>
             </Dialog>
         </Container></>)
 }
