@@ -382,6 +382,9 @@ I have to make my graphical works page on my page.
 ## version 175
 - I take the issue 11,12,17 and work with them. The issue 17 and 12 needs to complete later.
 
+## version 176
+- I fixed the issue 13. Now the worktime app helper text is working on login view
+
 # installs backend:
 
 
