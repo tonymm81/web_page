@@ -362,6 +362,19 @@ still in server when refresh the browser it gives the wrong route error code. To
 I have to edit forecast to better graphical component.
 I have to make my graphical works page on my page.
 
+## version 172
+- I get weird dot use require for import module error in server side. This was caused by node-fetch. I use npm uninstall node-fetch and npm install node-fetch@2 and this works fine.
+- This error was caused by esm module changes.
+- And i update nodemoduls in client sode and i got error from datetimepicker..
+- this is fixed now and lets make a fresh build to server
+
+## version 173
+- Starting to make portfolio view using MUI paper and Card components. Also i fixed the browser update bug.
+- It would be nice to find some code review components.
+
+## version 174
+- I have added some content to portfolio view and there is still a lot of work to do.
+- I have to add more descriptions about my schoolprojects. But i make there expand image view where user can watch the image in full screen mode. 
 
 ## npm installs in this project:
 
