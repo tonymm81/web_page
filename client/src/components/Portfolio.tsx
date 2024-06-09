@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Alert, Avatar, Backdrop, Button, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Collapse, Container, Dialog, DialogActions, IconButton, IconButtonProps, List, ListItem, ListItemIcon, ListItemText, TextField, Typography, makeStyles, styled } from '@mui/material';
+import { Alert, Avatar, Backdrop, Button, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Collapse, Container, Dialog, DialogActions, IconButton, IconButtonProps, Link, List, ListItem, ListItemIcon, ListItemText, TextField, Typography, makeStyles, styled } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
@@ -27,6 +27,11 @@ import postmarkApp2 from '../photos/app autumn postmark2.png'
 import postmarkApp from '../photos/app autumn postmark1.png'
 import postmarkApp3 from '../photos/app autumn postmark3.png'
 import postmarkApp4 from '../photos/app autumn postmark4.png'
+import unrealEditor from '../photos/unreal.jpg'
+import unrealStart from '../photos/unrealStart.jpg'
+import unrealMiddle from '../photos/unrealMiddle.jpg'
+import unrealHouse from '../photos/unrealHouse.jpg'
+import unrealInside from '../photos/unrealHouseInside.jpg'
 
 import { red } from '@mui/material/colors';
 
@@ -123,7 +128,7 @@ function Portfolio(props: any) {
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             I have made a new version website based on old version. I have planned Here
-                            color palettes and views.
+                            color palettes and views to mobile and desktop. I made this with Adobe illustrator.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -146,7 +151,7 @@ function Portfolio(props: any) {
                             <Typography paragraph>Descripe:</Typography>
                             <Typography paragraph>
                                 I have task in graphical desing course that make this web page outfit different way.
-                                I lookout the old page and take there from logo the colorpalette what i use in my work.
+                                I lookout the old page and take there from logo the colorpalette what I use in my work.
                             </Typography>
                             <CardMedia
                                 component="img"
@@ -217,7 +222,7 @@ function Portfolio(props: any) {
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             I make this project with React native. It uses api calls, gps and camera in phone. React-native is awsome tool 
-                            to develope phone applications. I use the Expo device libraries.
+                            to develope phone applications. I use the Expo device libraries. I am developing this app forward so this is only the one version.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -225,8 +230,8 @@ function Portfolio(props: any) {
                             onClick={() => openImageExpandDialog(PhoneAppCamera)}>
                             <ZoomInIcon />
                         </IconButton>
-                        <IconButton aria-label="Expand image"
-                            onClick={() => openImageExpandDialog(PhoneAppCamera)}>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/Phone-app">
                             <CodeIcon />
                         </IconButton>
                         <ExpandMore
@@ -319,7 +324,8 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I made this application view based on service desin courses team work. I use imagination to create this user interface.
+                            I made this application view based on service desin courses team work. I use imagination to create this user interface. Color palettes I was asking opinion from my team workers.
+                            I made this with Adobe illustrator.
 
                         </Typography>
                     </CardContent>
@@ -487,8 +493,8 @@ function Portfolio(props: any) {
                     <CardMedia
                         component="img"
                         height="194"
-                        image={projects}
-                        alt="Paella dish"
+                        image={unrealEditor}
+                        alt="Unreal editor"
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
@@ -497,12 +503,10 @@ function Portfolio(props: any) {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
-                        </IconButton>
-                        <IconButton aria-label="share">
-                            <ShareIcon />
-                        </IconButton>
+                    <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(unrealEditor)}>
+                                <ZoomInIcon />
+                            </IconButton>
                         <ExpandMore
                             expand={expandedGame}
                             onClick={() => handleExpandClick("game")}
@@ -514,30 +518,61 @@ function Portfolio(props: any) {
                     </CardActions>
                     <Collapse in={expandedGame} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography paragraph>Method:</Typography>
+                            <Typography paragraph>Description:</Typography>
+                            <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={unrealStart}
+                                    alt="unreal start"
+                                />
+                             <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(unrealStart)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-                                aside for 10 minutes.
+                                Here is a start view. You can watch the whole video from youtube. The links is end of this card content.
+                                I use here foliage tools, landscape tools and I try to do this start view good looking.
                             </Typography>
+                            <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={unrealMiddle}
+                                    alt="unreal middle"
+                                />
+                             <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(unrealMiddle)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-                                medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-                                occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                                large plate and set aside, leaving chicken and chorizo in the pan. Add
-                                pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-                                stirring often until thickened and fragrant, about 10 minutes. Add
-                                saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+                                This screenshot is from the middle of the game level.
                             </Typography>
+                            <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={unrealHouse}
+                                    alt="unreal middle"
+                                />
+                             <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(unrealHouse)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Add rice and stir very gently to distribute. Top with artichokes and
-                                peppers, and cook without stirring, until most of the liquid is absorbed,
-                                15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-                                mussels, tucking them down into the rice, and cook again without
-                                stirring, until mussels have opened and rice is just tender, 5 to 7
-                                minutes more. (Discard any mussels that don&apos;t open.)
+                                This screen is from outside of house. I have materialised the house and fix the collasion points of all meshes
                             </Typography>
+                            <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={unrealInside}
+                                    alt="unreal middle"
+                                />
+                             <IconButton aria-label="Expand image"
+                                onClick={() => openImageExpandDialog(unrealInside)}>
+                                <ZoomInIcon />
+                            </IconButton>
                             <Typography>
-                                Set aside off of the heat to let rest for 10 minutes, and then serve.
+                                This last image is from inside the house. I add also free funiture package to house. Here is also full video from game.
+                                <Button href="https://youtu.be/6QVSXqKT3qc" size="small">See the full video here</Button>
+                                <Link></Link>
                             </Typography>
                         </CardContent>
                     </Collapse>
@@ -589,34 +624,17 @@ function Portfolio(props: any) {
                         <CardContent>
                             <Typography paragraph>Method:</Typography>
                             <Typography paragraph>
-                                Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-                                aside for 10 minutes.
+                                Heat
                             </Typography>
                             <Typography paragraph>
-                                Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-                                medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-                                occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-                                large plate and set aside, leaving chicken and chorizo in the pan. Add
-                                pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-                                stirring often until thickened and fragrant, about 10 minutes. Add
-                                saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+                                Heat 
                             </Typography>
                             <Typography paragraph>
-                                Add rice and stir very gently to distribute. Top with artichokes and
-                                peppers, and cook without stirring, until most of the liquid is absorbed,
-                                15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-                                mussels, tucking them down into the rice, and cook again without
-                                stirring, until mussels have opened and rice is just tender, 5 to 7
-                                minutes more. (Discard any mussels that don&apos;t open.)
+                                Add 
                             </Typography>
-                            <CardMedia
-                                component="img"
-                                height="194"
-                                image={projects}
-                                alt="Paella dish"
-                            />
+                           
                             <Typography>
-                                Set aside off of the heat to let rest for 10 minutes, and then serve.
+                                Set
                             </Typography>
                         </CardContent>
                     </Collapse>
