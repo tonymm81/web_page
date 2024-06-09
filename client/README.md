@@ -376,6 +376,15 @@ I have to make my graphical works page on my page.
 - I have added some content to portfolio view and there is still a lot of work to do.
 - I have to add more descriptions about my schoolprojects. But i make there expand image view where user can watch the image in full screen mode. 
 
+## version 175
+- I take the issue 11,12,17 and work with them. The issue 17 and 12 needs to complete later.
+
+## version 176
+- I fixed the issue 13. Now the worktime app helper text is working on login view
+
+## version 177  
+- I continued working with issue 17 and 11. I added the phone app to my own github and I add the link in the code button. I also made my gaming course final work to portfolio.
+
 ## npm installs in this project:
 
 Mariadb 10.10

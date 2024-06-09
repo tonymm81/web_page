@@ -385,6 +385,9 @@ I have to make my graphical works page on my page.
 ## version 176
 - I fixed the issue 13. Now the worktime app helper text is working on login view
 
+## version 177  
+- I continued working with issue 17 and 11. I added the phone app to my own github and I add the link in the code button. I also made my gaming course final work to portfolio.
+
 # installs backend:
 
 
