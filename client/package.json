@@ -23,18 +23,19 @@
         "date-fns": "^2.29.3",
         "dotenv": "^16.3.1",
         "moment-jalaali": "^0.9.6",
+        "postcss": "^8.4.38",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-google-recaptcha": "^3.1.0",
         "react-google-recaptcha-v3": "^1.10.1",
         "react-router-dom": "^6.6.1",
-        
         "styled-components": "^5.3.6",
         "typescript": "^5.0.2",
-        "web-vitals": "^3.5.2"
+        "web-vitals": "^3.5.2",
+        "websockets": "^0.2.0"
     },
     "overrides": {
-        "typescript": "^5.0.2" 
+        "typescript": "^5.0.2"
     },
     "scripts": {
         "proxy": "https://newsapi.org",

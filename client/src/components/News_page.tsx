@@ -156,6 +156,13 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                         error={Boolean(errors.current)}
                         helperText={errors.current}
                         disabled={show_items}
+                         sx={{
+                    '& .MuiInputBase-input': {
+                        backgroundColor: 'gray',
+                    }, '& + &': {
+                        marginTop: '1rem',
+                    },
+                }}
                     />
 
 
@@ -180,8 +187,8 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                     </FormControl>
                     <Button
                         variant="contained"
-                        color="inherit"
-                        fullWidth
+                        color="info"
+                        
                         type="submit"
 
                     >Search!</Button>
@@ -203,26 +210,29 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                 <Typography variant="h5"> Total results: {total_result.current}</Typography>
                 <List>
                     {newsSaved.map((item, index) => {
-                        return (
+                        return ( 
+                           item.tnewsTitle === "[Removed]" ?
+                         <></> :
                             <ListItem key={index} className="listViewItems">
-                                <ListItemText>
+                                <ListItemText key={index}>
                                     <Typography variant="h6">{`${item.tnewsTitle}`}</Typography>
-                                    {`Time: ${item.puplishDate} `}
-                                    {` Author: ${item.author} `}
-                                    {` Source: ${item.source} `}
-                                    <Link className="Links" target="_blank" rel='noopener' variant="button" href={item.url}>link to site</Link></ListItemText>
+                                    <Typography variant="body1">{`Time: ${item.puplishDate} `}</Typography>
+                                    <Typography variant="body2">{` Author: ${item.author} `}</Typography>
+                                    <Typography variant="body2">{` Source: ${item.source} `}</Typography>
+                                    <Link className="Links" target="_blank" rel='noopener' variant="button" href={item.url}>link to site</Link>
+                                    </ListItemText>
                                 {item.description ?
                                     <ListItemText>
-                                        {" Description: "} {item.description}
-                                        {" Content "}{item.content}
+                                        <Typography variant="body2">{" Description: "} {item.description}</Typography>
+                                        <Typography variant="body2">{" Content "}{item.content}</Typography>
                                         <ListItemIcon > <img className="news_image" src={item.ulr_image/*this has to move function with error handling */} alt={String(index)} /></ListItemIcon>
                                     </ListItemText>
                                     :
                                     <></>
                                 }
-                            </ListItem>
-                        );
-                    })}
+                            </ListItem> 
+                        ); 
+                    })} 
                 </List>
                 <Backdrop open={backdrop_bl}>
                     <CircularProgress color="inherit" />
