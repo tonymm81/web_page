@@ -388,6 +388,15 @@ I have to make my graphical works page on my page.
 ## version 177  
 - I continued working with issue 17 and 11. I added the phone app to my own github and I add the link in the code button. I also made my gaming course final work to portfolio.
 
+## version 178
+- Lets work on issue21 fix styles and modify the forecast to card, not list.
+- Now I fixed the styles and i made a neutral background images to forecast and news page.
+- I also fix borders and in portfolio view I fix the elements background colors and paddings.
+- In news page view i make list nicer.
+- I didnt make in forecast view changes so we have to make a new issue about it.
+- I also update dependencies and update the websocket pack and postcss.
+- This version is not build and uploaded to server.
+
 # installs backend:
 
 

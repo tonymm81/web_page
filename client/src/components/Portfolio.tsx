@@ -79,6 +79,7 @@ function Portfolio(props: any) {
         }
         if (values === "SD") {
             setExpandedSD(!expandedSD);
+            
         }
         if (values === "AppSem") {
             setExpandedAppSem(!expandedAppSem);
@@ -103,7 +104,7 @@ function Portfolio(props: any) {
 
     return (<>
         <Container className='Portfolioontainer'>
-            <Paper elevation={0} className='portfolioPaper'>
+            <Paper elevation={0} className='portfolioPaper' sx={{backgroundColor:"aliceblue"}}>
                 <Card className='portfolioCard'>
                     <CardHeader
                         avatar={
@@ -300,7 +301,7 @@ function Portfolio(props: any) {
                 </Card>
             </Paper>
 
-            <Paper elevation={0} className='portfolioPaper'>
+            <Paper elevation={0} className='portfolioPaper' sx={{backgroundColor:"aliceblue"}}>
                 <Card className='portfolioCard'>
                     <CardHeader
                         avatar={
@@ -474,7 +475,7 @@ function Portfolio(props: any) {
                 </Card>
             </Paper>
 
-            <Paper elevation={0} className='portfolioPaper'>
+            <Paper elevation={0} className='portfolioPaper' sx={{backgroundColor:"aliceblue"}}>
                 <Card className='portfolioCard'>
                     <CardHeader
                         avatar={

@@ -3,11 +3,12 @@
   background-color: rgb(186, 196, 215);
   max-width: 1200px;
   /*min-height: 1200px;*/
-  border: solid 2px black;
-  box-shadow: 3px 3px 3px black;
+  border: solid 1px black;
+  box-shadow: 1px 1px 1px black;
   margin-top: 20px;
   margin:10px;
-  border-radius: 3%;
+  border-radius: 0%;
+  padding: 20px;
 }
 
 h3.MuiTypography-h3{
@@ -19,18 +20,19 @@ h3.MuiTypography-h3{
   background-color: rgb(186, 196, 215);
   border: solid 2px black;
   text-shadow: 2px 2px 2px;
-  border-radius: 5%;
-  box-shadow: 3px 3px 3px black;
+  border-radius: 2%;
+  box-shadow: 1px 1px 1px black;
   margin-top:10px;
   margin:10px;
   padding: 10px;
+  
 }
 
 .list_box{
   margin-top: 10px;
   opacity: 20;
-  margin:10px;
-  padding:10px;
+  
+  padding:5px;
   
   
 }
@@ -44,11 +46,13 @@ h3.MuiTypography-h3{
   background-color: rgb(186, 196, 215);
   border: solid 2px black;
   margin-bottom: 10px;
-  box-shadow: 3px 3px 3px black;
-  border-radius: 5%;
+  /*box-shadow: 1px 1px 1px black;*/
+  border-radius: 1%;
+ 
 }
 
 .start_image{
+  margin-top: 10px;
   background-image: url('./photos/img_start.jpg');
   background-repeat: no-repeat;
   background-size: 100% cover;
@@ -57,31 +61,34 @@ h3.MuiTypography-h3{
   width:100%;
   min-height:1100px;
   
-  border-radius: 2%;
-  box-shadow: 3px 3px 3px black;
+  border-radius: 1%;
+  box-shadow: 1px 1px 1px black;
 }
 
 .forecast{
+  margin-top: 10px;
   background-image: url('./photos/forecastedited.png');
   background-repeat: repeat;
   background-size: 100% cover;
-  background-position: center;
-  opacity: 112.6;
+  background-position: top;
+  opacity: 2;
+  background-color: rgb(128, 133, 133);
   min-width: auto;
   min-height: 1000px;
-  box-shadow: 5px 5px 5px black;
+  /*box-shadow: 1px 1px 1px black;*/
   color:rgb(252, 247, 247);
 }
 
 .workingtime{
+  margin-top: 10px;
   background-image: url('./photos/working.jpg');
   background-repeat: repeat;
   background-size: 100% cover;
   /*background-position: center;*/
   min-width: auto;
   min-height: 1000px;
-  border-radius: 2%;
-  box-shadow: 3px 3px 3px black;
+  border-radius: 1%;
+  box-shadow: 1px 1px 1px black;
 }
 
 .worktimeFields{
@@ -93,35 +100,36 @@ h3.MuiTypography-h3{
   display: flex;
   flex-direction: column;
   justify-content: left;
-  border:3px solid black;
-  box-shadow: 3px 3px 3px black;
-  border-radius: 5%;
+  border:2px solid black;
+  box-shadow: 1px 1px 1px black;
+  border-radius: 1%;
   margin:8px;
   color:rgb(255, 254, 254);
 }
 
 .projects{
+  margin-top: 10px;
   background-image: url('./photos/projects.jpg');
   background-repeat: repeat;
   background-size: 100% cover;
   background-position: center;
   max-width: 100%;
   min-height: 1000px;
-  border-radius: 2%;
-  box-shadow: 3px 3px 3px black;
+  border-radius: 1%;
+  box-shadow: 1px 1px 1px black;
 
 }
 
 .Aboutme{
-  margin: 2px;
+  margin-top: 10px;
   background-image: url('./photos/aboutme.jpg');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 100% cover;
-  background-position: center;
+  background-position: top;
   min-width: auto;
   min-height: 1000px;
-  border-radius: 2%;
-  box-shadow: 3px 3px 3px black;
+  border-radius: 1%;
+  box-shadow: 1px 1px 1px black;
   padding:10px;
   margin: 10px;
 }
@@ -189,33 +197,49 @@ h2{
   background-image: url('./photos/news_background_edited.png');
   background-repeat: repeat;
   background-size: 100% cover;
-  background-position: center;
+  background-position: top;
+  margin-top: 10px;
+  background-color: rgb(154, 159, 163);
   min-width: auto;
   min-height: 1000px;
-  box-shadow: 3px 3px 3px black;
+  box-shadow: 1px 1px 1px black;
   color:white;
-  margin:40px;
+ 
   
 }
 .Portfolioontainer{
+  margin-top: 10px;
+  background-color: rgb(229, 230, 230);
+  padding: 10px;
   width:100%;
   min-height:1000px;
   min-width: auto;
   height: auto;
+  border: 1px;
+  border-color: black;
 
 }
+
+
 .portfolioPaper{
+  
   width: 100%;
   display: flex;
   flex-direction: row;
   margin: 5px;
   background-color: cadetblue;
+  padding:15px;
+  border: 1px;
+  border-color: black;
 }
 
 .portfolioCard {
+  
   width: 50%;
-  margin: 10px;
+  padding:25px;
   background-color: aliceblue;
+  border: 1px;
+  border-color: black;
   
 }
 .portfolioImageExpandDialog{
@@ -224,6 +248,7 @@ h2{
 }
 .portfolioCardmedia{
   width:100%;
+  padding:2ps;
 }
 img {
   max-width: 100%;
