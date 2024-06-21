@@ -20,6 +20,7 @@
         "@types/node": "^16.18.10",
         "@types/react-dom": "^18.0.9",
         "@types/react-router-dom": "^5.3.3",
+        "braces": "^3.0.3",
         "date-fns": "^2.29.3",
         "dotenv": "^16.3.1",
         "moment-jalaali": "^0.9.6",
