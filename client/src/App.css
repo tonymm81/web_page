@@ -64,6 +64,21 @@ h3.MuiTypography-h3{
   border-radius: 1%;
   box-shadow: 1px 1px 1px black;
 }
+.StartInfo{
+  margin: 20px;
+  padding: 20px;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+.startpageList{
+  width:100%;
+  background-color: rgba(211, 211, 211, 0.75);
+  margin:5px;
+  margin-top: 10px;
+  border-radius: 25px;
+  height: auto;
+}
 
 .forecast{
   margin-top: 10px;

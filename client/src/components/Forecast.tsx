@@ -152,7 +152,7 @@ function Forecast(props?: any) {
                 helperText={fullForecast.errorText}
             />
             {backdrop ?
-                <><Button color='inherit'
+                <><Button 
                     variant="contained"
                     startIcon={<SearchIcon />}
                     onClick={userTextFieldInput}> Search! </Button><>

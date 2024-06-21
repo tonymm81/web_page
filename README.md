@@ -397,6 +397,9 @@ I have to make my graphical works page on my page.
 - I also update dependencies and update the websocket pack and postcss.
 - This version is not build and uploaded to server.
 
+## version 179
+- i made the issue 24 now. Perhaps we edit that startpage list later littlebit but now it looking quite good so lets put this version to server.
+
 # installs backend:
 
 
