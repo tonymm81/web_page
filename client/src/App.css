@@ -137,27 +137,33 @@ h3.MuiTypography-h3{
 
 }
 .middleBoxProjects{
-  margin:10px;
-  padding: 10px;
-  width: 80%;
+  
+  margin-top: 50px;
+  
+  width:100%;
+  padding: 50px;
   height: auto;
 }
 .projectsPaper{
-  width: 75%;
+  align-items: center;
+  width: 70%;
   height: auto;
   display: flex;
   flex-direction: row;
+  columns: 2;
+  margin:20px;
 }
 .projectsCard{
-  width:48%;
+  width:38%;
   height: auto;
   margin: 10px;
 }
 .endBoxProjects{
-    margin-top: 40px;
+       
+    margin-top: 60px;
     margin:10px;
     padding: 10px;
-    width: 80%;
+    width: 70%;
     height: auto;
   
 

@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 interface textfieldErrors extends LogINuser { } //this is for error handling.
@@ -198,6 +199,11 @@ function LogIn(props?: any) { //this function is the login view where user can l
                 color="inherit"
                 type="submit"
                 startIcon={<LoginIcon />} sx={{margin:2}}>Save user</Button>
+             <Button
+                variant="contained"
+                color="inherit"
+                onClick={()=>setHideNewUser(true)}
+                startIcon={<CancelIcon />} sx={{margin:2}}>cancel</Button>
         </form>}
     </>
     )
