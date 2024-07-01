@@ -1,4 +1,4 @@
-import { Box, Button, Container, Dialog, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Container, Dialog, Fab, Fade, FormControlLabel, Grow, IconButton, IconButtonProps, Paper, styled, Switch, Typography } from "@mui/material";
 import '../App.css'
 import { useEffect, useState } from "react";
 import weatherstation from '../photos/weatherstationFront.jpg'
@@ -8,18 +8,45 @@ import tableProject from '../photos/tableProject.jpg'
 import tableprojectRasbian from '../photos/tableprojectRasbian.jpg'
 import WPAcontrol from '../photos/WPAcontrol.jpg'
 import wpahighvoltage from '../photos/WPAhighvoltage.jpg'
+import tableProjectShematics from'../photos/tableProjectShematics.jpg'
+import { red } from "@mui/material/colors";
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import CodeIcon from '@mui/icons-material/Code';
+
+
+interface ExpandMoreProps extends IconButtonProps {
+    expand: boolean;
+
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
+}));
 // this component shows my projects. By clicking button, it shows dialog with links to projects code and some photos and descriptions.
 function Projects(props?: any) {
-   
+
 
     const [openWeatherstation, setOpenWeatherstation] = useState<boolean>(false);
     const [openTableProject, setOpenTableProject] = useState<boolean>(false);
     const [openWPA, setOpenWPA] = useState<boolean>(false);
     const [openBitcoin, setOpenBitcoin] = useState<boolean>(false);
     const [openFrontend, setOpenFrontend] = useState<boolean>(false);
+    const [expand, setExpand] = useState<boolean>(false)
+    const [checked, setChecked] = useState(false);
     useEffect(() => {
-        
+
         if (props.headLiner === "My Projects") {
 
         } else {
@@ -30,67 +57,399 @@ function Projects(props?: any) {
     }, [])
 
     return (<Container className="projects" >
+        <Container className="middleBoxProjects">
+            <Paper className="projectsPaper">
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                WS
+                            </Avatar>
+                        }
 
-        <Button variant="contained"
-            color="inherit"
-            onClick={() => { setOpenWeatherstation(true) }}
-            sx={{ margin: 5 }}>Project weatherstation
-        </Button>
-        <Dialog open={openWeatherstation} className='projectDialog'>
-            <Button variant="contained"
-                href="https://github.com/tonymm81/weather_station"
-            >Link to projects code</Button>
-            <Button variant="contained"
-                onClick={() => { setOpenWeatherstation(false) }}>Close this view</Button>
-            <Typography variant="h3" sx={{ margin: "5px" }} >Weatherstation front</Typography>
-            <img src={weatherstation} alt="ws1" />
-            <Typography variant="h3" sx={{ margin: "5px" }} >Weatherstation back</Typography>
-            <img src={weatherstationBack} alt="ws2" />
-            <Typography variant="h3" sx={{ margin: "5px" }} >Esp (client) microcontroller</Typography>
-            <img src={esp} alt="ws3" />
-            <Typography variant="body1" sx={{ margin: "5px" }} >
-                this is a weatherstation where is connected two esp32 boards to raspberry pi3 and one raspberry pi2 is connected also.
-                each esp boards has 2 dht11 sensors and rasbperrypi 2 has one. <br />
-                rasbperrypi2 is a hedgehogs spinning wheel calculator what updates the temperatures and spinning records per hour
-                esp softwares are in own folders. esp:kitchen etc..<br />
-                and hedgehogs spinning wheel calculator is own folder called calculator<br />
-                and main device files are in main device. this device is keeping the database up and updates the values inside it.<br />
-                it also is a mqtt broker. main device has tkinter window where it show information. it updates this 4 dht11 sensors from espboards
-                to screen and once per hour it updates the temp and hum to database.
-                it calculates the average value from temp in 4 sensors and rasbperrypi 2 dht sensor also. it have program called hedgehogmqtt.py
-                what listens if the raspberrypi2 sends a temps or results of spinning wheel.
-                this maindevice also takes a week forecast from api service.
-                raspberry pi2 is a counter what keeps writing records to logfile, and thingspeak api service and in main device database.
-                this device has magnetic pulse sensors in spinning wheel and small piece of iron. when sensor activates it takes rasbperri pi 2 gpio pin up.
-                then the program calculated 1 round. there is also timestamps inside of this laskuriapi.py file. i make a module what sends data to main device.
-                file name is hedgehog.py. laskuriapi calls it when time condition is true:
-                i put the comments to code so perhaps it explain how this works. there is also plan.txt where you can see the plans and bugs and reports etc.
-                here is the files what i code: main device: weatherstation.py hedgehogmqtt.py database.py forecast.py<br />
-                and esp boards boot.py<br />
-                in hedgehogs spinning wheel calculator laskuriapi.py hedgehog.py<br />
-                sort describe: weatherstation.py keeps graphics up and update the sensor measurements to screen.<br /> this main program calls also forecast.py where we get a 5 day forecast.<br />
-                hedgehogmqtt.py listens to connection from raspberrypi2 calculator.<br /> when it sends a message this program upload the recieved data to database.<br />
-                database.py is handling the database and programs are calling it when the time rule is true.<br />
-                forecast.py i e here free api service where i get this information. this forecasti is calling only then when program is starting.<br />
-                boot.py is file what is inside the esp32 boards.<br /> this measure the sensor data and send it to broker(main device)<br />
-                laskuriapi.py is calculating the wheel rounds with gpio pin from raspberry pi 2.<br />this program keeps a log file and every hour it start from 0 and keep the old measurements. <br />
-                this program also upload the data to thingview and also upload the data to main device with mqtt.<br />
-                hedgehog.py is the program what is mqtt client.<br />when time rule is true it upload the spinning wheel rounds and temperature and humidity to main device.
-                scroll.py <br />is the view where we printout the database data what user want to search
-                dbsearch.py <br />is popup window application what we call from weatherstation. there user choice what device data history she/he want to search
-                known bugs at ver122: <br />database wont show timestamp to hedgehogs runnings scroll.py is not ready yet. its ugly view
-                connections.py appears on ver122.<br /> this is own program to mqtt connections.
-                this communicates to database and main program weatherstation with pickle message include python list. once per hour it calls
-                <br />database.py programs function and upload the data in database.
-                in database.py i create this file to upload the measurements to mariadb.<br /> why mariadb? because it is the best!!
-                added bedroom esp board temperature measurements. appears on ver 121</Typography>
-        </Dialog>
+                        title="Project weatherstation so called magig mirror"
+                        subheader="Python3 project"
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={weatherstation}
+                        alt="Weatherstation front"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            I have made this project with raspberry pi3 and 3 dirrefent Esp32 microcontrollers.
+                            behind mirror is a old fujitsu's laptop screen with cheap China adapter card. This how i made the screen.
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/weather_station">
+                            <CodeIcon />
+                        </IconButton>
+                    </CardActions>
+
+                    <FormControlLabel
+                        control={<Switch checked={openWeatherstation} onChange={() => setOpenWeatherstation(!openWeatherstation)} />}
+                        label="Show more"
+                    />
+
+                    <Collapse in={openWeatherstation} timeout="auto" unmountOnExit>
+                        <Grow in={openWeatherstation}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography paragraph>Descripe:</Typography>
+                                    <Typography paragraph>
+                                        This device communicates with mqtt. mirror is a broker what listens to upcoming messages from esp's.
+                                        Each of esp's are measuring tempereature and humidity and two of them are measuring the lux value from outside also.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={weatherstationBack}
+                                        alt="Weatherstation back"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                    <Typography paragraph>
+                                        The broker keeps up the database locally, and when device starts, it get forecast from api service and print it to screen.
+                                        In database device saves the measurements, what are coming from esp microcontrollers. The saving time is
+                                        1 saving per hour. This broker have also graphical view, where you can search measurements from specific time.
+                                        It uses matlibplot to print out to graphics.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={esp}
+                                        alt="Esp"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                        Each of esp's is running with usb power and two of them have dht11 sensor and dht22 sensor and lux sensor.
+                                        one of the have only dht22 sensor. I measure the rooms temperature with this and also outside tempereture and hmidity
+                                        with this and also lux value from outside.
+                                    </Typography>
+
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={openWeatherstation} onChange={() => setOpenWeatherstation(!openWeatherstation)} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+
+                </Card>
+
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                TP
+                            </Avatar>
+                        }
+
+                        title="Project Table controller"
+                        subheader="Python3 project"
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={tableProject}
+                        alt="Weatherstation front"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            I have made this project with raspberry pi4 and raspberry pi touchscreen. I made the motor control board by my self.
+                            In the table there is a gearbox motor what lift desk or lowers it. I measure the distance from floor with ultrasonic sensor.
+
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/table_project">
+                            <CodeIcon />
+                            </IconButton>
+                    </CardActions>
+                            <FormControlLabel
+                                control={<Switch checked={openTableProject} onChange={() => setOpenTableProject(!openTableProject)} />}
+                                label="Show more"
+                            />
+                    <Collapse in={openTableProject} timeout="auto" unmountOnExit>
+                        <Grow in={openTableProject}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography paragraph>Descripe:</Typography>
+                                    <Typography paragraph>
+                                        This device has features like you can control wlan outlets and lamps from this device. You can also save or load 
+                                        settings, what you want.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={tableprojectRasbian}
+                                        alt="Graphical desing desktop view"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                       In this image we see the compact packet of RaspberryPi4 and RasperryPi touch screen 8 inch.
+                                       Rasbian is OS in this device and program is in autostart.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={tableProjectShematics}
+                                        alt="Graphical desing mobile view"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                        Next
+                                    </Typography>
+
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography>
+                                        I
+                                    </Typography>
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={openTableProject} onChange={() => setOpenTableProject(!openTableProject)} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+                </Card>
+            </Paper>
+        </Container>
+        
+
+        <Container className="endBoxProjects">
+
+        <Paper className="projectsPaper">
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                WP
+                            </Avatar>
+                        }
+
+                        title="Working place safety automation"
+                        subheader="C++ and hardware project"
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={WPAcontrol}
+                        alt="Weatherstation front"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            I have made this project with stm nucleo f303tr and arduino microcontrollers. Program is running with C++
+                            and communication to hardware and between microcontrollers is working thru Spi protocol.
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/working-place-automation">
+                            <CodeIcon />
+                        </IconButton>
+                    </CardActions>
+
+                    <FormControlLabel
+                        control={<Switch checked={openWPA} onChange={() =>{ setOpenWPA(!openWPA) }} />}
+                        label="Show more"
+                    />
+
+                    <Collapse in={openWPA} timeout="auto" unmountOnExit>
+                        <Grow in={openWPA}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography paragraph>Descripe:</Typography>
+                                    <Typography paragraph>
+                                        this is my school project. It has been exiting project because i have to study a lot about hardware side.
+                                        this device has two microkontrollers. arduino uno and nucleo f303re. arduino keeps the rfid reader(spi)
+                                        and communication with nucleo via SPI. Arduino also measures the temperature and adjust the fan speed
+                                        depending on set temperature. Set temperature you can adjusment with potentiometer.
+                                        Arduino has also 20x4 led screen what uses I2C commmunication.
+                                        It also adjust the fan speed via mosfet but there i have to make some optical isolator because motor
+                                        distraction signal.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={wpahighvoltage}
+                                        alt="Weatherstation back"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                    <Typography paragraph>
+                                        The broker keeps up the database locally, and when device starts, it get forecast from api service and print it to screen.
+                                        In database device saves the measurements, what are coming from esp microcontrollers. The saving time is
+                                        1 saving per hour. This broker have also graphical view, where you can search measurements from specific time.
+                                        It uses matlibplot to print out to graphics.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={esp}
+                                        alt="Esp"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                        Each of esp's is running with usb power and two of them have dht11 sensor and dht22 sensor and lux sensor.
+                                        one of the have only dht22 sensor. I measure the rooms temperature with this and also outside tempereture and hmidity
+                                        with this and also lux value from outside.
+                                    </Typography>
+
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={openWPA} onChange={() =>{ setOpenWPA(!openWPA) }} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+
+                </Card>
+
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                TP
+                            </Avatar>
+                        }
+
+                        title="Project Table controller"
+                        subheader="Python3 project"
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={tableProject}
+                        alt="Weatherstation front"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            I have made this project with raspberry pi4 and raspberry pi touchscreen. I made the motor control board by my self.
+                            In the table there is a gearbox motor what lift desk or lowers it. I measure the distance from floor with ultrasonic sensor.
+
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/table_project">
+                            <CodeIcon />
+                            </IconButton>
+                    </CardActions>
+                            <FormControlLabel
+                                control={<Switch checked={openTableProject} onChange={() => setOpenTableProject(!openTableProject)} />}
+                                label="Show more"
+                            />
+                    <Collapse in={openTableProject} timeout="auto" unmountOnExit>
+                        <Grow in={openTableProject}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography paragraph>Descripe:</Typography>
+                                    <Typography paragraph>
+                                        This device has features like you can control wlan outlets and lamps from this device. You can also save or load 
+                                        settings, what you want.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={tableprojectRasbian}
+                                        alt="Graphical desing desktop view"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                       In this image we see the compact packet of RaspberryPi4 and RasperryPi touch screen 8 inch.
+                                       Rasbian is OS in this device and program is in autostart.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={esp}
+                                        alt="Graphical desing mobile view"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                        Next
+                                    </Typography>
+
+                                    <IconButton aria-label="Expand image"
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography>
+                                        I
+                                    </Typography>
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={openTableProject} onChange={() => setOpenTableProject(!openTableProject)} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+                </Card>
+            </Paper>
+        </Container>
+      
 
         <Button variant="contained"
             color="inherit"
             onClick={() => { setOpenWPA(true) }}
             sx={{ margin: 5 }}>Project working place automation</Button>
-        <Dialog open={openWPA}>
+        <Dialog open={false}>
             <Button variant="contained"
                 href="https://github.com/tonymm81/working-place-automation"
             >Link to this project code</Button>
@@ -108,6 +467,8 @@ function Projects(props?: any) {
                 Arduino has also 20x4 led screen what uses I2C commmunication.
                 It also adjust the fan speed via mosfet but there i have to make some optical isolator because motor
                 distraction signal.
+
+                Tästä
                 Second microcontroller nucleo is the slave device. Arduino gives permission to start and also to shutdown
                 with Spi communication. nucleo has second spi communication pins what are controlling spi oled screen
                 and two sn74hc595n chips. one chip is for leds and second is using relays via uln2804 chip.
@@ -141,29 +502,7 @@ function Projects(props?: any) {
             </Typography>
         </Dialog>
 
-        <Button variant="contained"
-            color="inherit"
-            onClick={() => { setOpenTableProject(true) }}
-            sx={{ margin: 5 }}>Project table and wlan control.</Button>
-        <Dialog open={openTableProject}>
-            <Button variant="contained"
-                href="https://github.com/tonymm81/table_project"
-            >Link to this project code</Button>
-            <Button variant="contained"
-                onClick={() => { setOpenTableProject(false) }}>close this view</Button>
-            <Typography variant="h3" sx={{ margin: "5px" }} >Table and wlan devices control</Typography>
-            <img src={tableProject} alt="tp1" />
-            <Typography variant="h3" sx={{ margin: "5px" }}>Here is rasbian, touch screen and gearbox motor</Typography>
-            <img src={tableprojectRasbian} alt="tp2" />
-            <Typography variant="body1" sx={{ margin: "5px" }} >
-                This project is for adjusment of table level from floor.
-                It has also graphical interface where you can control the desk level and wlan plugs and bulbs.
-                it has rasbperry pi4, 7 inch touch screen, uln2804 chip, three relays and resistors.
-                there is also gearbox motor what lift or lower the desk.
-                ultrasonic sensor measures the desk distance from floor and you can save your favorite setup and load it later.
-                We can save all light and plugs setup and distance from floor.
-            </Typography>
-        </Dialog>
+       
 
         <Button variant="contained"
             color="inherit"

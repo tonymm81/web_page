@@ -160,10 +160,12 @@ function Forecast(props?: any) {
                             {forecastSaved.map((item: Forecast_needed, index: number) => {
                                 return (
                                     <ListItem key={index} className="listViewItems">
-                                        <ListItemText>
-                                            {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} ,Time ${String(format(new Date(item.timestamp), "y-m-d h"))}`}
-                                            {` Wind :${item.wind} Meters per second and : ${item.shorDescription} , Visibility: ${item.visibility} meters`}
-                                            <ListItemIcon><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
+                                        <ListItemText key={index}>
+                                            <Typography variant="h5">{`Time ${String(format(new Date(item.timestamp), "y-m-d h"))}`}</Typography>
+                                            <Typography variant="body1"> {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max}`}</Typography>
+                                            <Typography variant="body2"> {` Wind :${item.wind} Meters per second and description is : ${item.shorDescription} , Visibility: ${item.visibility} meters`}</Typography>
+                                            
+                                            <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
                                         </ListItemText>
                                     </ListItem>
 

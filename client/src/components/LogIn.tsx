@@ -4,6 +4,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useRef, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 interface textfieldErrors extends LogINuser { } //this is for error handling.
@@ -14,6 +15,7 @@ function LogIn(props?: any) { //this function is the login view where user can l
     const [errorhandling, setErrorhandling] = useState<textfieldErrors>({})
     const [errorhandling_new_usr, setErrorhandling_new_usr] = useState<textfieldErrors>({})
     const navigate: NavigateFunction = useNavigate();
+    const [hideNewUser, setHideNewUser] = useState<boolean>(true)
     const textAreaHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {//this is for textfield handling
         textHandler.current[e.target.name] = e.target.value
     }
@@ -40,6 +42,7 @@ function LogIn(props?: any) { //this function is the login view where user can l
                 if (connection_sign.status === 200) {
                     //console.log("ok")//add this status to graphics
                     alert("New user saved!")
+                    setHideNewUser(true)
                     textHandler.current = {}
                 } else {
                     errors = { ...errors, error: "Give username and password" }
@@ -123,6 +126,7 @@ function LogIn(props?: any) { //this function is the login view where user can l
 
 
     return (<>
+        {hideNewUser ?  
         <form onSubmit={checkUser}>
             <Typography variant="body1" display="inline" style={{ padding: 10 }}>Hey! This is demo login. If you want to log in with employer account use
                 <strong> username jane_smith and password test</strong>. Employee view use <strong> john_smith for username
@@ -156,8 +160,14 @@ function LogIn(props?: any) { //this function is the login view where user can l
                 variant="contained"
                 color="inherit"
                 type="submit"
-                startIcon={<LoginIcon />}>Log in</Button>
+                startIcon={<LoginIcon />} sx={{margin:2}}>Log in</Button>
+                 <Button
+                variant="contained"
+                color="inherit"
+                onClick={()=>setHideNewUser(false)}
+                startIcon={<AddCircleOutlineIcon />} sx={{margin:2}}>Add new user</Button>
         </form>
+        :
         <form onSubmit={addUser}>
             <Typography variant="body1">Here you can add <strong> new employee.</strong> When you have entered the username and password. please login after you enter the new user data.Notice
                 that employer have to give the payment details to new employee before he or she can use the worktime app.
@@ -187,8 +197,8 @@ function LogIn(props?: any) { //this function is the login view where user can l
                 variant="contained"
                 color="inherit"
                 type="submit"
-                startIcon={<LoginIcon />}>Save user</Button>
-        </form>
+                startIcon={<LoginIcon />} sx={{margin:2}}>Save user</Button>
+        </form>}
     </>
     )
 }
