@@ -396,6 +396,14 @@ I have to make my graphical works page on my page.
 
 ## version 179
 - i made the issue 24 now. Perhaps we edit that startpage list later littlebit but now it looking quite good so lets put this version to server.
+
+## version 180
+- i have made now the add new user in login component. This hides the add new user textfields and when user hit the button, view shows. When user is saved, the view switched to ligin view back.
+- I also fix the forecast view list items. Now the information is clearier in the listItem component.
+
+- Now the projects are their own cards and user can expand view, if he/she wants to know more about project.
+- I also add cancel button to worktime login component. If user doesn't want to add new user, then it can go back login view.
+
 ## npm installs in this project:
 
 Mariadb 10.10

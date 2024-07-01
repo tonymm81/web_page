@@ -54,7 +54,7 @@ h3.MuiTypography-h3{
 .start_image{
   margin-top: 10px;
   background-image: url('./photos/img_start.jpg');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 100% cover;
   background-position: center;
   margin:10px;
@@ -113,6 +113,7 @@ h3.MuiTypography-h3{
 
 .listViewItems{
   display: flex;
+  height: auto;
   flex-direction: column;
   justify-content: left;
   border:2px solid black;
@@ -132,6 +133,39 @@ h3.MuiTypography-h3{
   min-height: 1000px;
   border-radius: 1%;
   box-shadow: 1px 1px 1px black;
+  align-items: center;
+
+}
+.middleBoxProjects{
+  
+  margin-top: 50px;
+  
+  width:100%;
+  padding: 50px;
+  height: auto;
+}
+.projectsPaper{
+  align-items: center;
+  width: 70%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  columns: 2;
+  margin:20px;
+}
+.projectsCard{
+  width:38%;
+  height: auto;
+  margin: 10px;
+}
+.endBoxProjects{
+       
+    margin-top: 60px;
+    margin:10px;
+    padding: 10px;
+    width: 70%;
+    height: auto;
+  
 
 }
 
@@ -255,7 +289,7 @@ h2{
   background-color: aliceblue;
   border: 1px;
   border-color: black;
-  
+  margin:5px;
 }
 .portfolioImageExpandDialog{
   width:100%;
@@ -290,6 +324,17 @@ img {
     margin:10px;
     
     
+  }
+  .projectsPaper{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .projectsCard{
+    width:90%;
+    height: auto;
+    margin: 10px;
   }
   
   .mobileView{

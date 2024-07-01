@@ -321,10 +321,12 @@ function Work_time(props?: any) {
                 color="inherit"
                 onClick={() => { setLogInVIEW(true) }}
                 startIcon={<LogoutIcon />}
+                sx={{margin:2}}
                 disabled={loginVIEW}>Log out</Button> {/*'and second shows wich user is logged in. employee and employer has own views'*/}
             <Button variant="contained"
                 color="inherit"
                 onClick={() => { setShow_manual(true) }}
+                sx={{margin:2}}
             >Show manual</Button>
 
             {loginVIEW ?
