@@ -407,6 +407,9 @@ I have to make my graphical works page on my page.
 - Now the projects are their own cards and user can expand view, if he/she wants to know more about project.
 - I also add cancel button to worktime login component. If user doesn't want to add new user, then it can go back login view.
 
+## version 181
+- added the feedback part to site. I made own route to feedback post request, what is token protected. I also add to databace 3 values, what we save.
+- This was issue 31. There is some styles to do in this feature.
 # installs backend:
 
 

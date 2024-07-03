@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { Route, Routes, useNavigate, HashRouter  } from 'react-router-dom';
 import List_box from './components/List_box';
-import { Container, Typography } from '@mui/material';
+import { Box, Button, Container, Dialog, Rating, TextField, Typography } from '@mui/material';
 import StartPage from './components/StartPage';
 import Forecast from './components/Forecast'
 import Work_time from './components/Work_time';
@@ -11,6 +11,8 @@ import Projects from './components/Projects';
 import AboutMe from './components/AboutMe';
 import News_page from './components/News_page'
 import Portfolio from './components/Portfolio';
+import StarIcon from '@mui/icons-material/Star';
+
 
 // this is the main program.Only routes shown here
 
@@ -21,11 +23,16 @@ const App: React.FC = (): React.ReactElement => {
   const [headliner, setHeadliner] = useState<string>("Welcome to my web page!")
   const [allowForecast, setAllowForecast] = useState<boolean>(true)
   const [captcha, setCaptcha] = useState<boolean>(true)
+  const [feedBackDialog, setFeedBackDialog] = useState<boolean>(false)
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const [forecast_timestamp, setForecast_timestamp] = useState<Date>(new Date());
   const [news_timestamp, setNews_timestamp] = useState<Date>(new Date());
   const [browser_path, setBrowser_path] = useState<string>();
   localStorage.setItem("last_path", "/");
+  const feedbackInput: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+  const FeedbackName: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+  const [value, setValue] = React.useState<number | null>(2);
+  const [hover, setHover] = React.useState(-1);
 
   useEffect(() => {
     if(browser_path === undefined){
@@ -37,6 +44,48 @@ const App: React.FC = (): React.ReactElement => {
       navigate(String(Boolean(browser_path) ? browser_path : "/"))
     }
   }, [])
+  const sendFeedback = async () : Promise<void> =>{
+    //here some apicall
+    console.log(value)
+    const connfeedbackConnection = await fetch("/api/feedback/saveFeedback", { // post request what check in user has finded
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${tokenSecondary}`
+      },
+      body: JSON.stringify({
+        feedbackName: String(FeedbackName.current?.value),
+        feedback: String(feedbackInput.current?.value),
+        timeFeedback : new Date(),
+        feedbackRate : Number(value)
+      })
+  });
+  console.log(connfeedbackConnection)
+  if (connfeedbackConnection.status === 200){
+  setFeedBackDialog(false)
+  }else{
+    alert("something went wrong")
+  }
+  }
+  const labels: { [index: string]: string } = {
+    0.5: 'Useless',
+    1: 'Useless+',
+    1.5: 'Poor',
+    2: 'Poor+',
+    2.5: 'Ok',
+    3: 'Ok+',
+    3.5: 'Good',
+    4: 'Good+',
+    4.5: 'Excellent',
+    5: 'Excellent+',
+  };
+  
+  function getLabelText(value: number) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  }
+  
+   
+  
 
   return (
 
@@ -44,7 +93,7 @@ const App: React.FC = (): React.ReactElement => {
 
       <Typography className='headliner' variant="h3">{headliner}</Typography>
 
-      <List_box />
+      <List_box setFeedBackDialog={setFeedBackDialog} />
       
       <Routes>
         <Route path="/" element={<StartPage setHeadliner={setHeadliner}
@@ -76,9 +125,44 @@ const App: React.FC = (): React.ReactElement => {
           setNews_timestamp={setNews_timestamp} />} />
         <Route path="/AboutMe" element={<AboutMe setHeadliner={setHeadliner}
           setAllowForecast={setAllowForecast} />} />
-         <Route path="/Portfolio" element={<Portfolio setHeadliner={setHeadliner}
+         <Route path="/Portfolio" element={<Portfolio setHeadliner={setHeadliner} 
            />} />
       </Routes>
+      <Dialog open={feedBackDialog} className='feedbackDialog'>
+          <Box
+          sx={{
+            width: 250,
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+              <Rating
+                name="hover-feedback"
+                value={value}
+                precision={0.5}
+                getLabelText={getLabelText}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover);
+                }}
+                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+              />
+              {value !== null && (
+              <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+               )}
+           </Box>
+        <TextField multiline={true} label={"write your feedback here"} sx={{margin:"10px"}} inputRef={feedbackInput} >
+        </TextField>
+        <TextField multiline={true} label={"Give your nickname if you want"} sx={{margin:"10px"}} inputRef={FeedbackName} >
+          
+        </TextField>
+      <Button variant="contained" sx={{margin:"5px"}} onClick={()=> sendFeedback()}>send feedback
+      </Button>
+        <Button variant="contained" sx={{margin:"5px"}} onClick={()=> setFeedBackDialog(false)}>cancel
+          </Button>
+      </Dialog>
     </Container>
 
   );

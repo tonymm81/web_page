@@ -37,6 +37,13 @@ h3.MuiTypography-h3{
   
 }
 
+.feedbackDialog{
+  width : 40%;
+  min-height: 20%;
+  
+  align-items: center;
+}
+
 .mobileView{
   display:none;
 }

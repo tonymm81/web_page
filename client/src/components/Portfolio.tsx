@@ -73,6 +73,7 @@ function Portfolio(props: any) {
     const handleExpandClick = (values: string): void => {// lets choose, what card will expand
         if (values === "GD") {
             setExpandedGD(!expandedGD);
+            
         }
         if (values === "App") {
             setExpandedApp(!expandedApp);
