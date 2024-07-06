@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { Route, Routes, useNavigate, HashRouter  } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import List_box from './components/List_box';
 import { Box, Button, Container, Dialog, Rating, TextField, Typography } from '@mui/material';
 import StartPage from './components/StartPage';
@@ -45,7 +45,7 @@ const App: React.FC = (): React.ReactElement => {
     }
   }, [])
   const sendFeedback = async () : Promise<void> =>{
-    //here some apicall
+    //here some apicall to save the feedback from user
     console.log(value)
     const connfeedbackConnection = await fetch("/api/feedback/saveFeedback", { // post request what check in user has finded
       method: "POST",
@@ -84,9 +84,7 @@ const App: React.FC = (): React.ReactElement => {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
   }
   
-   
   
-
   return (
 
     <Container className='App'>
@@ -128,6 +126,7 @@ const App: React.FC = (): React.ReactElement => {
          <Route path="/Portfolio" element={<Portfolio setHeadliner={setHeadliner} 
            />} />
       </Routes>
+      <Container className='DialogContainer'>
       <Dialog open={feedBackDialog} className='feedbackDialog'>
           <Box
           sx={{
@@ -163,6 +162,7 @@ const App: React.FC = (): React.ReactElement => {
         <Button variant="contained" sx={{margin:"5px"}} onClick={()=> setFeedBackDialog(false)}>cancel
           </Button>
       </Dialog>
+      </Container>
     </Container>
 
   );
