@@ -6,14 +6,18 @@ import EditIcon from '@mui/icons-material/Edit';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CodeIcon from '@mui/icons-material/Code';
 import '../App.css';
-import { link } from 'fs';
 
+
+
+interface Props {
+  setFeedBackDialog: Dispatch<SetStateAction<boolean>>
+}
 // This is the drawer and appmenu component where user can navigate
-const List_box: React.FC = (): React.ReactElement => {
+const List_box: React.FC<Props> = (props : Props): React.ReactElement => {
 
   const [openMenu, setopenMenu] = useState<boolean>(false);
 
@@ -121,27 +125,11 @@ const List_box: React.FC = (): React.ReactElement => {
             component="div"
             sx={{ fontSize: "25pt", flexGrow: 1 }}
             className='list_box'
-          >Menu</Typography>
-          {/*<div className='mobileView'>
-            <Button variant='contained' size='small'
-              component={Link} to="/Forecast"
-              sx={{ marginBottom: "10px" }}>Forecast</Button>
-            <Button variant='contained' size='small'
-              component={Link} to="/Projects"
-              sx={{ marginBottom: "10px" }}>My projects</Button>
-            <Button variant='contained' size='small'
-              component={Link} to="/News_page"
-              sx={{ marginBottom: "10px" }}>News page</Button>
-            <Button variant='contained' size='small'
-              component={Link} to="/AboutMe"
-              sx={{ marginBottom: "10px" }}>about me</Button>
-            <Button variant='contained' size='small'
-              component={Link} to="/Work_time"
-              sx={{ marginBottom: "10px" }}>Working time</Button>
-            <Button variant='contained' size='small'
-              component={Link} to="/"
-            sx={{ marginBottom: "10px" }}>Homepage</Button></div>*/}
-          <Button href="https://github.com/tonymm81/web_page" size="small">This web page code github link</Button>
+          ></Typography>
+         
+          <Button href="https://github.com/tonymm81/web_page" size="small" variant="contained" sx={{margin: "2px"}}>This web page code link
+          </Button>
+          <Button onClick={()=> props.setFeedBackDialog(true)} size="small" variant="contained" sx={{margin: "2px"}}>Give feedback</Button>
         </Toolbar>
       </AppBar>
     </CssBaseline>

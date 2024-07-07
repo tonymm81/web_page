@@ -91,3 +91,11 @@ model working_ids {
 
   @@index([employee_id], map: "employee_working_id")
 }
+
+model feedback {
+  feedbackName String?  @db.Text
+  feedback     String?  @db.Text
+  timeFeedback DateTime @db.Date
+  IDfeedback   Int      @id @default(autoincrement())
+  feedbackRate Int
+}

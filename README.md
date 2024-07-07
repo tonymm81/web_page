@@ -407,6 +407,11 @@ I have to make my graphical works page on my page.
 - Now the projects are their own cards and user can expand view, if he/she wants to know more about project.
 - I also add cancel button to worktime login component. If user doesn't want to add new user, then it can go back login view.
 
+## version 181
+- added the feedback part to site. I made own route to feedback post request, what is token protected. I also add to databace 3 values, what we save.
+- This was issue 31. There is some styles to do in this feature.
+- i also delete the menu text from toolbar.
+
 # installs backend:
 
 
@@ -439,11 +444,7 @@ I have to make my graphical works page on my page.
 cd weatherstation/web_page/web_page
 cd weatherstation/web_page/web_page/client
 
-## version 100
 
-started to plan backend and database. I have to move apicalls from client app to back end.
 
-Now we have to think how to make api calls from client. We have to also figure out, why node fetch wont work. (fixed. it was missing @types)
 
-## I will keep up the version report on client/README.MD
 

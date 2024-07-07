@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import apiForecastRouter from './routes/apiForecast';
 import apiWorkTimeRouter from './routes/apiWorkTime';
+import apiFeedbackRouter from './routes/apiFeedback';
 //import fetch, { Headers } from 'node-fetch';
 
 dotenv.config();
@@ -56,6 +57,8 @@ app.use("/api/signin", apiSignRouter);
 app.use("/api/news", checkTokenSecondary, apiNewsRouter);
 
 app.use("/api/forecast",checkTokenSecondary, apiForecastRouter);
+
+app.use("/api/feedback",checkTokenSecondary, apiFeedbackRouter);
 
 app.use("/api/WorkTime", checkToken, apiWorkTimeRouter);
 

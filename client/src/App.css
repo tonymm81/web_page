@@ -36,6 +36,20 @@ h3.MuiTypography-h3{
   
   
 }
+.DialogContainer{
+  width: 100%;
+  display:relative;
+  align-items: center;
+  
+  background-color: aquamarine;
+}
+
+.feedbackDialog{
+  width : 40%;
+  min-height: 20%;
+  
+  align-items: center;
+}
 
 .mobileView{
   display:none;
@@ -347,6 +361,12 @@ img {
   .AboutMeBox{
     color:rgb(245, 19, 234);
     text-align: justify;
+  }
+  .feedbackDialog{
+    width : 100%;
+    min-height: 20%;
+    
+    align-items: center;
   }
   
 

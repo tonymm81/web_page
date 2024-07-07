@@ -1,4 +1,4 @@
-import { Box, Button, Container, Link, Typography } from "@mui/material"
+import { Box, Container, Link, Typography } from "@mui/material"
 import '../App.css'
 import profilePicture from '../photos/profilePicture.gif'
 import { useEffect } from "react"
