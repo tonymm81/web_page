@@ -12,6 +12,7 @@ import AboutMe from './components/AboutMe';
 import News_page from './components/News_page'
 import Portfolio from './components/Portfolio';
 import StarIcon from '@mui/icons-material/Star';
+import Footer from './components/Footer';
 
 
 // this is the main program.Only routes shown here
@@ -86,7 +87,7 @@ const App: React.FC = (): React.ReactElement => {
   
   
   return (
-
+<>
     <Container className='App'>
 
       <Typography className='headliner' variant="h3">{headliner}</Typography>
@@ -126,8 +127,8 @@ const App: React.FC = (): React.ReactElement => {
          <Route path="/Portfolio" element={<Portfolio setHeadliner={setHeadliner} 
            />} />
       </Routes>
-      <Container className='DialogContainer'>
-      <Dialog open={feedBackDialog} className='feedbackDialog'>
+      <Container className='DialogContainer' key={"dialogContainer"}>
+      <Dialog open={feedBackDialog} className='feedbackDialog' fullWidth={true}>
           <Box
           sx={{
             width: 250,
@@ -164,7 +165,12 @@ const App: React.FC = (): React.ReactElement => {
       </Dialog>
       </Container>
     </Container>
-
+    <Container className='appFooter' key={"footerContainer"}>
+     
+      <Footer/>
+      
+    </Container>
+    </>
   );
 }
 

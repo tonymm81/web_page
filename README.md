@@ -412,6 +412,9 @@ I have to make my graphical works page on my page.
 - This was issue 31. There is some styles to do in this feature.
 - i also delete the menu text from toolbar.
 
+## version 182
+- started to make a footer to page. Now user can navigate also from footer to another page. This is github issue 35.
+
 # installs backend:
 
 

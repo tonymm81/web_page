@@ -408,6 +408,8 @@ I have to make my graphical works page on my page.
 - added the feedback part to site. I made own route to feedback post request, what is token protected. I also add to databace 3 values, what we save.
 - This was issue 31. There is some styles to do in this feature.
 - i also delete the menu text from toolbar.
+## version 182
+- started to make a footer to page. Now user can navigate also from footer to another page. This is github issue 35.
 
 ## npm installs in this project:
 
