@@ -414,6 +414,7 @@ I have to make my graphical works page on my page.
 
 ## version 182
 - started to make a footer to page. Now user can navigate also from footer to another page. This is github issue 35.
+- Footer needs more ideas but the footer body and links are okay. I fixed also some security issues from server app
 
 # installs backend:
 

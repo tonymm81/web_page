@@ -328,19 +328,30 @@ img {
 }
 .footerBox{
   width:100%;
-  height: 100px;
+  min-height: 170px;
   display:flex;
-  flex-direction: column;
+  flex-direction: row;
+  
+  margin-bottom: 7px ;
 
 }
 .footerLinkGroup{
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
+  
 }
 .footerLinkGroupSecond{
   display:flex;
-  flex-direction: row;
-
+  flex-direction: column;
+  justify-content: space-between;
+ 
+}
+.sosialMediaLinks{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  margin:10px;
+  width:40%;
 }
 @media only screen and (max-width:600px) {
   h3.MuiTypography-h3{

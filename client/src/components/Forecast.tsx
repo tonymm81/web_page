@@ -18,7 +18,7 @@ function Forecast(props?: any) {
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
     const [searchTime, setSearchTime] = useState<number>(0)
     const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
-
+    
 
     const get_forecast_from_server = async (userchoose: string): Promise<any> => {
         setBackdrop(false)
@@ -34,8 +34,7 @@ function Forecast(props?: any) {
                     setSearchTime(response_json[1][1])
                     setSearchBoolean(response_json[1][0])
                     setSearchBoolean(false)
-                    setWhat_city(response_json[0][0].town_or_city)
-                    setUserchoose(response_json[0][0].town_or_city)
+                    
                 } else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }
@@ -78,6 +77,7 @@ function Forecast(props?: any) {
 
         }
     }, [userchoose])// if town name changes lets get new forecast from api
+    
 
     useEffect(() => {
         get_forecast_from_server(userchoose)
@@ -118,7 +118,7 @@ function Forecast(props?: any) {
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}
             <Typography variant="h4">Get forecast. Now viewing {what_city} forecast.</Typography>
-            <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {searchTime / 60000} min</Typography>
+            <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {(searchTime / 60000).toFixed(2)} min</Typography>
             {!searchBoolean ? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <TextField
                 variant="outlined"
@@ -162,7 +162,7 @@ function Forecast(props?: any) {
                                     <ListItem key={index} className="listViewItems">
                                         <ListItemText key={index}>
                                             <Typography variant="h5">{`Time ${String(format(new Date(item.timestamp), "y-m-d h"))}`}</Typography>
-                                            <Typography variant="body1"> {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max}`}</Typography>
+                                            <Typography variant="body1"> {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} and city: ${item.town_or_city}`}</Typography>
                                             <Typography variant="body2"> {` Wind :${item.wind} Meters per second and description is : ${item.shorDescription} , Visibility: ${item.visibility} meters`}</Typography>
                                             
                                             <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
