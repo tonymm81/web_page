@@ -53,7 +53,7 @@ function Projects(props?: any) {
 
     return (<Container className="projects" >
         <Container className="middleBoxProjects">
-            <Paper className="projectsPaper">
+            <Paper className="projectsPaper" sx={{backgroundColor:"aliceblue"}}>
                 <Card className='projectsCard'>
                     <CardHeader
                         avatar={
@@ -153,7 +153,7 @@ function Projects(props?: any) {
 
                 </Card>
 
-                <Card className='projectsCard'>
+                <Card className='projectsCard' >
                     <CardHeader
                         avatar={
                             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -252,7 +252,7 @@ function Projects(props?: any) {
 
         <Container className="endBoxProjects">
 
-            <Paper className="projectsPaper">
+            <Paper className="projectsPaper" sx={{backgroundColor:"aliceblue"}}>
                 <Card className='projectsCard'>
                     <CardHeader
                         avatar={

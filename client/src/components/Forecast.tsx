@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from '@mui/material';
+import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { format } from "date-fns";
 
@@ -9,7 +9,7 @@ import { format } from "date-fns";
 function Forecast(props?: any) {
    
 
-    const [what_city, setWhat_city] = useState<string>("")
+    const what_city = useRef<string | undefined>("")
     const [userchoose, setUserchoose] = useState<string>("tampere")
     const [fullForecast, setFullForecast] = useState<Forecast_json>({ Whole_forecast: {} })
     const userInput: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
@@ -24,7 +24,7 @@ function Forecast(props?: any) {
         setBackdrop(false)
         setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
 
-        if (userchoose === what_city) {
+        if (userchoose === what_city.current) {
             let url = `/api/forecast/forecast_saved`
             try {
                 const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
@@ -34,6 +34,13 @@ function Forecast(props?: any) {
                     setSearchTime(response_json[1][1])
                     setSearchBoolean(response_json[1][0])
                     setSearchBoolean(false)
+                    if (response_json[0][0]?.town_or_city !== undefined){
+                        what_city.current = response_json[0][0].town_or_city
+                        setUserchoose(response_json[0][0].town_or_city)
+                    }else{
+                        what_city.current = "Empty"
+                        setUserchoose("Empty")
+                    }
                     
                 } else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
@@ -52,8 +59,14 @@ function Forecast(props?: any) {
                     setSearchTime(response_json[1][1])
                     setSearchBoolean(response_json[1][0])
                     props.setForecast_timestamp(new Date())
-                    setWhat_city(response_json[0][0].town_or_city)
-                    setUserchoose(response_json[0][0].town_or_city)
+                    //setWhat_city(response_json[0][0].town_or_city)
+                    if (response_json[0][0]?.town_or_city !== undefined){
+                        what_city.current = response_json[0][0].town_or_city
+                        setUserchoose(response_json[0][0].town_or_city)
+                    }else{
+                        what_city.current = "Empty"
+                        setUserchoose("Empty")
+                    }
                 } else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }
@@ -65,7 +78,8 @@ function Forecast(props?: any) {
 
         setBackdrop(true)
         if (forecastSaved[0]?.town_or_city) {
-            setWhat_city(forecastSaved[0].town_or_city)
+            //setWhat_city(forecastSaved[0].town_or_city)
+            what_city.current = forecastSaved[0].town_or_city
         } else {
         }
     }
@@ -81,6 +95,7 @@ function Forecast(props?: any) {
 
     useEffect(() => {
         get_forecast_from_server(userchoose)
+        what_city.current = "nothing"
         if (props.headLiner === "Forecast") {//headliner
 
         } else {
@@ -102,6 +117,7 @@ function Forecast(props?: any) {
 
         }
         setUserchoose(temp)
+        what_city.current = temp
         props.setAllowForecast(true)
         setBackdrop(false)
         get_forecast_from_server(temp)
@@ -117,7 +133,7 @@ function Forecast(props?: any) {
             {(Boolean(fullForecast.errors))
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}
-            <Typography variant="h4">Get forecast. Now viewing {what_city} forecast.</Typography>
+            <Typography variant="h4">Get forecast. Now viewing {what_city.current} forecast.</Typography>
             <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {(searchTime / 60000).toFixed(2)} min</Typography>
             {!searchBoolean ? <Typography variant="body2">Now viewing old search</Typography> : <></>}
             <TextField
@@ -160,13 +176,17 @@ function Forecast(props?: any) {
                             {forecastSaved.map((item: Forecast_needed, index: number) => {
                                 return (
                                     <ListItem key={index} className="listViewItems">
+                                        <Stack direction="row" spacing={2} key={index}>
+                                        <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
                                         <ListItemText key={index}>
                                             <Typography variant="h5">{`Time ${String(format(new Date(item.timestamp), "y-m-d h"))}`}</Typography>
                                             <Typography variant="body1"> {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} and city: ${item.town_or_city}`}</Typography>
                                             <Typography variant="body2"> {` Wind :${item.wind} Meters per second and description is : ${item.shorDescription} , Visibility: ${item.visibility} meters`}</Typography>
                                             
-                                            <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
+                                           
                                         </ListItemText>
+                                        
+                                        </Stack>
                                     </ListItem>
 
                                 );

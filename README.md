@@ -414,7 +414,10 @@ I have to make my graphical works page on my page.
 
 ## version 182
 - started to make a footer to page. Now user can navigate also from footer to another page. This is github issue 35.
-- Footer needs more ideas but the footer body and links are okay. I fixed also some security issues from server app
+- Footer needs more ideas but the footer body and links are okay. I fixed also some security issues from server app.
+- I also fix the issue 4 and 5. Then i fix some styles in the page.
+### bug: 
+- I manage to track news page issue and forecast search time issue to server side timestamp. I have to figure out how to fix it. Perhaps moving the time stamp function to index.ts?
 
 # installs backend:
 

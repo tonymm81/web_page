@@ -581,7 +581,7 @@ function Work_time(props?: any) {
                     when logged in employee side you can add job description,
                     jobhours, and work place id what employer just create. you can choose the
                     datetime and after saving program shows the writings to loggen employee</Typography>
-                <Button variant="contained" style={{margin: 5}} onClick={() => { setShow_manual(false) }}>Close this</Button></Dialog>
+                <Button variant="contained" style={{margin: 5}} onClick={() => { setShow_manual(false) }}>Close</Button></Dialog>
         </Container>)
 }
 
