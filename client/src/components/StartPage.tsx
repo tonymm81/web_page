@@ -1,6 +1,6 @@
 import Backgroung_img from '../photos/img_start.jpg'
 import '../App.css'
-import { Avatar, Button, Container, Dialog, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Avatar, Button, Container, Dialog, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 //import {Captcha} from "./Captcha";
@@ -85,6 +85,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
          <Container className='StartInfo'>
           <List>
               <ListItem className='startpageList' >
+              <Stack direction="row" spacing={2}>
                 <ListItemButton 
                   component={Link}
                   to="/Forecast">
@@ -101,10 +102,11 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                       <ListItemIcon><NightsStayIcon />
                       </ListItemIcon>
                   </ListItemButton>
-
+            </Stack>
             </ListItem>
 
             <ListItem className='startpageList' >
+            <Stack direction="row" spacing={2}>
                 <ListItemButton 
                   component={Link}
                   to="/Work_time">
@@ -124,10 +126,11 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                       <ListItemIcon> <EditIcon />
                       </ListItemIcon>
                   </ListItemButton>
-
+              </Stack>
             </ListItem>
 
             <ListItem className='startpageList' >
+            <Stack direction="row" spacing={2}>
                 <ListItemButton 
                   component={Link}
                   to="/Projects">
@@ -145,10 +148,11 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                       <ListItemIcon> <CodeIcon />
                       </ListItemIcon>
                   </ListItemButton>
-
+              </Stack>
             </ListItem>
 
             <ListItem className='startpageList' >
+            <Stack direction="row" spacing={2}>
                 <ListItemButton 
                   component={Link}
                   to="/News_page">
@@ -166,10 +170,11 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                       <ListItemIcon>  <LibraryBooksIcon />
                       </ListItemIcon>
                   </ListItemButton>
-
+              </Stack>
             </ListItem>
 
             <ListItem className='startpageList' >
+            <Stack direction="row" spacing={8}>
                 <ListItemButton 
                   component={Link}
                   to="/AboutMe">
@@ -180,15 +185,17 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
 
                       </ListItemText>
                   <ListItemButton
+                               
                                 component={Link}
                                 to="/AboutMe">
                       <ListItemIcon>   <InfoIcon />
                       </ListItemIcon>
                   </ListItemButton>
-
+              </Stack>
             </ListItem>
 
-            <ListItem className='startpageList' >
+            <ListItem className='startpageList'  >
+            <Stack direction="row" spacing={2}>
                 <ListItemButton 
                   component={Link}
                   to="/Portfolio">
@@ -197,7 +204,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
                       <ListItemText primary="My portfolio page" secondary="Here is my portfolio page. There is couple of projects more. This projects i have made in
                                                                           school. There is some mising features in page, but i will update those later. There you can
-                                                                          check my graphical projects and one game project and aslo couple programming projects">
+                                                                          check my graphical projects and one game project and aslo couple programming projects" >
 
                       </ListItemText>
                   <ListItemButton
@@ -206,7 +213,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                       <ListItemIcon>   <BadgeIcon />
                       </ListItemIcon>
                   </ListItemButton>
-
+              </Stack>
             </ListItem>
           </List>
         </Container>

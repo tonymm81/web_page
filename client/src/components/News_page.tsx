@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, TextField, Typography } from "@mui/material"
+import { Backdrop, Box, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material"
 import '../App.css'
 import { useEffect, useRef, useState } from "react";
 import { format, differenceInDays } from 'date-fns';
@@ -46,6 +46,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
             try {
                 if (radiobutton_choose.current === "2") {//lets fetch the lastest search
                     api_address = `/api/news/news_saved`
+                    radiobutton_choose.current = "1"
                 }
                 if (radiobutton_choose.current === "1") { // Lets search everything based on search word
                     api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}&news_timestamp=${props.news_timestamp}`
@@ -214,12 +215,15 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                            item.tnewsTitle === "[Removed]" ?
                          <></> :
                             <ListItem key={index} className="listViewItems">
+                                <Stack direction="column" spacing={2} key={index}>
                                 <ListItemText key={index}>
                                     <Typography variant="h6">{`${item.tnewsTitle}`}</Typography>
+                                    <Stack direction="row" spacing={2} key={index}>
                                     <Typography variant="body1">{`Time: ${item.puplishDate} `}</Typography>
                                     <Typography variant="body2">{` Author: ${item.author} `}</Typography>
                                     <Typography variant="body2">{` Source: ${item.source} `}</Typography>
                                     <Link className="Links" target="_blank" rel='noopener' variant="button" href={item.url}>link to site</Link>
+                                    </Stack>
                                     </ListItemText>
                                 {item.description ?
                                     <ListItemText>
@@ -230,6 +234,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                                     :
                                     <></>
                                 }
+                                </Stack>
                             </ListItem> 
                         ); 
                     })} 

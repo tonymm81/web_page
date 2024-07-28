@@ -17,7 +17,7 @@ const news_api = process.env.REACT_APP_API_KEY_NEWS
 
 const get_time_news = () => {
     let search_time = new Date()
-    search_time.setHours(search_time.getHours() + 2)
+    search_time.setHours(search_time.getHours() + 3)
     return search_time
 }
 
@@ -97,9 +97,10 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
         } }
         if(Number(req.query.userchoose) === 1 ){
             var news_everything = await get_news_topnews(String(req.query.cathegory), String(req.query.Chooce_country) )
-            let jsonlength = news_everything['articles'].length
+           
             
             try {
+                let jsonlength = news_everything['articles'].length
                 await prisma.news_data.deleteMany({}) // this will empy the database
                 let i = 0
                 
