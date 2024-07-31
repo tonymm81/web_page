@@ -419,6 +419,9 @@ I have to make my graphical works page on my page.
 ### bug: 
 - I manage to track news page issue and forecast search time issue to server side timestamp. I have to figure out how to fix it. Perhaps moving the time stamp function to index.ts?
 
+## version 183
+- Started to fix issue 6 and issue 38. I make a rule to client app news and forecast page. User cam make 3 empty search before timerule starts to count 3 minutes. (Not tested yet)
+
 # installs backend:
 
 

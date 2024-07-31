@@ -23,6 +23,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     const errors_country: React.MutableRefObject<String> = useRef("");
     const [save_news_api, setSave_news_api] = useState<News_api_json>({ Whole_news_api: {} })
     const [newsSaved, setNewsSaved] = useState<New_api_needed[]>([])
+    const [emptySearchLimit, setEmptySearchLimit] = useState<number>(0)
     const [country_codes, setCountry_codes] = useState([
         "FI",
         "SE",
@@ -63,7 +64,19 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                     total_result.current = apidatanews[0].length
                     setSearchTime(apidatanews[1][1])
                     setSearchBoolean(apidatanews[1][0])
-                    props.setNews_timestamp(new Date())
+                    if ((total_result.current === 0) && (searchBoolean)){// if empty search has returned,this allows user to try again 3 times before time limit hits
+                        if (emptySearchLimit === 3){
+                            setEmptySearchLimit(0)
+                            props.setNews_timestamp(new Date())//this returns 3 minutes waiting time
+                        }else {
+                            setEmptySearchLimit(emptySearchLimit + 1)
+
+                        }
+                    }if ((total_result.current > 0) && (searchBoolean)){
+                        
+                        props.setNews_timestamp(new Date())
+                    }
+                    
                 } else {
                     setSave_news_api({
                         Whole_news_api: {},

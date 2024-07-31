@@ -18,6 +18,7 @@ function Forecast(props?: any) {
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
     const [searchTime, setSearchTime] = useState<number>(0)
     const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
+    const [searchCounter, setSearchCounter] = useState<number>(0)
     
 
     const get_forecast_from_server = async (userchoose: string): Promise<any> => {
@@ -58,14 +59,24 @@ function Forecast(props?: any) {
                     setForecastSaved([...response_json[0]])
                     setSearchTime(response_json[1][1])
                     setSearchBoolean(response_json[1][0])
-                    props.setForecast_timestamp(new Date())
+                    
                     //setWhat_city(response_json[0][0].town_or_city)
                     if (response_json[0][0]?.town_or_city !== undefined){
+                        props.setForecast_timestamp(new Date())
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
+                        setSearchCounter(0)
                     }else{
                         what_city.current = "Empty"
                         setUserchoose("Empty")
+                        if ((searchBoolean) && (response_json[0][0]?.town_or_city === undefined)){
+                            if (searchCounter <= 3){
+                                setSearchCounter(searchCounter +1)
+                            }else{
+                                props.setForecast_timestamp(new Date())
+                                setSearchCounter(0)
+                            }
+                        }
                     }
                 } else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })

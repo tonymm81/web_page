@@ -60,7 +60,7 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
         let jsonlength = 0
         let search_permission = check_search_time(what_time_news)
         if (search_permission[0]){
-        if(Number(req.query.userchoose) === 0 ){
+            if(Number(req.query.userchoose) === 0 ){
             var news_everything = await get_news_everything(String(req.query.cathegory), String(req.query.searchword))
                 
             try{
