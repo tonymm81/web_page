@@ -42,7 +42,7 @@ const get_location = async (city_name: string, country_code: string): Promise<an
 const check_search_time = (what_time: Date | any) => {
     let search_permission = false
     let diffence = what_time.getTime() - search_time.getTime()
-    if (what_time.getTime() - search_time.getTime() > 180000) {
+    if (what_time.getTime() - search_time.getTime() > 1800) {//180000
         search_permission = true
         search_time = get_time()
 
@@ -86,7 +86,7 @@ apiForecastRouter.get("/forecast", async (req: express.Request, res: express.Res
                 }
 
                 let return_forecast = await prisma.forecast.findMany()
-                res.json([return_forecast, permission]);
+                res.json([return_forecast, permission, "newForecast"]);
 
             } catch (e: any) {
                 next(new ServerError(400, `Not find data for this search word ${e}`))
@@ -97,7 +97,7 @@ apiForecastRouter.get("/forecast", async (req: express.Request, res: express.Res
     } else {
         //console.log("too fast")
         let return_forecast = await prisma.forecast.findMany()
-        res.json([return_forecast, permission]);
+        res.json([return_forecast, permission, "oldForecast"]);
     }
 });
 apiForecastRouter.get("/forecast_saved", async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -105,7 +105,7 @@ apiForecastRouter.get("/forecast_saved", async (req: express.Request, res: expre
     let permission = check_search_time(what_time)
     try {
         let return_forecast = await prisma.forecast.findMany()
-        res.json([return_forecast, permission]);
+        res.json([return_forecast, permission, "oldForecast"]);
     } catch (e: any) {
         next(new ServerError());
     }

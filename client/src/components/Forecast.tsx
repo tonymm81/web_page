@@ -17,15 +17,16 @@ function Forecast(props?: any) {
     const [backdrop, setBackdrop] = useState<boolean>(false)
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
     const [searchTime, setSearchTime] = useState<number>(0)
-    const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
+    const [searchBoolean, setSearchBoolean] = useState<boolean>(true)
     const [searchCounter, setSearchCounter] = useState<number>(0)
+    const [searchBooleanClient, setSearchBooleanClient] = useState<boolean>(true)
     
 
     const get_forecast_from_server = async (userchoose: string): Promise<any> => {
         setBackdrop(false)
         setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
 
-        if (userchoose === what_city.current) {
+        if (searchBoolean === false) {
             let url = `/api/forecast/forecast_saved`
             try {
                 const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
@@ -34,7 +35,7 @@ function Forecast(props?: any) {
                     setForecastSaved([...response_json[0]])
                     setSearchTime(response_json[1][1])
                     setSearchBoolean(response_json[1][0])
-                    setSearchBoolean(false)
+                    setSearchBoolean(true)
                     if (response_json[0][0]?.town_or_city !== undefined){
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
@@ -59,20 +60,29 @@ function Forecast(props?: any) {
                     setForecastSaved([...response_json[0]])
                     setSearchTime(response_json[1][1])
                     setSearchBoolean(response_json[1][0])
-                    
+                    console.log("waht search", response_json[2])
                     //setWhat_city(response_json[0][0].town_or_city)
                     if (response_json[0][0]?.town_or_city !== undefined){
-                        props.setForecast_timestamp(new Date())
+                        console.log("not undefined")
+                        if((searchBoolean)&&(response_json[2] === "newForecast")){
+                            props.setForecast_timestamp(new Date())
+                            console.log("reset time stamp",response_json[3])
+
+                        }
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
                         setSearchCounter(0)
                     }else{
                         what_city.current = "Empty"
                         setUserchoose("Empty")
+                        console.log("that was empty search")
                         if ((searchBoolean) && (response_json[0][0]?.town_or_city === undefined)){
+                            console.log("permission to search but empty")
                             if (searchCounter <= 3){
+                                console.log("empty search counter")
                                 setSearchCounter(searchCounter +1)
                             }else{
+                                console.group("too many empty searches")
                                 props.setForecast_timestamp(new Date())
                                 setSearchCounter(0)
                             }
@@ -91,8 +101,7 @@ function Forecast(props?: any) {
         if (forecastSaved[0]?.town_or_city) {
             //setWhat_city(forecastSaved[0].town_or_city)
             what_city.current = forecastSaved[0].town_or_city
-        } else {
-        }
+        } 
     }
 
 
