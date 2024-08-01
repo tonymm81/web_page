@@ -19,14 +19,29 @@ function Forecast(props?: any) {
     const [searchTime, setSearchTime] = useState<number>(0)
     const [searchBoolean, setSearchBoolean] = useState<boolean>(true)
     const [searchCounter, setSearchCounter] = useState<number>(0)
-    const [searchBooleanClient, setSearchBooleanClient] = useState<boolean>(true)
+    //const [searchBooleanClient, setSearchBooleanClient] = useState<boolean>(true)
     
 
     const get_forecast_from_server = async (userchoose: string): Promise<any> => {
+        let permissionToGetNewSearch  
+        if (props.allowForecast){ 
+        try{
+            let url = `/api/forecast/forecastTimerule?forecast_timestamp=${props.forecast_timestamp}`
+            const responsePermission = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
+            const responsePermission_json = await responsePermission.json()
+            if (responsePermission.status === 200){
+                permissionToGetNewSearch = responsePermission_json.permissionTimerule[0]
+                console.log("test the timestamp", responsePermission_json.permissionTimerule[0])
+                setSearchTime(responsePermission_json.permissionTimerule[1])
+            }
+        }
+        catch(e){
+            console.log("error to get timestamp", e)
+        }
         setBackdrop(false)
         setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
 
-        if (searchBoolean === false) {
+        if (permissionToGetNewSearch === false) {
             let url = `/api/forecast/forecast_saved`
             try {
                 const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
@@ -51,11 +66,12 @@ function Forecast(props?: any) {
                 setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find old city ${error}` })
 
             }
-        } else {
+        } if (permissionToGetNewSearch) {
             try {
                 let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi&forecast_timestamp=${props.forecast_timestamp}`
                 const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
                 const response_json = await response.json()
+                console.log("allow new search", permissionToGetNewSearch)
                 if (response.status === 200) {
                     setForecastSaved([...response_json[0]])
                     setSearchTime(response_json[1][1])
@@ -64,11 +80,8 @@ function Forecast(props?: any) {
                     //setWhat_city(response_json[0][0].town_or_city)
                     if (response_json[0][0]?.town_or_city !== undefined){
                         console.log("not undefined")
-                        if((searchBoolean)&&(response_json[2] === "newForecast")){
-                            props.setForecast_timestamp(new Date())
-                            console.log("reset time stamp",response_json[3])
-
-                        }
+                        props.setForecast_timestamp(new Date())
+                        console.log("reset time stamp",response_json[3])
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
                         setSearchCounter(0)
@@ -76,17 +89,7 @@ function Forecast(props?: any) {
                         what_city.current = "Empty"
                         setUserchoose("Empty")
                         console.log("that was empty search")
-                        if ((searchBoolean) && (response_json[0][0]?.town_or_city === undefined)){
-                            console.log("permission to search but empty")
-                            if (searchCounter <= 3){
-                                console.log("empty search counter")
-                                setSearchCounter(searchCounter +1)
-                            }else{
-                                console.group("too many empty searches")
-                                props.setForecast_timestamp(new Date())
-                                setSearchCounter(0)
-                            }
-                        }
+                        
                     }
                 } else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
@@ -101,19 +104,24 @@ function Forecast(props?: any) {
         if (forecastSaved[0]?.town_or_city) {
             //setWhat_city(forecastSaved[0].town_or_city)
             what_city.current = forecastSaved[0].town_or_city
-        } 
+        }
+        props.setAllowForecast(false)
+    }
     }
 
 
     useEffect(() => {
         if (props.allowForecast) {
             get_forecast_from_server(userchoose)
+            
 
         }
     }, [userchoose])// if town name changes lets get new forecast from api
     
 
     useEffect(() => {
+        props.setAllowForecast(true)
+
         get_forecast_from_server(userchoose)
         what_city.current = "nothing"
         if (props.headLiner === "Forecast") {//headliner
@@ -125,6 +133,7 @@ function Forecast(props?: any) {
     }, [])
 
     const userTextFieldInput = (e: any): void => { // when user feeds an input, it handles here and also some error handling
+        props.setAllowForecast(true)
         let valueToCheck = userInput.current!.value
         valueToCheck.toLowerCase()
         var temp = ""

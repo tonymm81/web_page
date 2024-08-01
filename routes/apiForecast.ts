@@ -41,23 +41,29 @@ const get_location = async (city_name: string, country_code: string): Promise<an
 
 const check_search_time = (what_time: Date | any) => {
     let search_permission = false
-    let diffence = what_time.getTime() - search_time.getTime()
+    let diffence = search_time.getTime() - what_time.getTime() 
     if (what_time.getTime() - search_time.getTime() > 1800) {//180000
         search_permission = true
         search_time = get_time()
+        console.log("time rule true")
 
     }
     return [search_permission, diffence]
 }
 
-
+apiForecastRouter.get("/forecastTimerule", async (req: express.Request, res: express.Response, next: express.NextFunction) => {// this route limits user search i per 3 minutes
+    let what_time = new Date(String(req.query.forecast_timestamp))
+    let permissionTimerule = check_search_time(what_time)
+    console.log("forecast browser time", what_time, "rule",permissionTimerule, "server time",search_time)
+    res.json({permissionTimerule});
+});
 
 
 apiForecastRouter.get("/forecast", async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     let what_time = new Date(String(req.query.forecast_timestamp)) //new Date()
     //Make here a time rule, what rules, if we get new data or not
     let permission = check_search_time(what_time)
-    if (permission[0]) {
+    if (true) {
         if (String(req.query.city_name).length > 0) {
 
             try {
