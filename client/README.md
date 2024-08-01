@@ -415,6 +415,15 @@ I have to make my graphical works page on my page.
 ### bug: 
 - I manage to track news page issue and forecast search time issue to server side timestamp. I have to figure out how to fix it. Perhaps moving the time stamp function to index.ts?
 
+## version 183
+- Started to fix issue 6 and issue 38. I make a rule to client app news and forecast page. User cam make 3 empty search before timerule starts to count 3 minutes. (Not tested yet).
+- now i tested the new time rules and it works better now. I also give user a change to get new search, if earlier was empty. emptysearch limit is 2.
+- Then i also make a new route to apiforecast that client app first ask about timestamp and dependin on time rule, we get new or old forecast.
+
+### bug.
+- forecast error text shows faulty information after empty search.
+
+
 ## npm installs in this project:
 
 Mariadb 10.10

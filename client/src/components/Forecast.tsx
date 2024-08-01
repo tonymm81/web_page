@@ -10,7 +10,7 @@ function Forecast(props?: any) {
    
 
     const what_city = useRef<string | undefined>("")
-    const [userchoose, setUserchoose] = useState<string>("tampere")
+    const [userchoose, setUserchoose] = useState<string>("")
     const [fullForecast, setFullForecast] = useState<Forecast_json>({ Whole_forecast: {} })
     const userInput: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
     const userInputcountry: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
@@ -19,26 +19,30 @@ function Forecast(props?: any) {
     const [searchTime, setSearchTime] = useState<number>(0)
     const [searchBoolean, setSearchBoolean] = useState<boolean>(true)
     const [searchCounter, setSearchCounter] = useState<number>(0)
-    //const [searchBooleanClient, setSearchBooleanClient] = useState<boolean>(true)
+    const [searchemptyClient, setSearchemptyClient] = useState<boolean>(false)
     
 
     const get_forecast_from_server = async (userchoose: string): Promise<any> => {
-        let permissionToGetNewSearch  
+        let permissionToGetNewSearch: boolean = false
+        let timeDifference = 0
+        
         if (props.allowForecast){ 
         try{
-            let url = `/api/forecast/forecastTimerule?forecast_timestamp=${props.forecast_timestamp}`
+            setBackdrop(false)
+            let url = `/api/forecast/forecastTimerule?forecast_timestamp=${props.forecast_timestamp}&searchemptyClient=${searchemptyClient}&${searchCounter}`
             const responsePermission = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
             const responsePermission_json = await responsePermission.json()
             if (responsePermission.status === 200){
                 permissionToGetNewSearch = responsePermission_json.permissionTimerule[0]
-                console.log("test the timestamp", responsePermission_json.permissionTimerule[0])
                 setSearchTime(responsePermission_json.permissionTimerule[1])
+                timeDifference = responsePermission_json.permissionTimerule[0]
+                props.setAllowForecast(false)
             }
         }
         catch(e){
             console.log("error to get timestamp", e)
         }
-        setBackdrop(false)
+        
         setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
 
         if (permissionToGetNewSearch === false) {
@@ -48,12 +52,13 @@ function Forecast(props?: any) {
                 const response_json = await response.json()
                 if (response.status === 200) {
                     setForecastSaved([...response_json[0]])
-                    setSearchTime(response_json[1][1])
-                    setSearchBoolean(response_json[1][0])
-                    setSearchBoolean(true)
+                    setSearchBoolean(permissionToGetNewSearch)
                     if (response_json[0][0]?.town_or_city !== undefined){
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
+                        //setSearchCounter(0)
+
+                        
                     }else{
                         what_city.current = "Empty"
                         setUserchoose("Empty")
@@ -68,30 +73,38 @@ function Forecast(props?: any) {
             }
         } if (permissionToGetNewSearch) {
             try {
+                console.log("permission given")
                 let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi&forecast_timestamp=${props.forecast_timestamp}`
                 const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
                 const response_json = await response.json()
                 console.log("allow new search", permissionToGetNewSearch)
                 if (response.status === 200) {
                     setForecastSaved([...response_json[0]])
-                    setSearchTime(response_json[1][1])
-                    setSearchBoolean(response_json[1][0])
-                    console.log("waht search", response_json[2])
+                    setSearchTime(timeDifference)
+                    setSearchBoolean(permissionToGetNewSearch)
+                    
                     //setWhat_city(response_json[0][0].town_or_city)
                     if (response_json[0][0]?.town_or_city !== undefined){
                         console.log("not undefined")
                         props.setForecast_timestamp(new Date())
-                        console.log("reset time stamp",response_json[3])
+                        
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
                         setSearchCounter(0)
+                        setSearchemptyClient(false)
                     }else{
                         what_city.current = "Empty"
                         setUserchoose("Empty")
                         console.log("that was empty search")
                         
                     }
-                } else {
+               
+                } 
+                if (response.status === 404){
+                    setSearchCounter(searchCounter + 1)
+                    setSearchemptyClient(true)
+                    setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
+                }else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }
             } catch (error) {
@@ -100,18 +113,25 @@ function Forecast(props?: any) {
             }
         }
 
-        setBackdrop(true)
+        
         if (forecastSaved[0]?.town_or_city) {
             //setWhat_city(forecastSaved[0].town_or_city)
-            what_city.current = forecastSaved[0].town_or_city
+            //what_city.current = forecastSaved[0].town_or_city
         }
-        props.setAllowForecast(false)
+        setBackdrop(true)
+
+    }else{
+        console.log("nou permission at all")
+        setBackdrop(true)
     }
+    //props.setAllowForecast(false)
+
     }
 
 
-    useEffect(() => {
+   useEffect(() => {
         if (props.allowForecast) {
+            props.setAllowForecast(true)
             get_forecast_from_server(userchoose)
             
 
@@ -146,7 +166,7 @@ function Forecast(props?: any) {
 
         }
         setUserchoose(temp)
-        what_city.current = temp
+        //what_city.current = temp
         props.setAllowForecast(true)
         setBackdrop(false)
         get_forecast_from_server(temp)
