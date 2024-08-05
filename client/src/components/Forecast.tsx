@@ -35,7 +35,7 @@ function Forecast(props?: any) {
             if (responsePermission.status === 200){
                 permissionToGetNewSearch = responsePermission_json.permissionTimerule[0]
                 setSearchTime(responsePermission_json.permissionTimerule[1])
-                timeDifference = responsePermission_json.permissionTimerule[0]
+                timeDifference = responsePermission_json.permissionTimerule[1]
                 props.setAllowForecast(false)
             }
         }
@@ -184,7 +184,7 @@ function Forecast(props?: any) {
                 : (fullForecast.errors)}
             <Typography variant="h4">Get forecast. Now viewing {what_city.current} forecast.</Typography>
             <Typography variant="body2">You can search with key word only once per 3 minutes. This is free api service. Time from last search {(searchTime / 60000).toFixed(2)} min</Typography>
-            {!searchBoolean ? <Typography variant="body2">Now viewing old search</Typography> : <></>}
+            {!searchBoolean ? <Typography variant="body1">Now viewing old search</Typography> : <></>}
             <TextField
                 variant="outlined"
                 label="Give city or town name what you want to search (Default Tampere)"
