@@ -11,7 +11,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
     const news_api_permission: React.MutableRefObject<Boolean> = useRef(false);
     const total_result: React.MutableRefObject<number> = useRef(0);
-    const [show_items, setShow_items] = useState<boolean>(false);
+    const [show_items, setShow_items] = useState<boolean>(true);
     const [backdrop_bl, setBackdrop_bl] = useState<boolean>(false);
     //const [timefrom, setTimefrom] = useState<Date>(new Date())
     const radiobutton_choose: React.MutableRefObject<String> = useRef("");
@@ -24,6 +24,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     const [newsSaved, setNewsSaved] = useState<New_api_needed[]>([])
     const [searchemptynews, setSearchemptynews] = useState<boolean>(false);
     const [searchCounterNews, setSearchCounterNews] = useState<number>(0)
+    const [hideTextfield, setTextfield] = useState<boolean>(true)
     const [country_codes, setCountry_codes] = useState([
         "FI",
         "SE",
@@ -42,9 +43,9 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
 
     const get_new_data_from_server = async (Chooce_country: string, search_word: string): Promise<any> => {
         let api_address = ''
-        let permissionToGetNewSearch :boolean = false
-        let timeDifference = 0
+        
         if (news_api_permission.current) {
+            let permissionToGetNewSearch :boolean = false
             try{
                 
                 let url = `/api/news/newsTimerule?news_timestamp=${props.news_timestamp}&searchemptynews=${searchemptynews}&searchCounterNews=${searchCounterNews}`
@@ -53,7 +54,6 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                 if (responsePermission.status === 200){
                     permissionToGetNewSearch = responsePermission_json.permissionTimerule[0]
                     setSearchTime(responsePermission_json.permissionTimerule[1])
-                    timeDifference = responsePermission_json.permissionTimerule[2]
                     props.setAllowForecast(false)
                 }
             }
@@ -78,7 +78,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                 if (connectionNews.status === 200) {
                     setNewsSaved([...apidatanews[0]])
                     total_result.current = apidatanews[0].length
-                    setSearchTime(timeDifference)
+                    //setSearchTime(timeDifference)
                     setSearchBoolean(permissionToGetNewSearch)
                             
                 }if (total_result.current > 0){  
@@ -135,10 +135,16 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
         radiobutton_choose.current = rb
 
         if (radiobutton_choose.current === "0") {
-            setShow_items(true)
-        }
-        else {
             setShow_items(false)
+            setTextfield(true)
+        }
+        if (radiobutton_choose.current === "1") {
+            setShow_items(true)
+            setTextfield(false)
+        }
+        if (radiobutton_choose.current === "2") {
+            setShow_items(true)
+            setTextfield(true)
         }
     }
 
@@ -167,7 +173,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
             <Container className="news_page_cont">
 
                 <Typography variant="h3">Welcome to news page</Typography>
-                <Typography variant="body1">You can search only one search per 3 minutes. This is free api. time from earlier search {searchTime / 60000} min.</Typography>
+                <Typography variant="body1">You can search only one search per 3 minutes. This is free api. time from earlier search {(searchTime / 60000).toFixed(2)} min.</Typography>
                 {!searchBoolean ? <Typography variant="body1">Now viewing old search</Typography> : <></>}
                 <form onSubmit={userInputField}>
 
@@ -179,7 +185,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                         fullWidth
                         error={Boolean(errors.current)}
                         helperText={errors.current}
-                        disabled={show_items}
+                        disabled={hideTextfield}
                          sx={{
                     '& .MuiInputBase-input': {
                         backgroundColor: 'gray',
@@ -201,7 +207,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                             fullWidth={true}
                             className='worktimeFields'
                             defaultValue={"Select country id here"}
-                            disabled={!show_items}
+                            disabled={show_items}
                             onChange={(e: SelectChangeEvent) => { setChoose_country(e.target.value) }}
                         >
                             {country_codes.map((num, idx) => { return <MenuItem value={num} key={idx}> {num}</MenuItem> })}
@@ -249,7 +255,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                                     </Stack>
                                     </ListItemText>
                                 {item.description ?
-                                    <ListItemText>
+                                    <ListItemText key={`key${index}`}>
                                         <Typography variant="body2">{" Description: "} {item.description}</Typography>
                                         <Typography variant="body2">{" Content "}{item.content}</Typography>
                                         <ListItemIcon > <img className="news_image" src={item.ulr_image/*this has to move function with error handling */} alt={String(index)} /></ListItemIcon>

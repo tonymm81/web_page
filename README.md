@@ -423,9 +423,10 @@ I have to make my graphical works page on my page.
 - Started to fix issue 6 and issue 38. I make a rule to client app news and forecast page. User cam make 3 empty search before timerule starts to count 3 minutes. (Not tested yet).
 - now i tested the new time rules and it works better now. I also give user a change to get new search, if earlier was empty. emptysearch limit is 2.
 - Then i also make a new route to apiforecast that client app first ask about timestamp and dependin on time rule, we get new or old forecast.
-
+- Next I made the time rule check from server to news page. I also add new animation to start page.
+- I also made in news page radiobutton, where user can search saved news if they excist.
 ### bug.
-- forecast error text shows faulty information after empty search.
+- forecast error text shows faulty information after empty search.(fixed)
 
 # installs backend:
 
