@@ -1,4 +1,4 @@
-import { Backdrop, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material"
+import { Backdrop, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack, TextField, Typography, Zoom } from "@mui/material"
 import '../App.css'
 import { useEffect, useRef, useState } from "react";
 
@@ -243,6 +243,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                         return ( 
                            item.tnewsTitle === "[Removed]" ?
                          <></> :
+                         <Zoom in={!backdrop_bl} key={index} style={{ transitionDelay: !backdrop_bl ? `${index === 0 ? index : index+1}00ms` : '0ms' }}>
                             <ListItem key={index} className="listViewItems">
                                 <Stack direction="column" spacing={2} key={index}>
                                 <ListItemText key={index}>
@@ -265,6 +266,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                                 }
                                 </Stack>
                             </ListItem> 
+                            </Zoom>
                         ); 
                     })} 
                 </List>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography, Zoom } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { format } from "date-fns";
 
@@ -25,7 +25,8 @@ function Forecast(props?: any) {
     const get_forecast_from_server = async (userchoose: string): Promise<any> => {
         let permissionToGetNewSearch: boolean = false
         let timeDifference = 0
-        
+        console.log("user choose", userchoose)
+        setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
         if (props.allowForecast){ 
         try{
             setBackdrop(false)
@@ -42,10 +43,7 @@ function Forecast(props?: any) {
         catch(e){
             console.log("error to get timestamp", e)
         }
-        
-        setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
-
-        if (permissionToGetNewSearch === false) {
+        if ((permissionToGetNewSearch === false) || (userchoose.length === 0)) {
             let url = `/api/forecast/forecast_saved`
             try {
                 const response = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
@@ -57,6 +55,7 @@ function Forecast(props?: any) {
                         what_city.current = response_json[0][0].town_or_city
                         setUserchoose(response_json[0][0].town_or_city)
                         //setSearchCounter(0)
+                        setFullForecast({ Whole_forecast: {}, errors: false, errorText: "" })
 
                         
                     }else{
@@ -71,7 +70,7 @@ function Forecast(props?: any) {
                 setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find old city ${error}` })
 
             }
-        } if (permissionToGetNewSearch) {
+        } if ((permissionToGetNewSearch) && (userchoose.length > 0)) {
             try {
                 console.log("permission given")
                 let url = `/api/forecast/forecast?city_name=${userchoose}&country_code=fi&forecast_timestamp=${props.forecast_timestamp}`
@@ -103,13 +102,13 @@ function Forecast(props?: any) {
                 if (response.status === 404){
                     setSearchCounter(searchCounter + 1)
                     setSearchemptyClient(true)
-                    setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
+                    //setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }else {
                     setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }
             } catch (error) {
                 console.log(error)
-                setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find new city ${error}` })
+                //setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find new city ${error}` })
             }
         }
 
@@ -205,6 +204,7 @@ function Forecast(props?: any) {
                 variant="outlined"
                 label="Please  enter countrycode"
                 inputRef={userInputcountry}
+                disabled={true}
                 fullWidth
                 sx={{
                     '& .MuiInputBase-input': {
@@ -224,6 +224,7 @@ function Forecast(props?: any) {
                         <List>
                             {forecastSaved.map((item: Forecast_needed, index: number) => {
                                 return (
+                                    <Zoom in={backdrop} key={index} style={{ transitionDelay: backdrop ? `${index === 0 ? index : index+1}00ms` : '0ms' }}>
                                     <ListItem key={index} className="listViewItems">
                                         <Stack direction="row" spacing={2} key={index}>
                                         <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
@@ -237,6 +238,7 @@ function Forecast(props?: any) {
                                         
                                         </Stack>
                                     </ListItem>
+                                    </Zoom>
 
                                 );
                             })}

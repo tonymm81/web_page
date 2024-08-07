@@ -425,6 +425,7 @@ I have to make my graphical works page on my page.
 - Then i also make a new route to apiforecast that client app first ask about timestamp and dependin on time rule, we get new or old forecast.
 - Next I made the time rule check from server to news page. I also add new animation to start page.
 - I also made in news page radiobutton, where user can search saved news if they excist.
+- I fix couple of problems, what i found from forecast and news app. I also add some animation in those pages.
 ### bug.
 - forecast error text shows faulty information after empty search.(fixed)
 
