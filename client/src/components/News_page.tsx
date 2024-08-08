@@ -1,7 +1,6 @@
-import { Backdrop, Box, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack, TextField, Typography } from "@mui/material"
+import { Backdrop, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack, TextField, Typography, Zoom } from "@mui/material"
 import '../App.css'
 import { useEffect, useRef, useState } from "react";
-import { format, differenceInDays } from 'date-fns';
 
 
 function News_page(props: any) { // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
@@ -12,7 +11,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     const [searchBoolean, setSearchBoolean] = useState<boolean>(false)
     const news_api_permission: React.MutableRefObject<Boolean> = useRef(false);
     const total_result: React.MutableRefObject<number> = useRef(0);
-    const [show_items, setShow_items] = useState<boolean>(false);
+    const [show_items, setShow_items] = useState<boolean>(true);
     const [backdrop_bl, setBackdrop_bl] = useState<boolean>(false);
     //const [timefrom, setTimefrom] = useState<Date>(new Date())
     const radiobutton_choose: React.MutableRefObject<String> = useRef("");
@@ -23,6 +22,9 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     const errors_country: React.MutableRefObject<String> = useRef("");
     const [save_news_api, setSave_news_api] = useState<News_api_json>({ Whole_news_api: {} })
     const [newsSaved, setNewsSaved] = useState<New_api_needed[]>([])
+    const [searchemptynews, setSearchemptynews] = useState<boolean>(false);
+    const [searchCounterNews, setSearchCounterNews] = useState<number>(0)
+    const [hideTextfield, setTextfield] = useState<boolean>(true)
     const [country_codes, setCountry_codes] = useState([
         "FI",
         "SE",
@@ -41,17 +43,32 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
 
     const get_new_data_from_server = async (Chooce_country: string, search_word: string): Promise<any> => {
         let api_address = ''
-
+        
         if (news_api_permission.current) {
-            try {
-                if (radiobutton_choose.current === "2") {//lets fetch the lastest search
-                    api_address = `/api/news/news_saved`
-                    radiobutton_choose.current = "1"
+            let permissionToGetNewSearch :boolean = false
+            try{
+                
+                let url = `/api/news/newsTimerule?news_timestamp=${props.news_timestamp}&searchemptynews=${searchemptynews}&searchCounterNews=${searchCounterNews}`
+                const responsePermission = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
+                const responsePermission_json = await responsePermission.json()
+                if (responsePermission.status === 200){
+                    permissionToGetNewSearch = responsePermission_json.permissionTimerule[0]
+                    setSearchTime(responsePermission_json.permissionTimerule[1])
+                    props.setAllowForecast(false)
                 }
-                if (radiobutton_choose.current === "1") { // Lets search everything based on search word
+            }
+            catch(e){
+                console.log("error to get timestamp", e)
+            }
+            try {
+                if ((radiobutton_choose.current === "2") || (!permissionToGetNewSearch)) {//lets fetch the lastest search
+                    api_address = `/api/news/news_saved`
+                    radiobutton_choose.current = "2"
+                }
+                if ((radiobutton_choose.current === "1")&&(permissionToGetNewSearch)) { // Lets search everything based on search word
                     api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}&news_timestamp=${props.news_timestamp}`
                 }
-                if (radiobutton_choose.current === "0") { // Lets search top headlines from given country code
+                if ((radiobutton_choose.current === "0")&&(permissionToGetNewSearch)) { // Lets search top headlines from given country code
                     api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}&news_timestamp=${props.news_timestamp}`
                 }
                 //console.log(api_address)
@@ -61,10 +78,20 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                 if (connectionNews.status === 200) {
                     setNewsSaved([...apidatanews[0]])
                     total_result.current = apidatanews[0].length
-                    setSearchTime(apidatanews[1][1])
-                    setSearchBoolean(apidatanews[1][0])
+                    //setSearchTime(timeDifference)
+                    setSearchBoolean(permissionToGetNewSearch)
+                            
+                }if (total_result.current > 0){  
+                    setSearchemptynews(false)
+                    setSearchCounterNews(0)
                     props.setNews_timestamp(new Date())
-                } else {
+                    }
+                if (connectionNews.status === 404){
+                    setSearchemptynews(true)
+                    setSearchCounterNews(searchCounterNews + 1)
+                }
+                    
+                 else {
                     setSave_news_api({
                         Whole_news_api: {},
                         errors: true,
@@ -87,7 +114,6 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
         setBackdrop_bl(false)
     }
 
-
     const userInputField = (e: any): void => { //make here user input field what gets the apidata
         e?.preventDefault();
         if ((radiobutton_choose.current === "0" && Chooce_country === "") || (radiobutton_choose.current === "0" && Chooce_country === undefined)) {
@@ -109,20 +135,23 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
         radiobutton_choose.current = rb
 
         if (radiobutton_choose.current === "0") {
-            setShow_items(true)
-        }
-        else {
             setShow_items(false)
+            setTextfield(true)
         }
-
+        if (radiobutton_choose.current === "1") {
+            setShow_items(true)
+            setTextfield(false)
+        }
+        if (radiobutton_choose.current === "2") {
+            setShow_items(true)
+            setTextfield(true)
+        }
     }
 
     const text_field_handler = (ee: React.ChangeEvent<HTMLInputElement>): void => {
         search_word.current = ee.target.value
 
     }
-
-
 
     useEffect(() => {
         radiobutton_choose.current = "2"
@@ -144,8 +173,8 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
             <Container className="news_page_cont">
 
                 <Typography variant="h3">Welcome to news page</Typography>
-                <Typography variant="body1">You can search only one search per 3 minutes. This is free api. time from earlier search {searchTime / 60000} min.</Typography>
-                {!searchBoolean ? <Typography variant="body2">Now viewing old search</Typography> : <></>}
+                <Typography variant="body1">You can search only one search per 3 minutes. This is free api. time from earlier search {(searchTime / 60000).toFixed(2)} min.</Typography>
+                {!searchBoolean ? <Typography variant="body1">Now viewing old search</Typography> : <></>}
                 <form onSubmit={userInputField}>
 
                     <TextField
@@ -156,7 +185,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                         fullWidth
                         error={Boolean(errors.current)}
                         helperText={errors.current}
-                        disabled={show_items}
+                        disabled={hideTextfield}
                          sx={{
                     '& .MuiInputBase-input': {
                         backgroundColor: 'gray',
@@ -178,7 +207,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                             fullWidth={true}
                             className='worktimeFields'
                             defaultValue={"Select country id here"}
-                            disabled={!show_items}
+                            disabled={show_items}
                             onChange={(e: SelectChangeEvent) => { setChoose_country(e.target.value) }}
                         >
                             {country_codes.map((num, idx) => { return <MenuItem value={num} key={idx}> {num}</MenuItem> })}
@@ -189,7 +218,6 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                     <Button
                         variant="contained"
                         color="info"
-                        
                         type="submit"
 
                     >Search!</Button>
@@ -199,12 +227,13 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                     <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="1"
+                        defaultValue="2"
                         name="radio-buttons-group"
                         onChange={(rb: any) => { show_item_radiobutton(rb.target.value) }}
                     >
                         <FormControlLabel value="0" control={<Radio />} label="Top news (must choose country!)" />
                         <FormControlLabel value="1" control={<Radio />} label="everything (give search word!)" />
+                        <FormControlLabel value="2" control={<Radio />} label="the result of the last search" />
 
                     </RadioGroup>
                 </FormControl>
@@ -214,6 +243,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                         return ( 
                            item.tnewsTitle === "[Removed]" ?
                          <></> :
+                         <Zoom in={!backdrop_bl} key={index} style={{ transitionDelay: !backdrop_bl ? `${index === 0 ? index : index+1}00ms` : '0ms' }}>
                             <ListItem key={index} className="listViewItems">
                                 <Stack direction="column" spacing={2} key={index}>
                                 <ListItemText key={index}>
@@ -226,7 +256,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                                     </Stack>
                                     </ListItemText>
                                 {item.description ?
-                                    <ListItemText>
+                                    <ListItemText key={`key${index}`}>
                                         <Typography variant="body2">{" Description: "} {item.description}</Typography>
                                         <Typography variant="body2">{" Content "}{item.content}</Typography>
                                         <ListItemIcon > <img className="news_image" src={item.ulr_image/*this has to move function with error handling */} alt={String(index)} /></ListItemIcon>
@@ -236,6 +266,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                                 }
                                 </Stack>
                             </ListItem> 
+                            </Zoom>
                         ); 
                     })} 
                 </List>

@@ -1,6 +1,6 @@
 import Backgroung_img from '../photos/img_start.jpg'
 import '../App.css'
-import { Avatar, Button, Container, Dialog, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
+import { Avatar, Button, Container, Dialog, Grow, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 //import {Captcha} from "./Captcha";
@@ -42,7 +42,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
   const [dialogStart, setDialogStart] = useState<boolean>(true)
   const navigate: NavigateFunction = useNavigate();
   //console.log(props.captcha)
- 
+  const [testStart, setDTestStart] = useState<boolean>(false)
   useEffect(() => {
     localStorage.setItem("last_path", "/StartPage")
     if (props.headliner === "Welcome to my web page!") {//headliner
@@ -51,6 +51,9 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
       props.setHeadliner("Welcome to my web page!")
   
       props.setAllowForecast(true)
+    }
+    if (props.captcha === false){
+      setDTestStart(true)
     }
 }, [])
 
@@ -67,6 +70,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
     if (gettequest.status === 200) {
       props.setTokenSecondary(tokenSecondary)
       props.setCaptcha(false)
+      setDTestStart(true)
       localStorage.setItem("tokensecondary", tokenSecondary);
       navigate("/")
     } else {
@@ -82,8 +86,10 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
       <Button variant="contained"
         color="inherit"
         startIcon={<QuizIcon />} onClick={() => { setOpenDialog(true) }}> Information about page </Button>
+       
          <Container className='StartInfo'>
           <List>
+          <Grow in={testStart}>
               <ListItem className='startpageList' >
               <Stack direction="row" spacing={2}>
                 <ListItemButton 
@@ -104,7 +110,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
             </Stack>
             </ListItem>
-
+            </Grow>
+            <Grow
+              in={testStart}
+              style={{ transformOrigin: '0 0 0' }}
+              {...(testStart ? { timeout: 1000 } : {})}
+              >
             <ListItem className='startpageList' >
             <Stack direction="row" spacing={2}>
                 <ListItemButton 
@@ -128,7 +139,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
               </Stack>
             </ListItem>
-
+            </Grow>
+            <Grow
+              in={testStart}
+              style={{ transformOrigin: '0 0 0' }}
+              {...(testStart ? { timeout: 2000 } : {})}
+              >
             <ListItem className='startpageList' >
             <Stack direction="row" spacing={2}>
                 <ListItemButton 
@@ -150,7 +166,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
               </Stack>
             </ListItem>
-
+            </Grow>
+            <Grow
+              in={testStart}
+              style={{ transformOrigin: '0 0 0' }}
+              {...(testStart ? { timeout: 3000 } : {})}
+              >
             <ListItem className='startpageList' >
             <Stack direction="row" spacing={2}>
                 <ListItemButton 
@@ -172,7 +193,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
               </Stack>
             </ListItem>
-
+            </Grow>
+            <Grow
+              in={testStart}
+              style={{ transformOrigin: '0 0 0' }}
+              {...(testStart ? { timeout: 4000 } : {})}
+              >
             <ListItem className='startpageList' >
             <Stack direction="row" spacing={8}>
                 <ListItemButton 
@@ -193,7 +219,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
               </Stack>
             </ListItem>
-
+            </Grow>
+            <Grow
+              in={testStart}
+              style={{ transformOrigin: '0 0 0' }}
+              {...(testStart ? { timeout: 5000 } : {})}
+              >
             <ListItem className='startpageList'  >
             <Stack direction="row" spacing={2}>
                 <ListItemButton 
@@ -215,6 +246,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   </ListItemButton>
               </Stack>
             </ListItem>
+            </Grow>
           </List>
         </Container>
       <Dialog open={openDialog} ><Typography variant="body1" sx={{ margin: "5px" }} >This is the demo page. Page wont save anything to local store except token and route. There is Forecast
