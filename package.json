@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.13.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.7",
     "braces": "^3.0.3",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -22,7 +22,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^2.7.0",
-    "postcss": "^8.4.39"
+    "postcss": "^8.4.45"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

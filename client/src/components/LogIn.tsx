@@ -6,7 +6,7 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import DOMPurify from 'dompurify';
 
 interface textfieldErrors extends LogINuser { } //this is for error handling.
 
@@ -18,7 +18,7 @@ function LogIn(props?: any) { //this function is the login view where user can l
     const navigate: NavigateFunction = useNavigate();
     const [hideNewUser, setHideNewUser] = useState<boolean>(true)
     const textAreaHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {//this is for textfield handling
-        textHandler.current[e.target.name] = e.target.value
+        textHandler.current[e.target.name] = DOMPurify.sanitize(e.target.value);
     }
     const addUser = async (e?: React.FormEvent, value?: any | null): Promise<void> => {
         let errors: textfieldErrors = {}

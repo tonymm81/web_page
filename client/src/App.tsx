@@ -13,7 +13,7 @@ import News_page from './components/News_page'
 import Portfolio from './components/Portfolio';
 import StarIcon from '@mui/icons-material/Star';
 import Footer from './components/Footer';
-
+import DOMPurify from 'dompurify';
 
 // this is the main program.Only routes shown here
 
@@ -55,8 +55,8 @@ const App: React.FC = (): React.ReactElement => {
           'Authorization': `Bearer ${tokenSecondary}`
       },
       body: JSON.stringify({
-        feedbackName: String(FeedbackName.current?.value),
-        feedback: String(feedbackInput.current?.value),
+        feedbackName: DOMPurify.sanitize(String(FeedbackName.current?.value)),
+        feedback: DOMPurify.sanitize(String(feedbackInput.current?.value)),
         timeFeedback : new Date(),
         feedbackRate : Number(value)
       })

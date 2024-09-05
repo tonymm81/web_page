@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import DOMPurify from 'dompurify';
 
 
 interface WarningTexts extends Employee_data { }
@@ -156,7 +156,7 @@ function Work_time(props?: any) {
 
 
     const textfieldsHandlerEmployer = (e: React.ChangeEvent<HTMLInputElement>): void => { // user input saves the data  here.
-        textHandleremployer.current[e.target.name] = e.target.value
+        textHandleremployer.current[e.target.name] = DOMPurify.sanitize(e.target.value)
     }
 
     const employeeField = (e?: React.FormEvent, value?: any | null): void => {
@@ -180,7 +180,7 @@ function Work_time(props?: any) {
             let savetemp: Employee_data = {
                 datetime: timenow,
                 hours_employee: Number(jobhours_temp),
-                description: description_temp,
+                description: DOMPurify.sanitize(description_temp),
                 jobID: selectedID,
                 employee_name: employeeName,
                 employee_worktime_id: Number(user_id)
@@ -231,7 +231,7 @@ function Work_time(props?: any) {
                 vat: textHandleremployer.current.Taxs,
                 employee_name: chosen_employee,
                 employee_work_id: user_id,
-                workIDS: textHandleremployer.current.workIDs
+                workIDS: DOMPurify.sanitize(textHandleremployer.current.workIDs)
             }
             setAdd_workid_only(false)
             apiCall("POST", "employer", 8, "", 0, savetempEmployer)

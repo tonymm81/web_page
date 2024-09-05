@@ -429,6 +429,10 @@ I have to make my graphical works page on my page.
 ### bug.
 - forecast error text shows faulty information after empty search.(fixed)
 
+## version 184
+- I update the security issues from node moduls. I also add dompurify to text fields because the new xss attack.
+- Dot.env went broke also so I fix it also.
+
 # installs backend:
 
 
