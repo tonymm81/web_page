@@ -3,7 +3,7 @@ import '../App.css';
 import { Alert, Backdrop, Button, CircularProgress, Container, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography, Zoom } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { format } from "date-fns";
-
+import DOMPurify from 'dompurify';
 
 
 function Forecast(props?: any) {
@@ -102,13 +102,13 @@ function Forecast(props?: any) {
                 if (response.status === 404){
                     setSearchCounter(searchCounter + 1)
                     setSearchemptyClient(true)
-                    //setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
+                    setFullForecast({ Whole_forecast: {}, errors: true, errorText: `City not found please try again` })
                 }else {
-                    setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
+                    //setFullForecast({ Whole_forecast: {}, errors: true, errorText: `server error ${response.status}` })
                 }
             } catch (error) {
                 console.log(error)
-                //setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find new city ${error}` })
+                setFullForecast({ Whole_forecast: {}, errors: true, errorText: `could not find new city ${error}` })
             }
         }
 
@@ -153,7 +153,8 @@ function Forecast(props?: any) {
 
     const userTextFieldInput = (e: any): void => { // when user feeds an input, it handles here and also some error handling
         props.setAllowForecast(true)
-        let valueToCheck = userInput.current!.value
+        //let valueToCheck = userInput.current!.value
+        const valueToCheck = DOMPurify.sanitize(userInput.current!.value);
         valueToCheck.toLowerCase()
         var temp = ""
         for (let i = 0; i <= valueToCheck.length; i++) {

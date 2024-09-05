@@ -4,7 +4,9 @@ import { PrismaClient } from '@prisma/client';
 import fetch from 'node-fetch';
 import axios, { AxiosResponse } from 'axios';
 import { JsonArray } from '@prisma/client/runtime/library';
-
+import dotenv from 'dotenv';
+dotenv.config();
+dotenv.config({ path: '../.env' });
 const prisma: PrismaClient = new PrismaClient();
 
 const apiForecastRouter: express.Router = express.Router();
@@ -32,11 +34,12 @@ const get_forecast = async (lat: any): Promise<any> => { // get forecast
 const get_location = async (city_name: string, country_code: string): Promise<any> => { // get location codes
     const locationresponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city_name},${country_code}&limit=${5}&appid=${weahter_api}`);
     const responseDataLocation = await locationresponse.json();
+    //console.log(responseDataLocation, weahter_api)
     if (responseDataLocation) {
 
-        let latitude = responseDataLocation[0].lat
-        let lonngitude = responseDataLocation[0].lon
-        return [latitude, lonngitude]
+       let latitude = responseDataLocation[0].lat
+       let lonngitude = responseDataLocation[0].lon
+       return [latitude, lonngitude]
     }
 
 }
@@ -46,12 +49,12 @@ const check_search_time = (what_time: Date | any, searchemptyClient: boolean, se
     visits = visits +1
     search_time = get_time()
     let diffence = search_time.getTime() - what_time.getTime() 
-    //console.log("how this calculates this", diffence)
+    console.log("how this calculates this", diffence)
     if (diffence > 180000) {//180000
         
         search_permission = true
         search_time = get_time()
-        //console.log("time rule true", search_permission)
+        console.log("time rule true", search_permission)
 
     } if((searchemptyClient)&&(searchCounter <= 2)){
         search_permission = true

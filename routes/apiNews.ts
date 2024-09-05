@@ -3,7 +3,9 @@ import { ServerError } from '../errors/errorHalndler';
 import { PrismaClient } from '@prisma/client';
 import fetch from 'node-fetch';
 import { format } from 'date-fns';
-
+import dotenv from 'dotenv';
+dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const prisma : PrismaClient = new PrismaClient();
 
@@ -72,6 +74,7 @@ apiNewsRouter.get("/news", async (req : express.Request, res : express.Response,
             var news_everything = await get_news_everything(String(req.query.cathegory), String(req.query.searchword))
                 
             try{
+                
                 jsonlength = news_everything['articles'].length;
             }catch(errors){
                 jsonlength = news_everything['articles'].length; // throws an error

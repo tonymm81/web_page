@@ -1,7 +1,7 @@
 import { Backdrop, Button, CircularProgress, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, Link, List, ListItem, ListItemIcon, ListItemText, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack, TextField, Typography, Zoom } from "@mui/material"
 import '../App.css'
 import { useEffect, useRef, useState } from "react";
-
+import DOMPurify from 'dompurify';
 
 function News_page(props: any) { // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
     // everything needs a keyword and datetime, top-news need only country code
@@ -149,7 +149,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
     }
 
     const text_field_handler = (ee: React.ChangeEvent<HTMLInputElement>): void => {
-        search_word.current = ee.target.value
+        search_word.current = DOMPurify.sanitize(ee.target.value);
 
     }
 
