@@ -32,6 +32,10 @@ import unrealStart from '../photos/unrealStart.jpg'
 import unrealMiddle from '../photos/unrealMiddle.jpg'
 import unrealHouse from '../photos/unrealHouse.jpg'
 import unrealInside from '../photos/unrealHouseInside.jpg'
+import protosite1 from '../photos/sivuProto1.png';
+import protosite2 from '../photos/sivuProto2.png';
+import protosite3 from '../photos/sivuProto3.png';
+import protosite4 from '../photos/sivuproto4.png'
 
 import { red } from '@mui/material/colors';
 
@@ -584,7 +588,7 @@ function Portfolio(props: any) {
                     <CardHeader
                         avatar={
                             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                ???
+                                KV
                             </Avatar>
                         }
                         action={
@@ -592,26 +596,29 @@ function Portfolio(props: any) {
                                 <MoreVertIcon />
                             </IconButton>
                         }
-                        title="Figure out this later"
-                        subheader="Year 2023"
+                        title="Koodariverstas proto site"
+                        subheader="Year 2024"
                     />
                     <CardMedia
                         component="img"
                         height="194"
-                        image={projects}
-                        alt="Paella dish"
+                        image={protosite1}
+                        alt="Proto site"
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            figure out the subject to this card
+                            This site is my work trainee work from Xamk TKI research project. 
+                            This site is made top of mediawiki site and i customise the Tweeki skin with own styles.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
+                        <IconButton aria-label="add to favorites"
+                             href="https://github.com/tonymm81/KoodariverstasProto">
+                        <CodeIcon />
                         </IconButton>
-                        <IconButton aria-label="share">
-                            <ShareIcon />
+                        <IconButton aria-label="zoomProtosite"
+                             onClick={() => openImageExpandDialog(protosite1)}>
+                            <ZoomInIcon />
                         </IconButton>
                         <ExpandMore
                             expand={expandedSome}
@@ -624,19 +631,58 @@ function Portfolio(props: any) {
                     </CardActions>
                     <Collapse in={expandedSome} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography paragraph>Method:</Typography>
+                            <Typography paragraph>Main page view</Typography>
+                            <CardMedia
+                            component="img"
+                            height="194"
+                            image={protosite2}
+                            alt="Proto site"
+                            />
+                             <IconButton aria-label="zoom proto 2"
+                              onClick={() => openImageExpandDialog(protosite2)}>
+                            <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Heat
+                                This site is a databank to junior developer intern and students. Here you can find articles of all kind of 
+                                work depenging are you programmer, designer or manager. I make tree different brake points to this site.
+                                Here is also some Javascript, what directs user to use categories. The all articles block is working with 
+                                categories. There is also ready site templates based on categories, and template has a menu and more category
+                                links to easier navigation in this page. 
+                            </Typography>
+                            <Typography paragraph>Main page second brake point</Typography>
+                            <CardMedia
+                            component="img"
+                            height="194"
+                            image={protosite3}
+                            alt="Proto site"
+                            />
+                             <IconButton aria-label="zoom proto 2"
+                              onClick={() => openImageExpandDialog(protosite3)}>
+                            <ZoomInIcon />
+                            </IconButton>
+                            <Typography paragraph>
+                                All articles blck is working with custom rendered divs. You can set this divs any where in wiki an they
+                                print out the a link list, where is allsites under this category. 
+                            </Typography>
+                            <Typography paragraph>Customized footer</Typography>
+                            <CardMedia
+                            component="img"
+                            height="194"
+                            image={protosite4}
+                            alt="Proto site"
+                            />
+                             <IconButton aria-label="zoom proto 2"
+                              onClick={() => openImageExpandDialog(protosite4)}>
+                            <ZoomInIcon />
+                            </IconButton>
+                            <Typography paragraph>
+                                See and test the whole site on address  <Button href="https://tonymm81.kapsi.fi/mediawiki/index.php" size="small">See the site here</Button>
+                                You need a username and password because this is prototype and it's not public. Username is <strong>mediawikiuser</strong> and password is
+                                : <strong>V1$1tW1ki1@2#</strong>. In this site you might face the 502 error but just refresh your browser. I am figure out about this error.
+                                sorry about it.
                             </Typography>
                             <Typography paragraph>
-                                Heat 
-                            </Typography>
-                            <Typography paragraph>
-                                Add 
-                            </Typography>
-                           
-                            <Typography>
-                                Set
+                                I will tell more about this site in git hub readme.md file. Visit  <Button href="https://github.com/tonymm81/KoodariverstasProto" size="small">My github repository</Button>
                             </Typography>
                         </CardContent>
                     </Collapse>
