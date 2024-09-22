@@ -301,6 +301,10 @@ function Portfolio(props: any) {
                                 gps points and calculate the distance between coordinates. At the end of excersice application ask
                                 from user that do he/she want to save the excercise information of dismiss it.
                             </Typography>
+                            <Typography paragraph>
+                                <strong>Update: </strong>I am building to feature, that you can control the wlan devices thru this app. Wlan devices control 
+                                is in my table project and there will be local server, what waits mqtt messages from this phone app.
+                            </Typography>
                         </CardContent>
                     </Collapse>
                 </Card>
@@ -607,8 +611,8 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            This site is my work trainee work from Xamk TKI research project. 
-                            This site is made top of mediawiki site and i customise the Tweeki skin with own styles.
+                        This website is a prototype created during an internship, 
+                        serving as a kind of knowledge base for beginner coders. I was interning at the Xamk RDI research project.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -643,14 +647,14 @@ function Portfolio(props: any) {
                             <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                This site is a databank for junior developer intern and students. Here you can find articles of all kind of 
-                                work depenging are you programmer, designer or manager. I make tree different brake points to this site.
-                                Here is also some Javascript, what directs user to use categories. The all articles block is working with 
-                                categories. There is also ready site templates based on categories, and template has a menu and more category
-                                links to easier navigation in this page. 
+                            “I have completely customized the MediaWiki framework using the Tweeki skin. 
+                            I created breakpoints and other styles in the tweekitemplate.php file. 
+                            The site gets its style classes from the styles tag in that file. 
+                                The site also has custom dropdown menus, one of which is 
+                                implemented from the Mediawiki:tweeki.js file and the other in the Tweeki template as a dropdown menu.
                             </Typography>
-                            <Typography paragraph>Main page second brake points. I make the css styles to tweekitemplate.php file. I make also 
-                                styles ku this site elements. I add to mediawikis body couple of dropdown menus.
+                            <Typography paragraph>“On the main page and other pages, there are three breakpoints
+                                 where the boxes are arranged to fit well on the screen. The banner image also adapts seamlessly to the screen size.
                             </Typography>
                             <CardMedia
                             component="img"
@@ -663,10 +667,12 @@ function Portfolio(props: any) {
                             <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                All articles block is working with custom rendered divs. You can set this divs any where in wiki an they
-                                print out the a link list, where is allsites under this category. 
+                            The main page is styled using Bootstrap, and the table of contents is managed by custom divs that 
+                            I created in the localsettings.php file. These divs generate a list of links to the pages under each category. 
+                            Additionally, 
+                            users are prompted to select a category for a new page when they want to create one in the knowledge base 
                             </Typography>
-                            <Typography paragraph>Customized footer. I have to made this, because i have to organize the icons in mobile</Typography>
+                            <Typography paragraph>Customized footer. I also had to customize the wiki footer to neatly arrange the project icons according to the screen size.</Typography>
                             <CardMedia
                             component="img"
                             height="194"
@@ -680,8 +686,8 @@ function Portfolio(props: any) {
                             <Typography paragraph>
                                 See and test the whole site on address  <Button href="https://tonymm81.kapsi.fi/mediawiki/index.php" size="small">Visit site</Button>
                                 You need a username and password because this is prototype and it's not public. Username is <strong>mediawikiuser</strong> and password is
-                                : <strong>v1$1tW1ki1@2#</strong>. In this site you might face the 502 error but just refresh your browser. I am figure out about this error.
-                                sorry about it.
+                                : <strong>v1$1tW1ki1@2#</strong>. In this site you might face the 504 error but just refresh your browser. I am figure out about this error.
+                                sorry about it. I think that in the server there is too old php running.
                             </Typography>
                             <Typography paragraph>
                                 I will tell more about this site in git hub readme.md file. Visit  <Button href="https://github.com/tonymm81/KoodariverstasProto" size="small">My github repository</Button>

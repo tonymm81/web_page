@@ -430,7 +430,14 @@ I have to make my graphical works page on my page.
 - Dot.env went broke also so I fix it also.
 
 ## version 185
-- I update my summer work to portfolio page.
+- I also fixed a few vulnerabilities in the node packages.
+- I update my summer work to portfolio page. I test the depency bot and it fix almoust everything but:
+### resolve this depency postcss
+react-scripts@5.0.1 requires postcss@^8.4.33 via css-loader@6.11.0
+react-app-rewired@2.2.1 requires postcss@^8.4.33 via a transitive dependency on css-loader@6.11.0
+react-scripts@5.0.1 requires postcss@^7.0.35 via resolve-url-loader@4.0.0
+react-app-rewired@2.2.1 requires postcss@^7.0.35 via a transitive dependency on resolve-url-loader@4.0.0
+No patched version available for postcss
 
 
 ## npm installs in this project:
