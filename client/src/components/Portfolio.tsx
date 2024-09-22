@@ -92,7 +92,7 @@ function Portfolio(props: any) {
         if (values === "game") {
             setExpandGame(!expandedGame);
         }
-        if (values === "some") {
+        if (values === "Koodari") {
             setExpandSome(!expandedSome);
         }
     };
@@ -622,7 +622,7 @@ function Portfolio(props: any) {
                         </IconButton>
                         <ExpandMore
                             expand={expandedSome}
-                            onClick={() => handleExpandClick("some")}
+                            onClick={() => handleExpandClick("Koodari")}
                             aria-expanded={expand}
                             aria-label="show more"
                         >
@@ -643,13 +643,15 @@ function Portfolio(props: any) {
                             <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                This site is a databank to junior developer intern and students. Here you can find articles of all kind of 
+                                This site is a databank for junior developer intern and students. Here you can find articles of all kind of 
                                 work depenging are you programmer, designer or manager. I make tree different brake points to this site.
                                 Here is also some Javascript, what directs user to use categories. The all articles block is working with 
                                 categories. There is also ready site templates based on categories, and template has a menu and more category
                                 links to easier navigation in this page. 
                             </Typography>
-                            <Typography paragraph>Main page second brake point</Typography>
+                            <Typography paragraph>Main page second brake points. I make the css styles to tweekitemplate.php file. I make also 
+                                styles ku this site elements. I add to mediawikis body couple of dropdown menus.
+                            </Typography>
                             <CardMedia
                             component="img"
                             height="194"
@@ -661,10 +663,10 @@ function Portfolio(props: any) {
                             <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                All articles blck is working with custom rendered divs. You can set this divs any where in wiki an they
+                                All articles block is working with custom rendered divs. You can set this divs any where in wiki an they
                                 print out the a link list, where is allsites under this category. 
                             </Typography>
-                            <Typography paragraph>Customized footer</Typography>
+                            <Typography paragraph>Customized footer. I have to made this, because i have to organize the icons in mobile</Typography>
                             <CardMedia
                             component="img"
                             height="194"
@@ -676,9 +678,9 @@ function Portfolio(props: any) {
                             <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                See and test the whole site on address  <Button href="https://tonymm81.kapsi.fi/mediawiki/index.php" size="small">See the site here</Button>
+                                See and test the whole site on address  <Button href="https://tonymm81.kapsi.fi/mediawiki/index.php" size="small">Visit site</Button>
                                 You need a username and password because this is prototype and it's not public. Username is <strong>mediawikiuser</strong> and password is
-                                : <strong>V1$1tW1ki1@2#</strong>. In this site you might face the 502 error but just refresh your browser. I am figure out about this error.
+                                : <strong>v1$1tW1ki1@2#</strong>. In this site you might face the 502 error but just refresh your browser. I am figure out about this error.
                                 sorry about it.
                             </Typography>
                             <Typography paragraph>
