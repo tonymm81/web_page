@@ -32,6 +32,10 @@ import unrealStart from '../photos/unrealStart.jpg'
 import unrealMiddle from '../photos/unrealMiddle.jpg'
 import unrealHouse from '../photos/unrealHouse.jpg'
 import unrealInside from '../photos/unrealHouseInside.jpg'
+import protosite1 from '../photos/sivuProto1.png';
+import protosite2 from '../photos/sivuProto2.png';
+import protosite3 from '../photos/sivuProto3.png';
+import protosite4 from '../photos/sivuproto4.png'
 
 import { red } from '@mui/material/colors';
 
@@ -88,7 +92,7 @@ function Portfolio(props: any) {
         if (values === "game") {
             setExpandGame(!expandedGame);
         }
-        if (values === "some") {
+        if (values === "Koodari") {
             setExpandSome(!expandedSome);
         }
     };
@@ -296,6 +300,10 @@ function Portfolio(props: any) {
                                 length based on gps coordinates. It counts coordinates in 5 seconds and compare the erlier and measured
                                 gps points and calculate the distance between coordinates. At the end of excersice application ask
                                 from user that do he/she want to save the excercise information of dismiss it.
+                            </Typography>
+                            <Typography paragraph>
+                                <strong>Update: </strong>I am building to feature, that you can control the wlan devices thru this app. Wlan devices control 
+                                is in my table project and there will be local server, what waits mqtt messages from this phone app.
                             </Typography>
                         </CardContent>
                     </Collapse>
@@ -584,7 +592,7 @@ function Portfolio(props: any) {
                     <CardHeader
                         avatar={
                             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                ???
+                                KV
                             </Avatar>
                         }
                         action={
@@ -592,30 +600,33 @@ function Portfolio(props: any) {
                                 <MoreVertIcon />
                             </IconButton>
                         }
-                        title="Figure out this later"
-                        subheader="Year 2023"
+                        title="Koodariverstas proto site"
+                        subheader="Year 2024"
                     />
                     <CardMedia
                         component="img"
                         height="194"
-                        image={projects}
-                        alt="Paella dish"
+                        image={protosite1}
+                        alt="Proto site"
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            figure out the subject to this card
+                        This website is a prototype created during an internship, 
+                        serving as a kind of knowledge base for beginner coders. I was interning at the Xamk RDI research project.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
+                        <IconButton aria-label="add to favorites"
+                             href="https://github.com/tonymm81/KoodariverstasProto">
+                        <CodeIcon />
                         </IconButton>
-                        <IconButton aria-label="share">
-                            <ShareIcon />
+                        <IconButton aria-label="zoomProtosite"
+                             onClick={() => openImageExpandDialog(protosite1)}>
+                            <ZoomInIcon />
                         </IconButton>
                         <ExpandMore
                             expand={expandedSome}
-                            onClick={() => handleExpandClick("some")}
+                            onClick={() => handleExpandClick("Koodari")}
                             aria-expanded={expand}
                             aria-label="show more"
                         >
@@ -624,19 +635,62 @@ function Portfolio(props: any) {
                     </CardActions>
                     <Collapse in={expandedSome} timeout="auto" unmountOnExit>
                         <CardContent>
-                            <Typography paragraph>Method:</Typography>
+                            <Typography paragraph>Main page view</Typography>
+                            <CardMedia
+                            component="img"
+                            height="194"
+                            image={protosite2}
+                            alt="Proto site"
+                            />
+                             <IconButton aria-label="zoom proto 2"
+                              onClick={() => openImageExpandDialog(protosite2)}>
+                            <ZoomInIcon />
+                            </IconButton>
                             <Typography paragraph>
-                                Heat
+                            “I have completely customized the MediaWiki framework using the Tweeki skin. 
+                            I created breakpoints and other styles in the tweekitemplate.php file. 
+                            The site gets its style classes from the styles tag in that file. 
+                                The site also has custom dropdown menus, one of which is 
+                                implemented from the Mediawiki:tweeki.js file and the other in the Tweeki template as a dropdown menu.
+                            </Typography>
+                            <Typography paragraph>“On the main page and other pages, there are three breakpoints
+                                 where the boxes are arranged to fit well on the screen. The banner image also adapts seamlessly to the screen size.
+                            </Typography>
+                            <CardMedia
+                            component="img"
+                            height="194"
+                            image={protosite3}
+                            alt="Proto site"
+                            />
+                             <IconButton aria-label="zoom proto 2"
+                              onClick={() => openImageExpandDialog(protosite3)}>
+                            <ZoomInIcon />
+                            </IconButton>
+                            <Typography paragraph>
+                            The main page is styled using Bootstrap, and the table of contents is managed by custom divs that 
+                            I created in the localsettings.php file. These divs generate a list of links to the pages under each category. 
+                            Additionally, 
+                            users are prompted to select a category for a new page when they want to create one in the knowledge base 
+                            </Typography>
+                            <Typography paragraph>Customized footer. I also had to customize the wiki footer to neatly arrange the project icons according to the screen size.</Typography>
+                            <CardMedia
+                            component="img"
+                            height="194"
+                            image={protosite4}
+                            alt="Proto site"
+                            />
+                             <IconButton aria-label="zoom proto 2"
+                              onClick={() => openImageExpandDialog(protosite4)}>
+                            <ZoomInIcon />
+                            </IconButton>
+                            <Typography paragraph>
+                                See and test the whole site on address  <Button href="https://tonymm81.kapsi.fi/mediawiki/index.php" size="small">Visit site</Button>
+                                You need a username and password because this is prototype and it's not public. Username is <strong>mediawikiuser</strong> and password is
+                                : <strong>v1$1tW1ki1@2#</strong>. In this site you might face the 504 error but just refresh your browser. I am figure out about this error.
+                                sorry about it. I think that in the server there is too old php running.
                             </Typography>
                             <Typography paragraph>
-                                Heat 
-                            </Typography>
-                            <Typography paragraph>
-                                Add 
-                            </Typography>
-                           
-                            <Typography>
-                                Set
+                                I will tell more about this site in git hub readme.md file. Visit  <Button href="https://github.com/tonymm81/KoodariverstasProto" size="small">My github repository</Button>
                             </Typography>
                         </CardContent>
                     </Collapse>
