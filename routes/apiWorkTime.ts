@@ -107,7 +107,7 @@ apiWorkTimeRouter.put("/employeedata/:id", async (req : express.Request, res : e
                         hours_employee : req.body.hours_employee,
                         description : req.body.description,
                         jobID : req.body.jobID,
-                        IsHoursAccepted : req.body.IsHoursAccepted // check this later, you have to make client side changes
+                        //IsHoursAccepted : req.body.IsHoursAccepted // check this later, you have to make client side changes
                         
                     }
                 });
