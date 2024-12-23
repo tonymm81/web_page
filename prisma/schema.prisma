@@ -37,6 +37,7 @@ model employee_data {
   jobID                String    @db.Text
   employeeName         String    @db.Text
   employee_worktime_id Int
+  IsHoursAccepted      Boolean?
   user_data            user_data @relation(fields: [employee_worktime_id], references: [user_id], onUpdate: Restrict, map: "employee_data_ibfk_1")
 
   @@index([employee_worktime_id], map: "employee_worktime_id")

@@ -443,6 +443,10 @@ react-scripts@5.0.1 requires postcss@^7.0.35 via resolve-url-loader@4.0.0
 react-app-rewired@2.2.1 requires postcss@^7.0.35 via a transitive dependency on resolve-url-loader@4.0.0
 No patched version available for postcss
 
+## version 186
+- Planning and deploying a new feature to my page. There will be in work_time component in employers view that user can accept the work time records and
+- then the accepted hours will shown on different tab view. At the same time I have to repair couple dependencies vulnerability.
+
 # installs backend:
 
 

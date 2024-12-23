@@ -12,6 +12,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DOMPurify from 'dompurify';
+import React from "react";
 
 
 interface WarningTexts extends Employee_data { }
