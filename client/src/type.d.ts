@@ -43,6 +43,7 @@ interface Employee_data{
     jobID? : string
     employeeName? : string
     employee_worktime_id? : number
+    IsHoursAccepted? : boolean
 }
 
 interface LogINuser{

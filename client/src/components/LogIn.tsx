@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import LoginIcon from '@mui/icons-material/Login';
 import { useRef, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Checkbox, Typography } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DOMPurify from 'dompurify';
@@ -13,6 +13,7 @@ interface textfieldErrors extends LogINuser { } //this is for error handling.
 function LogIn(props?: any) { //this function is the login view where user can log in to page.
 
     const textHandler: LogINuser = useRef<LogINuser>({});
+    const [employerChecked, setEmployerChecked] = useState<boolean>(false);
     const [errorhandling, setErrorhandling] = useState<textfieldErrors>({})
     const [errorhandling_new_usr, setErrorhandling_new_usr] = useState<textfieldErrors>({})
     const navigate: NavigateFunction = useNavigate();
@@ -25,7 +26,14 @@ function LogIn(props?: any) { //this function is the login view where user can l
         setErrorhandling_new_usr({})
         e?.preventDefault();
         if (textHandler.current.newusrName) {  // if username and password is given lets move on
-            if (textHandler.current.newpassWD) {
+            if ((textHandler.current.newpassWD) && ( textHandler.current.newpassWD === textHandler.current.newRetypedpassWD )){
+                let IsEmployer = ""
+                if (employerChecked){
+                    IsEmployer = "employer"
+                }
+                else {
+                    IsEmployer = "employee"
+                }
                 const connection_sign = await fetch("/api/signin/signin", { // post request what check in user has finded
                     method: "POST",
                     headers: {
@@ -35,7 +43,7 @@ function LogIn(props?: any) { //this function is the login view where user can l
                         userName: textHandler.current?.newusrName,
                         password: textHandler.current?.newpassWD,
                         user_error: "none",
-                        who_is_logging: "employee"
+                        who_is_logging: IsEmployer
 
                     })
                 });
@@ -124,7 +132,9 @@ function LogIn(props?: any) { //this function is the login view where user can l
         }
 
     }
-
+    const IsEmployer = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmployerChecked(event.target.checked);
+      };
 
     return (<>
         {hideNewUser ?  
@@ -173,6 +183,12 @@ function LogIn(props?: any) { //this function is the login view where user can l
             <Typography variant="body1">Here you can add <strong> new employee.</strong> When you have entered the username and password. please login after you enter the new user data.Notice
                 that employer have to give the payment details to new employee before he or she can use the worktime app.
             </Typography>
+            <Checkbox
+                checked={employerChecked}
+                onChange={IsEmployer}
+                inputProps={{ 'aria-label': 'controlled' }}
+                title="Are you employer"
+                /><strong> Are you emplooyer?</strong>
             <TextField
                 label="Give new user name"
                 name="newusrName"
@@ -187,6 +203,17 @@ function LogIn(props?: any) { //this function is the login view where user can l
                 className='worktimeFields'
                 label="Give new password"
                 name="newpassWD"
+                variant="outlined"
+                type="password"
+                fullWidth={true}
+                onChange={textAreaHandler}
+                error={Boolean(errorhandling_new_usr.error)}
+                helperText={errorhandling_new_usr.error}
+            />
+            <TextField
+                className='worktimeFields'
+                label="Retype your new password"
+                name="newRetypedpassWD"
                 variant="outlined"
                 type="password"
                 fullWidth={true}
