@@ -446,6 +446,8 @@ No patched version available for postcss
 ## version 186
 - Planning and deploying a new feature to my page. There will be in work_time component in employers view that user can accept the work time records and
 - then the accepted hours will shown on different tab view. At the same time I have to repair couple dependencies vulnerability.
+- i have to remember to merge securityupgrades to this version. perhas make a new build from master branch to server.
+- I have to add also add new employer tab to add new user that user can add employer account to my site.
 
 # installs backend:
 
