@@ -328,7 +328,7 @@ function Work_time(props?: any) {
       };
     
     const changeHoursAccepted = (idx: number): void => { //here user can edit the saved data
-        apiCall("PUT", "employer", database_id, "", 0)
+        apiCall("PUT", "employer", idx, "", 0)
 
     }
     return (
@@ -554,9 +554,9 @@ function Work_time(props?: any) {
             }
 
             {!loginVIEW ?
-                 <Box sx={{ width: '100%', typography: 'body1' }}>
+                 <Box sx={{ width: '100%', typography: 'body1', margin: "5px" }}>
                  <TabContext value={tabSelectorValue}>
-                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                   <Box sx={{ borderBottom: 1, borderColor: 'divider', margintop: "50px" }}>
                      <TabList onChange={HandleTabsPosition} aria-label="lab API tabs example">
                        <Tab label="HOURS WHAT ARE NOT ACCEPTED" value="1" />
                        <Tab label="accepted hours" value="2" />
@@ -581,7 +581,7 @@ function Work_time(props?: any) {
                                     </ListItemText>
                                     <ListItemIcon>
                                     <IconButton
-                                            onClick={() => { changeHoursAccepted(idx); } }
+                                            onClick={() => { changeHoursAccepted(Number(item.employee_id_auto)); } }
                                             edge="start"
                                             disabled={employeeView}>
                                             <DoneAllIcon />
