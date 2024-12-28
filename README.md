@@ -443,6 +443,20 @@ react-scripts@5.0.1 requires postcss@^7.0.35 via resolve-url-loader@4.0.0
 react-app-rewired@2.2.1 requires postcss@^7.0.35 via a transitive dependency on resolve-url-loader@4.0.0
 No patched version available for postcss
 
+## version 186
+- Planning and deploying a new feature to my page. There will be in work_time component in employers view that user can accept the work time records and
+- then the accepted hours will shown on different tab view. At the same time I have to repair couple dependencies vulnerability.
+- i have to remember to merge securityupgrades to this version. perhas make a new build from master branch to server.
+- I have to add also add new employer tab to add new user that user can add employer account to my site.
+
+-  i added in the worktime the add new user window a check box, where user can create also employer account credintials.
+- In this add new user part user has to retype the password another time that we can make sure that 
+- password is not including typos.
+- Now i have added the tabs on work time field and user can watch the accepted and non accepted worktime records in employee view. Employer also can check the accepted worktimerecords and accept also employees worktime records. I make couple of new functions in client side and in apirouter file in server side i make a new route.
+
+### bug fixed. 
+- there was some id problem with site and now it is fixed
+
 # installs backend:
 
 

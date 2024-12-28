@@ -106,7 +106,9 @@ apiWorkTimeRouter.put("/employeedata/:id", async (req : express.Request, res : e
                         datetime_emp : req.body.datetime_emp,
                         hours_employee : req.body.hours_employee,
                         description : req.body.description,
-                        jobID : req.body.jobID
+                        jobID : req.body.jobID,
+                        //IsHoursAccepted : req.body.IsHoursAccepted // check this later, you have to make client side changes
+                        
                     }
                 });
                 let employee_worktime_id = await prisma.employee_data.findFirst({where: 
@@ -155,7 +157,9 @@ apiWorkTimeRouter.post("/employeedata", async (req : express.Request, res : expr
                                 hours_employee : req.body.hours_employee,
                                 description : req.body.description,
                                 jobID : req.body.jobID,
-                                employeeName : req.body.employee_name
+                                employeeName : req.body.employee_name,
+                                IsHoursAccepted : false
+                                
                         },
                     },
                 },
@@ -251,7 +255,7 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
   
       } catch (e : any) {
             console.log("database error", e)
-          next(new ServerError(400, "database error"))
+          next(new ServerError(400, "database error" + e))
       }
 
   } else {
@@ -261,7 +265,28 @@ apiWorkTimeRouter.post("/employerdata", async (req : express.Request, res : expr
 });
 
 apiWorkTimeRouter.put("/employerdata/:id", async (req : express.Request, res : express.Response, next : express.NextFunction) => {
-
+    try {
+    let checkState = await prisma.employee_data.findFirst({where: { employee_id_auto: Number(req.params.id)}})
+    console.log("are we tying to change state", checkState?.IsHoursAccepted)
+    await prisma.employee_data.update({
+        where : {
+            employee_id_auto : Number(req.params.id)
+        },
+        data : {
+            datetime_emp : checkState?.datetime_emp,
+            hours_employee : checkState?.hours_employee,
+            description : checkState?.description,
+            jobID : checkState?.jobID,
+            IsHoursAccepted : !checkState?.IsHoursAccepted            
+        }
+    });
+    let employerdata = await get_employer_data_needed()// get all employer data
+    res.json({employerdata})
+    }
+    catch (errors:any)
+    {
+        next(new ServerError(400, "database error" + errors))
+    }
 });
 
 

@@ -1,4 +1,4 @@
-import { Alert, Button, Container, Dialog, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Dialog, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, Tab, TextField, Typography } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
@@ -12,12 +12,19 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DOMPurify from 'dompurify';
+import React from "react";
+// version 186
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 
 interface WarningTexts extends Employee_data { }
 interface WarningTextsemployer extends Employer_data { }
 //this component is work time application. LOgIN component belongs to this component
 function Work_time(props?: any) {
+    const [tabSelectorValue, setTabSelectorValue] = React.useState('1');
     const Apierror = useRef<string>("");
     const [who_is_logging, setWho_is_logging] = useState<string>("") // this is for api calls from server
     const update_permission = useRef<boolean>(false); // this is because react component looping
@@ -61,6 +68,9 @@ function Work_time(props?: any) {
         }
         if ((who_is_using === "employer") && (metod_where === "GET")) { // employer needs all data
             worktimeUrl = `/api/WorkTime/employerdata`;
+        }
+        if ((who_is_using === "employer") && (metod_where === "PUT")) { // employer needs all data
+            worktimeUrl = `/api/WorkTime/employerdata/${employee_id}`;
         }
         if ((who_is_using === "employer") && (metod_where === "POST")) { // employer needs all data
             worktimeUrl = `/api/WorkTime/employerdata`;
@@ -313,6 +323,14 @@ function Work_time(props?: any) {
         }
     }, [employeeView, loginVIEW])
 
+    const HandleTabsPosition = (event: React.SyntheticEvent, newValue: string) => {//version 186
+        setTabSelectorValue(newValue);
+      };
+    
+    const changeHoursAccepted = (idx: number): void => { //here user can edit the saved data
+        apiCall("PUT", "employer", idx, "", 0)
+
+    }
     return (
 
         <Container className="workingtime"> {/*'in this view is two ifclauses. second shows the login component text fields'*/}
@@ -405,7 +423,7 @@ function Work_time(props?: any) {
                                 startIcon={<SaveIcon />}
                                 type="submit"
                                 disabled={show_button.current}
-                            >Save the data</Button>
+                            >Save the new data</Button>
 
                             <Button variant="contained"
                                 color="inherit"
@@ -494,7 +512,7 @@ function Work_time(props?: any) {
                         {workID?.map((work: Working_place_ids, index: number) => {
                             return (
                                 <List >
-                                    <ListItem key={index} className="listViewItems">
+                                    <ListItem key={index} className="listViewItemsWorkTime">
 
                                         <ListItemText>Work places {work.workplace_id} person name {work.employee_name}
 
@@ -513,7 +531,7 @@ function Work_time(props?: any) {
                         {saveEmployerData.map((emp: Employer_data, idxn: number) => {
                             return (
                                 <List>
-                                    <ListItem key={idxn} className="listViewItems" >
+                                    <ListItem key={idxn} className="listViewItemsWorkTime" >
 
                                         <ListItemText > Employee name : {emp.employee_name} ,
                                             Employee payment :  {emp.payment} €/h,
@@ -536,39 +554,83 @@ function Work_time(props?: any) {
             }
 
             {!loginVIEW ?
+                 <Box sx={{ width: '100%', typography: 'body1', margin: "5px" }}>
+                 <TabContext value={tabSelectorValue}>
+                   <Box sx={{ borderBottom: 1, borderColor: 'divider', margintop: "50px" }}>
+                     <TabList onChange={HandleTabsPosition} aria-label="lab API tabs example">
+                       <Tab label="HOURS WHAT ARE NOT ACCEPTED" value="1" />
+                       <Tab label="accepted hours" value="2" />
+                       
+                     </TabList>
+                   </Box>
                 <List>
                     <Typography variant="h5" color={"white"}>Employees work time writings</Typography>
+                    
                     {saveEmployeeData.map((item: Employee_data, idx: number) => {
 
                         return (
-                            <ListItem key={idx} className="listViewItems" >
+                            <><TabPanel value="1">
+                                {!item.IsHoursAccepted ?
+                                <ListItem key={idx} className="listViewItemsWorkTime">
 
-                                <ListItemText > employee name : {item.employeeName}Work id : {item.jobID} ,
-                                    Working hours :  {item.hours_employee} ,
-                                    Time:   {String(item.datetime_emp)} ,
-                                    description : {item.description}
+                                    <ListItemText> <strong>employee name : </strong>{item.employeeName} Work id : {item.jobID} ,
+                                        Working hours :  {item.hours_employee} ,
+                                        Time:   {String(item.datetime_emp)} ,
+                                        description : {item.description}
 
-                                </ListItemText>
-                                <ListItemIcon>
+                                    </ListItemText>
+                                    <ListItemIcon>
                                     <IconButton
-                                        onClick={() => { editSavedData(idx) }}
-                                        edge="start"
-                                        disabled={!employeeView}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    <IconButton
-                                        onClick={() => { deleteSavedData(Number(item.employee_id_auto), "employee") }}
-                                        edge="start"
-                                        disabled={!employeeView}>
-                                        <DeleteForeverIcon />
-                                    </IconButton>
-                                </ListItemIcon>
-                            </ListItem>
+                                            onClick={() => { changeHoursAccepted(Number(item.employee_id_auto)); } }
+                                            edge="start"
+                                            disabled={employeeView}>
+                                            <DoneAllIcon />
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => { editSavedData(idx); } }
+                                            edge="start"
+                                            disabled={!employeeView}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => { deleteSavedData(Number(item.employee_id_auto), "employee"); } }
+                                            edge="start"
+                                            disabled={!employeeView}>
+                                            <DeleteForeverIcon />
+                                        </IconButton>
+                                    </ListItemIcon>
+                                </ListItem>: <></>}
+                            </TabPanel><TabPanel value="2">
+                                {item.IsHoursAccepted ?
+                                    <ListItem key={idx} className="listViewItemsWorkTime">
+
+                                        <ListItemText> <strong>employee name : </strong>{item.employeeName} Work id : {item.jobID} ,
+                                            Working hours :  {item.hours_employee} ,
+                                            Time:   {String(item.datetime_emp)} ,
+                                            description : {item.description}
+
+                                        </ListItemText>
+                                        <ListItemIcon>
+                                            <IconButton
+                                                onClick={() => { editSavedData(idx); } }
+                                                edge="start"
+                                                disabled={!employeeView}>
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton
+                                                onClick={() => { deleteSavedData(Number(item.employee_id_auto), "employee"); } }
+                                                edge="start"
+                                                disabled={!employeeView}>
+                                                <DeleteForeverIcon />
+                                            </IconButton>
+                                        </ListItemIcon>
+                                    </ListItem> : <></>}
+                                </TabPanel></>
                         );
 
                     })}
 
-                </List> : <p></p>}
+                </List></TabContext> </Box>: <p></p>}
             <Dialog open={show_manual}> <Typography variant="h5" style={{padding:10}}> Welcome to my worktime app</Typography>
                 <Typography variant="body1" className="div_tag">Dont use this app any real work or real person information saving.
                     It is made only hobbies and also show what i can do with my coding skills</Typography>

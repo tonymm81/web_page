@@ -135,7 +135,35 @@ h3.MuiTypography-h3{
   box-shadow: 1px 1px 1px black;
   border-radius: 1%;
   margin:8px;
-  color:rgb(255, 254, 254);
+  color:rgb(0, 0, 0);
+ 
+}
+
+.listViewItemsNews{
+  display: flex;
+  height: auto;
+  flex-direction: row;
+  justify-content: left;
+  border:2px solid black;
+  box-shadow: 1px 1px 1px black;
+  border-radius: 1%;
+  margin:8px;
+  color:rgb(255, 255, 255);
+ 
+}
+
+.listViewItemsWorkTime{
+  display: flex;
+  height: auto;
+  flex-direction: row;
+  justify-content: left;
+  border:2px solid black;
+  box-shadow: 1px 1px 1px black;
+  border-radius: 3px;
+  margin:8px;
+  color:rgb(0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.7);
+
 }
 
 .projects{

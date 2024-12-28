@@ -17,7 +17,7 @@ const weahter_api = process.env.REACT_APP_API_KEY
 
 const get_time = () => {
     let search_time = new Date()
-    search_time.setHours(search_time.getHours() + 3)
+    search_time.setHours(search_time.getHours() + 2)
     //console.log("server time func", search_time)
     return search_time
 }
@@ -121,7 +121,7 @@ apiForecastRouter.get("/forecast_saved", async (req: express.Request, res: expre
         let return_forecast = await prisma.forecast.findMany()
         res.json([return_forecast]);
     } catch (e: any) {
-        next(new ServerError());
+        next(new ServerError(404, "not working at all"));
     }
 
 });

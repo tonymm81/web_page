@@ -244,7 +244,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                            item.tnewsTitle === "[Removed]" ?
                          <></> :
                          <Zoom in={!backdrop_bl} key={index} style={{ transitionDelay: !backdrop_bl ? `${index === 0 ? index : index+1}00ms` : '0ms' }}>
-                            <ListItem key={index} className="listViewItems">
+                            <ListItem key={index} className="listViewItemsNews">
                                 <Stack direction="column" spacing={2} key={index}>
                                 <ListItemText key={index}>
                                     <Typography variant="h6">{`${item.tnewsTitle}`}</Typography>
