@@ -512,7 +512,7 @@ function Work_time(props?: any) {
                         {workID?.map((work: Working_place_ids, index: number) => {
                             return (
                                 <List >
-                                    <ListItem key={index} className="listViewItems">
+                                    <ListItem key={index} className="listViewItemsWorkTime">
 
                                         <ListItemText>Work places {work.workplace_id} person name {work.employee_name}
 
@@ -531,7 +531,7 @@ function Work_time(props?: any) {
                         {saveEmployerData.map((emp: Employer_data, idxn: number) => {
                             return (
                                 <List>
-                                    <ListItem key={idxn} className="listViewItems" >
+                                    <ListItem key={idxn} className="listViewItemsWorkTime" >
 
                                         <ListItemText > Employee name : {emp.employee_name} ,
                                             Employee payment :  {emp.payment} €/h,
@@ -571,7 +571,7 @@ function Work_time(props?: any) {
                         return (
                             <><TabPanel value="1">
                                 {!item.IsHoursAccepted ?
-                                <ListItem key={idx} className="listViewItems">
+                                <ListItem key={idx} className="listViewItemsWorkTime">
 
                                     <ListItemText> <strong>employee name : </strong>{item.employeeName} Work id : {item.jobID} ,
                                         Working hours :  {item.hours_employee} ,
@@ -602,7 +602,7 @@ function Work_time(props?: any) {
                                 </ListItem>: <></>}
                             </TabPanel><TabPanel value="2">
                                 {item.IsHoursAccepted ?
-                                    <ListItem key={idx} className="listViewItems">
+                                    <ListItem key={idx} className="listViewItemsWorkTime">
 
                                         <ListItemText> <strong>employee name : </strong>{item.employeeName} Work id : {item.jobID} ,
                                             Working hours :  {item.hours_employee} ,
