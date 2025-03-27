@@ -17,7 +17,7 @@ const news_api = process.env.REACT_APP_API_KEY_NEWS
 
 const get_time_news = () => {
     let search_time = new Date()
-    search_time.setHours(search_time.getHours() + 3)
+    search_time.setHours(search_time.getHours() + 2)
     return search_time
 }
 

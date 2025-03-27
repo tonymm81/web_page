@@ -2,6 +2,7 @@ import { Backdrop, Button, CircularProgress, Container, FormControl, FormControl
 import '../App.css'
 import { useEffect, useRef, useState } from "react";
 import DOMPurify from 'dompurify';
+import { format } from "date-fns";
 
 function News_page(props: any) { // here user cant search news from newsapi.org. Response gives news based on the top news, or everything
     // everything needs a keyword and datetime, top-news need only country code
@@ -249,7 +250,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                                 <ListItemText key={index}>
                                     <Typography variant="h6">{`${item.tnewsTitle}`}</Typography>
                                     <Stack direction="row" spacing={2} key={index}>
-                                    <Typography variant="body1">{`Time: ${item.puplishDate} `}</Typography>
+                                    <Typography variant="body1">{`Date ${String(format(new Date(item.puplishDate), "yyyy-MM-dd hh"))} and time ${String(format(new Date(item.puplishDate), "hh:mm"))}`}</Typography>
                                     <Typography variant="body2">{` Author: ${item.author} `}</Typography>
                                     <Typography variant="body2">{` Source: ${item.source} `}</Typography>
                                     <Link className="Links" target="_blank" rel='noopener' variant="button" href={item.url}>link to site</Link>

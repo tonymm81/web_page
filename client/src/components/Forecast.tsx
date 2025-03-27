@@ -230,7 +230,7 @@ function Forecast(props?: any) {
                                         <Stack direction="row" spacing={2} key={index}>
                                         <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
                                         <ListItemText key={index}>
-                                            <Typography variant="h5">{`Time ${String(format(new Date(item.timestamp), "y-m-d h"))}`}</Typography>
+                                            <Typography variant="h5">{`Date ${String(format(new Date(item.timestamp), "yyyy-MM-dd hh"))} and time ${String(format(new Date(item.timestamp), "hh:mm"))}`}</Typography>
                                             <Typography variant="body1"> {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} and city: ${item.town_or_city}`}</Typography>
                                             <Typography variant="body2"> {` Wind :${item.wind} Meters per second and description is : ${item.shorDescription} , Visibility: ${item.visibility} meters`}</Typography>
                                             

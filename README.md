@@ -454,6 +454,9 @@ No patched version available for postcss
 - password is not including typos.
 - Now i have added the tabs on work time field and user can watch the accepted and non accepted worktime records in employee view. Employer also can check the accepted worktimerecords and accept also employees worktime records. I make couple of new functions in client side and in apirouter file in server side i make a new route.
 
+## version 187
+- I update the node modules and I fix the date time problems in news page and forecast page. 
+
 ### bug fixed. 
 - there was some id problem with site and now it is fixed
 
