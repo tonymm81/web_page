@@ -12,6 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build TypeScript
         run: npx tsc
 
@@ -31,9 +34,9 @@ jobs:
         run: |
           cd web_page
           pm2 stop index.js
-          cp -r client/build/ /web_page/public/
-          cp -r dist/ /web_page/
-          cp package.json /web_page/
+          cp -r client/build/ public/
+          cp -r dist/ .
+          cp package.json .
           npm install
           npm audit fix
           pm2 start index.js
