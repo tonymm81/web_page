@@ -32,7 +32,7 @@ jobs:
           cd client
           npm run build
       - name: Deploy build artifacts to GitHubTemp (SCP)
-        uses: appleboy/scp-action@v1.6.2
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -51,7 +51,7 @@ jobs:
             cd /home/users/tonymm81/web_page || exit 1
             pm2 stop index.js
             mv /home/users/tonymm81/GitHubTemp/dist/* /home/users/tonymm81/web_page/
-            mv /home/users/tonymm81/GitHubTemp/client/build/* /home/users/tonymm81/web_page_public/
+            mv /home/users/tonymm81/GitHubTemp/client/build/* /home/users/tonymm81/web_page/public/
             mv /home/users/tonymm81/GitHubTemp/package.json /home/users/tonymm81/web_page/
             npm install
             npm audit fix
