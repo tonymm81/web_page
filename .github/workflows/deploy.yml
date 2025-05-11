@@ -26,26 +26,33 @@ jobs:
 
       - name: Update caniuse-lite
         run: npx update-browserslist-db@latest
-        
+
       - name: Build client
         run: |
           cd client
           npm run build
+      - name: Deploy build artifacts to GitHubTemp (SCP)
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_PASSWORD }}
+          source: "dist/, client/build/, package.json"
+          target: "/home/users/tonymm81/GitHubTemp"
 
-      - name: Connect to server via SSH
+      - name: Connect to server via SSH and finalize deployment
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-
-      - name: Deploy files and restart server
-        run: |
-          cd web_page
-          pm2 stop index.js
-          cp -r client/build/ public/
-          cp -r dist/ .
-          cp package.json .
-          npm install
-          npm audit fix
-          pm2 start index.js
+          key: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /home/users/tonymm81/web_page || exit 1
+            pm2 stop index.js
+            mv /home/users/tonymm81/GitHubTemp/dist/* /home/users/tonymm81/web_page/
+            mv /home/users/tonymm81/GitHubTemp/client/build/* /home/users/tonymm81/web_page_public/
+            mv /home/users/tonymm81/GitHubTemp/package.json /home/users/tonymm81/web_page/
+            npm install
+            npm audit fix
+            pm2 start index.js
+     
