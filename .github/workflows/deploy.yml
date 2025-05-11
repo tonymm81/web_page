@@ -24,6 +24,9 @@ jobs:
       - name: Build TypeScript
         run: npx tsc
 
+      - name: Update caniuse-lite
+        run: npx update-browserslist-db@latest
+        
       - name: Build client
         run: |
           cd client
