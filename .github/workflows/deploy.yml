@@ -12,25 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install server dependencies
-        run: npm install
-
-      - name: Install client dependencies
-        run: |
-           cd client
-           npm install
-           cd ..
-
-      - name: Build TypeScript
-        run: npx tsc
-
-      - name: Update caniuse-lite
-        run: npx update-browserslist-db@latest
-
-      - name: Build client
-        run: |
-          cd client
-          npm run build
       - name: Deploy build artifacts to GitHubTemp (SCP)
         uses: appleboy/scp-action@master
         with:
