@@ -48,11 +48,13 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
             cd /home/users/tonymm81/web_page || exit 1
             pm2 stop index.js
-            mv /home/users/tonymm81/GitHubTemp/dist/* /home/users/tonymm81/web_page/
-            mv /home/users/tonymm81/GitHubTemp/client/build/* /home/users/tonymm81/web_page/public/
-            mv /home/users/tonymm81/GitHubTemp/package.json /home/users/tonymm81/web_page/
+            rsync -av /home/users/tonymm81/GitHubTemp/dist/ /home/users/tonymm81/web_page/
+            rsync -av /home/users/tonymm81/GitHubTemp/client/build/ /home/users/tonymm81/web_page/public/
+            cp -f /home/users/tonymm81/GitHubTemp/package.json /home/users/tonymm81/web_page/
             npm install
             npm audit fix
             pm2 start index.js
