@@ -175,8 +175,8 @@ h3.MuiTypography-h3{
   background-size: 100% contain;
   background-position: center;
   max-width: 100%;
-  min-height: 1000px;
-  border-radius: 1%;
+  min-height: 1000px;  
+
   box-shadow: 1px 1px 1px black;
   align-items: center;
 
@@ -192,17 +192,17 @@ h3.MuiTypography-h3{
 }
 .projectsPaper{
   align-items: top;
-  width: 75%;
+  width: 98%;
   height: auto;
   display: flex;
   flex-direction: row;
   columns: 2;
-  justify-content: space-between;
-  margin:20px;
+  
+  margin:10px;
 }
 .projectsCard{
   margin-top: 5px;
-  width:38%;
+  width:48%;
   height: auto;
   margin: 10px;
 }
@@ -325,7 +325,7 @@ h2{
   flex-direction: row;
   margin: 5px;
   background-color: cadetblue;
-  padding:15px;
+  padding:5px;
   border: 1px;
   border-color: black;
 }
@@ -337,7 +337,7 @@ h2{
   background-color: aliceblue;
   border: 1px;
   border-color: black;
-  margin:15px;
+  margin:5px;
 }
 .portfolioImageExpandDialog{
   width:100%;
@@ -388,11 +388,35 @@ img {
   width:40%;
 }
 @media only screen and (max-width:690px) {
+
+  .App{
+    width:100%;
+    padding:2px;
+    margin-top:20px;
+    margin:2px;
+  }
+  .start_image{
+    max-width:100%;
+    margin:2px;
+    padding:2px;
+
+  }
+  .StartInfo{
+     max-width:100%;
+    margin:2px;
+    padding:2px;
+  }
   h3.MuiTypography-h3{
     font-size: 1.6rem;
   }
   .list_box{
     /*display:none;*/
+  }
+  .Portfolioontainer{
+    max-width: 100%;
+    margin:5px;
+    justify-content:center;
+    align-items: center;
   }
   .portfolioPaper{
     width: 100%;
@@ -401,23 +425,35 @@ img {
     flex-direction: column;
   }
   .portfolioCard {
-    width: 95%;
-    margin:10px;
+    width: 98%;
+    margin:5px;
+    margin-top:5px;
+    margin-bottom: 5px;
     
     
+  }
+  .projects{
+    max-width: 100%;
+    margin:5px;
+    justify-content:center;
+    align-items: center;
   }
   .projectsPaper{
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
+    margin:2px;
   }
   .projectsCard{
-    width:90%;
+    width:100%;
     height: auto;
-    margin: 10px;
+    margin: 2px;
   }
-  
+  .middleBoxProjects{
+    margin:2px;
+    padding:2px;
+  }
   .mobileView{
     display:flex;
     flex-direction: column;
@@ -428,6 +464,20 @@ img {
   .AboutMeBox{
     color:rgb(245, 19, 234);
     text-align: justify;
+  }
+ 
+  
+  .portfolioPaper{
+    max-width:100%;
+    margin:1px;
+    padding:1px;
+  }
+  .portfolioCard{
+    max-width: 100%;
+    margin:1px;
+    padding:1px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
   .feedbackDialog{
     width : 100%;
