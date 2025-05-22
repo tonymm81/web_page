@@ -460,6 +460,9 @@ No patched version available for postcss
 ### bug fixed. 
 - there was some id problem with site and now it is fixed
 
+## version 188
+- I fix the mobile view. There was some problems with elements.
+
 # installs backend:
 
 
