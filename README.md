@@ -463,6 +463,13 @@ No patched version available for postcss
 ## version 188
 - I fix the mobile view. There was some problems with elements.
 
+## Plan
+- I have to make couple of coponents more and make the header and footer in separate components. Then i have to find some good images to footer and header so I can style them later.
+-  I made a new component called HeaderElement.tsx. This supposed to be a headlner to my page and here i should find some nice picture.
+
+## version 189
+- I add image to header and footer. I also fix some styles that header and footer can scale up to 2400 pixels and page content stays max 1200 pixels.
+
 # installs backend:
 
 

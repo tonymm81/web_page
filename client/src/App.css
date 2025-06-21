@@ -1,38 +1,85 @@
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiContainer-root {
+  max-width: 2400px !important;
+  /*width: 100% !important;*/
+}
+
+.MainFrameToThisPage {
+  /*max-width: 1200px;
+  width: 100%;
+  margin: 0 auto; */
+}
+
+
 .App {
   text-align: center;
   background-color: rgb(186, 196, 215);
-  max-width: 1200px;
+  max-width: 1200px !important;
+  width: 100%;
+  margin: 10px auto;
+  min-height:100%;
+  margin-left: auto;
+  margin-right: auto;
   /*min-height: 1200px;*/
   border: solid 1px black;
   box-shadow: 1px 1px 1px black;
-  margin-top: 20px;
-  margin:10px;
+  
+  
   border-radius: 0%;
-  padding: 20px;
+  
 }
 
 h3.MuiTypography-h3{
   font-size: 40px;
+  color: white;
 }
 
+.HeaderElementContainer{
+  width: 100%;
+  max-width: 2400px;
+  padding: 20px;
+  margin: 0 auto;
+  height:250px;
+  display:block;
+  justify-content: center;
+  min-height:50%;
+  background-image: url('./photos/bannerHeader.jpg');
+ 
+  margin-left:10px;
+  margin-right:10px;
+  margin-top: 10px;
+ 
+}
 /*I use styles always from here. i think its much more clear than mixed in components code.*/
 .headliner{
-  background-color: rgb(186, 196, 215);
+  background-color: rgba(0, 0, 0, 0.01);
   border: solid 2px black;
   text-shadow: 2px 2px 2px;
   border-radius: 2%;
   box-shadow: 1px 1px 1px black;
-  margin-top:10px;
+  margin-top:20px;
   margin:10px;
   padding: 10px;
+  justify-content: center;
+  width:100%;
   
+}
+.ListBosContainer{
+  width:100%;
+  min-height: 50%;
+  background-color: rgba(0, 0, 0, 0.01);
+
 }
 
 .list_box{
   margin-top: 10px;
   opacity: 20;
-  
-  padding:5px;
+   background-color: rgba(0, 0, 0, 0.01);
   
   
 }
@@ -56,10 +103,11 @@ h3.MuiTypography-h3{
 }
 
 .toolbar{
-  margin:10px;
-  background-color: rgb(186, 196, 215);
+ background-color: rgba(0, 0, 0, 0.01);
   border: solid 2px black;
   margin-bottom: 10px;
+  width:100%;
+  
   /*box-shadow: 1px 1px 1px black;*/
   border-radius: 1%;
  
@@ -354,14 +402,24 @@ img {
   margin: 0;
 }
 .appFooter{
-  width:1200px;
+  width: 100%;
+  max-width: 2400px;
+  margin: 0 auto;
+  justify-content: center;
+  padding:15px;
+  height:40%;
+  background-image: url('./photos/bannerHeader.jpg');
   min-height:90px;
   background-color:  rgb(186, 196, 215);
   border: 1px solid black;
   box-shadow: 1px 1px 1px black;
+   margin-left:10px;
+  margin-right:10px;
+  margin-top: 10px;
 }
 .footerBox{
   width:100%;
+  
   min-height: 170px;
   display:flex;
   flex-direction: row;
