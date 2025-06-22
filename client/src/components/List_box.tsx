@@ -29,6 +29,7 @@ const List_box: React.FC<Props> = (props : Props): React.ReactElement => {
             className='list_box'
             edge="start"
             onClick={() => setopenMenu(true)}
+            sx={{color:"white"}}
           >
             <MenuIcon />
           </IconButton>
@@ -127,9 +128,9 @@ const List_box: React.FC<Props> = (props : Props): React.ReactElement => {
             className='list_box'
           ></Typography>
          
-          <Button href="https://github.com/tonymm81/web_page" size="small" variant="contained" sx={{margin: "2px"}}>This web page code link
+          <Button href="https://github.com/tonymm81/web_page" size="small" variant="text" sx={{margin: "2px", color:"white"}}>This site code
           </Button>
-          <Button onClick={()=> props.setFeedBackDialog(true)} size="small" variant="contained" sx={{margin: "2px"}}>Give feedback</Button>
+          <Button onClick={()=> props.setFeedBackDialog(true)} size="small" variant="text" sx={{margin: "2px", color:"white"}}>Give feedback</Button>
         </Toolbar>
       </AppBar>
     </CssBaseline>

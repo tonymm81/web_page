@@ -14,13 +14,13 @@ function Footer(props?: any) {
     return(
         <>
         <Box className="footerBox" key={"footerBox"}>
-            <Typography variant="h6" sx={{margin:"7px"}}>Quick links:</Typography>
+            <Typography variant="h6" sx={{margin:"7px", color:"white"}}>Quick links:</Typography>
             <Box className="footerLinkGroup" key={"footerLinkGroup"}>
             
             <Link
                     
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white" }}
                     variant="body1"
                     onClick={() => {
                         navigate("/");
@@ -32,7 +32,7 @@ function Footer(props?: any) {
                 </Link>
                 <Link
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white"}}
                     variant="body1"
                     onClick={() => {
                         navigate("/Forecast");
@@ -43,7 +43,7 @@ function Footer(props?: any) {
                 </Link>
                 <Link
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white"}}
                     variant="body1"
                     onClick={() => {
                         navigate("/Projects");
@@ -56,7 +56,7 @@ function Footer(props?: any) {
             <Box className="footerLinkGroupSecond" key={"footerLinkGroupSecond"}>
                 <Link
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white"}}
                     variant="body1"
                     onClick={() => {
                         navigate("/Work_time");
@@ -67,7 +67,7 @@ function Footer(props?: any) {
                 </Link>
                 <Link
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white"}}
                     variant="body1"
                     onClick={() => {
                         navigate("/News_page");
@@ -78,7 +78,7 @@ function Footer(props?: any) {
                 </Link>
                 <Link
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white"}}
                     variant="body1"
                     onClick={() => {
                         navigate("/Portfolio");
@@ -89,7 +89,7 @@ function Footer(props?: any) {
                 </Link>
                 <Link
                     component="button"
-                    sx={{margin:"7px"}}
+                    sx={{margin:"7px", color:"white"}}
                     variant="body1"
                     onClick={() => {
                         navigate("/AboutMe");
@@ -101,11 +101,11 @@ function Footer(props?: any) {
             </Box>
             <Box className="sosialMediaLinks">
                 
-                    <Link href="https://www.facebook.com/toni.maenpaa.96/" rel="noopener" target="_blank" sx={{margin:"10px"}}
+                    <Link href="https://www.facebook.com/toni.maenpaa.96/" rel="noopener" target="_blank" sx={{margin:"10px", color:"white"}}
                     ><FacebookIcon fontSize="medium"/>Facebook
                     </Link>
                
-                <Link href="https://www.linkedin.com/in/toni-m%C3%A4enp%C3%A4%C3%A4-404461222?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BOeeqQCSWQ4eWH4PdDUm2Wg%3D%3D" rel="noopener" target="_blank" sx={{margin:"10px"}}
+                <Link href="https://www.linkedin.com/in/toni-m%C3%A4enp%C3%A4%C3%A4-404461222?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BOeeqQCSWQ4eWH4PdDUm2Wg%3D%3D" rel="noopener" target="_blank" sx={{margin:"10px", color:"white"}}
                     > <LinkedInIcon fontSize='medium'/>Linkeldin
                     </Link>
             </Box>
