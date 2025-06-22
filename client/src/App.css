@@ -9,12 +9,6 @@
   /*width: 100% !important;*/
 }
 
-.MainFrameToThisPage {
-  /*max-width: 1200px;
-  width: 100%;
-  margin: 0 auto; */
-}
-
 
 .App {
   text-align: center;
@@ -44,7 +38,7 @@ h3.MuiTypography-h3{
   max-width: 2400px;
   padding: 20px;
   margin: 0 auto;
-  height:250px;
+  height:280px;
   display:block;
   justify-content: center;
   min-height:50%;
@@ -52,7 +46,7 @@ h3.MuiTypography-h3{
  
   margin-left:10px;
   margin-right:10px;
-  margin-top: 10px;
+  margin-top: 5px;
  
 }
 /*I use styles always from here. i think its much more clear than mixed in components code.*/
@@ -70,6 +64,7 @@ h3.MuiTypography-h3{
   
 }
 .ListBosContainer{
+  margin-top: 30px;
   width:100%;
   min-height: 50%;
   background-color: rgba(0, 0, 0, 0.01);
@@ -407,7 +402,7 @@ img {
   margin: 0 auto;
   justify-content: center;
   padding:15px;
-  height:40%;
+  height:250px;
   background-image: url('./photos/bannerHeader.jpg');
   min-height:90px;
   background-color:  rgb(186, 196, 215);

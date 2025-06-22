@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.ba29915d.css",
-    "main.js": "/static/js/main.49afc931.js",
+    "main.css": "/static/css/main.75265fd1.css",
+    "main.js": "/static/js/main.74a6eefb.js",
     "static/media/tableprojectRasbian.jpg": "/static/media/tableprojectRasbian.b5608218458535ccab7e.jpg",
     "static/media/Esp.jpg": "/static/media/Esp.a221978085e30ef4694a.jpg",
     "static/media/weatherstationBack.jpg": "/static/media/weatherstationBack.ba02057491c8945856fd.jpg",
@@ -34,6 +34,7 @@
     "static/media/rautalankamalli.png": "/static/media/rautalankamalli.e7ef998062ebae4877f5.png",
     "static/media/sivuProto3.png": "/static/media/sivuProto3.1736425dbe5a7c9bbdeb.png",
     "static/media/forecastedited.png": "/static/media/forecastedited.368f7ab47f41d73514f4.png",
+    "static/media/bannerHeader.jpg": "/static/media/bannerHeader.7423a7605e09f8ce360b.jpg",
     "static/media/sivuProto2.png": "/static/media/sivuProto2.951f862322aa8b370b40.png",
     "static/media/sivuProto1.png": "/static/media/sivuProto1.2c2ef6c8240409eaf695.png",
     "static/media/frontend4.png": "/static/media/frontend4.562683bb43e5337411ec.png",
@@ -81,11 +82,11 @@
     "static/media/roboto-greek-ext-300-normal.woff2": "/static/media/roboto-greek-ext-300-normal.35b9d6be04b95f0f0530.woff2",
     "static/media/roboto-greek-ext-700-normal.woff2": "/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/index.html",
-    "main.ba29915d.css.map": "/static/css/main.ba29915d.css.map",
-    "main.49afc931.js.map": "/static/js/main.49afc931.js.map"
+    "main.75265fd1.css.map": "/static/css/main.75265fd1.css.map",
+    "main.74a6eefb.js.map": "/static/js/main.74a6eefb.js.map"
   },
   "entrypoints": [
-    "static/css/main.ba29915d.css",
-    "static/js/main.49afc931.js"
+    "static/css/main.75265fd1.css",
+    "static/js/main.74a6eefb.js"
   ]
 }

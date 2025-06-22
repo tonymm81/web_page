@@ -99,7 +99,7 @@ const App: React.FC = (): React.ReactElement => {
               </Container>
           
         </Container>
-    <Container className='MainFrameToThisPage'>
+    
       <Container className='App'>
 
 
@@ -186,7 +186,7 @@ const App: React.FC = (): React.ReactElement => {
           </Dialog>
         </Container>
       </Container>
-      </Container>
+      
 
       <Container className='appFooter' key={"footerContainer"}>
 
