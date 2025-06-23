@@ -555,11 +555,11 @@ function Work_time(props?: any) {
 
             {!loginVIEW ?
                  <Box sx={{ width: '100%', typography: 'body1', margin: "5px" }}>
-                 <TabContext value={tabSelectorValue}>
-                   <Box sx={{ borderBottom: 1, borderColor: 'divider', margintop: "50px" }}>
+                 <TabContext value={tabSelectorValue} >
+                   <Box sx={{ borderBottom: 1, borderColor: 'divider', margintop: "50px" }} className="workTimeTabs">
                      <TabList onChange={HandleTabsPosition} aria-label="lab API tabs example">
-                       <Tab label="HOURS WHAT ARE NOT ACCEPTED" value="1" />
-                       <Tab label="accepted hours" value="2" />
+                       <Tab label="Non accepted hours" value="1" className="workTimeTabs" />
+                       <Tab label="accepted hours" value="2" className="workTimeTabs" />
                        
                      </TabList>
                    </Box>

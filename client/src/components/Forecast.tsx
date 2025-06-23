@@ -179,6 +179,7 @@ function Forecast(props?: any) {
 
     return (
         <Container maxWidth="xl" className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
+            
             {(Boolean(fullForecast.errors))
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}

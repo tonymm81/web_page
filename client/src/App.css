@@ -16,129 +16,134 @@
   max-width: 1200px !important;
   width: 100%;
   margin: 10px auto;
-  min-height:100%;
+  min-height: 100%;
   margin-left: auto;
   margin-right: auto;
   /*min-height: 1200px;*/
   border: solid 1px black;
   box-shadow: 1px 1px 1px black;
-  
-  
+
+
   border-radius: 0%;
-  
+
 }
 
-h3.MuiTypography-h3{
+h3.MuiTypography-h3 {
   font-size: 40px;
   color: white;
 }
 
-.HeaderElementContainer{
+.HeaderElementContainer {
   width: 100%;
   max-width: 2400px;
   padding: 20px;
   margin: 0 auto;
-  height:280px;
-  display:block;
+  height: 280px;
+  display: block;
   justify-content: center;
-  min-height:50%;
+  min-height: 50%;
   background-image: url('./photos/bannerHeader.jpg');
- 
-  margin-left:10px;
-  margin-right:10px;
+
+  margin-left: 10px;
+  margin-right: 10px;
   margin-top: 5px;
- 
+
 }
+
 /*I use styles always from here. i think its much more clear than mixed in components code.*/
-.headliner{
+.headliner {
   background-color: rgba(0, 0, 0, 0.01);
   border: solid 2px black;
   text-shadow: 2px 2px 2px;
   border-radius: 2%;
   box-shadow: 1px 1px 1px black;
-  margin-top:20px;
-  margin:10px;
+  margin-top: 20px;
+  margin: 10px;
   padding: 10px;
   justify-content: center;
-  width:100%;
-  
+  width: 100%;
+
 }
-.ListBosContainer{
+
+.ListBosContainer {
   margin-top: 30px;
-  width:100%;
+  width: 100%;
   min-height: 50%;
   background-color: rgba(0, 0, 0, 0.01);
 
 }
 
-.list_box{
+.list_box {
   margin-top: 10px;
   opacity: 20;
-   background-color: rgba(0, 0, 0, 0.01);
-  
-  
+  background-color: rgba(0, 0, 0, 0.01);
+
+
 }
-.DialogContainer{
+
+.DialogContainer {
   width: 100%;
-  display:relative;
+  display: relative;
   align-items: center;
-  
+
   background-color: aquamarine;
 }
 
-.feedbackDialog{
-  width : 40%;
+.feedbackDialog {
+  width: 40%;
   min-height: 20%;
-  
+
   align-items: center;
 }
 
-.mobileView{
-  display:none;
+.mobileView {
+  display: none;
 }
 
-.toolbar{
- background-color: rgba(0, 0, 0, 0.01);
+.toolbar {
+  background-color: rgba(0, 0, 0, 0.01);
   border: solid 2px black;
   margin-bottom: 10px;
-  width:100%;
-  
+  width: 100%;
+
   /*box-shadow: 1px 1px 1px black;*/
   border-radius: 1%;
- 
+
 }
 
-.start_image{
+.start_image {
   margin-top: 10px;
   background-image: url('./photos/img_start.jpg');
   background-repeat: repeat;
   background-size: 100% cover;
   background-position: center;
-  margin:10px;
-  width:100%;
-  min-height:1100px;
-  
+  margin: 10px;
+  width: 100%;
+  min-height: 1100px;
+
   border-radius: 1%;
   box-shadow: 1px 1px 1px black;
 }
-.StartInfo{
+
+.StartInfo {
   margin: 20px;
   padding: 20px;
   align-items: center;
   width: 100%;
   height: auto;
 }
-.startpageList{
-  
-  width:100%;
+
+.startpageList {
+
+  width: 100%;
   background-color: rgba(211, 211, 211, 0.80);
-  margin:5px;
+  margin: 5px;
   margin-top: 10px;
   border-radius: 25px;
   height: auto;
 }
 
-.forecast{
+.forecast {
   margin-top: 10px;
   background-image: url('./photos/forecastedited.png');
   background-repeat: repeat;
@@ -149,10 +154,10 @@ h3.MuiTypography-h3{
   min-width: auto;
   min-height: 1000px;
   /*box-shadow: 1px 1px 1px black;*/
-  color:rgb(252, 247, 247);
+  color: rgb(252, 247, 247);
 }
 
-.workingtime{
+.workingtime {
   margin-top: 10px;
   background-image: url('./photos/working.jpg');
   background-repeat: repeat;
@@ -164,53 +169,58 @@ h3.MuiTypography-h3{
   box-shadow: 1px 1px 1px black;
 }
 
-.worktimeFields{
-  margin-top:10px;
+.worktimeFields {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.listViewItems{
-  display: flex;
-  height: auto;
-  flex-direction: row;
-  justify-content: left;
-  border:2px solid black;
-  box-shadow: 1px 1px 1px black;
-  border-radius: 1%;
-  margin:8px;
-  color:rgb(0, 0, 0);
- 
+.workTimeTabs {
+  background-color: rgba(252, 247, 247, 0.50);
+  color: white;
 }
 
-.listViewItemsNews{
+.listViewItems {
   display: flex;
   height: auto;
   flex-direction: row;
   justify-content: left;
-  border:2px solid black;
+  border: 2px solid black;
   box-shadow: 1px 1px 1px black;
   border-radius: 1%;
-  margin:8px;
-  color:rgb(255, 255, 255);
- 
+  margin: 8px;
+  color: rgb(0, 0, 0);
+
 }
 
-.listViewItemsWorkTime{
+.listViewItemsNews {
   display: flex;
   height: auto;
   flex-direction: row;
   justify-content: left;
-  border:2px solid black;
+  border: 2px solid black;
+  box-shadow: 1px 1px 1px black;
+  border-radius: 1%;
+  margin: 8px;
+  color: rgb(255, 255, 255);
+
+}
+
+.listViewItemsWorkTime {
+  display: flex;
+  height: auto;
+  flex-direction: row;
+  justify-content: left;
+  border: 2px solid black;
   box-shadow: 1px 1px 1px black;
   border-radius: 3px;
-  margin:8px;
-  color:rgb(0, 0, 0);
+  margin: 8px;
+  color: rgb(0, 0, 0);
   background-color: rgba(255, 255, 255, 0.7);
 
 }
 
-.projects{
-  display:flex;
+.projects {
+  display: flex;
   justify-content: center;
   margin-top: 10px;
   background-image: url('./photos/projects.jpg');
@@ -218,49 +228,53 @@ h3.MuiTypography-h3{
   background-size: 100% contain;
   background-position: center;
   max-width: 100%;
-  min-height: 1000px;  
+  min-height: 1000px;
 
   box-shadow: 1px 1px 1px black;
   align-items: center;
 
 }
-.middleBoxProjects{
-  display:flex;
+
+.middleBoxProjects {
+  display: flex;
   justify-content: space-between;
   margin-top: 50px;
-  
-  width:100%;
+
+  width: 100%;
   padding: 5px;
   height: auto;
 }
-.projectsPaper{
+
+.projectsPaper {
   align-items: top;
   width: 98%;
   height: auto;
   display: flex;
   flex-direction: row;
   columns: 2;
-  
-  margin:10px;
+
+  margin: 10px;
 }
-.projectsCard{
+
+.projectsCard {
   margin-top: 5px;
-  width:48%;
+  width: 48%;
   height: auto;
   margin: 10px;
 }
-.endBoxProjects{
-       
-    margin-top: 60px;
-    margin:10px;
-    padding: 10px;
-    width: 70%;
-    height: auto;
-  
+
+.endBoxProjects {
+
+  margin-top: 60px;
+  margin: 10px;
+  padding: 10px;
+  width: 70%;
+  height: auto;
+
 
 }
 
-.Aboutme{
+.Aboutme {
   margin-top: 10px;
   background-image: url('./photos/aboutme.jpg');
   background-repeat: repeat;
@@ -270,54 +284,58 @@ h3.MuiTypography-h3{
   min-height: 1000px;
   border-radius: 1%;
   box-shadow: 1px 1px 1px black;
-  padding:10px;
+  padding: 10px;
   margin: 10px;
 }
 
-.projectDialog{
-  max-width:1000px;
+.projectDialog {
+  max-width: 1000px;
   max-height: 1000px;
   background-color: black;
 }
 
-.projectButtons{
-  margin:5px;
+.projectButtons {
+  margin: 5px;
   box-shadow: 3px 3px 3px black;
 }
 
-.divTag{
+.divTag {
   margin: 2px;
   text-align: justify;
   background-color: antiquewhite;
-  
-}
-.div_tag{
-  padding : 10px
+
 }
 
-h2{
+.div_tag {
+  padding: 10px
+}
+
+h2 {
   background-color: antiquewhite;
 }
 
-.AboutMeBox{
+.AboutMeBox {
   min-width: 200px;
   min-height: 200px;
-  float:left;
+  float: left;
   text-align: left;
-  color:rgb(240, 240, 240);
+  color: rgb(240, 240, 240);
+  background-color: rgba(0, 0, 0, 0.50);
+  padding: 10px;
 }
 
-.profilePic{
+.profilePic {
   bottom: 10px;
-  float:right;
+  float: right;
 }
 
-.news_page{/*page is resizing wrong. Figure out, what is the problem. */
-  width:100%;
-  min-height:1000px;
+.news_page {
+  /*page is resizing wrong. Figure out, what is the problem. */
+  width: 100%;
+  min-height: 1000px;
   min-width: auto;
   height: auto;
-  
+
 }
 
 .App-logo {
@@ -325,15 +343,17 @@ h2{
   pointer-events: none;
 }
 
-.Links{
+.Links {
   font-size: 15px;
-  max-width:100%;
-}
-.news_image{
-  max-width: 30%;
+  max-width: 100%;
 }
 
-.news_page_cont{
+.news_image {
+  max-width: 30%;
+  min-width: 300px;
+}
+
+.news_page_cont {
   background-image: url('./photos/news_background_edited.png');
   background-repeat: repeat;
   background-size: 100% cover;
@@ -343,16 +363,17 @@ h2{
   min-width: auto;
   min-height: 1000px;
   box-shadow: 1px 1px 1px black;
-  color:white;
- 
-  
+  color: white;
+
+
 }
-.Portfolioontainer{
+
+.Portfolioontainer {
   margin-top: 10px;
   background-color: rgb(229, 230, 230);
   padding: 10px;
-  width:100%;
-  min-height:1000px;
+  width: 100%;
+  min-height: 1000px;
   min-width: auto;
   height: auto;
   border: 1px;
@@ -361,184 +382,241 @@ h2{
 }
 
 
-.portfolioPaper{
-  
+.portfolioPaper {
+
   width: 100%;
   display: flex;
   flex-direction: row;
   margin: 5px;
   background-color: cadetblue;
-  padding:5px;
+  padding: 5px;
   border: 1px;
   border-color: black;
 }
 
 .portfolioCard {
-  
+
   width: 50%;
-  padding:25px;
+  padding: 25px;
   background-color: aliceblue;
   border: 1px;
   border-color: black;
-  margin:5px;
+  margin: 5px;
 }
-.portfolioImageExpandDialog{
-  width:100%;
+
+.portfolioImageExpandDialog {
+  width: 100%;
   height: 100%;
 }
-.portfolioCardmedia{
-  width:100%;
-  padding:2ps;
+
+.portfolioCardmedia {
+  width: 100%;
+  padding: 2ps;
 }
+
 img {
   max-width: 100%;
   height: auto;
   padding: 0;
   margin: 0;
 }
-.appFooter{
+
+.appFooter {
   width: 100%;
   max-width: 2400px;
   margin: 0 auto;
   justify-content: center;
-  padding:15px;
-  height:250px;
+  padding: 15px;
+  height: 250px;
   background-image: url('./photos/bannerHeader.jpg');
-  min-height:90px;
-  background-color:  rgb(186, 196, 215);
+  min-height: 90px;
+  background-color: rgb(186, 196, 215);
   border: 1px solid black;
   box-shadow: 1px 1px 1px black;
-   margin-left:10px;
-  margin-right:10px;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-top: 10px;
 }
-.footerBox{
-  width:100%;
-  
+
+.footerBox {
+  width: 100%;
+
   min-height: 170px;
-  display:flex;
+  display: flex;
   flex-direction: row;
-  
-  margin-bottom: 7px ;
+
+  margin-bottom: 7px;
 
 }
-.footerLinkGroup{
-  display:flex;
+
+.footerLinkGroup {
+  display: flex;
   flex-direction: column;
-  
+
 }
-.footerLinkGroupSecond{
-  display:flex;
+
+.footerLinkGroupSecond {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
- 
+
 }
-.sosialMediaLinks{
-  display:flex;
+
+.sosialMediaLinks {
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  margin:10px;
-  width:40%;
+  margin: 10px;
+  width: 40%;
 }
+
 @media only screen and (max-width:690px) {
 
-  .App{
-    width:100%;
-    padding:2px;
-    margin-top:20px;
-    margin:2px;
+  .App {
+    width: 100%;
+    padding: 2px;
+    margin-top: 20px;
+    margin: 2px;
   }
-  .start_image{
-    max-width:100%;
-    margin:2px;
-    padding:2px;
+
+  .start_image {
+    max-width: 100%;
+    margin: 2px;
+    padding: 2px;
 
   }
-  .StartInfo{
-     max-width:100%;
-    margin:2px;
-    padding:2px;
+
+  .StartInfo {
+    max-width: 100%;
+    width: 100%;
+    margin: 1px !important;
+    padding: 0px !important;
+
   }
-  h3.MuiTypography-h3{
+
+  .startpageList {
+
+    width: 100%;
+    margin: 1px !important;
+    min-height: 50%;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    padding: 1px !important;
+    border-radius: 25px;
+    height: auto;
+  }
+
+  h3.MuiTypography-h3 {
     font-size: 1.6rem;
   }
-  .list_box{
+
+  .forecast {
+    margin: 1px !important;
+    padding: 1px !important;
+  }
+
+  .listViewItems {
+    margin: 1px !important;
+    min-height: 50%;
+  }
+
+  .list_box {
     /*display:none;*/
   }
-  .Portfolioontainer{
+
+  .workTimeTabs {
+    background-color: rgba(252, 247, 247, 0.50);
+
+  }
+
+  .workTimeTabs {
+    color: white;
+    font-size: 12px !important;
+  }
+
+  .Portfolioontainer {
     max-width: 100%;
-    margin:5px;
-    justify-content:center;
+    margin: 5px;
+    justify-content: center;
     align-items: center;
   }
-  .portfolioPaper{
+
+  .portfolioPaper {
     width: 100%;
     display: flex;
     margin: 5px;
     flex-direction: column;
   }
+
   .portfolioCard {
     width: 98%;
-    margin:5px;
-    margin-top:5px;
+    margin: 5px;
+    margin-top: 5px;
     margin-bottom: 5px;
-    
-    
+
+
   }
-  .projects{
+
+  .projects {
     max-width: 100%;
-    margin:5px;
-    justify-content:center;
+    margin: 5px;
+    justify-content: center;
     align-items: center;
   }
-  .projectsPaper{
+
+  .projectsPaper {
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
-    margin:2px;
+    margin: 2px;
   }
-  .projectsCard{
-    width:100%;
+
+  .projectsCard {
+    width: 100%;
     height: auto;
     margin: 2px;
   }
-  .middleBoxProjects{
-    margin:2px;
-    padding:2px;
+
+  .middleBoxProjects {
+    margin: 2px;
+    padding: 2px;
   }
-  .mobileView{
-    display:flex;
+
+  .mobileView {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin:2px;
-    padding:5px;
+    margin: 2px;
+    padding: 5px;
   }
-  .AboutMeBox{
-    color:rgb(245, 19, 234);
+
+  .AboutMeBox {
+    color: white;
     text-align: justify;
   }
- 
-  
-  .portfolioPaper{
-    max-width:100%;
-    margin:1px;
-    padding:1px;
-  }
-  .portfolioCard{
+
+
+  .portfolioPaper {
     max-width: 100%;
-    margin:1px;
-    padding:1px;
+    margin: 1px;
+    padding: 1px;
+  }
+
+  .portfolioCard {
+    max-width: 100%;
+    margin: 1px;
+    padding: 1px;
     margin-top: 5px;
     margin-bottom: 5px;
   }
-  .feedbackDialog{
-    width : 100%;
+
+  .feedbackDialog {
+    width: 100%;
     min-height: 20%;
-    
+
     align-items: center;
   }
-  
+
 
 }
-

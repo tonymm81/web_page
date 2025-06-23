@@ -470,6 +470,13 @@ No patched version available for postcss
 ## version 189
 - I add image to header and footer. I also fix some styles that header and footer can scale up to 2400 pixels and page content stays max 1200 pixels.
 
+## version 190
+- I add couple of my new project to this site. I also update about me site with my nevest situation. I also repaired some style issues in page and for example news page gets
+bigger images in mobile view. I also fix issue in work time page, where tab text was fading in to background image. I also add close expand buttons to port folio view.
+Becase the media cards are so long, when them are expanded, it would be easier to user if he/she dont have to scroll back up the card to close the expand.
+
+- I repaired again the mobile view and there is still some adjusments to do.
+
 # installs backend:
 
 

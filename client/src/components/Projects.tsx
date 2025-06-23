@@ -32,6 +32,8 @@ function Projects(props?: any) {
     const [openWPA, setOpenWPA] = useState<boolean>(false);
     const [openBitcoin, setOpenBitcoin] = useState<boolean>(false);
     const [openFrontend, setOpenFrontend] = useState<boolean>(false);
+    const [openWlanController, setOpenWlanController] = useState<boolean>(false);
+    const [openWebProject, setOpenWebProject] = useState<boolean>(false);
     const [expand, setExpand] = useState<boolean>(false)
     const [checked, setChecked] = useState(false);
     const [OpenProjectDialog, setOpenProjectDialog] = useState(false);
@@ -53,7 +55,7 @@ function Projects(props?: any) {
 
     return (<Container className="projects" >
         <Container className="middleBoxProjects">
-            <Paper className="projectsPaper" sx={{backgroundColor:"aliceblue"}}>
+            <Paper className="projectsPaper" sx={{ backgroundColor: "aliceblue" }}>
                 <Card className='projectsCard'>
                     <CardHeader
                         avatar={
@@ -74,14 +76,14 @@ function Projects(props?: any) {
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             I have made this project with raspberry pi3 and 3 dirrefent Esp32 microcontrollers.
-                            behind mirror is a old fujitsu's laptop screen with cheap China adapter card. 
+                            behind mirror is a old fujitsu's laptop screen with cheap China adapter card.
                             This how i made the screen.
                             If you want to expand the image, press zoom button and code will be found from {"<>"} button.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                        onClick={() => openImageExpandDialogProjects(weatherstation)}
+                            onClick={() => openImageExpandDialogProjects(weatherstation)}
                         >
                             <ZoomInIcon />
                         </IconButton>
@@ -113,7 +115,7 @@ function Projects(props?: any) {
                                         alt="Weatherstation back"
                                     />
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(weatherstationBack)}
+                                        onClick={() => openImageExpandDialogProjects(weatherstationBack)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -131,7 +133,7 @@ function Projects(props?: any) {
                                         alt="Esp"
                                     />
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(esp)}
+                                        onClick={() => openImageExpandDialogProjects(esp)}
 
                                     >
                                         <ZoomInIcon />
@@ -179,7 +181,7 @@ function Projects(props?: any) {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(tableProject)}
+                            onClick={() => openImageExpandDialogProjects(tableProject)}
 
                         >
                             <ZoomInIcon />
@@ -229,7 +231,7 @@ function Projects(props?: any) {
                                         alt="table project schematics"
                                     />
                                     <IconButton aria-label="Expand image"
-                                                onClick={() => openImageExpandDialogProjects(tableProjectShematics)}
+                                        onClick={() => openImageExpandDialogProjects(tableProjectShematics)}
 
                                     >
                                         <ZoomInIcon />
@@ -252,7 +254,7 @@ function Projects(props?: any) {
 
         <Container className="endBoxProjects">
 
-            <Paper className="projectsPaper" sx={{backgroundColor:"aliceblue"}}>
+            <Paper className="projectsPaper" sx={{ backgroundColor: "aliceblue" }}>
                 <Card className='projectsCard'>
                     <CardHeader
                         avatar={
@@ -279,7 +281,7 @@ function Projects(props?: any) {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                        onClick={() => openImageExpandDialogProjects(WPAcontrol)}
+                            onClick={() => openImageExpandDialogProjects(WPAcontrol)}
 
                         >
                             <ZoomInIcon />
@@ -317,7 +319,7 @@ function Projects(props?: any) {
                                         alt="Wpa high voltage control"
                                     />
                                     <IconButton aria-label="Expand image"
-                                     onClick={() => openImageExpandDialogProjects(wpahighvoltage)}
+                                        onClick={() => openImageExpandDialogProjects(wpahighvoltage)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -347,7 +349,7 @@ function Projects(props?: any) {
                                         alt="wp schematics"
                                     />
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(wpschematics1)}
+                                        onClick={() => openImageExpandDialogProjects(wpschematics1)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -423,7 +425,7 @@ function Projects(props?: any) {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                        onClick={() => openImageExpandDialogProjects(frontend1)}
+                            onClick={() => openImageExpandDialogProjects(frontend1)}
 
                         >
                             <ZoomInIcon />
@@ -454,7 +456,7 @@ function Projects(props?: any) {
                                         alt="Front end second page"
                                     />
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(frontend2)}
+                                        onClick={() => openImageExpandDialogProjects(frontend2)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -469,7 +471,7 @@ function Projects(props?: any) {
                                         alt="Front end third image"
                                     />
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(frontend3)}
+                                        onClick={() => openImageExpandDialogProjects(frontend3)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -485,7 +487,7 @@ function Projects(props?: any) {
                                     />
 
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(frontend4)}
+                                        onClick={() => openImageExpandDialogProjects(frontend4)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -500,7 +502,7 @@ function Projects(props?: any) {
                                         alt="Front end fifth image"
                                     />
                                     <IconButton aria-label="Expand image"
-                                    onClick={() => openImageExpandDialogProjects(frontend5)}
+                                        onClick={() => openImageExpandDialogProjects(frontend5)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -517,6 +519,233 @@ function Projects(props?: any) {
             </Paper>
         </Container>
 
+        <Container className="endBoxProjects">
+
+            <Paper className="projectsPaper" sx={{ backgroundColor: "aliceblue" }}>
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                WP
+                            </Avatar>
+                        }
+
+                        title="Wlan controller android app"
+                        subheader="Phone app, what is created with React native "
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        
+                        alt="Wpa control unit front"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            This project is related on my table project. In table project there is Python flask server, what
+                            listest to specific port. When Android app makes http request, it will change the table measurement from floor,
+                            or control wlan outlets or wlan lamps.
+                            If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialogProjects(WPAcontrol)}
+
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/WlanDeviceControlApp">
+                            <CodeIcon />
+                        </IconButton>
+                    </CardActions>
+
+                    <FormControlLabel
+                        control={<Switch checked={openWlanController} onChange={() => { setOpenWlanController(!openWlanController) }} />}
+                        label="Show more"
+                    />
+
+                    <Collapse in={openWlanController} timeout="auto" unmountOnExit>
+                        <Grow in={openWlanController}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography paragraph>Descripe:</Typography>
+                                    <Typography paragraph>
+                                        First I try to create new feature to my React native expo app but soon I notice that it was almoust impossible
+                                        to communicate from react native expo to local network http or https server. I try mqtt also but that is not working.
+                                        Then I create this project but I didn't use expo any more so now my phone app makes http GET requestes and POST requestes.
+
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={wpahighvoltage}
+                                        alt="Wpa high voltage control"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(wpahighvoltage)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                    <Typography paragraph>
+                                        Python 3 table project has already workin logic to control table adjusment and wlan lamps and outlets. So I connect this new
+                                        ardroid app to table project. This how user can choose witch one he/she is using for controling wlan devices and table.
+                                    </Typography>
+
+                                    <Typography paragraph>
+                                        This app is get the json object from http GET request and when the json object is changing because some device is switched off, thss app is returning
+                                        JSON object to the python flask server and flask server is searching and comparing, what devices status has changed and changing the device status.
+                                        This project is not ready yet. PRoject is using Typescript.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={wpschematics1}
+                                        alt="wp schematics"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(wpschematics1)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={wpschematics2}
+                                        alt="wp schematics 2"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(wpschematics2)}
+
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={!openWlanController} onChange={() => { setOpenWlanController(!openWlanController) }} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+
+                </Card>
+
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                FE
+                            </Avatar>
+                        }
+
+                        title="Web page to my fathers company"
+                        subheader="Project made with node ejs"
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={frontend1}
+                        alt="Front end project main page"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            This project is made with Node Ejs and Node express. I choose this technologies, because this kind of site is easier to SEO optimize.
+                            This site is showing some parts, what my father sells and contact us page user can send Email to my father and ask more information about parts.
+                            If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialogProjects(frontend1)}
+
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://gitfront.io/r/tonymm81/Y2aTWxe7n7hj/frontend/">
+                            <CodeIcon />
+                        </IconButton>
+                    </CardActions>
+                    <FormControlLabel
+                        control={<Switch checked={openWebProject} onChange={() => setOpenWebProject(!openWebProject)} />}
+                        label="Show more"
+                    />
+                    <Collapse in={openWebProject} timeout="auto" unmountOnExit>
+                        <Grow in={openWebProject}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography paragraph>Descripe:</Typography>
+                                    <Typography paragraph>
+                                        I want to test, how I can build a web site with Node EJS. Node Ejs is quite handy way to develope the web site.
+                                        Old style html elements is giving you lots of different ways to build the site. Then in the Node express there is site used routings and one 
+                                        routing is for that email sending. 
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={frontend2}
+                                        alt="Front end second page"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(frontend2)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography paragraph>
+                                        I build this site to Upcloud named cloud service. In my server folder I made the https routing with Nginx service.
+                                        I also build up the CD/CI pipeline, that it would be easier to develop this site.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={frontend3}
+                                        alt="Front end third image"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(frontend3)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                   
+                                    <Typography paragraph>
+                                        I have to modify my domain settings, that i can connect the webpage to correct routing.
+                                        Site will be found on 
+                                        <IconButton aria-label="view code"
+                                        
+                            href="https://joukomaenpaa.fi"
+                            sx={{fontSize:"14px"}}>
+                                <strong>https://joukomaenpaa.fi</strong>                            
+                        </IconButton>
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={frontend5}
+                                        alt="Front end fifth image"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(frontend5)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={!openWebProject} onChange={() => setOpenWebProject(!openWebProject)} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+                </Card>
+            </Paper>
+        </Container>
 
 
 
@@ -552,24 +781,24 @@ function Projects(props?: any) {
                 i made try, execpt clause if user wont give date to search, and also edit buttons places.</Typography>
         </Dialog>
         <Dialog open={OpenProjectDialog}
-                className='portfolioImageExpandDialog'
-                fullScreen={true}
-            ><DialogActions><Button variant="contained"
+            className='portfolioImageExpandDialog'
+            fullScreen={true}
+        ><DialogActions><Button variant="contained"
             color='inherit'
             onClick={() => setOpenProjectDialog(false)}
         >Close image expand</Button></DialogActions>
-                <CardMedia
-                    component="img"
-                    className='portfolioCardmedia'
-                    image={projectImage}
-                    alt="Paella dish"
-                />
-                <DialogActions><Button variant="contained"
-                    color='inherit'
-                    onClick={() => setOpenProjectDialog(false)}
-                >Close image expand</Button></DialogActions>
-            </Dialog>
-       
+            <CardMedia
+                component="img"
+                className='portfolioCardmedia'
+                image={projectImage}
+                alt="Paella dish"
+            />
+            <DialogActions><Button variant="contained"
+                color='inherit'
+                onClick={() => setOpenProjectDialog(false)}
+            >Close image expand</Button></DialogActions>
+        </Dialog>
+
 
     </Container>)
 }
