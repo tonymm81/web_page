@@ -77,14 +77,14 @@ function Portfolio(props: any) {
     const handleExpandClick = (values: string): void => {// lets choose, what card will expand
         if (values === "GD") {
             setExpandedGD(!expandedGD);
-            
+
         }
         if (values === "App") {
             setExpandedApp(!expandedApp);
         }
         if (values === "SD") {
             setExpandedSD(!expandedSD);
-            
+
         }
         if (values === "AppSem") {
             setExpandedAppSem(!expandedAppSem);
@@ -109,7 +109,7 @@ function Portfolio(props: any) {
 
     return (<>
         <Container className='Portfolioontainer'>
-            <Paper elevation={0} className='portfolioPaper' sx={{backgroundColor:"aliceblue"}}>
+            <Paper elevation={0} className='portfolioPaper' sx={{ backgroundColor: "aliceblue" }}>
                 <Card className='portfolioCard'>
                     <CardHeader
                         avatar={
@@ -200,6 +200,14 @@ function Portfolio(props: any) {
                                 I also made wireframe from this work before I start desing work.This is important when you are planning
                                 the user friendly webpage or app.
                             </Typography>
+                            <ExpandMore
+                                expand={expandedGD}
+                                onClick={() => handleExpandClick("GD")}
+                                aria-expanded={expand}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
                         </CardContent>
                     </Collapse>
                 </Card>
@@ -227,7 +235,7 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I make this project with React native. It uses api calls, gps and camera in phone. React-native is awsome tool 
+                            I make this project with React native. It uses api calls, gps and camera in phone. React-native is awsome tool
                             to develope phone applications. I use the Expo device libraries. I am developing this app forward so this is only the one version.
                         </Typography>
                     </CardContent>
@@ -302,15 +310,23 @@ function Portfolio(props: any) {
                                 from user that do he/she want to save the excercise information of dismiss it.
                             </Typography>
                             <Typography paragraph>
-                                <strong>Update: </strong>I am building to feature, that you can control the wlan devices thru this app. Wlan devices control 
+                                <strong>Update: </strong>I am building to feature, that you can control the wlan devices thru this app. Wlan devices control
                                 is in my table project and there will be local server, what waits mqtt messages from this phone app.
                             </Typography>
+                            <ExpandMore
+                                expand={expandedApp}
+                                onClick={() => handleExpandClick("App")}
+                                aria-expanded={expand}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
                         </CardContent>
                     </Collapse>
                 </Card>
             </Paper>
 
-            <Paper elevation={0} className='portfolioPaper' sx={{backgroundColor:"aliceblue"}}>
+            <Paper elevation={0} className='portfolioPaper' sx={{ backgroundColor: "aliceblue" }}>
                 <Card className='portfolioCard'>
                     <CardHeader
                         avatar={
@@ -381,10 +397,17 @@ function Portfolio(props: any) {
                                 <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                Here is the mobile view what i planned on. Notice that mobile view is to patient and the 
+                                Here is the mobile view what i planned on. Notice that mobile view is to patient and the
                                 desktop view is to healthcare employees. This app is measuring, how the patient is handling with his/her disiase.
                             </Typography>
-
+                            <ExpandMore
+                                expand={expandedSD}
+                                onClick={() => handleExpandClick("SD")}
+                                aria-expanded={expand}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
                         </CardContent>
                     </Collapse>
                 </Card>
@@ -451,7 +474,7 @@ function Portfolio(props: any) {
                                 <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                                Here we search the post marks based on keyword 
+                                Here we search the post marks based on keyword
                             </Typography>
                             <CardMedia
                                 component="img"
@@ -479,12 +502,20 @@ function Portfolio(props: any) {
                             <Typography>
                                 The last photo tells about the error handling, if the user given search word is not given any search values
                             </Typography>
+                            <ExpandMore
+                                expand={expandedAppSem}
+                                onClick={() => handleExpandClick("AppSem")}
+                                aria-expanded={expand}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
                         </CardContent>
                     </Collapse>
                 </Card>
             </Paper>
 
-            <Paper elevation={0} className='portfolioPaper' sx={{backgroundColor:"aliceblue"}}>
+            <Paper elevation={0} className='portfolioPaper' sx={{ backgroundColor: "aliceblue" }}>
                 <Card className='portfolioCard'>
                     <CardHeader
                         avatar={
@@ -513,10 +544,10 @@ function Portfolio(props: any) {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                    <IconButton aria-label="Expand image"
-                                onClick={() => openImageExpandDialog(unrealEditor)}>
-                                <ZoomInIcon />
-                            </IconButton>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialog(unrealEditor)}>
+                            <ZoomInIcon />
+                        </IconButton>
                         <ExpandMore
                             expand={expandedGame}
                             onClick={() => handleExpandClick("game")}
@@ -530,12 +561,12 @@ function Portfolio(props: any) {
                         <CardContent>
                             <Typography paragraph>Description:</Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={unrealStart}
-                                    alt="unreal start"
-                                />
-                             <IconButton aria-label="Expand image"
+                                component="img"
+                                height="194"
+                                image={unrealStart}
+                                alt="unreal start"
+                            />
+                            <IconButton aria-label="Expand image"
                                 onClick={() => openImageExpandDialog(unrealStart)}>
                                 <ZoomInIcon />
                             </IconButton>
@@ -544,12 +575,12 @@ function Portfolio(props: any) {
                                 I use here foliage tools, landscape tools and I try to do this start view good looking.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={unrealMiddle}
-                                    alt="unreal middle"
-                                />
-                             <IconButton aria-label="Expand image"
+                                component="img"
+                                height="194"
+                                image={unrealMiddle}
+                                alt="unreal middle"
+                            />
+                            <IconButton aria-label="Expand image"
                                 onClick={() => openImageExpandDialog(unrealMiddle)}>
                                 <ZoomInIcon />
                             </IconButton>
@@ -557,12 +588,12 @@ function Portfolio(props: any) {
                                 This screenshot is from the middle of the game level.
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={unrealHouse}
-                                    alt="unreal middle"
-                                />
-                             <IconButton aria-label="Expand image"
+                                component="img"
+                                height="194"
+                                image={unrealHouse}
+                                alt="unreal middle"
+                            />
+                            <IconButton aria-label="Expand image"
                                 onClick={() => openImageExpandDialog(unrealHouse)}>
                                 <ZoomInIcon />
                             </IconButton>
@@ -570,12 +601,12 @@ function Portfolio(props: any) {
                                 This screen is from outside of house. I have materialised the house and fix the collasion points of all meshes
                             </Typography>
                             <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={unrealInside}
-                                    alt="unreal middle"
-                                />
-                             <IconButton aria-label="Expand image"
+                                component="img"
+                                height="194"
+                                image={unrealInside}
+                                alt="unreal middle"
+                            />
+                            <IconButton aria-label="Expand image"
                                 onClick={() => openImageExpandDialog(unrealInside)}>
                                 <ZoomInIcon />
                             </IconButton>
@@ -584,6 +615,14 @@ function Portfolio(props: any) {
                                 <Button href="https://youtu.be/6QVSXqKT3qc" size="small">See the full video here</Button>
                                 <Link></Link>
                             </Typography>
+                            <ExpandMore
+                                expand={expandedGame}
+                                onClick={() => handleExpandClick("game")}
+                                aria-expanded={expand}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
                         </CardContent>
                     </Collapse>
                 </Card>
@@ -611,17 +650,17 @@ function Portfolio(props: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                        This website is a prototype created during an internship, 
-                        serving as a kind of knowledge base for beginner coders. I was interning at the Xamk RDI research project.
+                            This website is a prototype created during an internship,
+                            serving as a kind of knowledge base for beginner coders. I was interning at the Xamk RDI research project.
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites"
-                             href="https://github.com/tonymm81/KoodariverstasProto">
-                        <CodeIcon />
+                            href="https://github.com/tonymm81/KoodariverstasProto">
+                            <CodeIcon />
                         </IconButton>
                         <IconButton aria-label="zoomProtosite"
-                             onClick={() => openImageExpandDialog(protosite1)}>
+                            onClick={() => openImageExpandDialog(protosite1)}>
                             <ZoomInIcon />
                         </IconButton>
                         <ExpandMore
@@ -637,51 +676,51 @@ function Portfolio(props: any) {
                         <CardContent>
                             <Typography paragraph>Main page view</Typography>
                             <CardMedia
-                            component="img"
-                            height="194"
-                            image={protosite2}
-                            alt="Proto site"
+                                component="img"
+                                height="194"
+                                image={protosite2}
+                                alt="Proto site"
                             />
-                             <IconButton aria-label="zoom proto 2"
-                              onClick={() => openImageExpandDialog(protosite2)}>
-                            <ZoomInIcon />
+                            <IconButton aria-label="zoom proto 2"
+                                onClick={() => openImageExpandDialog(protosite2)}>
+                                <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                            “I have completely customized the MediaWiki framework using the Tweeki skin. 
-                            I created breakpoints and other styles in the tweekitemplate.php file. 
-                            The site gets its style classes from the styles tag in that file. 
-                                The site also has custom dropdown menus, one of which is 
+                                “I have completely customized the MediaWiki framework using the Tweeki skin.
+                                I created breakpoints and other styles in the tweekitemplate.php file.
+                                The site gets its style classes from the styles tag in that file.
+                                The site also has custom dropdown menus, one of which is
                                 implemented from the Mediawiki:tweeki.js file and the other in the Tweeki template as a dropdown menu.
                             </Typography>
                             <Typography paragraph>“On the main page and other pages, there are three breakpoints
-                                 where the boxes are arranged to fit well on the screen. The banner image also adapts seamlessly to the screen size.
+                                where the boxes are arranged to fit well on the screen. The banner image also adapts seamlessly to the screen size.
                             </Typography>
                             <CardMedia
-                            component="img"
-                            height="194"
-                            image={protosite3}
-                            alt="Proto site"
+                                component="img"
+                                height="194"
+                                image={protosite3}
+                                alt="Proto site"
                             />
-                             <IconButton aria-label="zoom proto 2"
-                              onClick={() => openImageExpandDialog(protosite3)}>
-                            <ZoomInIcon />
+                            <IconButton aria-label="zoom proto 2"
+                                onClick={() => openImageExpandDialog(protosite3)}>
+                                <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
-                            The main page is styled using Bootstrap, and the table of contents is managed by custom divs that 
-                            I created in the localsettings.php file. These divs generate a list of links to the pages under each category. 
-                            Additionally, 
-                            users are prompted to select a category for a new page when they want to create one in the knowledge base 
+                                The main page is styled using Bootstrap, and the table of contents is managed by custom divs that
+                                I created in the localsettings.php file. These divs generate a list of links to the pages under each category.
+                                Additionally,
+                                users are prompted to select a category for a new page when they want to create one in the knowledge base
                             </Typography>
                             <Typography paragraph>Customized footer. I also had to customize the wiki footer to neatly arrange the project icons according to the screen size.</Typography>
                             <CardMedia
-                            component="img"
-                            height="194"
-                            image={protosite4}
-                            alt="Proto site"
+                                component="img"
+                                height="194"
+                                image={protosite4}
+                                alt="Proto site"
                             />
-                             <IconButton aria-label="zoom proto 2"
-                              onClick={() => openImageExpandDialog(protosite4)}>
-                            <ZoomInIcon />
+                            <IconButton aria-label="zoom proto 2"
+                                onClick={() => openImageExpandDialog(protosite4)}>
+                                <ZoomInIcon />
                             </IconButton>
                             <Typography paragraph>
                                 See and test the whole site on address  <Button href="https://tonymm81.kapsi.fi/mediawiki/index.php" size="small">Visit site</Button>
@@ -692,6 +731,14 @@ function Portfolio(props: any) {
                             <Typography paragraph>
                                 I will tell more about this site in git hub readme.md file. Visit  <Button href="https://github.com/tonymm81/KoodariverstasProto" size="small">My github repository</Button>
                             </Typography>
+                            <ExpandMore
+                                expand={expandedSome}
+                                onClick={() => handleExpandClick("Koodari")}
+                                aria-expanded={expand}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </ExpandMore>
                         </CardContent>
                     </Collapse>
                 </Card>
