@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tonin projektisivusto – Forecast, Työajanseuranta, Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Tonin kehittämä verkkopalvelu sisältää sääennusteet, työajankirjauksen, uutisia, projekteja ja portfolion – tutustu teknisiin ratkaisuihin ja käytännön toteutuksiin." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Tonin monipuolinen sovellusalusta" />
+    <meta property="og:description" content="Sääennusteet, työaikakirjaus, projektit, uutiset ja portfoliot yhdellä sivustolla. Kehitetty Reactilla ja Node/Expressillä." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tonimaenpaa.fi/" />
+    <meta property="og:image" content="https://tonimaenpaa.fi/og-banner.jpg" />
+    
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background-color: #f5f5f5;
+        padding: 2rem;
+        max-width: 800px;
+        margin: auto;
+        color: #222;
+      }
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+      section {
+        margin-bottom: 1.5rem;
+      }
+      a {
+        color: #3366cc;
+      }
+        </style>
+    <script>
+      // Käyttäjän uudelleenohjaus sovellukseen
+      if (!navigator.userAgent.toLowerCase().includes('bot')) {
+        window.location.href = "/app";
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Tervetuloa Tonin kehittämälle sivustolle</h1>
+
+    <section>
+      <strong>Forecast-työkalu:</strong> Hae säätiedot ajantasaisesti eri sijainteihin API-kutsujen avulla.
+    </section>
+
+    <section>
+      <strong>Projektit:</strong> Tutustu rakennettuihin teknologioihin ja käynnissä oleviin kehitystöihin.
+    </section>
+
+    <section>
+      <strong>Työajankirjaus:</strong> Sovellus tarjoaa kirjautumisen jälkeen sekä työntekijän että työnantajan näkymät työaikatietojen hallintaan.
+    </section>
+
+    <section>
+      <strong>Uutispalvelu:</strong> Hae ajankohtaiset uutiset maa- tai maatunnuspohjaisesti – suoraan yhdellä haulla.
+    </section>
+
+    <section>
+      <strong>About Me:</strong> Tutustu sivuston kehittäjään, taustoihin ja tavoitteisiin.
+    </section>
+     <section>
+      <strong>Portfolio:</strong> Näe valikoituja esimerkkejä kouluprojekteista ja muista toteutuksista.
+    </section>
+
+    <p>
+      Katso koodia GitHubissa: <a href="https://github.com/tonymm81" target="_blank" rel="noopener">Tonin GitHub-profiili</a>
+    </p>
+  </body>
+</html>

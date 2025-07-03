@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
-import { Alert, Avatar, Backdrop, Box, Button, CircularProgress, Container, Link, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Backdrop, Box, Button, CircularProgress, Container, Link, List, ListItem, ListItemIcon, ListItemText, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { format } from "date-fns";
 import { useNavigate } from 'react-router-dom';
@@ -14,9 +14,10 @@ function Footer(props?: any) {
     return(
         <>
         <Box className="footerBox" key={"footerBox"}>
-            <Typography variant="h6" sx={{margin:"7px", color:"white"}}>Quick links:</Typography>
-            <Box className="footerLinkGroup" key={"footerLinkGroup"}>
             
+            <Box className="footerLinkGroup" key={"footerLinkGroup"}>
+            <Stack direction="column" spacing={2} key={"footer"}>
+                <Typography variant="h6" sx={{margin:"7px", color:"white"}}>Quick links:</Typography>
             <Link
                     
                     component="button"
@@ -52,8 +53,11 @@ function Footer(props?: any) {
                     >
                     Projects
                 </Link>
+                </Stack>
             </Box>
+            
             <Box className="footerLinkGroupSecond" key={"footerLinkGroupSecond"}>
+                <Stack direction="column" spacing={2} key={"footer1"}>
                 <Link
                     component="button"
                     sx={{margin:"7px", color:"white"}}
@@ -98,6 +102,7 @@ function Footer(props?: any) {
                     >
                     About me
                 </Link>
+                </Stack>
             </Box>
             <Box className="sosialMediaLinks">
                 

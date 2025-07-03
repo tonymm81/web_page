@@ -179,6 +179,7 @@ function Forecast(props?: any) {
 
     return (
         <Container maxWidth="xl" className='forecast'> {/*'here we printout whe weatherforecast with icons to list component Here is also textfield.'*/}
+            
             {(Boolean(fullForecast.errors))
                 ? <Alert severity="error">{fullForecast.errorText}</Alert>
                 : (fullForecast.errors)}
@@ -227,8 +228,8 @@ function Forecast(props?: any) {
                                 return (
                                     <Zoom in={backdrop} key={index} style={{ transitionDelay: backdrop ? `${index === 0 ? index : index+1}00ms` : '0ms' }}>
                                     <ListItem key={index} className="listViewItems">
-                                        <Stack direction="row" spacing={2} key={index}>
-                                        <ListItemIcon ><img src={getIconUrl(String(item.icon))} alt={String(index)} /></ListItemIcon>
+                                        <Stack direction="row" spacing={1} key={index}>
+                                        <ListItemIcon sx={{width:"90px;!important"}} ><img src={getIconUrl(String(item.icon))} alt={String(index)}  /></ListItemIcon>
                                         <ListItemText key={index}>
                                             <Typography variant="h5">{`Date ${String(format(new Date(item.timestamp), "yyyy-MM-dd hh"))} and time ${String(format(new Date(item.timestamp), "hh:mm"))}`}</Typography>
                                             <Typography variant="body1"> {`Min temp: ${item.temp_min} C and temp max : ${item.temp_max} and city: ${item.town_or_city}`}</Typography>
