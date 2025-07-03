@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.75265fd1.css",
-    "main.js": "/static/js/main.74a6eefb.js",
+    "main.css": "/static/css/main.84b25074.css",
+    "main.js": "/static/js/main.86c80076.js",
     "static/media/tableprojectRasbian.jpg": "/static/media/tableprojectRasbian.b5608218458535ccab7e.jpg",
     "static/media/Esp.jpg": "/static/media/Esp.a221978085e30ef4694a.jpg",
     "static/media/weatherstationBack.jpg": "/static/media/weatherstationBack.ba02057491c8945856fd.jpg",
@@ -14,6 +14,7 @@
     "static/media/unrealMiddle.jpg": "/static/media/unrealMiddle.7b468c06d609dfa20b07.jpg",
     "static/media/graafinen suunnittelu editori.png": "/static/media/graafinen suunnittelu editori.90a68543466e4900381f.png",
     "static/media/graafinen suunnittelu selain.png": "/static/media/graafinen suunnittelu selain.f39a023de2c3cfcabdbf.png",
+    "static/media/j_maenpaa_page.png": "/static/media/j_maenpaa_page.b7e630e9a7672e679997.png",
     "static/media/cameraApp.png": "/static/media/cameraApp.1b38f68b92eaaa744e96.png",
     "static/media/unreal.jpg": "/static/media/unreal.c93b13d969198b596f14.jpg",
     "static/media/unrealHouse.jpg": "/static/media/unrealHouse.152d1c1cb3026cafe7df.jpg",
@@ -21,6 +22,7 @@
     "static/media/aboutme.jpg": "/static/media/aboutme.75285944e6ed45ec5090.jpg",
     "static/media/startviewApp.png": "/static/media/startviewApp.a2b28c7b9f0813281073.png",
     "static/media/gps trackerApp.png": "/static/media/gps trackerApp.5e94b1c39543de309aeb.png",
+    "static/media/j_maenpaa_page2.png": "/static/media/j_maenpaa_page2.694f9665c41b0598500b.png",
     "static/media/frontend5.png": "/static/media/frontend5.eff7053f5c339396045b.png",
     "static/media/img_start.jpg": "/static/media/img_start.1326655a7cd25be3aaf5.jpg",
     "static/media/forecastApp.png": "/static/media/forecastApp.affb965e3a010e1c12e4.png",
@@ -35,6 +37,7 @@
     "static/media/sivuProto3.png": "/static/media/sivuProto3.1736425dbe5a7c9bbdeb.png",
     "static/media/forecastedited.png": "/static/media/forecastedited.368f7ab47f41d73514f4.png",
     "static/media/bannerHeader.jpg": "/static/media/bannerHeader.7423a7605e09f8ce360b.jpg",
+    "static/media/j_maenpaa_page1.png": "/static/media/j_maenpaa_page1.09fcc3761c6e02095885.png",
     "static/media/sivuProto2.png": "/static/media/sivuProto2.951f862322aa8b370b40.png",
     "static/media/sivuProto1.png": "/static/media/sivuProto1.2c2ef6c8240409eaf695.png",
     "static/media/frontend4.png": "/static/media/frontend4.562683bb43e5337411ec.png",
@@ -65,6 +68,7 @@
     "static/media/roboto-latin-ext-700-normal.woff2": "/static/media/roboto-latin-ext-700-normal.ed67ad54b1a8f5d21150.woff2",
     "static/media/roboto-latin-ext-500-normal.woff2": "/static/media/roboto-latin-ext-500-normal.9165081d10e1ba601384.woff2",
     "static/media/roboto-latin-ext-300-normal.woff2": "/static/media/roboto-latin-ext-300-normal.dc7dcec8e3f654e0ed63.woff2",
+    "static/media/soon.png": "/static/media/soon.4bb8ec3c2ebccbd50c5f.png",
     "static/media/roboto-cyrillic-500-normal.woff2": "/static/media/roboto-cyrillic-500-normal.cad7d3d9cb265e334e58.woff2",
     "static/media/roboto-cyrillic-700-normal.woff2": "/static/media/roboto-cyrillic-700-normal.d010f1f324e111a22e53.woff2",
     "static/media/roboto-cyrillic-400-normal.woff2": "/static/media/roboto-cyrillic-400-normal.71a33b6b50457b2c903a.woff2",
@@ -82,11 +86,11 @@
     "static/media/roboto-greek-ext-300-normal.woff2": "/static/media/roboto-greek-ext-300-normal.35b9d6be04b95f0f0530.woff2",
     "static/media/roboto-greek-ext-700-normal.woff2": "/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/index.html",
-    "main.75265fd1.css.map": "/static/css/main.75265fd1.css.map",
-    "main.74a6eefb.js.map": "/static/js/main.74a6eefb.js.map"
+    "main.84b25074.css.map": "/static/css/main.84b25074.css.map",
+    "main.86c80076.js.map": "/static/js/main.86c80076.js.map"
   },
   "entrypoints": [
-    "static/css/main.75265fd1.css",
-    "static/js/main.74a6eefb.js"
+    "static/css/main.84b25074.css",
+    "static/js/main.86c80076.js"
   ]
 }

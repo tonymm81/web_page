@@ -477,6 +477,9 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 - I repaired again the mobile view and there is still some adjusments to do.
 
+## version 191
+- repaired mobile view little bit more. There was some issues with grafics element. I add some new projects to site. Android app is still missing some photos.
+
 # installs backend:
 
 

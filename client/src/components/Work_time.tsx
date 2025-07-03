@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Container, Dialog, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, Tab, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Dialog, FormControl, FormHelperText, IconButton, InputLabel, List, ListItem, ListItemIcon, ListItemText, MenuItem, Select, SelectChangeEvent, Stack, Tab, TextField, Typography } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import '../App.css'
 import { fi } from 'date-fns/locale';
@@ -573,12 +573,17 @@ function Work_time(props?: any) {
                                 {!item.IsHoursAccepted ?
                                 <ListItem key={idx} className="listViewItemsWorkTime">
 
-                                    <ListItemText> <strong>employee name : </strong>{item.employeeName} Work id : {item.jobID} ,
-                                        Working hours :  {item.hours_employee} ,
-                                        Time:   {String(item.datetime_emp)} ,
-                                        description : {item.description}
-
-                                    </ListItemText>
+                                   <ListItemText> 
+                                              <Stack direction="column" spacing={1} key={idx}>
+                                            <Typography>
+                                            <strong>employee name : </strong>{item.employeeName}</Typography> 
+                                            <Typography>Work id : {item.jobID} </Typography>
+                                      
+                                           <Typography> Working hours :  {item.hours_employee} </Typography>
+                                            <Typography>Time:   {String(format(new Date(item.datetime_emp!), "yyyy-MM-dd : hh-mm"))} </Typography>
+                                            <Typography>description : {item.description}</Typography>
+                                            </Stack>
+                                        </ListItemText>
                                     <ListItemIcon>
                                     <IconButton
                                             onClick={() => { changeHoursAccepted(Number(item.employee_id_auto)); } }
@@ -603,13 +608,19 @@ function Work_time(props?: any) {
                             </TabPanel><TabPanel value="2">
                                 {item.IsHoursAccepted ?
                                     <ListItem key={idx} className="listViewItemsWorkTime">
-
-                                        <ListItemText> <strong>employee name : </strong>{item.employeeName} Work id : {item.jobID} ,
-                                            Working hours :  {item.hours_employee} ,
-                                            Time:   {String(item.datetime_emp)} ,
-                                            description : {item.description}
-
+                                         
+                                        <ListItemText> 
+                                              <Stack direction="column" spacing={1} key={idx}>
+                                            <Typography>
+                                            <strong>employee name : </strong>{item.employeeName}</Typography> 
+                                            <Typography>Work id : {item.jobID} </Typography>
+                                      
+                                           <Typography> Working hours :  {item.hours_employee} </Typography>
+                                            <Typography>Time:   {String(format(new Date(item.datetime_emp!), "yyyy-MM-dd : hh-mm"))} </Typography>
+                                            <Typography>description : {item.description}</Typography>
+                                            </Stack>
                                         </ListItemText>
+
                                         <ListItemIcon>
                                             <IconButton
                                                 onClick={() => { editSavedData(idx); } }

@@ -219,6 +219,8 @@ h3.MuiTypography-h3 {
 
 }
 
+
+
 .projects {
   display: flex;
   justify-content: center;
@@ -317,6 +319,7 @@ h2 {
 .AboutMeBox {
   min-width: 200px;
   min-height: 200px;
+  max-width: 70%;
   float: left;
   text-align: left;
   color: rgb(240, 240, 240);
@@ -444,7 +447,7 @@ img {
   min-height: 170px;
   display: flex;
   flex-direction: row;
-
+justify-content: center;
   margin-bottom: 7px;
 
 }
@@ -452,6 +455,7 @@ img {
 .footerLinkGroup {
   display: flex;
   flex-direction: column;
+  margin: 15px;
 
 }
 
@@ -459,6 +463,8 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+    margin: 15px;
+
 
 }
 
@@ -528,7 +534,15 @@ img {
     background-color: rgba(252, 247, 247, 0.50);
 
   }
-
+.listViewItemsWorkTime{
+    width: 100%;
+    margin: 1px !important;
+    min-height: 50%;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    padding: 1px !important;
+    height: auto;
+}
   .workTimeTabs {
     color: white;
     font-size: 12px !important;
@@ -594,6 +608,7 @@ img {
   .AboutMeBox {
     color: white;
     text-align: justify;
+    max-width: 100%;
   }
 
 
@@ -618,5 +633,36 @@ img {
     align-items: center;
   }
 
+  .footerBox{
+     width: 100%;
+     min-height: 470px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 7px;
+  }
+  .footerLinkGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin:5px;
 
+}
+
+  .footerLinkGroupSecond {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+      margin:5px;
+
+
+  }
+
+  .sosialMediaLinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 5px;
+    
+}
+ 
 }

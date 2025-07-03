@@ -16,6 +16,10 @@ import frontend2 from '../photos/frontend2.png'
 import frontend3 from '../photos/frontend3.png'
 import frontend4 from '../photos/frontend4.png'
 import frontend5 from '../photos/frontend5.png'
+import jopunpage from '../photos/j_maenpaa_page.png'
+import jopunpage1 from '../photos/j_maenpaa_page1.png'
+import jopunpage2 from '../photos/j_maenpaa_page2.png'
+import soon from '../photos/soon.png'
 import { red } from "@mui/material/colors";
 
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
@@ -526,7 +530,7 @@ function Projects(props?: any) {
                     <CardHeader
                         avatar={
                             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                WP
+                                APP
                             </Avatar>
                         }
 
@@ -536,7 +540,7 @@ function Projects(props?: any) {
                     <CardMedia
                         component="img"
                         height="194"
-                        
+                        image={soon}
                         alt="Wpa control unit front"
                     />
                     <CardContent>
@@ -580,7 +584,7 @@ function Projects(props?: any) {
                                     <CardMedia
                                         component="img"
                                         height="194"
-                                        image={wpahighvoltage}
+                                        image={soon}
                                         alt="Wpa high voltage control"
                                     />
                                     <IconButton aria-label="Expand image"
@@ -599,31 +603,6 @@ function Projects(props?: any) {
                                         JSON object to the python flask server and flask server is searching and comparing, what devices status has changed and changing the device status.
                                         This project is not ready yet. PRoject is using Typescript.
                                     </Typography>
-                                    <CardMedia
-                                        component="img"
-                                        height="194"
-                                        image={wpschematics1}
-                                        alt="wp schematics"
-                                    />
-                                    <IconButton aria-label="Expand image"
-                                        onClick={() => openImageExpandDialogProjects(wpschematics1)}
-                                    >
-                                        <ZoomInIcon />
-                                    </IconButton>
-
-                                    <CardMedia
-                                        component="img"
-                                        height="194"
-                                        image={wpschematics2}
-                                        alt="wp schematics 2"
-                                    />
-                                    <IconButton aria-label="Expand image"
-                                        onClick={() => openImageExpandDialogProjects(wpschematics2)}
-
-                                    >
-                                        <ZoomInIcon />
-                                    </IconButton>
-
                                 </CardContent>
                             </Box>
                         </Grow>
@@ -639,7 +618,7 @@ function Projects(props?: any) {
                     <CardHeader
                         avatar={
                             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                FE
+                                JM
                             </Avatar>
                         }
 
@@ -649,7 +628,7 @@ function Projects(props?: any) {
                     <CardMedia
                         component="img"
                         height="194"
-                        image={frontend1}
+                        image={jopunpage}
                         alt="Front end project main page"
                     />
                     <CardContent>
@@ -661,13 +640,13 @@ function Projects(props?: any) {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                            onClick={() => openImageExpandDialogProjects(frontend1)}
+                            onClick={() => openImageExpandDialogProjects(jopunpage)}
 
                         >
                             <ZoomInIcon />
                         </IconButton>
                         <IconButton aria-label="view code"
-                            href="https://gitfront.io/r/tonymm81/Y2aTWxe7n7hj/frontend/">
+                            href="https://github.com/tonymm81/jopunSivu/">
                             <CodeIcon />
                         </IconButton>
                     </CardActions>
@@ -689,11 +668,11 @@ function Projects(props?: any) {
                                     <CardMedia
                                         component="img"
                                         height="194"
-                                        image={frontend2}
+                                        image={jopunpage1}
                                         alt="Front end second page"
                                     />
                                     <IconButton aria-label="Expand image"
-                                        onClick={() => openImageExpandDialogProjects(frontend2)}
+                                        onClick={() => openImageExpandDialogProjects(jopunpage1)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -704,11 +683,11 @@ function Projects(props?: any) {
                                     <CardMedia
                                         component="img"
                                         height="194"
-                                        image={frontend3}
+                                        image={jopunpage2}
                                         alt="Front end third image"
                                     />
                                     <IconButton aria-label="Expand image"
-                                        onClick={() => openImageExpandDialogProjects(frontend3)}
+                                        onClick={() => openImageExpandDialogProjects(jopunpage2)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
@@ -723,17 +702,7 @@ function Projects(props?: any) {
                                 <strong>https://joukomaenpaa.fi</strong>                            
                         </IconButton>
                                     </Typography>
-                                    <CardMedia
-                                        component="img"
-                                        height="194"
-                                        image={frontend5}
-                                        alt="Front end fifth image"
-                                    />
-                                    <IconButton aria-label="Expand image"
-                                        onClick={() => openImageExpandDialogProjects(frontend5)}
-                                    >
-                                        <ZoomInIcon />
-                                    </IconButton>
+                                    
 
                                 </CardContent>
                             </Box>
