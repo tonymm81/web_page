@@ -447,7 +447,7 @@ img {
   min-height: 170px;
   display: flex;
   flex-direction: row;
-justify-content: center;
+  justify-content: center;
   margin-bottom: 7px;
 
 }
@@ -463,7 +463,7 @@ justify-content: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-    margin: 15px;
+  margin: 15px;
 
 
 }
@@ -534,7 +534,8 @@ justify-content: center;
     background-color: rgba(252, 247, 247, 0.50);
 
   }
-.listViewItemsWorkTime{
+
+  .listViewItemsWorkTime {
     width: 100%;
     margin: 1px !important;
     min-height: 50%;
@@ -542,7 +543,8 @@ justify-content: center;
     margin-bottom: 10px !important;
     padding: 1px !important;
     height: auto;
-}
+  }
+
   .workTimeTabs {
     color: white;
     font-size: 12px !important;
@@ -604,6 +606,21 @@ justify-content: center;
     margin: 2px;
     padding: 5px;
   }
+  .news_image {
+  max-width: 30%;
+  min-width: 200px;
+}
+.news_page {
+  /*page is resizing wrong. Figure out, what is the problem. */
+  width: 100%;
+  min-height: 1000px;
+  min-width: auto;
+  height: 500px;
+
+}
+.h6{
+  font-size: 15px;
+}
 
   .AboutMeBox {
     color: white;
@@ -633,26 +650,27 @@ justify-content: center;
     align-items: center;
   }
 
-  .footerBox{
-     width: 100%;
-     min-height: 470px;
+  .footerBox {
+    width: 100%;
+    min-height: 470px;
     display: flex;
     flex-direction: row;
     margin-bottom: 7px;
   }
-  .footerLinkGroup {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin:5px;
 
-}
+  .footerLinkGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px;
+
+  }
 
   .footerLinkGroupSecond {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-      margin:5px;
+    margin: 5px;
 
 
   }
@@ -662,7 +680,7 @@ justify-content: center;
     flex-direction: row;
     justify-content: center;
     margin: 5px;
-    
-}
- 
+
+  }
+
 }
