@@ -480,6 +480,10 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 ## version 191
 - repaired mobile view little bit more. There was some issues with grafics element. I add some new projects to site. Android app is still missing some photos.
 
+## version 192
+
+- I noticed, that in mobile view the news page photo element was overflowing and the headerline text was too big. It should be fixed now.
+
 # installs backend:
 
 
