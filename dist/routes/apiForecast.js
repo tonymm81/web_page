@@ -26,7 +26,7 @@ apiForecastRouter.use(express_1.default.json());
 const weahter_api = process.env.REACT_APP_API_KEY;
 const get_time = () => {
     let search_time = new Date();
-    search_time.setHours(search_time.getHours() + 2);
+    search_time.setHours(search_time.getHours() + 3);
     //console.log("server time func", search_time)
     return search_time;
 };
@@ -114,6 +114,7 @@ apiForecastRouter.get("/forecast_saved", (req, res, next) => __awaiter(void 0, v
     //let permission = check_search_time(what_time)
     try {
         let return_forecast = yield prisma.forecast.findMany();
+        console.log("trying to connect the db", return_forecast);
         res.json([return_forecast]);
     }
     catch (e) {
