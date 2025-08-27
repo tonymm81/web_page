@@ -119,6 +119,7 @@ apiForecastRouter.get("/forecast_saved", async (req: express.Request, res: expre
     //let permission = check_search_time(what_time)
     try {
         let return_forecast = await prisma.forecast.findMany()
+        console.log("trying to connect the db",return_forecast)
         res.json([return_forecast]);
     } catch (e: any) {
         next(new ServerError(404, "not working at all"));
