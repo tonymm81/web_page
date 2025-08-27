@@ -484,6 +484,9 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 - I noticed, that in mobile view the news page photo element was overflowing and the headerline text was too big. It should be fixed now.
 
+## version 193
+- Node modules are now updated and site is working fine, lets deploy thois build to cloud server.
+
 # installs backend:
 
 

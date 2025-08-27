@@ -2,7 +2,9 @@ import { Container, Typography } from '@mui/material';
 import '../App.css'
 
 interface HeaderProps {
-    headliner: string
+    headliner: string,
+     children?: React.ReactNode;
+
 }
 
 const headerElement: React.FC<HeaderProps> = ({ headliner }): React.ReactElement => {
