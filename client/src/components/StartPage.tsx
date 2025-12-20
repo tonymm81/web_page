@@ -99,8 +99,8 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Fc
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="Forecast page" secondary="i made this page that user can search forecast by search word. 
-                                                                This is a free api weatherservise so you can do one search per 3 minutes.">
+                <ListItemText primary="Forecast page" secondary="This page lets you search for weather forecasts by typing in any location.  
+                                                                  It uses a free weather API with a limit of one request every 3 minutes.">
 
                 </ListItemText>
                 <ListItemButton
@@ -125,11 +125,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Wt
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="Work time page" secondary="Here you can create new user and password to him/her. After that log in employer mode and 
-                                                                        choose employee and save the payment details and when the employee log in, he/she can
-                                                                        can save the work time details like hours, description, date and choose the work id
-                                                                        and employee sees, how much employee have payment based on saved hours
-                                                                        in employer view you can see what work time registrations emploees have made ">
+                <ListItemText primary="Work time page" secondary="Here you can create a new user and set a password for them.  
+                                                                After that, log in as an employer, choose an employee and save their payment details.  
+                                                                When the employee logs in, they can record their work time: hours, description, date and work ID.  
+                                                                Employees can also see how much they have earned based on the saved hours.  
+                                                                In the employer view, you can see all work time registrations made by employees.
+                                                                ">
 
                 </ListItemText>
                 <ListItemButton

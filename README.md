@@ -485,7 +485,40 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 - I noticed, that in mobile view the news page photo element was overflowing and the headerline text was too big. It should be fixed now.
 
 ## version 193
-- Node modules are now updated and site is working fine, lets deploy thois build to cloud server. d
+- Node modules are now updated and site is working fine, lets deploy thois build to cloud server. 
+
+
+## version 194
+
+- Node modules are now up to date. I also update the time rule check  between the apicalls from client app.
+
+- Forecast time rule check updated. Permission check route removed. this is better with security, because old version there was straight route to new api call without time check and also time check was coming from client app and that is not reliable way.
+
+- I also delete the timerule checking from client app forecast.tsx
+
+- I create for express side the utils folder, where the time stamp check happends.
+
+- Now the news and forecast route uses it.
+- I update the news page also to use same kind of logic, what forecast has.
+
+- Next I add the salt and pepper for user password crypting what happens in apiSign.ts route.
+
+
+#### OBS
+- in server use npx prisma generate
+
+
+### to do in next version
+- Update node packages -> ok in version 194
+- update the projects view. Add phone app screen shots
+- Add local ai project details to projects part
+- Perhaps we could build some kind of contact me part
+- Check the site text, that there is not any typos
+- Check the server side datetime, could this be automated? old issue. Server side datetime didnt not use the correct time zone. -> ok in version 194
+- Update the password handling to use salt and pepper method. Now the ohter is missing.
+
+- check the Database ommunication, is that safe still.
+
 
 # installs backend:
 

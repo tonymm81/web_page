@@ -46,30 +46,17 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
         let api_address = ''
 
         if (news_api_permission.current) {
-            let permissionToGetNewSearch: boolean = false
+            
             try {
-
-                let url = `/api/news/newsTimerule?news_timestamp=${props.news_timestamp}&searchemptynews=${searchemptynews}&searchCounterNews=${searchCounterNews}`
-                const responsePermission = await fetch(url, { method: "GET", headers: { 'Authorization': `Bearer ${props.tokenSecondary}` } }) // get data from backend
-                const responsePermission_json = await responsePermission.json()
-                if (responsePermission.status === 200) {
-                    permissionToGetNewSearch = responsePermission_json.permissionTimerule[0]
-                    setSearchTime(responsePermission_json.permissionTimerule[1])
-                    props.setAllowForecast(false)
-                }
-            }
-            catch (e) {
-                console.log("error to get timestamp", e)
-            }
-            try {
-                if ((radiobutton_choose.current === "2") || (!permissionToGetNewSearch)) {//lets fetch the lastest search
+                if (radiobutton_choose.current === "2") {//lets fetch the lastest search
                     api_address = `/api/news/news_saved`
                     radiobutton_choose.current = "2"
+                    
                 }
-                if ((radiobutton_choose.current === "1") && (permissionToGetNewSearch)) { // Lets search everything based on search word
+                if (radiobutton_choose.current === "1") { // Lets search everything based on search word
                     api_address = `/api/news/news?userchoose=0&cathegory=everything&searchword=${search_word}&news_timestamp=${props.news_timestamp}`
                 }
-                if ((radiobutton_choose.current === "0") && (permissionToGetNewSearch)) { // Lets search top headlines from given country code
+                if (radiobutton_choose.current === "0") { // Lets search top headlines from given country code
                     api_address = `/api/news/news?userchoose=1&cathegory=top-headlines&Chooce_country=${Chooce_country}&news_timestamp=${props.news_timestamp}`
                 }
                 //console.log(api_address)
@@ -79,8 +66,7 @@ function News_page(props: any) { // here user cant search news from newsapi.org.
                 if (connectionNews.status === 200) {
                     setNewsSaved([...apidatanews[0]])
                     total_result.current = apidatanews[0].length
-                    //setSearchTime(timeDifference)
-                    setSearchBoolean(permissionToGetNewSearch)
+                    setSearchTime(apidatanews[1])
 
                 } if (total_result.current > 0) {
                     setSearchemptynews(false)
