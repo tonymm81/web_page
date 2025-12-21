@@ -19,6 +19,10 @@ import frontend5 from '../photos/frontend5.png'
 import jopunpage from '../photos/j_maenpaa_page.png'
 import jopunpage1 from '../photos/j_maenpaa_page1.png'
 import jopunpage2 from '../photos/j_maenpaa_page2.png'
+import wlanControlApp1 from '../photos/WlanController1.png.png'
+import wlanControlApp2 from '../photos/androidProject.png'
+import wlanControlApp3 from '../photos/androidProject1.png'
+import wlanControlApp4 from '../photos/androidProject2.png'
 import soon from '../photos/soon.png'
 import { red } from "@mui/material/colors";
 
@@ -79,10 +83,11 @@ function Projects(props?: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I have made this project with raspberry pi3 and 3 dirrefent Esp32 microcontrollers.
-                            behind mirror is a old fujitsu's laptop screen with cheap China adapter card.
-                            This how i made the screen.
-                            If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                            I built this project using a Raspberry Pi 3 and three different ESP32 microcontrollers.
+                            Behind the mirror is an old Fujitsu laptop screen connected with a cheap adapter board from China.
+                            This is how I created the display setup.
+                            If you want to enlarge the image, press the zoom button, and the code can be found under the {"<>"} button.
+
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -109,8 +114,10 @@ function Projects(props?: any) {
                                 <CardContent>
                                     <Typography paragraph>Descripe:</Typography>
                                     <Typography paragraph>
-                                        This device communicates with mqtt. mirror is a broker what listens to upcoming messages from esp's.
-                                        Each of esp's are measuring tempereature and humidity and two of them are measuring the lux value from outside also.
+                                        This device communicates using MQTT.
+                                        The mirror acts as a broker that listens for incoming messages from the ESP devices.
+                                        Each ESP measures temperature and humidity, and two of them also measure the outdoor lux value.
+
                                     </Typography>
                                     <CardMedia
                                         component="img"
@@ -125,10 +132,11 @@ function Projects(props?: any) {
                                     </IconButton>
 
                                     <Typography paragraph>
-                                        The broker keeps up the database locally, and when device starts, it get forecast from api service and print it to screen.
-                                        In database device saves the measurements, what are coming from esp microcontrollers. The saving time is
-                                        1 saving per hour. This broker have also graphical view, where you can search measurements from specific time.
-                                        It uses matlibplot to print out to graphics.
+                                        The broker maintains a local database, and when the device starts, it fetches the weather forecast from an API service and displays it on the screen.
+                                        The database stores all measurements received from the ESP microcontrollers, with one entry saved per hour.
+                                        The broker also includes a graphical view where you can search for measurements from a specific time period.
+                                        It uses Matplotlib to generate the graphs.
+
                                     </Typography>
                                     <CardMedia
                                         component="img"
@@ -143,9 +151,11 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
                                     <Typography paragraph>
-                                        Each of esp's is running with usb power and two of them have dht11 sensor and dht22 sensor and lux sensor.
-                                        one of the have only dht22 sensor. I measure the rooms temperature with this and also outside tempereture and hmidity
-                                        with this and also lux value from outside.
+                                        Each ESP runs on USB power. Two of them have a DHT11 sensor, a DHT22 sensor and a lux sensor,
+                                        and one of them has only a DHT22 sensor.
+                                        With these devices I measure the indoor temperature, and from outside I measure temperature, humidity
+                                        and the lux value.
+
                                     </Typography>
 
                                 </CardContent>
@@ -178,9 +188,11 @@ function Projects(props?: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I have made this project with raspberry pi4 and raspberry pi touchscreen. I made the motor control board by my self.
-                            In the table there is a gearbox motor what lift desk or lowers it. I measure the distance from floor with ultrasonic sensor.
-                            If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                            I built this project using a Raspberry Pi 4 and a Raspberry Pi touchscreen.
+                            I designed and built the motor control board myself.
+                            Inside the table there is a gearbox motor that raises or lowers the desk, and the distance from the floor is measured with an ultrasonic sensor.
+                            If you want to enlarge the image, press the zoom button, and the code can be found under the {"<>"} button.
+
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -206,8 +218,9 @@ function Projects(props?: any) {
                                 <CardContent>
                                     <Typography paragraph>Descripe:</Typography>
                                     <Typography paragraph>
-                                        This device has features like you can control wlan outlets and lamps from this device. You can also save or load
-                                        settings, what you want.
+                                        This device includes features such as controlling WLAN outlets and lamps directly from the interface.
+                                        You can also save and load any settings you want.
+
                                     </Typography>
                                     <CardMedia
                                         component="img"
@@ -222,11 +235,13 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
                                     <Typography paragraph>
-                                        In this image we see the compact packet of RaspberryPi4 and RasperryPi touch screen 8 inch.
-                                        Rasbian is OS in this device and program is in autostart.
+                                        In this image you can see the compact setup of the Raspberry Pi 4 and the 8‑inch Raspberry Pi touchscreen.
+                                        The device runs Raspbian, and the program starts automatically on boot.
+                                        This project also includes an Android app for controlling WLAN outlets.
+
                                     </Typography>
                                     <Typography paragraph>
-                                        Here is schematics, what i made from this device.
+                                        Here are the schematics I created for this device.
                                     </Typography>
                                     <CardMedia
                                         component="img"
@@ -278,9 +293,10 @@ function Projects(props?: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            I have made this project with Stm Nucleo f303re and Arduino microcontrollers. Program is running with C++
-                            and communication to hardware and between microcontrollers is working thru Spi protocol.
-                            If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                            I built this project using an STM Nucleo F303RE and Arduino microcontrollers.
+                            The program is written in C++, and communication with the hardware — as well as between the microcontrollers — is handled through the SPI protocol.
+                            If you want to enlarge the image, press the zoom button, and the code can be found under the {"<>"} button.
+
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -308,13 +324,17 @@ function Projects(props?: any) {
                                 <CardContent>
                                     <Typography paragraph>Descripe:</Typography>
                                     <Typography paragraph>
-                                        In the control unit ( upper image) there is arduino and stm microcontroller.
-                                        There is also rfid tag reader and two screens with both microcontrollers.
-                                        Arduino is master board, what waits permission from rfid reader. When permission is gived,
-                                        the arduino sends message via spi to stm nucleo f303re microcontroller to allow the power
-                                        up the station.
-                                        Arduino also adjust the fan speed with temperature sensor and user can adjust the
-                                        temperature with potentiometer. Arduino adjust the motor speed thru mosfet.
+                                        In the control unit (upper image) there is an Arduino and an STM microcontroller.
+                                        The system also includes an RFID tag reader and two displays, one for each microcontroller.
+
+                                        The Arduino acts as the master board and waits for permission from the RFID reader.
+                                        When access is granted, the Arduino sends a message via SPI to the STM Nucleo F303RE microcontroller
+                                        to allow the station to power up.
+
+                                        The Arduino also controls the fan speed using a temperature sensor, and the user can adjust the
+                                        desired temperature with a potentiometer.
+                                        Additionally, the Arduino controls the motor speed through a MOSFET.
+
                                     </Typography>
                                     <CardMedia
                                         component="img"
@@ -329,18 +349,22 @@ function Projects(props?: any) {
                                     </IconButton>
 
                                     <Typography paragraph>
-                                        In upper image, there is power control unit. This units have different power source, because
-                                        relays is causing otherwice some distraction signal. There is relays what control the high voltage side
-                                        in this device.
-                                        Nucleo has second spi communication pins what are controlling spi oled screen
-                                        and two sn74hc595n chips. One chip is for leds and second is using relays via uln2804 chip.
-                                        Relays are connecting the power to sockets. There is 5 sockets where 2 of them are because lights,
-                                        one to soldering station , one to power unit and one to the main power.
-                                        Near screen is three button where user can select what devices should power
-                                        up when permission is true. When soldering is choosed, device keeps watching is
-                                        the user in the room with ultrasonic sensor and motion sensor.
-                                        If not its shutdown the soldering station because fire security and waits if the user is coming back room.
-                                        Device has also wlan(working on it) what ask time from udp and print it to screen.
+                                        In the upper image you can see the power control unit.
+                                        This unit has a separate power source, because the relays would otherwise cause interference signals.
+                                        The relays control the high‑voltage side of the device.
+
+                                        The Nucleo board uses a second set of SPI pins to control the SPI OLED screen and two SN74HC595N shift registers.
+                                        One register drives the LEDs, and the other controls the relays through a ULN2804 driver chip.
+                                        The relays connect power to the sockets. There are five sockets: two for lights, one for the soldering station,
+                                        one for the power unit, and one for the main power.
+
+                                        Next to the screen are three buttons that let the user select which devices should power up when permission is granted.
+                                        When the soldering station is selected, the device monitors whether the user is in the room using an ultrasonic sensor
+                                        and a motion sensor. If the user leaves, the system shuts down the soldering station for fire safety and waits
+                                        to see if the user returns.
+
+                                        The device also has WLAN support (currently in progress), which retrieves the time via UDP and displays it on the screen.
+
                                     </Typography>
 
                                     <Typography paragraph>
@@ -422,9 +446,11 @@ function Projects(props?: any) {
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            This is my oldest schoolwork from frontend course. I made a lots of animations
-                            with css to this page. I have used only HTML and CSS in this page. I put animations in front page
-                            navigation. If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                            This is my oldest school project from a frontend course.
+                            I created a lot of CSS animations for this page, using only HTML and CSS.
+                            The animations are placed in the front‑page navigation.
+                            If you want to enlarge the image, press the zoom button, and the code can be found under the {"<>"} button.
+
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
@@ -540,20 +566,23 @@ function Projects(props?: any) {
                     <CardMedia
                         component="img"
                         height="194"
-                        image={soon}
+                        image={wlanControlApp1}
                         alt="Wpa control unit front"
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            This project is related on my table project. In table project there is Python flask server, what
-                            listest to specific port. When Android app makes http request, it will change the table measurement from floor,
-                            or control wlan outlets or wlan lamps.
-                            If you want to expand the image, press zoom button and code will be found from {"<>"} button.
+                            This project is connected to my table project.
+                            The table project includes a Python Flask server that listens on a specific port.
+                            When the Android app sends an HTTP request, it can change the table’s height measurement
+                            or control the WLAN outlets and WLAN lamps.
+
+                            If you want to enlarge the image, press the zoom button, and the code can be found under the {"<>"} button.
+
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="Expand image"
-                            onClick={() => openImageExpandDialogProjects(WPAcontrol)}
+                            onClick={() => openImageExpandDialogProjects(wlanControlApp1)}
 
                         >
                             <ZoomInIcon />
@@ -576,33 +605,66 @@ function Projects(props?: any) {
                                 <CardContent>
                                     <Typography paragraph>Descripe:</Typography>
                                     <Typography paragraph>
-                                        First I try to create new feature to my React native expo app but soon I notice that it was almoust impossible
-                                        to communicate from react native expo to local network http or https server. I try mqtt also but that is not working.
-                                        Then I create this project but I didn't use expo any more so now my phone app makes http GET requestes and POST requestes.
+                                        At first I tried to add a new feature to my React Native Expo app, but I soon realized that
+                                        communicating with a local HTTP or HTTPS server from Expo was almost impossible.
+                                        I also tried MQTT, but that didn’t work either.
+
+                                        Because of this, I created a new project without Expo.
+                                        Now the Android app can make HTTP GET and POST requests directly to the server.
 
                                     </Typography>
                                     <CardMedia
                                         component="img"
                                         height="194"
-                                        image={soon}
+                                        image={wlanControlApp2}
                                         alt="Wpa high voltage control"
                                     />
                                     <IconButton aria-label="Expand image"
-                                        onClick={() => openImageExpandDialogProjects(wpahighvoltage)}
+                                        onClick={() => openImageExpandDialogProjects(wlanControlApp2)}
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
 
                                     <Typography paragraph>
-                                        Python 3 table project has already workin logic to control table adjusment and wlan lamps and outlets. So I connect this new
-                                        ardroid app to table project. This how user can choose witch one he/she is using for controling wlan devices and table.
+                                        The Python 3 table project already has working logic for controlling the table height adjustment,
+                                        as well as the WLAN lamps and outlets.
+                                        I connected this new Android app to the table project so the user can choose which device
+                                        they want to use for controlling the WLAN devices and the table.
+
                                     </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={wlanControlApp3}
+                                        alt="Wpa high voltage control"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(wlanControlApp3)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
 
                                     <Typography paragraph>
-                                        This app is get the json object from http GET request and when the json object is changing because some device is switched off, thss app is returning
-                                        JSON object to the python flask server and flask server is searching and comparing, what devices status has changed and changing the device status.
-                                        This project is not ready yet. PRoject is using Typescript.
+                                        This app receives a JSON object through an HTTP GET request.
+                                        When the JSON object changes for example, when a device is switched off
+                                        the app sends an updated JSON object back to the Python Flask server.
+                                        The Flask server then checks which device states have changed and updates them accordingly.
+
+                                        This project is not finished yet.
+                                        It is built using TypeScript.
+
                                     </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={wlanControlApp4}
+                                        alt="Wpa high voltage control"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(wlanControlApp4)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
                                 </CardContent>
                             </Box>
                         </Grow>
@@ -662,8 +724,8 @@ function Projects(props?: any) {
                                     <Typography paragraph>Descripe:</Typography>
                                     <Typography paragraph>
                                         I want to test, how I can build a web site with Node EJS. Node Ejs is quite handy way to develope the web site.
-                                        Old style html elements is giving you lots of different ways to build the site. Then in the Node express there is site used routings and one 
-                                        routing is for that email sending. 
+                                        Old style html elements is giving you lots of different ways to build the site. Then in the Node express there is site used routings and one
+                                        routing is for that email sending.
                                     </Typography>
                                     <CardMedia
                                         component="img"
@@ -691,18 +753,18 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                   
+
                                     <Typography paragraph>
                                         I have to modify my domain settings, that i can connect the webpage to correct routing.
-                                        Site will be found on 
+                                        Site will be found on
                                         <IconButton aria-label="view code"
-                                        
-                            href="https://joukomaenpaa.fi"
-                            sx={{fontSize:"14px"}}>
-                                <strong>https://joukomaenpaa.fi</strong>                            
-                        </IconButton>
+
+                                            href="https://joukomaenpaa.fi"
+                                            sx={{ fontSize: "14px" }}>
+                                            <strong>https://joukomaenpaa.fi</strong>
+                                        </IconButton>
                                     </Typography>
-                                    
+
 
                                 </CardContent>
                             </Box>
@@ -723,31 +785,38 @@ function Projects(props?: any) {
             onClick={() => { setOpenBitcoin(true) }}
             sx={{ margin: 5 }}>Bitcoin app. Check it here</Button>
         <Dialog open={openBitcoin}>
-            <Button variant="contained"
+            <Button variant="contained" sx={{margin:1}}
                 href="https://gitfront.io/r/tonymm81/0d9dafd325b5066a6a8332513b451a831d778f85/Bitcoin-app/"
             >Link to projects code</Button>
-            <Button variant="contained"
+            <Button variant="contained" sx={{margin:1, backgroundColor:"grey"}}
                 onClick={() => { setOpenBitcoin(false) }}>Close this view</Button>
-            <Typography variant="h3" sx={{ margin: "5px" }}>Bitcoin app made to vincit rising start application</Typography>
-            <Typography variant="body1" sx={{ margin: "5px" }} >This application is following the bitcoin course and shows the prices for euros
-                and also you can go back in time and check when was the best time to sell or by bitcoins
-                I have to use imports because i use a graphical tkinter application andb calendar.
-                Also i have to convert the datetime to unix that i can use api servise. and also convert
-                unix timestamp to back datetime.
-                this how the application works. <br />
-                1: choose the start date where you want to bitcoin history
-                begin <br />
-                2: choose the end date where you want to bitcoin history end <br />
-                3: downrate button: after choosing the start and end date this shows how many downrate day is the longest in days <br />
-                4: highest button shows the highest price user choosed datetime line <br />
-                5: best in pass button shows the best selling and best buying price from history after <br />
-                entering the dates to start and end 6: clear search button is because you want to clear earlier search r
-                esults datetime
-                versions: ver103 graphics and buttons and labels and calendar buil up <br />
-                ver104 graphics are quite ready and api search also <br />ver105 Highest price button works like excepted <br />
-                ver106 best day to buy and sell button works somehow <br />
-                ver107 started to workout the biggest downrate in days counting ver108 version ready, <br />
-                i made try, execpt clause if user wont give date to search, and also edit buttons places.</Typography>
+            <Typography variant="h3" sx={{ margin: "5px" }}>
+                Bitcoin app made for the Vincit Rising Star application
+            </Typography>
+
+            <Typography variant="body1" sx={{ margin: "5px", backgroundColor:"grey" }}>
+                This application follows the Bitcoin price history and shows the values in euros.
+                You can also go back in time to see when it would have been the best moment to buy or sell Bitcoin.
+                I used several imports because the project includes a graphical Tkinter interface and a calendar component.
+                I also had to convert datetime values to Unix timestamps for the API service, and convert them back afterward.
+
+                This is how the application works: <br />
+                1: Choose the start date for the Bitcoin history search. <br />
+                2: Choose the end date for the Bitcoin history search. <br />
+                3: The "Downrate" button shows the longest continuous downtrend period between the selected dates. <br />
+                4: The "Highest" button shows the highest price within the selected date range. <br />
+                5: The "Best in past" button shows the best buying and selling points within the selected range. <br />
+                6: The "Clear search" button resets the previous search results.
+
+                Versions: <br />
+                ver103 – Graphics, buttons, labels and calendar structure created. <br />
+                ver104 – Graphics mostly ready and API search implemented. <br />
+                ver105 – Highest price button works as expected. <br />
+                ver106 – Best day to buy and sell button partially working. <br />
+                ver107 – Started implementing longest downrate calculation. <br />
+                ver108 – Version ready; added try/except handling for missing dates and adjusted button layout.
+            </Typography>
+
         </Dialog>
         <Dialog open={OpenProjectDialog}
             className='portfolioImageExpandDialog'
