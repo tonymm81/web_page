@@ -1,7 +1,7 @@
 # My web page 
 
 The page is released in kapsi server. The address is https://www.tonimaenpaa.fi 
-I am testing and building a page still so sometimes you will get server error but try later again.
+I am still developing the site.
 
 ## version 100:
 
@@ -487,7 +487,6 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 ## version 193
 - Node modules are now updated and site is working fine, lets deploy thois build to cloud server. 
 
-
 ## version 194
 
 - Node modules are now up to date. I also update the time rule check  between the apicalls from client app.
@@ -503,21 +502,23 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 - Next I add the salt and pepper for user password crypting what happens in apiSign.ts route.
 
+- I fix the typos in projects site and also add some screenshots from project android app
+
 
 #### OBS
-- in server use npx prisma generate
+- Do not update the prisma 7 because it does not support mysql connections (21.12.2025) in server side.
 
 
 ### to do in next version
 - Update node packages -> ok in version 194
-- update the projects view. Add phone app screen shots
+- update the projects view. Add phone app screen shots -> ok in version 194
 - Add local ai project details to projects part
 - Perhaps we could build some kind of contact me part
-- Check the site text, that there is not any typos
+- Check the site text, that there is not any typos -> ok in version 194
 - Check the server side datetime, could this be automated? old issue. Server side datetime didnt not use the correct time zone. -> ok in version 194
-- Update the password handling to use salt and pepper method. Now the ohter is missing.
+- Update the password handling to use salt and pepper method. Now the ohter is missing.-> ok in version 194
 
-- check the Database ommunication, is that safe still.
+- check the Database ommunication, is that safe still.-> ok in version 194
 
 
 # installs backend:
