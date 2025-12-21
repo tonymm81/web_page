@@ -45,10 +45,10 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
   const [testStart, setDTestStart] = useState<boolean>(true)
   useEffect(() => {
     localStorage.setItem("last_path", "/StartPage")
-    if (props.headliner === "Toni Mäenpää's web page") {//headliner
+    if (props.headliner === "Toni Mäenpää's home page") {//headliner
 
     } else {
-      props.setHeadliner("Toni Mäenpää's web page")
+      props.setHeadliner("Toni Mäenpää's home page")
 
       props.setAllowForecast(true)
     }
@@ -99,8 +99,8 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Fc
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="Forecast page" secondary="i made this page that user can search forecast by search word. 
-                                                                This is a free api weatherservise so you can do one search per 3 minutes.">
+                <ListItemText primary="Forecast page" secondary="This page lets you search for weather forecasts by typing in any location.  
+                                                                  It uses a free weather API with a limit of one request every 3 minutes.">
 
                 </ListItemText>
                 <ListItemButton
@@ -125,11 +125,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Wt
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="Work time page" secondary="Here you can create new user and password to him/her. After that log in employer mode and 
-                                                                        choose employee and save the payment details and when the employee log in, he/she can
-                                                                        can save the work time details like hours, description, date and choose the work id
-                                                                        and employee sees, how much employee have payment based on saved hours
-                                                                        in employer view you can see what work time registrations emploees have made ">
+                <ListItemText primary="Work time page" secondary="Here you can create a new user and set a password for them.  
+                                                                After that, log in as an employer, choose an employee and save their payment details.  
+                                                                When the employee logs in, they can record their work time: hours, description, date and work ID.  
+                                                                Employees can also see how much they have earned based on the saved hours.  
+                                                                In the employer view, you can see all work time registrations made by employees.
+                                                                ">
 
                 </ListItemText>
                 <ListItemButton
@@ -158,6 +159,8 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                                                                           soon, because projects are behind buttons and by clicking them dialog opens, and you see
                                                                           full description with images.">
 
+                
+
                 </ListItemText>
                 <ListItemButton
                   component={Link}
@@ -181,9 +184,10 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Np
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="News page" secondary="I make this news page, where user can search news based on keyword or search top news
-                                            from selected country. This is free api and there is also limited search one search per 3 minutes.
-                                            If keyword show results, the news will print out to list with image and link to orginal source">
+                <ListItemText primary="News page" secondary="I built this news page so users can search for news by keyword or browse top news from a selected country.  
+                                                              This service uses a free news API, which allows one search every 3 minutes.  
+                                                              If the keyword returns results, the news items are listed with an image and a link to the original source.
+                                                              ">
 
                 </ListItemText>
                 <ListItemButton
@@ -208,7 +212,8 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Am
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="About me" secondary="Here I made some information about my self.">
+                <ListItemText primary="About me" secondary="Here you can read more about me, my background, my interests and my studies.
+">
 
                 </ListItemText>
                 <ListItemButton
@@ -234,9 +239,10 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
                   <ListItemAvatar>Pf
                   </ListItemAvatar>
                 </ListItemButton>
-                <ListItemText primary="My portfolio page" secondary="Here is my portfolio page. There is couple of projects more. This projects i have made in
-                                                                          school. There is some mising features in page, but i will update those later. There you can
-                                                                          check my graphical projects and one game project and aslo couple programming projects" >
+                <ListItemText primary="My portfolio page" secondary="Here is my portfolio page. There are a few more projects here, most of which I created during my studies.  
+                                                                    Some features are still missing, but I will update them later.  
+                                                                    On this page you can find my graphical projects, one game project, and a few programming projects.
+                                                                    " >
 
                 </ListItemText>
                 <ListItemButton
@@ -250,11 +256,15 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
           </Grow>
         </List>
       </Container>
-      <Dialog open={openDialog} ><Typography variant="body1" sx={{ margin: "5px" }} >This is the demo page. Page wont save anything to local store except token and route. There is Forecast
-        view where you can search forecast based on choosed city or town. There is working time application also. There
-        user can log in as employer and fill up the needed information. In employee view employee can save jod hours and datetime and
-        job description. There is also my projects view where you can watch my projects code. There is also news page where user can search news. Last page is information about me. And in
-        menu bar there is drawer where user can navigate to another pages. in menubar is also link to this webpages code.</Typography>
+      <Dialog open={openDialog} ><Typography variant="body1" sx={{ margin: "5px" }} >This is the demo page. The page does not save anything to local storage except the token and route.  
+                                                                                      There is a Forecast view where you can search for weather based on a chosen city or town.  
+                                                                                      There is also a Working Time application, where an employer can log in and fill in the required information.  
+                                                                                      In the employee view, employees can save job hours, date and time, and a job description.  
+                                                                                      There is also a Projects view where you can explore my project code.  
+                                                                                      The News page lets you search for news.  
+                                                                                      The last page contains information about me.  
+                                                                                      In the menu bar, there is a drawer for navigating between pages, and a link to this webpage’s source code.
+</Typography>
         <Button variant="contained" color="inherit" onClick={() => { setOpenDialog(false) }}>Close</Button>
       </Dialog>
 

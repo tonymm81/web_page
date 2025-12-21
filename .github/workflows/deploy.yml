@@ -38,7 +38,7 @@ jobs:
             rsync -av /home/users/tonymm81/GitHubTemp/dist/ /home/users/tonymm81/web_page/
             rsync -av /home/users/tonymm81/GitHubTemp/client/build/ /home/users/tonymm81/web_page/public/
             cp -f /home/users/tonymm81/GitHubTemp/package.json /home/users/tonymm81/web_page/
-            npm install
-            npm audit fix
+            npm ic
+            npx prisma generate
             pm2 start index.js
      
