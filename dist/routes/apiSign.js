@@ -15,19 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const client_1 = require("@prisma/client");
 const errorHalndler_1 = require("../errors/errorHalndler");
-const crypto_1 = __importDefault(require("crypto"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const apiSignRouter = express_1.default.Router();
 const prisma = new client_1.PrismaClient();
 apiSignRouter.use(express_1.default.json());
 apiSignRouter.post("/signin", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("tuleeko signinnii", req.body);
-    let crypted = crypto_1.default.createHash("SHA512").update(req.body.password).digest("hex");
-    console.log(req.body, crypted);
+    const saltRounds = 12;
+    const hashed = yield bcrypt_1.default.hash(req.body.password, saltRounds);
     try {
         yield prisma.user_data.create({
             data: {
                 user_name: String(req.body.userName),
-                user_pwd: crypted,
+                user_pwd: hashed,
                 user_error: String(req.body.user_error),
                 who_is_logging: String(req.body.who_is_logging)
             }

@@ -16,32 +16,36 @@ const express_1 = __importDefault(require("express"));
 const client_1 = require("@prisma/client");
 const errorHalndler_1 = require("../errors/errorHalndler");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const crypto_1 = __importDefault(require("crypto"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const axios_1 = __importDefault(require("axios"));
 const apiAuthRouter = express_1.default.Router();
 const prisma = new client_1.PrismaClient();
 apiAuthRouter.use(express_1.default.json());
 apiAuthRouter.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let hash = crypto_1.default.createHash("SHA512").update(req.body.password).digest("hex");
+    //let hash = crypto.createHash("SHA512").update(req.body.password).digest("hex");
     try {
         const AppUser = yield prisma.user_data.findFirst({
             where: {
                 user_name: req.body.userName
             }
         });
-        if (req.body.userName === (AppUser === null || AppUser === void 0 ? void 0 : AppUser.user_name)) {
-            let hash = crypto_1.default.createHash("SHA512").update(req.body.password).digest("hex");
-            if (hash === (AppUser === null || AppUser === void 0 ? void 0 : AppUser.user_pwd)) {
-                let token = jsonwebtoken_1.default.sign({ id: AppUser.user_id, username: AppUser.user_name }, String(process.env.ACCESS_TOKEN_KEY));
-                res.json({ token: token, username: AppUser.user_name, who_is_logging: AppUser.who_is_logging, user_id: AppUser.user_id });
-            }
-            else {
-                next(new errorHalndler_1.ServerError(401, "Wrong username or password"));
-            }
+        // Jos käyttäjää ei löydy → suoraan virhe
+        if (!AppUser) {
+            return next(new errorHalndler_1.ServerError(401, "Wrong username or password"));
         }
-        else {
-            next(new errorHalndler_1.ServerError(401, "Wrong username or password"));
+        // bcrypt-vertailu vasta kun tiedetään että user_pwd on olemassa
+        const isMatch = yield bcrypt_1.default.compare(req.body.password, AppUser.user_pwd);
+        if (!isMatch) {
+            return next(new errorHalndler_1.ServerError(401, "Wrong username or password"));
         }
+        // Tässä vaiheessa kaikki ok → luodaan token
+        const token = jsonwebtoken_1.default.sign({ id: AppUser.user_id, username: AppUser.user_name }, String(process.env.ACCESS_TOKEN_KEY));
+        res.json({
+            token,
+            username: AppUser.user_name,
+            who_is_logging: AppUser.who_is_logging,
+            user_id: AppUser.user_id
+        });
     }
     catch (_a) {
         next(new errorHalndler_1.ServerError());
