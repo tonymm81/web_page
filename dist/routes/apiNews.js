@@ -18,18 +18,13 @@ const client_1 = require("@prisma/client");
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const date_fns_1 = require("date-fns");
 const dotenv_1 = __importDefault(require("dotenv"));
+const checkSearchTime_1 = require("../utils/checkSearchTime");
 dotenv_1.default.config();
 dotenv_1.default.config({ path: '../.env' });
 const prisma = new client_1.PrismaClient();
 const apiNewsRouter = express_1.default.Router();
 apiNewsRouter.use(express_1.default.json());
 const news_api = process.env.REACT_APP_API_KEY_NEWS;
-const get_time_news = () => {
-    let search_time = new Date();
-    search_time.setHours(search_time.getHours() + 3);
-    return search_time;
-};
-let search_time_news = get_time_news();
 const get_news_everything = (cathegory, search_word) => __awaiter(void 0, void 0, void 0, function* () {
     let timefrom = new Date();
     let api_address = `https://newsapi.org/v2/${cathegory}?q=${search_word}&to=${(0, date_fns_1.format)(timefrom, "Y-M-d")}&language=en&sortBy=popularity&apiKey=${news_api}`;
@@ -44,98 +39,86 @@ const get_news_topnews = (cathegory, Chooce_country) => __awaiter(void 0, void 0
     const responseDataTopnews = yield newsTopnewsResponse.json();
     return responseDataTopnews;
 });
-const check_search_time = (what_time_news, searchemptynews, searchCounterNews) => {
-    let search_permission = false;
-    search_time_news = get_time_news();
-    //let checkTime = new Date()
-    let diffence = search_time_news.getTime() - what_time_news.getTime();
-    if (diffence > 180000) { //000
-        search_permission = true;
-        search_time_news = get_time_news();
-        console.log("permission gived");
-    }
-    if ((searchemptynews) && (searchCounterNews <= 2)) {
-        search_permission = true;
-    }
-    return [search_permission, diffence];
-};
-apiNewsRouter.get("/newsTimerule", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let what_time = new Date(String(req.query.news_timestamp));
-    let permissionTimerule = check_search_time(what_time, Boolean(req.query.searchemptynews), Number(req.query.searchCounterNews));
-    console.log("forecast browser time", what_time, "rule", permissionTimerule, "server time", req.query.searchCounterNews, "times visits", req.query.searchemptynews);
-    res.json({ permissionTimerule });
-    permissionTimerule = [];
-}));
 apiNewsRouter.get("/news", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     //let what_time_news =  new Date(String(req.query.news_timestamp))
     let jsonlength = 0;
     //let search_permission = check_search_time(what_time_news)
-    if (Number(req.query.userchoose) === 0) {
-        var news_everything = yield get_news_everything(String(req.query.cathegory), String(req.query.searchword));
-        try {
-            jsonlength = news_everything['articles'].length;
-        }
-        catch (errors) {
-            jsonlength = news_everything['articles'].length; // throws an error
-            next(new errorHalndler_1.ServerError(404, `Not find data for this search word from top news`));
-        }
-        try {
-            yield prisma.news_data.deleteMany({}); // this will empy the database
-            let i = 0;
-            for (i = 0; i < jsonlength;) {
-                yield prisma.news_data.create({
-                    data: {
-                        description: news_everything['articles'][i]['description'],
-                        content: news_everything['articles'][i]['content'],
-                        author: news_everything['articles'][i]['author'],
-                        puplishDate: news_everything['articles'][i]['publishedAt'],
-                        source: news_everything['articles'][i]['source']['name'],
-                        tnewsTitle: news_everything['articles'][i]['title'],
-                        url: news_everything['articles'][i]['url'],
-                        ulr_image: news_everything['articles'][i]['urlToImage']
-                    }
-                });
-                i = i + 1;
+    const { allowed, difference } = (0, checkSearchTime_1.checkSearchTime)("news"); // this is made for apicall user based search limit in version 194
+    if (allowed) {
+        if (Number(req.query.userchoose) === 0) {
+            var news_everything = yield get_news_everything(String(req.query.cathegory), String(req.query.searchword));
+            try {
+                jsonlength = news_everything['articles'].length;
             }
-            let old_search = yield prisma.news_data.findMany();
-            res.json([old_search]);
+            catch (errors) {
+                jsonlength = news_everything['articles'].length; // throws an error
+                next(new errorHalndler_1.ServerError(404, `Not find data for this search word from top news`));
+            }
+            try {
+                yield prisma.news_data.deleteMany({}); // this will empy the database
+                let i = 0;
+                for (i = 0; i < jsonlength;) {
+                    yield prisma.news_data.create({
+                        data: {
+                            description: news_everything['articles'][i]['description'],
+                            content: news_everything['articles'][i]['content'],
+                            author: news_everything['articles'][i]['author'],
+                            puplishDate: news_everything['articles'][i]['publishedAt'],
+                            source: news_everything['articles'][i]['source']['name'],
+                            tnewsTitle: news_everything['articles'][i]['title'],
+                            url: news_everything['articles'][i]['url'],
+                            ulr_image: news_everything['articles'][i]['urlToImage']
+                        }
+                    });
+                    i = i + 1;
+                }
+                let old_search = yield prisma.news_data.findMany();
+                res.json([old_search, difference]);
+            }
+            catch (e) {
+                next(new errorHalndler_1.ServerError(404, `Not find data for this search word from everything ${e}`));
+            }
         }
-        catch (e) {
-            next(new errorHalndler_1.ServerError(404, `Not find data for this search word from everything ${e}`));
+        if (Number(req.query.userchoose) === 1) {
+            var news_everything = yield get_news_topnews(String(req.query.cathegory), String(req.query.Chooce_country));
+            try {
+                let jsonlength = news_everything['articles'].length;
+                yield prisma.news_data.deleteMany({}); // this will empy the database
+                let i = 0;
+                for (i = 0; i < jsonlength;) {
+                    yield prisma.news_data.create({
+                        data: {
+                            author: news_everything['articles'][i]['author'],
+                            puplishDate: news_everything['articles'][i]['publishedAt'],
+                            source: news_everything['articles'][i]['source']['name'],
+                            tnewsTitle: news_everything['articles'][i]['title'],
+                            url: news_everything['articles'][i]['url'],
+                        }
+                    });
+                    i = i + 1;
+                }
+                let old_search = yield prisma.news_data.findMany();
+                res.json([old_search, difference]);
+            }
+            catch (e) {
+                next(new errorHalndler_1.ServerError(404, `Not find data for this search word from top news ${e}`));
+            }
         }
     }
-    if (Number(req.query.userchoose) === 1) {
-        var news_everything = yield get_news_topnews(String(req.query.cathegory), String(req.query.Chooce_country));
+    else {
         try {
-            let jsonlength = news_everything['articles'].length;
-            yield prisma.news_data.deleteMany({}); // this will empy the database
-            let i = 0;
-            for (i = 0; i < jsonlength;) {
-                yield prisma.news_data.create({
-                    data: {
-                        author: news_everything['articles'][i]['author'],
-                        puplishDate: news_everything['articles'][i]['publishedAt'],
-                        source: news_everything['articles'][i]['source']['name'],
-                        tnewsTitle: news_everything['articles'][i]['title'],
-                        url: news_everything['articles'][i]['url'],
-                    }
-                });
-                i = i + 1;
-            }
-            let old_search = yield prisma.news_data.findMany();
-            res.json([old_search]);
+            let old_search_timeruleBlock = yield prisma.news_data.findMany();
+            res.json([old_search_timeruleBlock, difference]);
         }
         catch (e) {
-            next(new errorHalndler_1.ServerError(404, `Not find data for this search word from top news ${e}`));
+            next(new errorHalndler_1.ServerError(404, "no savd data found"));
         }
     }
 }));
 apiNewsRouter.get("/news_saved", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        //let what_time_news = get_time_news()
-        //let search_permission = check_search_time(what_time_news)
-        let old_search = yield prisma.news_data.findMany();
-        res.json([old_search]);
+        let old_search_from_database = yield prisma.news_data.findMany();
+        res.json([old_search_from_database]);
     }
     catch (e) {
         next(new errorHalndler_1.ServerError(404, "no savd data found"));
