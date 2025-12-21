@@ -12,30 +12,30 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import CodeIcon from '@mui/icons-material/Code';
 //images
 import projects from '../photos/projects.jpg'
-import GDeditor from '../photos/graafinen suunnittelu editori.png'
-import GDDesktop from '../photos/graafinen suunnittelu selain.png'
-import GDmobile from '../photos/graafinen suunnittelu puhelin.png'
-import GDWireframe from '../photos/rautalankamalli.png'
-import SDeditor from '../photos/serviceDesingEditor.png'
-import SDdesktop from '../photos/serviceDesingDesktop.png'
-import SDmobile from '../photos/serviceDesingMobile.png'
-import PhoneAppCamera from '../photos/cameraApp.png'
-import PhoneappStart from '../photos/startviewApp.png'
-import PhoneAppForecast from '../photos/forecastApp.png'
-import PhoneAppGps from '../photos/gps trackerApp.png'
-import postmarkApp2 from '../photos/app autumn postmark2.png'
-import postmarkApp from '../photos/app autumn postmark1.png'
-import postmarkApp3 from '../photos/app autumn postmark3.png'
-import postmarkApp4 from '../photos/app autumn postmark4.png'
-import unrealEditor from '../photos/unreal.jpg'
-import unrealStart from '../photos/unrealStart.jpg'
-import unrealMiddle from '../photos/unrealMiddle.jpg'
-import unrealHouse from '../photos/unrealHouse.jpg'
-import unrealInside from '../photos/unrealHouseInside.jpg'
-import protosite1 from '../photos/sivuProto1.png';
-import protosite2 from '../photos/sivuProto2.png';
-import protosite3 from '../photos/sivuProto3.png';
-import protosite4 from '../photos/sivuproto4.png'
+import GDeditor from '../photos/graafinen suunnittelu editori.webp'
+import GDDesktop from '../photos/graafinen suunnittelu selain.webp'
+import GDmobile from '../photos/graafinen suunnittelu puhelin.webp'
+import GDWireframe from '../photos/rautalankamalli.webp'
+import SDeditor from '../photos/serviceDesingEditor.webp'
+import SDdesktop from '../photos/serviceDesingDesktop.webp'
+import SDmobile from '../photos/serviceDesingMobile.webp'
+import PhoneAppCamera from '../photos/cameraApp.webp'
+import PhoneappStart from '../photos/startviewApp.webp'
+import PhoneAppForecast from '../photos/forecastApp.webp'
+import PhoneAppGps from '../photos/gps trackerApp.webp'
+import postmarkApp2 from '../photos/app autumn postmark2.webp'
+import postmarkApp from '../photos/app autumn postmark1.webp'
+import postmarkApp3 from '../photos/app autumn postmark3.webp'
+import postmarkApp4 from '../photos/app autumn postmark4.webp'
+import unrealEditor from '../photos/unreal.webp'
+import unrealStart from '../photos/unrealStart.webp'
+import unrealMiddle from '../photos/unrealMiddle.webp'
+import unrealHouse from '../photos/unrealHouse.webp'
+import unrealInside from '../photos/unrealHouseInside.webp'
+import protosite1 from '../photos/sivuProto1.webp';
+import protosite2 from '../photos/sivuProto2.webp';
+import protosite3 from '../photos/sivuProto3.webp';
+import protosite4 from '../photos/sivuproto4.webp'
 
 import { red } from '@mui/material/colors';
 

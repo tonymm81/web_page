@@ -42,7 +42,7 @@ h3.MuiTypography-h3 {
   display: block;
   justify-content: center;
   min-height: 50%;
-  background-image: url('./photos/bannerHeader.jpg');
+  background-image: url('./photos/bannerHeader.webp');
 
   margin-left: 10px;
   margin-right: 10px;
@@ -113,7 +113,7 @@ h3.MuiTypography-h3 {
 
 .start_image {
   margin-top: 10px;
-  background-image: url('./photos/img_start.jpg');
+  background-image: url('./photos/img_start.webp');
   background-repeat: repeat;
   background-size: 100% cover;
   background-position: center;
@@ -145,7 +145,7 @@ h3.MuiTypography-h3 {
 
 .forecast {
   margin-top: 10px;
-  background-image: url('./photos/forecastedited.png');
+  background-image: url('./photos/forecastedited.webp');
   background-repeat: repeat;
   background-size: 100% cover;
   background-position: top;
@@ -159,7 +159,7 @@ h3.MuiTypography-h3 {
 
 .workingtime {
   margin-top: 10px;
-  background-image: url('./photos/working.jpg');
+  background-image: url('./photos/working.webp');
   background-repeat: repeat;
   background-size: 100% cover;
   /*background-position: center;*/
@@ -225,7 +225,7 @@ h3.MuiTypography-h3 {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  background-image: url('./photos/projects.jpg');
+  background-image: url('./photos/projects.webp');
   background-repeat: repeat;
   background-size: 100% contain;
   background-position: center;
@@ -278,7 +278,7 @@ h3.MuiTypography-h3 {
 
 .Aboutme {
   margin-top: 10px;
-  background-image: url('./photos/aboutme.jpg');
+  background-image: url('./photos/aboutme.webp');
   background-repeat: repeat;
   background-size: 100% cover;
   background-position: top;
@@ -357,7 +357,7 @@ h2 {
 }
 
 .news_page_cont {
-  background-image: url('./photos/news_background_edited.png');
+  background-image: url('./photos/news_background_edited.webp');
   background-repeat: repeat;
   background-size: 100% cover;
   background-position: top;
@@ -431,7 +431,7 @@ img {
   justify-content: center;
   padding: 15px;
   height: 250px;
-  background-image: url('./photos/bannerHeader.jpg');
+  background-image: url('./photos/bannerHeader.webp');
   min-height: 90px;
   background-color: rgb(186, 196, 215);
   border: 1px solid black;

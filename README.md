@@ -502,7 +502,11 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 - Next I add the salt and pepper for user password crypting what happens in apiSign.ts route.
 
-- I fix the typos in projects site and also add some screenshots from project android app
+- I fix the typos in projects site and also add some screenshots from project android app.
+
+## version 195
+
+- All web site pictures is unpacked to lighter format webp. Now the site is loading faster the photos and photo quality was pretty good still
 
 
 #### OBS
@@ -523,7 +527,7 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 # installs backend:
 
-
+- photo converting magick mogrify -format webp -quality 75 *.jpg
 - npm install
 - npm install prisma ---save-dev
 - npx prisma init
