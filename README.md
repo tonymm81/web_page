@@ -506,7 +506,10 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 ## version 195
 
-- All web site pictures is unpacked to lighter format webp. Now the site is loading faster the photos and photo quality was pretty good still
+- All web site pictures is unpacked to lighter format webp. Now the site is loading faster the photos and photo quality was pretty good still.
+
+## version 196
+- Security update. Next version plan is update the React framework totally. I cant fix any more this old framework, because it is too old version. This site uses CRA 5 and I have to update it use Vite. 
 
 
 #### OBS
