@@ -1,12 +1,15 @@
-import Backgroung_img from '../photos/img_start.jpg'
+//import Backgroung_img from '../photos/img_start.jpg'
 import '../App.css'
-import { Avatar, Button, Container, Dialog, Grow, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Container, Dialog, Grow, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
 import QuizIcon from '@mui/icons-material/Quiz';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { useRef, useState } from 'react';
 //import {Captcha} from "./Captcha";
 import { useEffect } from 'react';
-import { Link, Navigate, NavigateFunction, useNavigate } from 'react-router-dom';
-import ReCAPTCHA from "react-google-recaptcha";
+import type { NavigateFunction } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+//import ReCAPTCHA from "react-google-recaptcha";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import EditIcon from '@mui/icons-material/Edit';
 import CodeIcon from '@mui/icons-material/Code';
@@ -23,7 +26,7 @@ interface AppProps { }
 interface AppState { }
 
 
-const sitekey_capcha = process.env.REACT_APP_GOOGLE_CAPTCHA_SITEKEY
+const sitekey_capcha = import.meta.env.VITE_GOOGLE_CAPTCHA_SITEKEY
 
 
 interface Props {
@@ -39,46 +42,119 @@ interface Props {
 
 
 const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
-  const [dialogStart, setDialogStart] = useState<boolean>(false)
-  const navigate: NavigateFunction = useNavigate();
-  //console.log(props.captcha)
-  const [testStart, setDTestStart] = useState<boolean>(true)
+  const navigate = useNavigate();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [isFetching, setIsFetching] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [attempt, setAttempt] = useState(0);
+  const [testStart, setDTestStart] = useState<boolean>(true);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);// version 197
+
+
   useEffect(() => {
-    localStorage.setItem("last_path", "/StartPage")
-    if (props.headliner === "Toni Mäenpää's home page") {//headliner
-
-    } else {
-      props.setHeadliner("Toni Mäenpää's home page")
-
-      props.setAllowForecast(true)
+    localStorage.setItem("last_path", "/StartPage");
+    if (props.headliner !== "Toni Mäenpää's home page") {
+      props.setHeadliner("Toni Mäenpää's home page");
+      props.setAllowForecast(true);
     }
     if (props.captcha === false) {
-      setDTestStart(true)
-    }
-  }, [])
-
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const close_captcha = async (res: boolean | string): Promise<void> => {// here we check the googles token and make request to server
-    setDialogStart(false)
-    //props.setCaptcha(false)// remembre to remove this 
-    const gettequest = await fetch("/api/auth/login/getsSecondary", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ "Response_from_google": res })
-    })
-    const tokenSecondary = await gettequest.json();
-    if (gettequest.status === 200) {
-      props.setTokenSecondary(tokenSecondary)
-      props.setCaptcha(false)
-      setDTestStart(true)
-      localStorage.setItem("tokensecondary", tokenSecondary);
-      navigate("/")
+      setDTestStart(true);
     } else {
-      alert("Capcha failed. Please try again and refresh you browser ")
+      // jos captcha on päällä sivun alussa, pysäytetään animaatio kunnes verifioidaan
+      setDTestStart(false);
     }
-    //props.setCaptcha(false)// remembre to comment out this 
-    //setDTestStart(true)
-  }
+  }, []);
+  useEffect(() => {
+    console.log("captcha prop:", props.captcha);
+    console.log("executeRecaptcha available:", !!executeRecaptcha);
+  }, [props.captcha, executeRecaptcha]);
+
+
+
+   useEffect(() => {
+  let mounted = true;
+  let retries = 0;
+  const maxRetries = 5;
+
+  const wait = (ms: number) => new Promise(res => setTimeout(res, ms));
+
+  const runCaptcha = async () => {
+    if (!mounted) return;
+    if (!props.captcha) return;
+    if (isFetching) return;
+
+    // odotetaan executeRecaptchaia kunnes se on valmis tai retryt loppuu
+    while (mounted && !executeRecaptcha && retries < maxRetries) {
+      console.log("executeRecaptcha not ready, retry", retries + 1);
+      retries++;
+      // eksponentiaalinen backoff: 500ms, 1000ms, 2000ms...
+      await wait(500 * Math.pow(2, retries - 1));
+    }
+
+    if (!mounted) return;
+    if (!executeRecaptcha) {
+      console.warn("executeRecaptcha still not ready after retries");
+      setErrorMsg("Captcha service not ready. Click Start verification to try again.");
+      return;
+    }
+
+    try {
+      setErrorMsg(null);
+      setIsFetching(true);
+      // pysäytetään animaatio kun verifiointi alkaa
+      setDTestStart(false);
+
+      console.log("Calling executeRecaptcha");
+      const token = await executeRecaptcha("captcha_check");
+      console.log("Got token:", token);
+      await close_captcha(token ?? "");
+    } catch (err) {
+      console.error("executeRecaptcha or close_captcha error:", err);
+      setErrorMsg("Captcha verification failed. Please try again.");
+      setDTestStart(false);
+    } finally {
+      if (mounted) setIsFetching(false);
+    }
+  };
+
+  runCaptcha();
+
+  return () => { mounted = false; };
+}, [props.captcha, executeRecaptcha, attempt]);
+
+
+  const close_captcha = async (res: boolean | string): Promise<void> => {
+    try {
+      console.log("Sending token to server...");
+      const gettequest = await fetch("/api/auth/login/getsSecondary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ Response_from_google: res }),
+      });
+      const tokenSecondary = await gettequest.json();
+      console.log("Server status:", gettequest.status, "response:", tokenSecondary);
+      if (gettequest.status === 200) {
+        props.setTokenSecondary(tokenSecondary);
+        props.setCaptcha(false); // sulkee dialogin
+        setDTestStart(true);
+        localStorage.setItem("tokensecondary", tokenSecondary);
+        navigate("/");
+      } else {
+        setErrorMsg("Captcha failed server verification. Please refresh and try again.");
+      }
+    } catch (err) {
+      console.error("close_captcha fetch error", err);
+      setErrorMsg("Network error while verifying captcha. Please try again.");
+    }
+  };
+  
+  const handleManualRetry = () => {
+    setAttempt((a) => a + 1);
+  };
+  //console.log("ENV SITEKEY:", import.meta.env.VITE_GOOGLE_CAPTCHA_SITEKEY);
+  //onsole.log("Provider reCaptchaKey (runtime):", document.querySelector('script[data-recaptcha-provider]') ? true : false);
+  //console.log("window.grecaptcha:", !!window.grecaptcha);
+
 
   return (
 
@@ -269,16 +345,36 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
       </Dialog>
 
 
-      <Dialog open={props.captcha}><Typography variant="body1" sx={{ margin: "5px" }} >Hello. I have on this site two different free api services. I am sorry to interrupt but i have to test
-        that you are not robot who is hammering my site apicalls. After test you can use my
-        like you want.
-      </Typography>  <ReCAPTCHA
-          sitekey={String(sitekey_capcha)}
-          onChange={(e: any) => { close_captcha(e) }}
-        />
-      </Dialog>
+      
+     
+             <Dialog open={props.captcha} disableEscapeKeyDown>
+      <Box sx={{ p: 2, minWidth: 320 }}>
+        <Typography sx={{ marginBottom: 2 }}>
+          Hello. I have on this site two different free api services. I am sorry to interrupt but i have to test
+          that you are not robot who is hammering my site apicalls. After test you can use my like you want.
+        </Typography>
 
-
+        {isFetching ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <CircularProgress size={24} />
+            <Typography>Verifying, please wait...</Typography>
+          </Box>
+        ) : errorMsg ? (
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Typography color="error">{errorMsg}</Typography>
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <Button variant="contained" onClick={handleManualRetry}>Try again</Button>
+              <Button variant="outlined" onClick={() => window.location.reload()}>Refresh page</Button>
+            </Box>
+          </Box>
+        ) : (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Typography sx={{ color: "text.secondary" }}>Preparing captcha verification...</Typography>
+            <Button size="small" onClick={handleManualRetry}>Start verification</Button>
+          </Box>
+        )}
+      </Box>
+    </Dialog>
     </Container>
 
   )

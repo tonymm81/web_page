@@ -5,13 +5,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+//import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import CodeIcon from '@mui/icons-material/Code';
 //images
-import projects from '../photos/projects.jpg'
+//import projects from '../photos/projects.jpg'
 import GDeditor from '../photos/graafinen suunnittelu editori.webp'
 import GDDesktop from '../photos/graafinen suunnittelu selain.webp'
 import GDmobile from '../photos/graafinen suunnittelu puhelin.webp'

@@ -32,8 +32,8 @@ const App: React.FC = (): React.ReactElement => {
   const [news_timestamp, setNews_timestamp] = useState<Date>(new Date());
   const [browser_path, setBrowser_path] = useState<string>();
   localStorage.setItem("last_path", "/");
-  const feedbackInput: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
-  const FeedbackName: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+  const feedbackInput = useRef<HTMLInputElement | null>(null);
+  const FeedbackName = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = React.useState<number | null>(2);
   const [hover, setHover] = React.useState(-1);
 

@@ -405,18 +405,17 @@ function Work_time(props?: any) {
 
                             <DateTimePicker
                                 label="choose here date and time"
-                                className='worktimeFields'
+                                className="worktimeFields"
                                 value={timenow}
-                                disableMaskedInput={true}
-                                disableFuture={true}
-                                onChange={(choosedTime: Date | null) => setTimenow(choosedTime!)}
-                                renderInput={(params: any) => <TextField {...params}
-                                    fullWidth={true}
-                                    sx={{ marginBottom: "10px" }}
-
-
-                                />}
-                            />
+                                disableFuture
+                                onChange={(choosedTime) => setTimenow(choosedTime!)}
+                                slotProps={{
+                                    textField: {
+                                    fullWidth: true,
+                                    sx: { marginBottom: "10px" }
+                                    }
+                                }}
+                                />
 
                             <Button variant="contained"
                                 color="inherit"
