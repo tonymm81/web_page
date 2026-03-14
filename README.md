@@ -527,6 +527,48 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 - check the Database ommunication, is that safe still.-> ok in version 194
 
+## version 197 (Major update)
+- Updating the react framework.
+
+### bug google captcha
+- CAPTCHA‑ONGELMAN YHTEENVETO (CRA → Vite → React 19)
+
+    Projekti toimi CRA:ssa, koska CRA käytti React 18 -versiota.
+
+    Vite-projekti käyttää React 19 -versiota, joka ei ole yhteensopiva reCAPTCHA V2 Checkbox -kirjastojen kanssa.
+
+    react-google-recaptcha ei tue React 19 -versiota. Se toimii React 16–18.
+
+    react-recaptcha-x ei tue React 19 -versiota. Se toimii React 16–18.
+
+    Yksikään reCAPTCHA V2 Checkbox -kirjasto ei tällä hetkellä tue React 19 -versiota.
+
+    Tämän takia Google antaa virheen "Invalid site key", vaikka avain, domainit ja skriptit ovat täysin oikein.
+
+    Virhe ei johdu:
+
+        väärästä avaimesta
+
+        väärästä domainista
+
+        väärästä env-muuttujasta
+
+        Viten portista
+
+        index.html-skriptistä
+
+        koodista
+
+    Virhe johtuu siitä, että widgetti ei rekisteröidy React 19 -ympäristössä, ja Google tulkitsee sen invalidiksi avaimen virheeksi.
+
+    Ratkaisuvaihtoehdot:
+    A) Downgrade React 19 → React 18 (täysin toimiva ja varma ratkaisu)
+    B) Vaihda reCAPTCHA V3 -versioon (toimii React 19:ssä, mutta ei ole checkbox)
+
+    Jos haluat säilyttää checkboxin, React 18 on ainoa toimiva vaihtoehto.
+
+    Jos haluat säilyttää React 19:n, checkbox ei toimi, vaan on käytettävä V3:sta.
+
 
 # installs backend:
 
