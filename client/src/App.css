@@ -223,48 +223,44 @@ h3.MuiTypography-h3 {
 
 .projects {
   display: flex;
-  justify-content: center;
+  flex-direction: column;   
+  justify-content: flex-start;
+  align-items: center;
   margin-top: 10px;
   background-image: url('./photos/projects.webp');
   background-repeat: repeat;
-  background-size: 100% contain;
+  background-size: contain;
   background-position: center;
   max-width: 100%;
   min-height: 1000px;
-
   box-shadow: 1px 1px 1px black;
-  align-items: center;
-
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 .middleBoxProjects {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 50px;
-
   width: 100%;
+  margin-top: 50px;
   padding: 5px;
-  height: auto;
+  box-sizing: border-box;
 }
 
+/* käytä grid tai flex wrap; tässä flex-wrap ratkaisu */
 .projectsPaper {
-  align-items: top;
-  width: 98%;
-  height: auto;
   display: flex;
-  flex-direction: row;
-  columns: 2;
-
-  margin: 10px;
+  flex-wrap: wrap;        /* 🔥 sallii rivinvaihdon */
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .projectsCard {
-  margin-top: 5px;
-  width: 48%;
-  height: auto;
-  margin: 10px;
+  flex: 1 1 calc(50% - 40px);   /* 🔥 kaksi korttia vierekkäin desktopilla */
+  max-width: calc(50% - 40px);
+  min-width: 280px;             /* 🔥 mobiilissa pakottaa yhden sarakkeen */
+  box-sizing: border-box;
 }
-
 .endBoxProjects {
 
   margin-top: 60px;
@@ -587,13 +583,19 @@ img {
     flex-direction: column;
     margin: 2px;
   }
-
-  .projectsCard {
-    width: 100%;
-    height: auto;
-    margin: 2px;
+ .projectsCard {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 
+
+
+
+  .projectsCard img, .projectsCard .MuiCardMedia-root {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
   .middleBoxProjects {
     margin: 2px;
     padding: 2px;
