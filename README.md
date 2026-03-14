@@ -528,46 +528,73 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 - check the Database ommunication, is that safe still.-> ok in version 194
 
 ## version 197 (Major update)
-- Updating the react framework.
+-Overview
 
-### bug google captcha
-- CAPTCHA‑ONGELMAN YHTEENVETO (CRA → Vite → React 19)
+This repository contains a web application that was migrated from Create React App (CRA) to Vite and upgraded to React 19. The backend remains an Express app serving static files from the public/ folder. The CI pipeline builds the client and deploys the build artifacts to the server.
 
-    Projekti toimi CRA:ssa, koska CRA käytti React 18 -versiota.
+Key changes
 
-    Vite-projekti käyttää React 19 -versiota, joka ei ole yhteensopiva reCAPTCHA V2 Checkbox -kirjastojen kanssa.
+Frontend build tool: migrated from CRA to Vite.
 
-    react-google-recaptcha ei tue React 19 -versiota. Se toimii React 16–18.
+React: upgraded to React 19.
 
-    react-recaptcha-x ei tue React 19 -versiota. Se toimii React 16–18.
+MUI and pickers: upgraded to MUI 7 and X-Date-Pickers 8.
 
-    Yksikään reCAPTCHA V2 Checkbox -kirjasto ei tällä hetkellä tue React 19 -versiota.
+TypeScript: updated to a newer version compatible with React 19 and Vite.
 
-    Tämän takia Google antaa virheen "Invalid site key", vaikka avain, domainit ja skriptit ovat täysin oikein.
+Build output: Vite produces a dist/ folder by default. Project configured to output build/ to preserve existing deployment pipeline.
 
-    Virhe ei johdu:
+Deployment pipeline: GitHub Actions builds the client and copies the client build into the server public/ folder. The server uses PM2 to restart the Node process and runs npx prisma generate when needed.
 
-        väärästä avaimesta
+Directory layout (important paths)
 
-        väärästä domainista
+Client source: /home/tonigaming/Desktop/projects/web_page/client/
 
-        väärästä env-muuttujasta
+Server root: /home/users/tonymm81/web_page/
 
-        Viten portista
+Server public folder: /home/users/tonymm81/web_page/public/
 
-        index.html-skriptistä
+Server entry point: /home/users/tonymm81/web_page/index.js
 
-        koodista
+Deployment notes
 
-    Virhe johtuu siitä, että widgetti ei rekisteröidy React 19 -ympäristössä, ja Google tulkitsee sen invalidiksi avaimen virheeksi.
+The CI workflow builds the client and copies the build artifacts to a temporary folder on the server, then rsyncs the client build into public/ and restarts the server with PM2.
 
-    Ratkaisuvaihtoehdot:
-    A) Downgrade React 19 → React 18 (täysin toimiva ja varma ratkaisu)
-    B) Vaihda reCAPTCHA V3 -versioon (toimii React 19:ssä, mutta ei ole checkbox)
+To avoid leftover files from the old CRA build, remove only the old CRA artifacts before copying the new build. Do not delete the entire public/ folder.
 
-    Jos haluat säilyttää checkboxin, React 18 on ainoa toimiva vaihtoehto.
+Safe cleanup commands to run on the server before deploy
 
-    Jos haluat säilyttää React 19:n, checkbox ei toimi, vaan on käytettävä V3:sta.
+This preserves the existing pipeline and Express static paths.
+
+#### TypeScript and unused symbols
+
+The project enforces strict TypeScript checks. The build runs tsc -b before vite build, and unused imports, variables, or parameters will fail the build with errors such as TS6133 and TS6192.
+
+#### Action required:
+
+Remove unused imports and variables from components.
+
+Rename unused parameters to start with an underscore to indicate intentional omission, for example (_, newValue) => {}.
+
+Use npx eslint --fix where applicable to auto-fix trivial issues.
+
+If you need a temporary bypass for CI while cleaning the codebase, change the build script in package.json to run vite build directly. Revert this change after cleaning unused symbols.
+
+reCAPTCHA and environment variables
+
+Ensure both tonimaenpaa.fi and www.tonimaenpaa.fi are registered in the reCAPTCHA admin console.
+
+Keep the frontend SITE_KEY in public/.env and the backend SECRET_KEY in the server .env used by the verification endpoint.
+
+Recommended workflow
+
+Clean old CRA artifacts from public/ while preserving .env and static assets.
+
+Run npm run build in the client folder locally or let CI build on push.
+
+Push to the Publish branch to trigger the GitHub Actions workflow.
+
+Verify the site in production and test reCAPTCHA, routes, images, and forms.
 
 
 # installs backend:
