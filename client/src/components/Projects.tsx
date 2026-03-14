@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Container, Dialog, DialogActions, Fab, Fade, FormControlLabel, Grow, IconButton, IconButtonProps, Paper, styled, Switch, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Container, Dialog, DialogActions, Fab, Fade, FormControlLabel, Grow, IconButton, Paper, Switch, Typography } from "@mui/material";
 import '../App.css'
 import { useEffect, useState } from "react";
 import weatherstation from '../photos/weatherstationFront.webp'

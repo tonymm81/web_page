@@ -1,85 +1,50 @@
 {
-    "name": "omasivu",
-    "proxy": "http://localhost:3108",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@date-io/jalaali": "^2.17.0",
-        "@emotion/react": "^11.14.0",
-        "@emotion/styled": "^11.14.1",
-        "@fontsource/roboto": "^5.2.6",
-        "@mui/icons-material": "^5.18.0",
-        "@mui/lab": "^5.0.0-alpha.177",
-        "@mui/material": "^5.18.0",
-        "@mui/styled-engine-sc": "^5.14.12",
-        "@mui/x-date-pickers": "^5.0.20",
-        "@testing-library/jest-dom": "^6.8.0",
-        "@testing-library/user-event": "^14.6.1",
-        "@types/dompurify": "^3.0.5",
-        "@types/jest": "^30.0.0",
-        "@types/node": "^24.3.0",
-        "@types/react-dom": "^18.3.7",
-        "@types/react-router-dom": "^5.3.3",
-        "ajv": "^6.12.6",
-        "ajv-keywords": "^3.5.2",
-        "braces": "^3.0.3",
-        "date-fns": "^2.30.0",
-        "dompurify": "^3.2.6",
-        "dotenv": "^17.2.1",
-        "http-proxy-middleware": "^3.0.5",
-        "micromatch": "^4.0.8",
-        "moment-jalaali": "^0.9.6",
-        "nth-check": "^2.0.1",
-        "postcss": "^8.4.31",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-google-recaptcha": "^3.1.0",
-        "react-google-recaptcha-v3": "^1.11.0",
-        "react-router-dom": "^7.13.0",
-        "styled-components": "^5.3.11",
-        "web-vitals": "^2.1.4",
-        "webpack": "^5.101.3",
-        "webpack-dev-server": "^5.2.1",
-        "websockets": "^0.2.0"
-    },
-    "overrides": {},
-    "scripts": {
-        "proxy": "https://newsapi.org",
-        "start": "react-app-rewired start",
-        "build": "react-app-rewired build",
-        "test": "react-app-rewired test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-        "@testing-library/react": "^13.4.0",
-        "@types/react": "^18.3.23",
-        "@types/react-google-recaptcha": "^2.1.9",
-        "react-app-rewired": "^2.2.1",
-        "react-scripts": "^5.0.1",
-        "typescript": "^4.9.5"
-    },
-    "resolutions": {
-        "nth-check": "2.0.1",
-        "postcss": "8.4.31",
-        "svgo": "2.8.0"
-    }
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@date-io/date-fns": "^3.2.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/lab": "^7.0.1-beta.23",
+    "@mui/material": "^7.3.9",
+    "@mui/x-date-pickers": "^8.27.2",
+    "date-fns": "^4.1.0",
+    "dompurify": "^3.3.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-google-recaptcha": "^3.1.0",
+    "react-google-recaptcha-v3": "^1.11.0",
+    "react-router-dom": "^7.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@eslint/js": "^9.39.4",
+    "@rolldown/plugin-babel": "^0.2.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/dompurify": "^3.0.5",
+    "@types/node": "^24.12.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.36",
+    "@vitejs/plugin-react": "^6.0.0",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "vite": "^8.0.0"
+  }
 }

@@ -527,6 +527,75 @@ Becase the media cards are so long, when them are expanded, it would be easier t
 
 - check the Database ommunication, is that safe still.-> ok in version 194
 
+## version 197 (Major update)
+-Overview
+
+This repository contains a web application that was migrated from Create React App (CRA) to Vite and upgraded to React 19. The backend remains an Express app serving static files from the public/ folder. The CI pipeline builds the client and deploys the build artifacts to the server.
+
+Key changes
+
+Frontend build tool: migrated from CRA to Vite.
+
+React: upgraded to React 19.
+
+MUI and pickers: upgraded to MUI 7 and X-Date-Pickers 8.
+
+TypeScript: updated to a newer version compatible with React 19 and Vite.
+
+Build output: Vite produces a dist/ folder by default. Project configured to output build/ to preserve existing deployment pipeline.
+
+Deployment pipeline: GitHub Actions builds the client and copies the client build into the server public/ folder. The server uses PM2 to restart the Node process and runs npx prisma generate when needed.
+
+Directory layout (important paths)
+
+Client source: /home/tonigaming/Desktop/projects/web_page/client/
+
+Server root: /home/users/tonymm81/web_page/
+
+Server public folder: /home/users/tonymm81/web_page/public/
+
+Server entry point: /home/users/tonymm81/web_page/index.js
+
+Deployment notes
+
+The CI workflow builds the client and copies the build artifacts to a temporary folder on the server, then rsyncs the client build into public/ and restarts the server with PM2.
+
+To avoid leftover files from the old CRA build, remove only the old CRA artifacts before copying the new build. Do not delete the entire public/ folder.
+
+Safe cleanup commands to run on the server before deploy
+
+This preserves the existing pipeline and Express static paths.
+
+#### TypeScript and unused symbols
+
+The project enforces strict TypeScript checks. The build runs tsc -b before vite build, and unused imports, variables, or parameters will fail the build with errors such as TS6133 and TS6192.
+
+#### Action required:
+
+Remove unused imports and variables from components.
+
+Rename unused parameters to start with an underscore to indicate intentional omission, for example (_, newValue) => {}.
+
+Use npx eslint --fix where applicable to auto-fix trivial issues.
+
+If you need a temporary bypass for CI while cleaning the codebase, change the build script in package.json to run vite build directly. Revert this change after cleaning unused symbols.
+
+reCAPTCHA and environment variables
+
+Ensure both tonimaenpaa.fi and www.tonimaenpaa.fi are registered in the reCAPTCHA admin console.
+
+Keep the frontend SITE_KEY in public/.env and the backend SECRET_KEY in the server .env used by the verification endpoint.
+
+Recommended workflow
+
+Clean old CRA artifacts from public/ while preserving .env and static assets.
+
+Run npm run build in the client folder locally or let CI build on push.
+
+Push to the Publish branch to trigger the GitHub Actions workflow.
+
+Verify the site in production and test reCAPTCHA, routes, images, and forms.
+
 
 # installs backend:
 

@@ -12,8 +12,8 @@ function Forecast(props?: any) {
     const what_city = useRef<string | undefined>("")
     const [userchoose, setUserchoose] = useState<string>("")
     const [fullForecast, setFullForecast] = useState<Forecast_json>({ Whole_forecast: {} })
-    const userInput: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
-    const userInputcountry: React.MutableRefObject<HTMLInputElement | undefined> = useRef<HTMLInputElement>();
+    const userInput = useRef<HTMLInputElement | null>(null);
+    const userInputcountry = useRef<HTMLInputElement | null>(null);
     const [backdrop, setBackdrop] = useState<boolean>(false)
     const [forecastSaved, setForecastSaved] = useState<Forecast_needed[]>([])//{temp_min:0, temp_max:0, wind:0, timeStamp : new Date(),
     const [searchTime, setSearchTime] = useState<number>(0)
