@@ -52,7 +52,7 @@ apiAuthRouter.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 
     }
 }));
 apiAuthRouter.post("/login/getsSecondary", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b, _c, _d;
     let token_from_client = req.body.Response_from_google;
     const secret = (_a = process.env.GOOGLE_CAPTCHA) !== null && _a !== void 0 ? _a : "";
     const token = token_from_client !== null && token_from_client !== void 0 ? token_from_client : "";
@@ -72,8 +72,19 @@ apiAuthRouter.post("/login/getsSecondary", (req, res, next) => __awaiter(void 0,
             next(new errorHalndler_1.ServerError(401, response.data));
         }
     }
-    catch (_b) {
-        next(new errorHalndler_1.ServerError(401, "unauthorized"));
+    catch (err) {
+        if (axios_1.default.isAxiosError(err)) {
+            console.error('siteverify axios error', (_c = (_b = err.response) === null || _b === void 0 ? void 0 : _b.data) !== null && _c !== void 0 ? _c : err.message);
+            if ((_d = err.response) === null || _d === void 0 ? void 0 : _d.data) {
+                // DEBUG: palauta google‑vastaus clientille vain väliaikaisesti
+                res.status(401).json({ ok: false, google: err.response.data });
+                return;
+            }
+        }
+        else {
+            console.error('siteverify unknown error', err);
+        }
+        next(new errorHalndler_1.ServerError(401, 'unauthorized'));
     }
 }));
 exports.default = apiAuthRouter;
