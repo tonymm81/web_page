@@ -141,6 +141,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
         navigate("/");
       } else {
         setErrorMsg("Captcha failed server verification. Please refresh and try again.");
+        console.log("vitun captcha", gettequest);
       }
     } catch (err) {
       console.error("close_captcha fetch error", err);
