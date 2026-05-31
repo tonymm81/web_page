@@ -596,34 +596,9 @@ Push to the Publish branch to trigger the GitHub Actions workflow.
 
 Verify the site in production and test reCAPTCHA, routes, images, and forms.
 
+## version 198
 
-# installs backend:
-
-- photo converting magick mogrify -format webp -quality 75 *.jpg
-- npm install
-- npm install prisma ---save-dev
-- npx prisma init
-- npm install @prisma/client
-- ja sen jälkeen npx prisma db push
-- Muutoksissa npx prisma generate
-- npm install cors
-- npm i --save-dev @types/cors
-- npm install crypto
-- npm install dotenv
-- npm install node-fetch@2
-- npm install axios
-- npm install node-fetch
-- npm install @types/node-fetch
-- npm install date-fns
-
-# installit client (old version)
-
-- npx create-react-app client --template typescript
-- npm install @mui/material @emotion/react @emotion/styled @mui/icons-material @fontsource/roboto
-- npm install @mui/material @mui/styled-engine-sc styled-components
-- npm install @mui/icons-material
-- npm install react-router-dom
-- npm install react-quill --legacy-peer-deps
+Fixing the dependa bot warnings. Updating the client and backend side node packages.
 
  
 cd weatherstation/web_page/web_page
