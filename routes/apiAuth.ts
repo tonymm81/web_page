@@ -70,7 +70,7 @@ apiAuthRouter.post("/login/getsSecondary", async (req: express.Request, res: exp
            res.status(401).json({ ok: false, google: response.data });
         }
         else {
-            next(new ServerError(401, "unauthorized"));
+            next(new ServerError(401, response.data));
         }
 
 
