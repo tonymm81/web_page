@@ -65,7 +65,11 @@ apiAuthRouter.post("/login/getsSecondary", async (req: express.Request, res: exp
         if (response.data.success) {
             let tokenSecondary = jwt.sign({}, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
             res.json(tokenSecondary)
-        } else {
+        } 
+        else if (!response.data.success) {
+           res.status(401).json({ ok: false, google: response.data });
+        }
+        else {
             next(new ServerError(401, "unauthorized"));
         }
 
