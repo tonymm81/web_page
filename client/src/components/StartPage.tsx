@@ -85,7 +85,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
 
     // odotetaan executeRecaptchaia kunnes se on valmis tai retryt loppuu
     while (mounted && !executeRecaptcha && retries < maxRetries) {
-      console.log("executeRecaptcha not ready, retry", retries + 1);
+      //console.log("executeRecaptcha not ready, retry", retries + 1);
       retries++;
       // eksponentiaalinen backoff: 500ms, 1000ms, 2000ms...
       await wait(500 * Math.pow(2, retries - 1));
@@ -93,7 +93,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
 
     if (!mounted) return;
     if (!executeRecaptcha) {
-      console.warn("executeRecaptcha still not ready after retries");
+      //console.warn("executeRecaptcha still not ready after retries");
       setErrorMsg("Captcha service not ready. Click Start verification to try again.");
       return;
     }
@@ -104,12 +104,12 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
       // pysäytetään animaatio kun verifiointi alkaa
       setDTestStart(false);
 
-      console.log("Calling executeRecaptcha");
+      //console.log("Calling executeRecaptcha");
       const token = await executeRecaptcha("captcha_check");
-      console.log("Got token:", token);
+     // console.log("Got token:", token);
       await close_captcha(token ?? "");
     } catch (err) {
-      console.error("executeRecaptcha or close_captcha error:", err);
+      //console.error("executeRecaptcha or close_captcha error:", err);
       setErrorMsg("Captcha verification failed. Please try again.");
       setDTestStart(false);
     } finally {
@@ -132,7 +132,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
         body: JSON.stringify({ Response_from_google: res }),
       });
       const tokenSecondary = await gettequest.json();
-      console.log("Server status:", gettequest.status, "response:", tokenSecondary);
+      //console.log("Server status:", gettequest.status, "response:", tokenSecondary);
       if (gettequest.status === 200) {
         props.setTokenSecondary(tokenSecondary);
         props.setCaptcha(false); // sulkee dialogin
