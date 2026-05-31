@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import apiNewsRouter from './routes/apiNews';
@@ -5,13 +6,11 @@ import apiAuthRouter from './routes/apiAuth';
 import apiSignRouter from './routes/apiSign'
 import serverErrorHandler from './errors/errorHalndler';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import apiForecastRouter from './routes/apiForecast';
 import apiWorkTimeRouter from './routes/apiWorkTime';
 import apiFeedbackRouter from './routes/apiFeedback';
 //import fetch, { Headers } from 'node-fetch';
 
-dotenv.config();
 
 const app : express.Application = express();
 

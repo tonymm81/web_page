@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const apiNews_1 = __importDefault(require("./routes/apiNews"));
@@ -10,12 +11,10 @@ const apiAuth_1 = __importDefault(require("./routes/apiAuth"));
 const apiSign_1 = __importDefault(require("./routes/apiSign"));
 const errorHalndler_1 = __importDefault(require("./errors/errorHalndler"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const apiForecast_1 = __importDefault(require("./routes/apiForecast"));
 const apiWorkTime_1 = __importDefault(require("./routes/apiWorkTime"));
 const apiFeedback_1 = __importDefault(require("./routes/apiFeedback"));
 //import fetch, { Headers } from 'node-fetch';
-dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT); // muista laittaa proxyyn
 const checkToken = (req, res, next) => {
