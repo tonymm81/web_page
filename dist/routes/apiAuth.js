@@ -52,9 +52,15 @@ apiAuthRouter.post("/login", (req, res, next) => __awaiter(void 0, void 0, void 
     }
 }));
 apiAuthRouter.post("/login/getsSecondary", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     let token_from_client = req.body.Response_from_google;
+    const secret = (_a = process.env.GOOGLE_CAPTCHA) !== null && _a !== void 0 ? _a : "";
+    const token = token_from_client !== null && token_from_client !== void 0 ? token_from_client : "";
+    const params = new URLSearchParams();
+    params.append("secret", secret);
+    params.append("response", token);
     try {
-        const response = yield axios_1.default.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_CAPTCHA}&response=${token_from_client}`);
+        const response = yield axios_1.default.post("https://www.google.com/recaptcha/api/siteverify", params, { headers: { "Content-Type": "application/x-www-form-urlencoded" } });
         if (response.data.success) {
             let tokenSecondary = jsonwebtoken_1.default.sign({}, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
             res.json(tokenSecondary);
@@ -63,7 +69,7 @@ apiAuthRouter.post("/login/getsSecondary", (req, res, next) => __awaiter(void 0,
             next(new errorHalndler_1.ServerError(401, "unauthorized"));
         }
     }
-    catch (_a) {
+    catch (_b) {
         next(new errorHalndler_1.ServerError(401, "unauthorized"));
     }
 }));
