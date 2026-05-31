@@ -132,7 +132,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
         body: JSON.stringify({ Response_from_google: res }),
       });
       const tokenSecondary = await gettequest.json();
-      //console.log("Server status:", gettequest.status, "response:", tokenSecondary);
+      console.log("Server status:", gettequest.status, "response:", tokenSecondary, "responseRaw", gettequest);
       if (gettequest.status === 200) {
         props.setTokenSecondary(tokenSecondary);
         props.setCaptcha(false); // sulkee dialogin
