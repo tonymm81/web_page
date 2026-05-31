@@ -53,8 +53,15 @@ apiAuthRouter.post("/login", async (req: express.Request, res: express.Response,
 });
 apiAuthRouter.post("/login/getsSecondary", async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
     let token_from_client = req.body.Response_from_google
+    const secret = process.env.GOOGLE_CAPTCHA ?? "";
+    const token = token_from_client ?? "";
+    const params = new URLSearchParams()
+    params.append("secret", secret)
+    params.append("response", token)
     try {
-        const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_CAPTCHA}&response=${token_from_client}`)
+        const response = await axios.post("https://www.google.com/recaptcha/api/siteverify",params,
+                { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+            );
         if (response.data.success) {
             let tokenSecondary = jwt.sign({}, String(process.env.ACCESS_TOKEN_KEY_SECONDARY));
             res.json(tokenSecondary)
