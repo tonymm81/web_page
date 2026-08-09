@@ -65,8 +65,8 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
     }
   }, []);
   useEffect(() => {
-    console.log("captcha prop:", props.captcha);
-    console.log("executeRecaptcha available:", !!executeRecaptcha);
+    //console.log("captcha prop:", props.captcha);
+    //console.log("executeRecaptcha available:", !!executeRecaptcha);
   }, [props.captcha, executeRecaptcha]);
 
 
@@ -132,7 +132,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
         body: JSON.stringify({ Response_from_google: res }),
       });
       const tokenSecondary = await gettequest.json();
-      console.log("Server status:", gettequest.status, "response:", tokenSecondary, "responseRaw", gettequest);
+      //console.log("Server status:", gettequest.status, "response:", tokenSecondary, "responseRaw", gettequest);
       if (gettequest.status === 200) {
         props.setTokenSecondary(tokenSecondary);
         props.setCaptcha(false); // sulkee dialogin
@@ -141,7 +141,7 @@ const StartPage: React.FC<Props> = (props: Props): React.ReactElement => {
         navigate("/");
       } else {
         setErrorMsg("Captcha failed server verification. Please refresh and try again.");
-        console.log("vitun captcha", gettequest);
+        //console.log("vitun captcha", gettequest);
       }
     } catch (err) {
       console.error("close_captcha fetch error", err);
