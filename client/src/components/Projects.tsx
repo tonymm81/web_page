@@ -23,6 +23,15 @@ import wlanControlApp1 from '../photos/WlanController1.png.webp'
 import wlanControlApp2 from '../photos/androidProject.webp'
 import wlanControlApp3 from '../photos/androidProject1.webp'
 import wlanControlApp4 from '../photos/androidProject2.webp'
+import AiProjectServer from '../photos/AiServer.webp'
+import AiAppStart from '../photos/start app.webp'
+import AiChooseAgent from '../photos/after choosing agent.webp'
+import AiChooseAgentOld from '../photos/after choosing continue old.webp'
+import AiSendPrompt from '../photos/sending the prompt to agent.webp'
+import AiChooseConversation from '../photos/choosing the conversation.webp'
+import AiAgentAnswer from '../photos/agent answer and analytics.webp'
+import AiAppUiPath from '../photos/ai agent ui plan.drawio.webp'
+import AiServerShema from '../photos/ai project.drawio.webp'
 import soon from '../photos/soon.webp'
 import { red } from "@mui/material/colors";
 
@@ -42,7 +51,8 @@ function Projects(props?: any) {
     const [openFrontend, setOpenFrontend] = useState<boolean>(false);
     const [openWlanController, setOpenWlanController] = useState<boolean>(false);
     const [openWebProject, setOpenWebProject] = useState<boolean>(false);
-    const [expand, setExpand] = useState<boolean>(false)
+    const [openAiProject, setOpenAiProject] = useState<boolean>(false);
+    //const [expand, setExpand] = useState<boolean>(false)
     const [checked, setChecked] = useState(false);
     const [OpenProjectDialog, setOpenProjectDialog] = useState(false);
     const [projectImage, setProjectImage] = useState<string>("")
@@ -112,8 +122,8 @@ function Projects(props?: any) {
                             style={{ transformOrigin: '0 0 0' }}
                             {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
                                 <CardContent>
-                                    <Typography paragraph>Descripe:</Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         This device communicates using MQTT.
                                         The mirror acts as a broker that listens for incoming messages from the ESP devices.
                                         Each ESP measures temperature and humidity, and two of them also measure the outdoor lux value.
@@ -131,7 +141,7 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
 
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         The broker maintains a local database, and when the device starts, it fetches the weather forecast from an API service and displays it on the screen.
                                         The database stores all measurements received from the ESP microcontrollers, with one entry saved per hour.
                                         The broker also includes a graphical view where you can search for measurements from a specific time period.
@@ -150,7 +160,7 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         Each ESP runs on USB power. Two of them have a DHT11 sensor, a DHT22 sensor and a lux sensor,
                                         and one of them has only a DHT22 sensor.
                                         With these devices I measure the indoor temperature, and from outside I measure temperature, humidity
@@ -216,8 +226,8 @@ function Projects(props?: any) {
                             style={{ transformOrigin: '0 0 0' }}
                             {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
                                 <CardContent>
-                                    <Typography paragraph>Descripe:</Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         This device includes features such as controlling WLAN outlets and lamps directly from the interface.
                                         You can also save and load any settings you want.
 
@@ -234,13 +244,13 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         In this image you can see the compact setup of the Raspberry Pi 4 and the 8‑inch Raspberry Pi touchscreen.
                                         The device runs Raspbian, and the program starts automatically on boot.
                                         This project also includes an Android app for controlling WLAN outlets.
 
                                     </Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         Here are the schematics I created for this device.
                                     </Typography>
                                     <CardMedia
@@ -322,8 +332,8 @@ function Projects(props?: any) {
                             style={{ transformOrigin: '0 0 0' }}
                             {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
                                 <CardContent>
-                                    <Typography paragraph>Descripe:</Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         In the control unit (upper image) there is an Arduino and an STM microcontroller.
                                         The system also includes an RFID tag reader and two displays, one for each microcontroller.
 
@@ -348,7 +358,7 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
 
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         In the upper image you can see the power control unit.
                                         This unit has a separate power source, because the relays would otherwise cause interference signals.
                                         The relays control the high‑voltage side of the device.
@@ -367,7 +377,7 @@ function Projects(props?: any) {
 
                                     </Typography>
 
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         I made the schematics from this device.
                                     </Typography>
                                     <CardMedia
@@ -394,7 +404,7 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         Parts:<br />
                                         Arduino uno<br />
                                         Nucleo f303re microcontroller<br />
@@ -474,8 +484,8 @@ function Projects(props?: any) {
                             style={{ transformOrigin: '0 0 0' }}
                             {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
                                 <CardContent>
-                                    <Typography paragraph>Descripe:</Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         In next image we see a simple photo album. It uses iframe to show the
                                         image in bigger size. There is also a short description to images.
                                     </Typography>
@@ -490,7 +500,7 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         Next image tell about my projects. The blocks are animated, and they
                                         grow bigger, when the mouse pointer is top of it.
                                     </Typography>
@@ -505,7 +515,7 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         Next image tells about my cv and school proccess details. It is made with
                                         iframe and photos are in small review window.
                                     </Typography>
@@ -521,7 +531,7 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         Last image tell about my hobbies. There is also two video tag, what are linked to
                                         local video files.
                                     </Typography>
@@ -603,8 +613,8 @@ function Projects(props?: any) {
                             style={{ transformOrigin: '0 0 0' }}
                             {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
                                 <CardContent>
-                                    <Typography paragraph>Descripe:</Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         At first I tried to add a new feature to my React Native Expo app, but I soon realized that
                                         communicating with a local HTTP or HTTPS server from Expo was almost impossible.
                                         I also tried MQTT, but that didn’t work either.
@@ -625,7 +635,7 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
 
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         The Python 3 table project already has working logic for controlling the table height adjustment,
                                         as well as the WLAN lamps and outlets.
                                         I connected this new Android app to the table project so the user can choose which device
@@ -644,7 +654,7 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
 
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         This app receives a JSON object through an HTTP GET request.
                                         When the JSON object changes for example, when a device is switched off
                                         the app sends an updated JSON object back to the Python Flask server.
@@ -721,8 +731,8 @@ function Projects(props?: any) {
                             style={{ transformOrigin: '0 0 0' }}
                             {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
                                 <CardContent>
-                                    <Typography paragraph>Descripe:</Typography>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         I want to test, how I can build a web site with Node EJS. Node Ejs is quite handy way to develope the web site.
                                         Old style html elements is giving you lots of different ways to build the site. Then in the Node express there is site used routings and one
                                         routing is for that email sending.
@@ -738,7 +748,7 @@ function Projects(props?: any) {
                                     >
                                         <ZoomInIcon />
                                     </IconButton>
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         I build this site to Upcloud named cloud service. In my server folder I made the https routing with Nginx service.
                                         I also build up the CD/CI pipeline, that it would be easier to develop this site.
                                     </Typography>
@@ -754,7 +764,7 @@ function Projects(props?: any) {
                                         <ZoomInIcon />
                                     </IconButton>
 
-                                    <Typography paragraph>
+                                    <Typography component="p" sx={{ mb: 2 }}>
                                         I have to modify my domain settings, that i can connect the webpage to correct routing.
                                         Site will be found on
                                         <IconButton aria-label="view code"
@@ -778,6 +788,224 @@ function Projects(props?: any) {
             </Paper>
         </Container>
 
+        <Container className="endBoxProjects">
+
+            <Paper className="projectsPaper" sx={{ backgroundColor: "aliceblue" }}>
+                <Card className='projectsCard'>
+                    <CardHeader
+                        avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                AI
+                            </Avatar>
+                        }
+
+                        title="Local Ai agent Project"
+                        subheader="Local host Ai agent app just for investigating the Ai agent"
+                    />
+                    <CardMedia
+                        component="img"
+                        height="194"
+                        image={AiAppStart}
+                        alt="Ai app start"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            This is my ai agent project, where I want to investigate the ai agent features.
+                            I use the Ollama ai agents like Pixatrail (universal) Phil (dev agent) and Gwen (documentation). In desktopApp user can choose,
+                            Wich agent is answering the user prompt.
+
+                            If you want to enlarge the image, press the zoom button, and the code can be found under the {"<>"} button.
+
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="Expand image"
+                            onClick={() => openImageExpandDialogProjects(AiAppStart)}
+
+                        >
+                            <ZoomInIcon />
+                        </IconButton>
+                        <IconButton aria-label="view code"
+                            href="https://github.com/tonymm81/Local-Ai-Project">
+                            <CodeIcon />
+                        </IconButton>
+                    </CardActions>
+
+                    <FormControlLabel
+                        control={<Switch checked={openAiProject} onChange={() => { setOpenAiProject(!openAiProject) }} />}
+                        label="Show more"
+                    />
+
+                    <Collapse in={openAiProject} timeout="auto" unmountOnExit>
+                        <Grow in={openAiProject}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...(checked ? { timeout: 5000 } : {})}><Box sx={{ display: "flex" }}>
+                                <CardContent>
+                                    <Typography component="p" sx={{ mb: 2 }}>Descripe:</Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        First, here is my powerful local host server. Old gaming computer. Here I have Linux running and there is
+                                        3 different hard drives for each Ai agents. Every ai agent is in Docker container and Linux server Proxyserver is handling
+                                        the communication to choosen agent. Proxy server is also saving the ai agent analytics data.
+                                    </Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        <Typography component="p" sx={{ mb: 2 }}>Computer specs:</Typography>
+                                        Linux version: LightDM v 1.30.0 Distro Linux Mint 22.2 Zara base Ubuntu 24.04 noble,
+                                        Desktop Mobo: MSI model: Z87-G45 GAMING (MS-7821),
+                                        Processor: Intel Core i5-4670K bits: 64 type: MCP,
+                                        GPU: NVIDIA GP104 [GeForce GTX 1070 8GB] vendor: ASUSTeK driver: nvidia,
+                                        Memory: total: 12 GiB available: 11.62 GiB used: 1.22 GiB (10.5%)
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiProjectServer}
+                                        alt="Ai app server"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiProjectServer)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Here user can choose, if user wants to create new conversation or continue old conversation with choosen ai agent
+
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiChooseAgent}
+                                        alt="Ai app choose agent"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiChooseAgent)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Here user can choose the conversation topic, what user wants to continue
+
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiChooseAgentOld}
+                                        alt="Ai agent choose old"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiChooseAgentOld)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Here is prompt view with code block. Here user can choose different ai agent or go back to chat history
+                                        or check the analytics data from latest agent answer. If Ai agent is generating too long time the answer,
+                                        user can also use cancel button, what reset servers ai agents docker containers and proxy servers
+
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiSendPrompt}
+                                        alt="Ai agent send prompt"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiChooseConversation)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        When user wants to continue existing conversation, UI app will show the saved conversations. Here user can choose,
+                                        what conversation he or she wants to continue.
+                                        <Typography>Obs:</Typography>
+                                        This feature is limited to a single conversation at a time.
+                                        Implementing full conversation‑history support for a specific topic would require an additional summary AI agent that processes and condenses long dialogue chains.
+                                        Running such a summarization agent would significantly increase response times, especially on an older gaming PC where local model performance is limited.
+                                        Long conversation histories would also easily exceed the maximum token limit of the AI agent’s prompt, 
+                                        making it impossible to send the full history without summarizing it first.
+                                        For these reasons, the application currently includes only one conversation in the prompt sent to the AI agent.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiChooseConversation}
+                                        alt="Ai agent choose conversation"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiChooseConversation)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Here is app, when the user gets ai agent answer from server
+
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiAgentAnswer}
+                                        alt="Ai agent answer"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiAgentAnswer)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Here is user path plan, what I created from Python Tkinter app. In github this app will be found under DeskTopApp folder.
+                                        this feature might change after running some test. Later I will create android app based on this app. Then user can communicate
+                                        to ai agent via React native created android app.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiAppUiPath}
+                                        alt="Ai agent app ui plan"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiAppUiPath)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Here is technical schema, how this app is working. In left side there is DeskTopApp, where user make the http api calls
+                                        to ai agent server. I use the http call, because this setup is running under local host so no need to secure the communication.
+                                        In Ai server, there is proxy server, what keeps analytics sql database. Proxy also take api calls from Ui app and routes
+                                        the request to chosen ai agent.
+                                    </Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        In docker containers there is api interface, what routes the prompt to ai agent runtime service. This api interface also saves
+                                        the ai agent stuff to sql database, where we also dig up the latest conversation data
+                                    </Typography>
+                                    <Typography component="p" sx={{ mb: 2 }}>
+                                        Ollama reset agents service is waiting for api request from tkinter app. If user hit the cancel button, this service will
+                                        restart the containers and proxy servers. I have to create the kill switch, because some time the ollama agents are generating
+                                        the answer like endless loop.
+                                    </Typography>
+                                    <CardMedia
+                                        component="img"
+                                        height="194"
+                                        image={AiServerShema}
+                                        alt="Ai agent technical schema"
+                                    />
+                                    <IconButton aria-label="Expand image"
+                                        onClick={() => openImageExpandDialogProjects(AiServerShema)}
+                                    >
+                                        <ZoomInIcon />
+                                    </IconButton>
+                                </CardContent>
+                            </Box>
+                        </Grow>
+                        <FormControlLabel
+                            control={<Switch checked={openAiProject} onChange={() => { setOpenAiProject(!openAiProject) }} />}
+                            label="Show less"
+                        />
+                    </Collapse>
+
+                </Card>
+            </Paper>
+        </Container>
 
 
         <Button variant="contained"
@@ -785,16 +1013,16 @@ function Projects(props?: any) {
             onClick={() => { setOpenBitcoin(true) }}
             sx={{ margin: 5 }}>Bitcoin app. Check it here</Button>
         <Dialog open={openBitcoin}>
-            <Button variant="contained" sx={{margin:1}}
+            <Button variant="contained" sx={{ margin: 1 }}
                 href="https://gitfront.io/r/tonymm81/0d9dafd325b5066a6a8332513b451a831d778f85/Bitcoin-app/"
             >Link to projects code</Button>
-            <Button variant="contained" sx={{margin:1, backgroundColor:"grey"}}
+            <Button variant="contained" sx={{ margin: 1, backgroundColor: "grey" }}
                 onClick={() => { setOpenBitcoin(false) }}>Close this view</Button>
             <Typography variant="h3" sx={{ margin: "5px" }}>
                 Bitcoin app made for the Vincit Rising Star application
             </Typography>
 
-            <Typography variant="body1" sx={{ margin: "5px", backgroundColor:"grey" }}>
+            <Typography variant="body1" sx={{ margin: "5px", backgroundColor: "grey" }}>
                 This application follows the Bitcoin price history and shows the values in euros.
                 You can also go back in time to see when it would have been the best moment to buy or sell Bitcoin.
                 I used several imports because the project includes a graphical Tkinter interface and a calendar component.
