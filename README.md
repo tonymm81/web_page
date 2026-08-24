@@ -603,6 +603,11 @@ Fixing the dependa bot warnings. Updating the client and backend side node packa
 ## version 199
 fixing the security issues
 
+
+## Version 200
+
+Adding the ai agent to my projects tab.
+
 cd weatherstation/web_page/web_page
 cd weatherstation/web_page/web_page/client
 
