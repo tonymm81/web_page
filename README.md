@@ -608,6 +608,11 @@ fixing the security issues
 
 Adding the ai agent to my projects tab.
 
+## Version 121
+
+Security update. Lots of node packages updated in server and client side. Added also python program, what you can use by searching 2 weeks old node packages.
+
+
 cd weatherstation/web_page/web_page
 cd weatherstation/web_page/web_page/client
 
